@@ -1,0 +1,17 @@
+mutation UpdateCustomerIssueInConsoleMutation(
+  $id: UUID!
+  $title: String
+  $body: String
+  $type: AdminCRTIssueType
+  $priority: AdminCRTPriority
+) {
+  updateCustomerIssue(
+    id: $id
+    title: $title
+    body: $body
+    type: $type
+    priority: $priority
+  ) {
+    success
+  }
+}

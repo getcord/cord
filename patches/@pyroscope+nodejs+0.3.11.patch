@@ -1,0 +1,112 @@
+diff --git a/node_modules/@pyroscope/nodejs/dist/esm/express/middleware.js b/node_modules/@pyroscope/nodejs/dist/esm/express/middleware.js
+index 1357543..1886f7d 100644
+--- a/node_modules/@pyroscope/nodejs/dist/esm/express/middleware.js
++++ b/node_modules/@pyroscope/nodejs/dist/esm/express/middleware.js
+@@ -1,5 +1,5 @@
+ import debug from 'debug';
+-import { getProfiler } from '../utils/pyroscope-profiler';
++import { getProfiler } from '../utils/pyroscope-profiler.js';
+ import { encode } from '@datadog/pprof';
+ const log = debug('pyroscope');
+ async function collectProfile(profiler) {
+diff --git a/node_modules/@pyroscope/nodejs/dist/esm/index.d.ts b/node_modules/@pyroscope/nodejs/dist/esm/index.d.ts
+index e9730de..3754dad 100644
+--- a/node_modules/@pyroscope/nodejs/dist/esm/index.d.ts
++++ b/node_modules/@pyroscope/nodejs/dist/esm/index.d.ts
+@@ -1,8 +1,8 @@
+ import 'regenerator-runtime/runtime';
+-import expressMiddleware from './express/middleware';
+-import { PyroscopeConfig, PyroscopeHeapConfig, PyroscopeWallConfig } from './pyroscope-config';
+-import { Logger } from './logger';
+-import { SourceMapper } from './sourcemapper';
++import expressMiddleware from './express/middleware.js';
++import { PyroscopeConfig, PyroscopeHeapConfig, PyroscopeWallConfig } from './pyroscope-config.js';
++import { Logger } from './logger.js';
++import { SourceMapper } from './sourcemapper.js';
+ export declare function init(config?: PyroscopeConfig): void;
+ declare function getWallLabels(): Record<string, number | string>;
+ declare function setWallLabels(labels: Record<string, number | string>): void;
+diff --git a/node_modules/@pyroscope/nodejs/dist/esm/index.js b/node_modules/@pyroscope/nodejs/dist/esm/index.js
+index b80769c..0a509e6 100644
+--- a/node_modules/@pyroscope/nodejs/dist/esm/index.js
++++ b/node_modules/@pyroscope/nodejs/dist/esm/index.js
+@@ -1,13 +1,13 @@
+-import 'regenerator-runtime/runtime';
+-import expressMiddleware from './express/middleware';
+-import { PyroscopeProfiler } from './profilers/pyroscope-profiler';
+-import { checkPyroscopeConfig } from './utils/check-pyroscope-config';
+-import { getProfiler, setProfiler } from './utils/pyroscope-profiler';
+-import { processConfig } from './utils/process-config';
+-import { getEnv } from './utils/get-env';
++import 'regenerator-runtime/runtime.js';
++import expressMiddleware from './express/middleware.js';
++import { PyroscopeProfiler } from './profilers/pyroscope-profiler.js';
++import { checkPyroscopeConfig } from './utils/check-pyroscope-config.js';
++import { getProfiler, setProfiler } from './utils/pyroscope-profiler.js';
++import { processConfig } from './utils/process-config.js';
++import { getEnv } from './utils/get-env.js';
+ import { setLogger as datadogSetLogger } from '@datadog/pprof';
+-import { setLogger as ourSetLogger } from './logger';
+-import { SourceMapper } from './sourcemapper';
++import { setLogger as ourSetLogger } from './logger.js';
++import { SourceMapper } from './sourcemapper.js';
+ export function init(config = {}) {
+     checkPyroscopeConfig(config);
+     const processedConfig = processConfig(config, getEnv());
+diff --git a/node_modules/@pyroscope/nodejs/dist/esm/profilers/pyroscope-profiler.js b/node_modules/@pyroscope/nodejs/dist/esm/profilers/pyroscope-profiler.js
+index f6c5720..e5f7f63 100644
+--- a/node_modules/@pyroscope/nodejs/dist/esm/profilers/pyroscope-profiler.js
++++ b/node_modules/@pyroscope/nodejs/dist/esm/profilers/pyroscope-profiler.js
+@@ -1,7 +1,7 @@
+-import { PyroscopeApiExporter } from '../pyroscope-api-exporter';
+-import { ContinuousProfiler } from './continuous-profiler';
+-import { WallProfiler } from './wall-profiler';
+-import { HeapProfiler } from './heap-profiler';
++import { PyroscopeApiExporter } from '../pyroscope-api-exporter.js';
++import { ContinuousProfiler } from './continuous-profiler.js';
++import { WallProfiler } from './wall-profiler.js';
++import { HeapProfiler } from './heap-profiler.js';
+ const MICROS_PER_SECOND = 1e6;
+ const MS_PER_SECOND = 1e3;
+ const B_PER_MB = 1024;
+diff --git a/node_modules/@pyroscope/nodejs/dist/esm/pyroscope-api-exporter.js b/node_modules/@pyroscope/nodejs/dist/esm/pyroscope-api-exporter.js
+index 98c4112..5f83c95 100644
+--- a/node_modules/@pyroscope/nodejs/dist/esm/pyroscope-api-exporter.js
++++ b/node_modules/@pyroscope/nodejs/dist/esm/pyroscope-api-exporter.js
+@@ -2,8 +2,8 @@ import { URL } from 'node:url';
+ import { encode } from '@datadog/pprof';
+ import axios from 'axios';
+ import FormData from 'form-data';
+-import { dateToUnixTimestamp } from './utils/date-to-unix-timestamp';
+-import { processProfile } from './utils/process-profile';
++import { dateToUnixTimestamp } from './utils/date-to-unix-timestamp.js';
++import { processProfile } from './utils/process-profile.js';
+ import debug from 'debug';
+ const log = debug('pyroscope');
+ export class PyroscopeApiExporter {
+diff --git a/node_modules/@pyroscope/nodejs/dist/esm/sourcemapper.js b/node_modules/@pyroscope/nodejs/dist/esm/sourcemapper.js
+index 511afb6..73fa20d 100644
+--- a/node_modules/@pyroscope/nodejs/dist/esm/sourcemapper.js
++++ b/node_modules/@pyroscope/nodejs/dist/esm/sourcemapper.js
+@@ -21,7 +21,7 @@
+ import * as fs from 'fs';
+ import * as path from 'path';
+ import * as sourceMap from 'source-map';
+-import { logger } from './logger';
++import { logger } from './logger.js';
+ import pLimit from 'p-limit';
+ const readFile = fs.promises.readFile;
+ const CONCURRENCY = 10;
+diff --git a/node_modules/@pyroscope/nodejs/dist/esm/utils/process-profile.js b/node_modules/@pyroscope/nodejs/dist/esm/utils/process-profile.js
+index ade07b3..5e17f55 100644
+--- a/node_modules/@pyroscope/nodejs/dist/esm/utils/process-profile.js
++++ b/node_modules/@pyroscope/nodejs/dist/esm/utils/process-profile.js
+@@ -16,7 +16,7 @@ function adjustCwdPaths(profile) {
+             const contextFunction = profile.function[functionId - 1];
+             if (contextFunction !== undefined) {
+                 const functionName = profile.stringTable.strings[Number(contextFunction.name)];
+-                if (!(functionName?.includes(':') ?? false)) {
++                if (!functionName?.includes(':') || functionName?.startsWith('(anonymous')) {
+                     const fileName = profile.stringTable.strings[Number(contextFunction.filename)];
+                     const newName = `${fileName.replace(process.cwd(), '.')}:${functionName}:${line.line}`;
+                     contextFunction.name = profile.stringTable.dedup(newName);

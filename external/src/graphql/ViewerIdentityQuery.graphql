@@ -1,0 +1,7 @@
+#import fragments/ViewerIdentityFragment.graphql
+
+query ViewerIdentityQuery($_externalOrgID: String) {
+  viewerIdentity(_externalOrgID: $_externalOrgID) {
+    ...ViewerIdentityFragment
+  }
+}

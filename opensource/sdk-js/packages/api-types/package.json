@@ -1,0 +1,28 @@
+{
+  "name": "@cord-sdk/api-types",
+  "description": "TypeScript type definitions and JSON schema objects for the data types used by the Cord REST API",
+  "version": "1.47.2",
+  "homepage": "https://docs.cord.com/",
+  "license": "MIT",
+  "files": [
+    "dist/",
+    "!dist/cjs/**/*.d.ts",
+    "LICENSE",
+    "README.md"
+  ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "types": "dist/mjs/types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getcord/sdk-js.git",
+    "directory": "packages/api-types"
+  },
+  "devDependencies": {
+    "@cord-sdk/types": "1.47.2",
+    "prettier": "^3.0.3",
+    "typescript": "~5.1.6",
+    "typescript-json-schema": "^0.60.0"
+  },
+  "type": "module"
+}

@@ -1,0 +1,12 @@
+diff --git a/node_modules/redlock/package.json b/node_modules/redlock/package.json
+index 606d177..45e6d46 100644
+--- a/node_modules/redlock/package.json
++++ b/node_modules/redlock/package.json
+@@ -15,6 +15,7 @@
+   "types": "./dist/index.d.ts",
+   "exports": {
+     ".": {
++      "types": "./dist/index.d.ts",
+       "import": "./dist/esm/index.js",
+       "require": "./dist/cjs/index.js"
+     }

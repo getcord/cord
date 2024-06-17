@@ -1,0 +1,10 @@
+subscription ApplicationEvents($applicationID: UUID!) {
+  applicationEvents(applicationID: $applicationID) {
+    __typename
+    ... on ConsoleGettingStartedUpdated {
+      application {
+        id
+      }
+    }
+  }
+}

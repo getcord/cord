@@ -1,0 +1,9 @@
+mutation SetThreadMetadata($threadID: UUID!, $metadata: Metadata!) {
+  setThreadMetadata(threadID: $threadID, metadata: $metadata) {
+    success
+    failureDetails {
+      code
+      message
+    }
+  }
+}

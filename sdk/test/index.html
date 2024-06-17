@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="https://local.cord.com:8179/sdk/test/index.css"
+    />
+    <link
+      rel="stylesheet"
+      id="cord_css"
+      href="https://local.cord.com:8179/sdk/v1/sdk.latest.css"
+    />
+    <style id="cord_style">
+      .cord-composer {
+        border: solid 2px deeppink;
+      }
+
+      :host(cord-page-presence) .cord-avatar-container {
+        width: 64px;
+        height: 64px;
+      }
+    </style>
+    <style>
+      :root {
+        --cord-facepile-avatar-size: 64px;
+      }
+
+      .cord-selection *::selection {
+        background-color: deeppink;
+        color: white;
+      }
+
+      body {
+        padding: 40px;
+        font-family: 'Comic Sans MS';
+      }
+
+      body.srsbsns {
+        font-family: -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+      }
+
+      [data-cord-annotation-location] {
+        outline: 3px solid yellow;
+      }
+
+      body.dark {
+        --cord-color-base: #000000;
+        --cord-color-base-strong: #0a0a0a;
+        --cord-color-base-x-strong: #1e2024;
+        --cord-color-content-primary: #939495;
+        --cord-color-content-secondary: #5f5f67;
+        --cord-color-content-emphasis: #ecedee;
+        --cord-color-brand-primary: #ecedee;
+        --cord-color-notification: #0079ff;
+        --cord-color-alert: #a91414;
+        --cord-color-success: #438e61;
+      }
+
+      body.with-cord-sidebar {
+        padding-right: 312px;
+      }
+
+      body.fix-height {
+        height: 100vh;
+      }
+
+      body.fix-height #container {
+        /* to make sure our components don't change due to fixed height */
+        height: 100%;
+      }
+
+      .page-wide-settings {
+        background-color: #f4ffa0;
+        padding: 8px 16px;
+        width: max-content;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .page-wide-settings > * {
+        margin: 0;
+      }
+
+      #page-presence {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
+
+      body.with-cord-sidebar #page-presence {
+        right: 322px;
+      }
+
+      .text-container {
+        position: relative;
+      }
+
+      .presence-facepile-left {
+        position: absolute;
+        left: -5px;
+        transform: translateX(-100%);
+      }
+
+      .sidebar {
+        background: white;
+        border-right: 1px solid #999;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 300px;
+        overflow: scroll;
+      }
+
+      .navigation {
+        padding: 10px;
+        border-bottom: 1px solid #999;
+      }
+
+      .navigation button {
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .presence-facepile-left cord-presence-facepile::part(profile-picture) {
+        width: 24px;
+        height: 24px;
+      }
+
+      cord-sidebar-launcher::part(label) {
+        color: green;
+      }
+
+      cord-sidebar-launcher::part(icon) {
+        width: 16px;
+        height: 16px;
+      }
+
+      cord-floating-threads {
+        --cord-floating-threads-background-color: #1a73e8;
+        --cord-floating-threads-text-color: white;
+
+        --cord-floating-threads-background-color--hover: #114c99;
+        --cord-floating-threads-text-color--hover: white;
+
+        --cord-floating-threads-background-color--active: #476b9b;
+        --cord-floating-threads-text-color--active: white;
+      }
+
+      /* Call out places where text color isn't being set properly */
+      :is(cord-thread, cord-sidebar) {
+        color: red;
+      }
+
+      .component-example {
+        display: grid;
+        gap: 10px;
+        /* max-content for <label>, 1fr for <input> and max-content for optional <button> */
+        grid-template-columns: max-content 1fr max-content;
+        padding: 10px;
+        border: 1px gray solid;
+        background-color: lightblue; /* to detect transparent parts of a component */
+      }
+
+      /* cord-components should span all columns */
+      .component-example > :is(cord-thread, cord-sidebar, cord-thread-list) {
+        grid-column: 1 / -1;
+      }
+
+      .threadListLoading {
+        grid-column: 1 / -1;
+        background: white;
+      }
+
+      /* <label> always starts a new row */
+      .component-example > label,
+      .component-example > button {
+        grid-column-start: 1;
+      }
+
+      .component-example > code {
+        grid-column: 1 / -1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script src="index.js"></script>
+  </body>
+</html>

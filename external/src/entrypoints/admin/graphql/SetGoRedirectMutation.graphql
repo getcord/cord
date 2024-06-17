@@ -1,0 +1,8 @@
+mutation SetGoRedirectMutation($name: String!, $url: String!) {
+  setGoRedirect(redirect: { name: $name, url: $url }) {
+    success
+    failureDetails {
+      message
+    }
+  }
+}

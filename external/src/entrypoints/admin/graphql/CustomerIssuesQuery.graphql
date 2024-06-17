@@ -1,0 +1,13 @@
+query CustomerIssuesQuery($customerID: UUID!) {
+  customerIssues(customerID: $customerID) {
+    id
+    title
+    nextAction
+    lastTouch
+    priority
+    assignee {
+      id
+      displayName
+    }
+  }
+}

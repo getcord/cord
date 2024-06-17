@@ -1,0 +1,26 @@
+diff --git a/node_modules/emoji-picker-element/picker.js b/node_modules/emoji-picker-element/picker.js
+index c4ed88b..2c4239f 100644
+--- a/node_modules/emoji-picker-element/picker.js
++++ b/node_modules/emoji-picker-element/picker.js
+@@ -2697,7 +2697,7 @@ for (const prop of PROPS) {
+ Object.defineProperties(PickerElement.prototype, definitions);
+ 
+ /* istanbul ignore else */
+-if (!customElements.get('emoji-picker')) { // if already defined, do nothing (e.g. same script imported twice)
++if (customElements && !customElements.get('emoji-picker')) { // if already defined, do nothing (e.g. same script imported twice)
+   customElements.define('emoji-picker', PickerElement);
+ }
+ 
+diff --git a/node_modules/emoji-picker-element/svelte.js b/node_modules/emoji-picker-element/svelte.js
+index ddc68ff..302324a 100644
+--- a/node_modules/emoji-picker-element/svelte.js
++++ b/node_modules/emoji-picker-element/svelte.js
+@@ -2287,7 +2287,7 @@ for (const prop of PROPS) {
+ Object.defineProperties(PickerElement.prototype, definitions);
+ 
+ /* istanbul ignore else */
+-if (!customElements.get('emoji-picker')) { // if already defined, do nothing (e.g. same script imported twice)
++if (customElements && !customElements.get('emoji-picker')) { // if already defined, do nothing (e.g. same script imported twice)
+   customElements.define('emoji-picker', PickerElement);
+ }
+ 

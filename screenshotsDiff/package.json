@@ -1,0 +1,15 @@
+{
+  "name": "screenshoting",
+  "version": "1.0.0",
+  "description": "for screenshot comparison with playwright",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "make-snapshots": "npx playwright test --update-snapshots"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.32.3"
+  }
+}

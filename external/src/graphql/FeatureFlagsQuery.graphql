@@ -1,0 +1,6 @@
+query FeatureFlagsQuery($keys: [String!]!) {
+  featureFlags(keys: $keys) {
+    key
+    value
+  }
+}

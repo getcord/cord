@@ -1,0 +1,11 @@
+#import fragments/UserFragment.graphql
+
+query OrgMembersByExtIDPaginatedQuery($externalOrgID: String!, $after: UUID, $limit: Int) {
+  orgMembersByExternalIDPaginated(externalOrgID: $externalOrgID, after: $after, limit: $limit) {
+    hasMore
+    token
+    users {
+      ...UserFragment
+    }
+  }
+}

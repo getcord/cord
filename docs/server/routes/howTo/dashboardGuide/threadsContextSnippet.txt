@@ -1,0 +1,42 @@
+// Context for storing all thread related information
+type ThreadsContextType = {
+  // Map of all threads on current page, mapping from thread's ID to its
+  // metadata
+  threads: Map<string, ThreadMetadata>;
+  // Adds a thread to the threads map
+  addThread: (threadId: string, metadata: ThreadMetadata) => void;
+  // Removes a thread from the threads map
+  removeThread: (threadId: string) => void;
+
+  // The id of the thread open on this page (or null if none is open)
+  openThread: string | null;
+  setOpenThread: (arg: string | null) => void;
+
+  // The id of the thread that should be open after the page makes necessary
+  // adjustments to make the thread visible. Common adjustments are scrolling
+  // the page, updating chart/table filters, un-collapsing the right page
+  // section etc. This is useful for implementing ThreadList's onThreadClick
+  // callback or for implementing URL deep-linking. If page adjustments are not
+  // needed, then simply use `setOpenThread(threadId)` to open a thread.
+  //
+  // The standard usage pattern looks like this:
+  // useEffect(() => {
+  //    if (requestToOpenThread) {
+  //      ...scroll the page, adjust filters, etc.
+  //      setOpenThread(requestToOpenThread);
+  //      setRequestToOpenThread(null);
+  //   }
+  // }, [requestToOpenThread, setRequestToOpenThread, setOpenThread]);
+  requestToOpenThread: string | null;
+  setRequestToOpenThread: (threadId: string | null) => void;
+
+  // True if user can leave threads at the moment
+  inThreadCreationMode: boolean;
+  setInThreadCreationMode: (
+    v: boolean | ((oldVal: boolean) => boolean),
+  ) => void;
+};
+export const ThreadsContext = createContext<ThreadsContextType | undefined>(
+  undefined,
+);
+

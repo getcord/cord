@@ -1,0 +1,11 @@
+#import MessageFragment.graphql
+#import ThreadFragmentBase.graphql
+
+# This fragment is the same as ThreadFragment except it uses the
+# $initialFetchCount variable on the initialMessagesInclDeleted property
+fragment ThreadByExternalIDFragment on Thread {
+  ...ThreadFragmentBase
+  initialMessagesInclDeleted(initialFetchCount: $initialFetchCount) {
+    ...MessageFragment
+  }
+}

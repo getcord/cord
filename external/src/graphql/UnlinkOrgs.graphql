@@ -1,0 +1,5 @@
+mutation UnlinkOrgMutation($_externalOrgID: String) {
+  unlinkOrgs(_externalOrgID: $_externalOrgID) {
+    success
+  }
+}

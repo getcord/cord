@@ -1,0 +1,240 @@
+#import common.graphql
+
+#########################
+# PUBLIC GRAPHQL SCHEMA #
+#########################
+
+type Query {
+  viewer(_externalOrgID: String): Viewer!
+  viewerIdentity(_externalOrgID: String): ViewerIdentity!
+  organization(id: UUID!): Organization
+  organizationByExternalID(id: String!, _externalOrgID: String): Organization
+  messageByExternalID(id: String!, _externalOrgID: String): Message
+  task(id: UUID!, _externalOrgID: String): Task
+  users(ids: [UUID!]!): [User!]!
+  usersByExternalID(externalIDs: [String!]!): [User!]!
+  providers(latest: Boolean, version: String): Providers
+  providerForDomain(domain: String!): RuleProvider
+  ping: String!
+  thread(threadID: UUID!, _externalOrgID: String): Thread!
+  threadByExternalID2(
+    input: ThreadByExternalID2Input!
+    _externalOrgID: String
+  ): MaybeThread!
+  threadsAtLocation(
+    location: Context
+    resolved: Boolean
+    filter: ThreadFilterInput
+    partialMatch: Boolean
+    sort: ThreadSortInput!
+    limit: Int
+    after: String
+    _externalOrgID: String
+  ): PageThreadsResult!
+  application(token: String): PublicApplication
+  featureFlags(keys: [String!]!): [FeatureFlag!]!
+  annotationsOnPage(
+    pageContext: PageContextInput!
+    includeDeleted: Boolean
+    _externalOrgID: String
+  ): AnnotationsOnPage!
+  notifications(
+    first: Int!
+    after: String
+    filter: NotificationFilterInput
+  ): NotificationPage!
+  notificationByExternalID(externalID: String!): Notification
+  activity(
+    pageContext: PageContextInput
+    partialMatch: Boolean
+    metadata: Metadata
+    viewer: [ViewerThreadFilter!]
+    resolved: Boolean
+    _externalOrgID: String
+  ): Activity!
+  notificationSummary(filter: NotificationFilterInput): NotificationSummary!
+  messageContentSearch(
+    textToMatch: String
+    authorExternalID: String
+    orgExternalID: String
+    locationOptions: SearchLocationOptions
+    timestampRange: TimestampRange
+    metadata: Metadata
+    limit: Int
+    sortBy: SearchSortByOptions
+    sortDirection: SortDirection
+  ): [Message!]!
+  orgMembersByExternalIDPaginated(
+    externalOrgID: String!
+    after: UUID
+    limit: Int
+  ): OrgMembersResult!
+}
+
+type Mutation {
+  logEvents(events: [LogEventInput!]!, _externalOrgID: String): Boolean!
+  logDeprecation(key: String!): Boolean!
+  createThreadMessage(
+    input: CreateThreadMessageInput!
+    _externalOrgID: String
+  ): SuccessResult!
+  createMessageByExternalID(
+    input: CreateMessageByExternalIDInput!
+    _externalOrgID: String
+  ): SuccessResult!
+  updateMessage(
+    id: UUID!
+    content: MessageContent
+    fileAttachments: [FileAttachmentInput!]
+    annotationAttachments: [AnnotationAttachmentInput!]
+    deleted: Boolean
+    task: TaskInput
+    _externalOrgID: String
+  ): SuccessResult!
+  updateMessageByExternalID(
+    input: UpdateMessageByExternalIDInput!
+  ): SuccessResult!
+  updateThreadByExternalID(
+    externalThreadID: String!
+    url: String
+    name: String
+    metadata: Metadata
+    resolved: Boolean
+    extraClassnames: String
+    typing: Boolean
+  ): SuccessResult!
+  createFile(
+    id: UUID!
+    name: String!
+    mimeType: String!
+    size: Int
+    provider: UUID
+    application: UUID
+    threadOrgID: UUID
+  ): CreateFileResult!
+  refreshFileUploadURL(id: UUID!, size: Int!): String!
+  setTyping(threadID: UUID!, typing: Boolean!): Boolean!
+  setPresentContext(
+    context: JSONObject!
+    present: Boolean!
+    durable: Boolean!
+    exclusivityRegion: JSONObject
+    _externalOrgID: String
+  ): Boolean
+  markThreadSeen(threadID: UUID!): SuccessResult!
+  markThreadUnseenFromExternalMessageID(
+    externalThreadID: String!
+    externalMessageID: String
+  ): SuccessResult!
+  markThreadsSeen(
+    input: MarkThreadsSeenInput!
+    _externalOrgID: String
+  ): SuccessResult!
+  clearNotificationsForMessage(
+    messageID: String!
+    byExternalID: Boolean
+  ): SuccessResult!
+  createMessageReaction(
+    messageID: UUID!
+    unicodeReaction: String!
+  ): SuccessResult!
+  deleteMessageReaction(messageID: UUID!, reactionID: UUID!): SuccessResult!
+  addThreadToSlackChannel(
+    slackChannelID: String!
+    threadID: String!
+    installBot: Boolean
+    byExternalID: Boolean
+  ): SuccessResult!
+  setPreference(key: String!, value: JSON!): JSON
+  setFileUploadStatus(
+    id: UUID!
+    status: FileUploadStatusEnumType!
+    threadOrgID: UUID
+  ): SuccessResult!
+  setSubscribed(threadID: UUID!, subscribed: Boolean!): Boolean!
+  setSubscribedByExternalID(
+    externalID: String!
+    subscribed: Boolean!
+  ): SuccessResult!
+  disconnectThirdParty(
+    connectionType: ThirdPartyConnectionType!
+    _externalOrgID: String
+  ): SuccessResult!
+  setDeepLinkThreadID(threadID: UUID!): SuccessResult!
+  clearDeepLinkThreadID: SuccessResult!
+  setAnnotationVisible(
+    annotationID: UUID!
+    visible: Boolean!
+    _externalOrgID: String
+  ): SuccessResult!
+  resetUserHiddenAnnotations: SuccessResult!
+  setThreadResolved(threadID: UUID!, resolved: Boolean!): SuccessResult!
+  unlinkOrgs(_externalOrgID: String): SuccessResult!
+  shareThreadToEmail(
+    threadID: String!
+    email: String!
+    screenshotID: UUID
+    byExternalID: Boolean
+  ): SuccessResult!
+  sendSampleWelcomeMessage(
+    messageLocation: Context!
+    url: String!
+    _externalOrgID: String
+  ): SuccessResult!
+  markNotificationAsRead(
+    notificationID: String!
+    byExternalID: Boolean
+  ): SuccessResult!
+  markNotificationAsUnread(notificationExternalID: String!): SuccessResult!
+  markAllNotificationsAsRead(filter: NotificationFilterInput): SuccessResult!
+  deleteNotification(
+    notificationID: String!
+    byExternalID: Boolean
+  ): SuccessResult!
+  setThreadName(threadID: UUID!, name: String!): SuccessResult!
+  setThreadMetadata(threadID: UUID!, metadata: Metadata!): SuccessResult!
+  hideLinkPreview(linkPreviewID: UUID!): SuccessResult!
+  createThread(
+    externalThreadID: String
+    input: CreateThreadInput!
+    _externalOrgID: String
+  ): SuccessResult!
+}
+
+type Subscription {
+  threadEvents(threadID: UUID!, _externalOrgID: String): ThreadEvent!
+  inbox: Inbox
+  presenceLiveQuery(
+    input: PresenceLiveQueryInput!
+    _externalOrgID: String
+  ): PresenceLiveQueryData!
+  userLiveQuery(since: Float): UserLiveQueryData!
+  pageEventsWithLocation(
+    location: Context
+    partialMatch: Boolean
+    resolved: Boolean
+    filter: ThreadFilterInput
+    _externalOrgID: String
+  ): PageEvent!
+  preferencesLiveQuery: JsonObjectReducerData!
+  viewerIdentityLiveQuery(_externalOrgID: String): ViewerIdentity!
+  annotationsOnPageUpdated(
+    pageContext: PageContextInput!
+    includeDeleted: Boolean
+    _externalOrgID: String
+  ): AnnotationsOnPage!
+  threadActivitySummary(
+    pageContext: PageContextInput
+    partialMatch: Boolean
+    metadata: Metadata
+    viewer: [ViewerThreadFilter!]
+    resolved: Boolean
+    _externalOrgID: String
+  ): ThreadActivitySummary!
+  notificationEvents(filter: NotificationFilterInput): NotificationEvent!
+  notificationSummaryUpdated(
+    filter: NotificationFilterInput
+  ): NotificationSummary!
+  orgMembersByExternalIDUpdated(externalOrgID: String!): OrgMemberEvent!
+  slackConnectedLiveQuery(orgID: UUID!): SlackConnectedResult!
+}

@@ -1,0 +1,768 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  --canvas-bg-color: #f8f4f4;
+  background-color: var(--canvas-bg-color);
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+
+  --comments-list-width: 240px;
+  --thread-list-width: 300px;
+  --header-height: 128px;
+  --canvas-button-height: 36px;
+  --pin-size-small: 34px;
+  --pin-size-medium: 56px;
+  --pin-size-large: 80px;
+
+  /* Colors */
+  --color-dark: #1e1e1e;
+  --color-light: #e6e6e6;
+  --color-dark-x-light: #696a6c;
+  --color-grey-light: #c1c1c1;
+  --color-grey-x-light: #dadce0;
+  --color-white: #ffffff;
+  --color-purple: #9a6aff;
+
+  --canvas-header-background-color: #282828;
+  --canvas-background-color: #f5f5f5;
+}
+
+p {
+  margin: revert;
+  overflow-wrap: revert;
+}
+
+.canvasWindow {
+  border-radius: 8px;
+  height: calc(100vh - var(--header-height));
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 80px;
+}
+
+.canvasHeader {
+  background-color: var(--canvas-header-background-color);
+  border-radius: 8px 8px 0 0;
+  padding: 8px 12px;
+  display: flex;
+  position: relative;
+  justify-content: center;
+}
+
+.canvasHeader h2 {
+  color: var(--color-grey-light);
+  font-size: 14px;
+  font-weight: 400;
+  margin: auto;
+  opacity: 0.5;
+  line-height: 20px;
+}
+
+.canvasHeader cord-page-presence {
+  padding: 0 2px;
+  position: absolute;
+  right: 12px;
+}
+
+.canvasHeader .cord-avatar-container {
+  box-shadow: 2px 0 0 var(--canvas-header-background-color);
+  width: 20px;
+  height: 20px;
+}
+
+.canvasAndCordContainer {
+  display: flex;
+  background: var(--color-white);
+  border-radius: 0 0 8px 8px;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  border: 1px solid var(--color-grey-x-light);
+  /* Prevents scroll bars from appearing for the canvas */
+  overflow: hidden;
+}
+
+.canvasContainer {
+  height: 100%;
+  flex: 1;
+  overflow: hidden;
+}
+
+#stage {
+  background-color: var(--canvas-background-color);
+}
+
+.canvasButtonGroup {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  /* The buttons will appear above the canvas and pins */
+  z-index: 3;
+}
+
+.canvasButtonGroup > button {
+  align-items: center;
+  background: var(--color-dark);
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.08);
+  color: var(--color-white);
+  cursor: pointer;
+  display: flex;
+  padding: 10px 12px;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.canvasButtonGroup button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.canvasButtonGroup button:active {
+  box-shadow: 0 0 0 var(--color-white);
+}
+
+.commentingModeCursor {
+  cursor:
+    url('/images/Pin.svg') 0 32,
+    pointer;
+}
+
+/* Comments List */
+
+.canvasAndCordContainer .cord-threaded-comments {
+  background: var(--color-white);
+  flex-shrink: 0;
+  gap: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+  width: var(--comments-list-width);
+  /* Shown above the canvas */
+  z-index: 2;
+  border-radius: 0;
+  border: none;
+  border-left: 1px solid var(--color-grey-x-light);
+}
+
+.cord-threaded-comments .cord-threaded-comments-tab-container {
+  border-bottom: 1px solid var(--color-grey-x-light);
+  border-radius: 0;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.cord-threaded-comments .cord-threaded-comments-tab {
+  border-radius: 0;
+  padding: 8px 4px;
+}
+
+.cord-threaded-comments .cord-threaded-comments-thread.cord-resolved {
+  margin: 0;
+}
+
+.cord-threaded-comments .cord-threaded-comments-resolved-thread-header {
+  padding: 0;
+}
+
+.cord-empty-state-placeholder .cord-avatar-container {
+  height: 20px;
+  width: 20px;
+}
+
+.cord-threaded-comments .cord-empty-state-placeholder {
+  padding: 20px 12px;
+}
+
+.cord-empty-state-placeholder .cord-facepile {
+  margin-bottom: 12px;
+}
+
+/* The list of threads */
+.cord-threaded-comments .cord-threaded-comments-thread-list {
+  gap: 0;
+  padding: 0;
+}
+
+/* Layout of message in the comments list */
+.cord-threaded-comments .cord-message {
+  grid-template-columns: repeat(2, auto) 2fr;
+  grid-template-rows: 24px repeat(3, auto);
+  grid-template-areas:
+    'avatar . . optionsMenu '
+    'authorName timestamp . . '
+    'messageContent messageContent messageContent .'
+    'reactions reactions reactions .';
+  gap: 8px;
+  border-radius: 0;
+  background-color: transparent;
+  padding-bottom: 8px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.cord-threaded-comments cord-message .cord-avatar-container {
+  cursor: pointer;
+}
+
+/* Layout of message in the comments list if first message is deleted */
+.cord-threaded-comments .cord-message.cord-deleted {
+  color: var(--color-dark-x-light);
+  grid-template-rows: 24px;
+  grid-template-columns: 20px auto 1fr;
+  grid-template-areas: 'icon message';
+}
+
+.cord-threaded-comments-thread-list::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Removing the reactions button, and edit message */
+.cord-threaded-comments
+  .cord-message
+  :is(
+    .cord-reactions-container,
+    [data-cord-button='select-emoji'],
+    [data-cord-menu-item='message-edit']
+  ) {
+  display: none;
+}
+
+.cord-threaded-comments .cord-threaded-comments-thread {
+  border-radius: 0;
+  position: relative;
+  padding: 16px 12px;
+}
+
+.cord-threaded-comments
+  .cord-threaded-comments-thread
+  .cord-message
+  .cord-message-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  font-size: 12px;
+}
+
+/* Creating the divider between each thread */
+.cord-threaded-comments .cord-threaded-comments-thread::after {
+  content: '';
+  position: absolute;
+  display: block;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  border-bottom: 1px solid var(--color-light);
+  margin: 0px 12px;
+}
+
+/* Select the hovered thread and its previous sibling */
+.cord-threaded-comments .cord-threaded-comments-thread:hover::after,
+.cord-threaded-comments
+  .cord-threaded-comments-thread:has(
+    + .cord-threaded-comments-thread:hover
+  )::after {
+  border-bottom: none;
+}
+
+/* Adding some space after the last divider */
+.cord-threaded-comments .cord-threaded-comments-thread:last-child {
+  margin-bottom: 40px;
+}
+
+.cord-threaded-comments .cord-threaded-comments-thread:hover,
+.cord-threaded-comments
+  .cord-message
+  .cord-message-options-buttons
+  [data-cord-button='thread-options']:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* Disabling the default hover on the reply */
+.cord-threaded-comments-thread .cord-expand-replies:hover,
+/* Disabling background of thread options button */
+.cord-threaded-comments
+  .cord-message
+  .cord-message-options-buttons
+  [data-cord-button='thread-options'] {
+  background: transparent;
+}
+
+/* Changes the color of the thread passed into the prop highlightThreadId in Threaded Comments */
+.cord-threaded-comments .cord-threaded-comments-thread.cord-highlighted {
+  background-color: rgba(84, 141, 84, 0.06);
+}
+.cord-threaded-comments-thread .cord-author-name,
+.cord-threaded-comments-thread .cord-message .cord-message-text,
+.cord-threaded-comments-thread .cord-message .cord-timestamp {
+  font-size: 12px;
+}
+
+.cord-threaded-comments-thread .cord-author-name {
+  font-weight: 500;
+}
+
+.cord-threaded-comments-thread .cord-expand-replies {
+  margin: 0;
+  padding-left: 0;
+  padding-top: 4px;
+  font-weight: 400;
+  font-size: 11px;
+  opacity: 0.4;
+}
+
+.cord-threaded-comments-thread .cord-expand-replies cord-facepile {
+  display: none;
+}
+
+/* Custom Individual Pins */
+
+.canvasComment.panning {
+  /*  When a user is panning on the canvas we want to make sure they can pan
+  over canvas comments so we set the pointerEvents to none */
+  pointer-events: none;
+}
+
+.canvasComment .active {
+  /* overlays over all other pins */
+  z-index: 1;
+}
+
+.canvasComment cord-thread.cord-component {
+  left: calc(8px + var(--pin-size-small));
+  position: absolute;
+  /* line up the thread with the pin */
+  top: calc(-1 * var(--pin-size-small));
+  width: var(--thread-list-width);
+  max-height: 400px;
+  box-shadow: 0px 2px 14px rgba(0, 0, 0, 0.2);
+  border: none;
+}
+
+/* Position the thread correctly depenging on type of pin */
+.canvasComment .no-repliers ~ cord-thread.cord-component {
+  left: calc(8px + var(--pin-size-small));
+}
+.canvasComment .one-replier ~ cord-thread.cord-component {
+  left: calc(8px + var(--pin-size-medium));
+}
+.canvasComment .two-repliers ~ cord-thread.cord-component {
+  left: calc(8px + var(--pin-size-large));
+}
+
+.canvasComment .cord-message .cord-message-options-buttons .cord-button {
+  background: transparent;
+  padding: 8px;
+}
+.canvasComment .cord-message .cord-message-options-buttons .cord-button svg {
+  height: 18px;
+  width: 18px;
+}
+
+.canvasComment
+  cord-thread.active
+  .cord-message
+  .cord-message-options-buttons
+  .cord-button:is([data-cord-button='thread-options']),
+[data-hovered-component='cord-thread']
+  .canvasComment
+  cord-thread.cord-component {
+  visibility: visible;
+}
+
+.canvasComment .cord-message .cord-message-options-buttons .cord-button:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* align composer with avatar when editing a message */
+.cord-component .cord-message .cord-composer {
+  margin: 0;
+  border-radius: 6px;
+}
+
+.cord-component .cord-composer .cord-composer-secondary-buttons {
+  gap: 0;
+}
+
+.cord-composer:where(.cord-expanded) .cord-composer-menu {
+  border-top: 1px solid var(--color-light);
+}
+
+.canvasComment cord-thread.cord-component:not(.empty) .cord-composer {
+  background-color: var(--canvas-background-color);
+  padding: 8px;
+}
+
+.cord-component .cord-composer,
+.cord-component .cord-composer:focus-within {
+  outline: none;
+  border: none;
+}
+
+.canvasComment
+  cord-thread.cord-component
+  .cord-message
+  :is(.cord-author-name, .cord-timestamp) {
+  align-items: flex-end;
+}
+
+.cord-composer-primary-buttons button {
+  height: 24px;
+  width: 24px;
+  --cord-primary-button-background-color: var(--color-purple);
+}
+
+.canvasComment .cord-send-button {
+  transform: rotate(-90deg);
+}
+
+.cord-send-button:is(.cord-disabled) {
+  opacity: 0.5;
+}
+
+.cord-send-button:not(.cord-disabled):hover {
+  background-color: var(--color-purple);
+  opacity: 0.5;
+}
+
+.cord-component .cord-composer:focus-within {
+  box-shadow: unset;
+}
+
+.canvasComment cord-thread.cord-component.thread-on-the-left {
+  left: calc(-1 * (var(--thread-list-width) + 20px));
+}
+
+.canvasComment cord-thread.cord-component.thread-on-the-top {
+  bottom: 0;
+  top: auto;
+}
+
+.canvasPin {
+  background: var(--color-white);
+  border-radius: 16px 16px 16px 0;
+  border: 1px solid var(--color-grey-x-light);
+  bottom: 0;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.16);
+  cursor: default;
+  display: flex;
+  height: var(--pin-size-small);
+  overflow: hidden;
+  padding: 3px;
+  position: absolute;
+  transition:
+    width 0.1s,
+    height 0.1s,
+    padding 0.1s;
+}
+
+/* Set the width for each pin size so the transitions can work smoothly */
+.canvasPin.no-repliers {
+  width: var(--pin-size-small);
+}
+.canvasPin.one-replier {
+  width: var(--pin-size-medium);
+}
+.canvasPin.two-repliers {
+  width: var(--pin-size-large);
+}
+
+.canvasPin:hover {
+  /* overlays over any active pin or thread */
+  z-index: 2;
+}
+
+.canvasPin .cord-message:not(.cord-action, .cord-deleted) {
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'authorName timestamp'
+    'messageContent messageContent';
+  row-gap: 0;
+  column-gap: 8px;
+  border-radius: 0;
+  background-color: transparent;
+  padding-right: 0;
+  padding-top: 0;
+}
+
+.canvasPin
+  .cord-message
+  :is(.cord-author-name, .cord-timestamp, .cord-message-text) {
+  font-size: 11px;
+  margin-top: 0;
+  line-height: 16px;
+}
+
+.canvasPin .cord-message .cord-message-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.canvasPin
+  .cord-message
+  :is(
+    .cord-avatar-container,
+    .cord-message-options-buttons,
+    .cord-reactions-container
+  ) {
+  display: none;
+}
+
+.previewMessage:hover,
+[data-hovered-component='cord-message'] .previewMessage {
+  height: 120px;
+  width: 250px;
+  padding: 16px 0 0 8px;
+}
+
+.previewMessage.no-repliers:hover,
+[data-hovered-component='cord-message'] .previewMessage.no-repliers {
+  height: 80px;
+}
+
+/* Add a border around the pin when its thread is open */
+.canvasPin.active {
+  box-shadow:
+    0px 3px 6px rgba(0, 0, 0, 0.3),
+    0 0 0 2px var(--color-purple);
+  /* Make sure the active pin is displayed under the open thread while 
+  shrinking down as it transitions  */
+  z-index: 1;
+}
+
+/* display replier avatars on top of message if the thread has repliers */
+.previewMessage:not(.no-repliers):hover,
+[data-hovered-component='cord-message'] .previewMessage:not(.no-repliers) {
+  flex-direction: column;
+}
+
+.previewMessage:not(.no-repliers):hover
+  cord-facepile.cord-component
+  .cord-facepile,
+[data-hovered-component='cord-message']
+  .previewMessage:not(.no-repliers)
+  cord-facepile.cord-component
+  .cord-facepile {
+  gap: 12px;
+  padding-left: 8px;
+  padding-bottom: 8px;
+}
+
+/*
+Create a separate animation for the message content so it doen't
+grow/shrink while the container transition is happening on canvasPin:hover
+This way, we can wait until the container transition has happened, before 
+displaying the message.
+*/
+.previewMessage .cord-message {
+  opacity: 0;
+  animation: hide 0.1s step-start forwards;
+}
+
+.previewMessage:hover .cord-message,
+[data-hovered-component='cord-message'] .cord-message {
+  animation: show 0.1s step-end forwards;
+}
+
+@keyframes show {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hide {
+  to {
+    opacity: 0;
+  }
+}
+
+[data-hovered-component='cord-message']
+  .canvasPin.previewMessage
+  .cord-message {
+  display: grid;
+}
+
+.canvasPin .cord-avatar-container {
+  height: 26px;
+  width: 26px;
+  transition: transform 0.1s;
+}
+
+.canvasPin .cord-tooltip {
+  display: none;
+}
+
+cord-thread.cord-component.hidden {
+  visibility: hidden;
+}
+
+/* Generic cord component */
+.cord-component .cord-avatar-container {
+  border-radius: 50%;
+}
+
+.controlButton {
+  height: 38px;
+}
+
+.zoomControls {
+  display: flex;
+  border-radius: 4px;
+  background: var(--color-dark);
+  align-items: center;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.08);
+  justify-content: center;
+}
+
+.zoomControls * {
+  border: none;
+  color: var(--color-white);
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.zoomControls > button {
+  cursor: pointer;
+  width: var(--canvas-button-height);
+  background-color: transparent;
+}
+
+.zoomControls .scale {
+  text-align: center;
+  width: 60px;
+}
+
+/* Grouped Pins */
+.groupedPins {
+  align-items: center;
+  background-color: #fff;
+  border-radius: 50%;
+  color: black;
+  cursor: pointer;
+  display: flex;
+  height: 50px;
+  justify-items: center;
+  position: absolute;
+  transform: translate(0px, -50px);
+  transition: transform 250ms ease-in;
+  width: 50px;
+  filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1));
+}
+
+.groupedPins.totalPinsNumber {
+  transform: translate(0px, -50px) scale(1.2);
+}
+
+.groupedPins p {
+  width: 100%;
+  font-weight: 800;
+  text-align: center;
+}
+
+.groupedAvatar {
+  position: absolute;
+}
+
+.groupedAvatar > .cord-avatar-container {
+  border: 2px solid #fff;
+  height: 24px;
+  width: 24px;
+}
+
+/* Group of 1 pin with a ghost pin */
+.groupedPins > .groupedAvatar.oneTotalAvatar {
+  left: 8px;
+  top: 13px;
+}
+
+.groupedPins > .groupedAvatar.ghost {
+  left: 18px;
+  opacity: 0.5;
+  top: 13px;
+}
+
+/* Group of 2 different authors */
+.groupedPins > .groupedAvatar.twoTotalAvatars:nth-child(1) {
+  left: 7px;
+  top: 5px;
+}
+
+.groupedPins > .groupedAvatar.twoTotalAvatars:nth-child(2) {
+  left: 20px;
+  top: 21px;
+}
+
+/* Group of 3 different authors */
+.groupedPins > .groupedAvatar.threeTotalAvatars:nth-child(1) {
+  left: 2px;
+  top: 7px;
+}
+
+.groupedPins > .groupedAvatar.threeTotalAvatars:nth-child(2) {
+  left: 24px;
+  top: 7px;
+}
+
+.groupedPins > .groupedAvatar.threeTotalAvatars:nth-child(3) {
+  left: 13px;
+  top: 26px;
+}
+
+[data-hovered-component='cord-page-presence'] cord-page-presence,
+[data-hovered-component='cord-thread'] cord-thread.cord-component {
+  border-radius: 8px;
+  box-shadow: 0 0 0 2px var(--color-purple);
+}
+
+[data-hovered-component='cord-message'] .previewMessage {
+  box-shadow: 0 0 0 2px var(--color-purple);
+}
+
+[data-hovered-component='cord-threaded-comments']
+  .cord-threaded-comments::after {
+  border-radius: 0 0 8px 0;
+  box-shadow: 0 0 0 2px inset var(--color-purple);
+  content: '';
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+[data-hovered-component='cord-avatar'] .cord-avatar-container {
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--color-purple);
+}

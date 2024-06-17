@@ -1,0 +1,11 @@
+query PageContextForURLQuery($url: String!) {
+  pageContextForURL(url: $url) {
+    match
+    matchedRuleID
+    pageContext {
+      providerID
+      data
+    }
+    pageName
+  }
+}

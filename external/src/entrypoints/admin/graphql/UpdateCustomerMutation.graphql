@@ -1,0 +1,37 @@
+mutation UpdateCustomerMutation(
+  $id: UUID!
+  $name: String
+  $type: CustomerType
+  $implementationStage: CustomerImplementationStage
+  $launchDate: DateTime
+  $enableCustomS3Bucket: Boolean
+  $enableCustomSegmentWriteKey: Boolean
+  $slackChannel: String
+  $pricingTier: PricingTier
+  $billingType: BillingType
+  $billingStatus: String
+  $stripeCustomerID: String
+  $addons: [AddonInput!]
+  $renewalDate: DateTime
+  $planDescription: [String!]
+) {
+  updateCustomer(
+    id: $id
+    name: $name
+    type: $type
+    implementationStage: $implementationStage
+    launchDate: $launchDate
+    enableCustomS3Bucket: $enableCustomS3Bucket
+    enableCustomSegmentWriteKey: $enableCustomSegmentWriteKey
+    slackChannel: $slackChannel
+    pricingTier: $pricingTier
+    billingType: $billingType
+    billingStatus: $billingStatus
+    stripeCustomerID: $stripeCustomerID
+    addons: $addons
+    renewalDate: $renewalDate
+    planDescription: $planDescription
+  ) {
+    success
+  }
+}

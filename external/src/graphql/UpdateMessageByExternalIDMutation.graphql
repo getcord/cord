@@ -1,0 +1,9 @@
+mutation UpdateMessageByExternalID($input: UpdateMessageByExternalIDInput!) {
+  updateMessageByExternalID(input: $input) {
+    success
+    failureDetails {
+      code
+      message
+    }
+  }
+}

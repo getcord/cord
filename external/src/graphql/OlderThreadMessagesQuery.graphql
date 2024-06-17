@@ -1,0 +1,22 @@
+#import fragments/MessageFragment.graphql
+
+query OlderThreadMessagesQuery(
+  $threadID: UUID!
+  $cursor: UUID
+  $range: Int
+  $ignoreDeleted: Boolean!
+) {
+  thread(threadID: $threadID) {
+    id
+    loadMessages(
+      cursor: $cursor
+      range: $range
+      ignoreDeleted: $ignoreDeleted
+    ) {
+      messages {
+        ...MessageFragment
+      }
+      olderMessagesCount
+    }
+  }
+}

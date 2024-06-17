@@ -1,0 +1,37 @@
+query ThirdPartyConnectionsQuery($_externalOrgID: String) {
+  viewer {
+    asana: thirdPartyConnection(type: asana, _externalOrgID: $_externalOrgID) {
+      connected
+      oAuthStateToken
+    }
+
+    jira: thirdPartyConnection(type: jira, _externalOrgID: $_externalOrgID) {
+      connected
+      oAuthStateToken
+    }
+
+    linear: thirdPartyConnection(
+      type: linear
+      _externalOrgID: $_externalOrgID
+    ) {
+      connected
+      oAuthStateToken
+    }
+
+    trello: thirdPartyConnection(
+      type: trello
+      _externalOrgID: $_externalOrgID
+    ) {
+      connected
+      oAuthStateToken
+    }
+
+    monday: thirdPartyConnection(
+      type: monday
+      _externalOrgID: $_externalOrgID
+    ) {
+      connected
+      oAuthStateToken
+    }
+  }
+}

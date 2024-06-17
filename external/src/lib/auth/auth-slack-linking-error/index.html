@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Oops! Something went wrong</title>
+    <link href="/static/cord-logo32.png" rel="icon" type="image/png" />
+    <style type="text/css">
+      body {
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body style="padding: 32px">
+    <img src="/static/provider-icons/cord.png" height="32px" />
+    <p style="font-weight: bold; font-size: 18px; margin: 16px 0px">
+      Oops... something went wrong
+    </p>
+    <div
+      style="background-color: #fbe3d6; border-radius: 4px; padding: 8px 16px"
+    >
+      <p id="error-message"></p>
+    </div>
+    <button
+      onclick="closePopup()"
+      style="
+        background-color: rgb(25, 26, 30);
+        border: none;
+        color: rgb(255, 255, 255);
+        font-size: 12px;
+        line-height: 24px;
+        padding: 8px 16px;
+        border-radius: 4px;
+        margin-top: 16px;
+        cursor: pointer;
+      "
+      type="button"
+    >
+      Close this window
+    </button>
+    <script src="auth-slack-linking-error.js"></script>
+    <script>
+      function closePopup() {
+        window.close();
+      }
+    </script>
+  </body>
+</html>

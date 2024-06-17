@@ -1,0 +1,272 @@
+#import ../public/common.graphql
+
+########################
+# ADMIN GRAPHQL SCHEMA #
+########################
+
+type Query {
+  viewer(_externalOrgID: String): Viewer!
+  users(ids: [UUID!]!): [User!]!
+  usersByExternalID(externalIDs: [String!]!): [User!]!
+  select(query: String!, parameters: JSONObject!): [JSONObject!]!
+  providers: [ProviderFull!]!
+  provider(id: UUID!): ProviderFull
+  pageContextForURL(url: String!): PageContextForURLResult!
+  ping: String!
+  s3Bucket(id: UUID!): S3BucketVisible
+  application(id: UUID!): Application
+  customer(id: UUID!): Customer
+  customerApplications(customerID: UUID!): [Application]!
+  heimdallSwitches: [HeimdallSwitch!]!
+  heimdallSwitchAdmin(key: String!): HeimdallSwitch
+  customerConsoleUsers(customerID: UUID!): [ConsoleUser!]!
+  featureFlags(keys: [String!]!): [FeatureFlag!]!
+  cordSessionToken(privateOrgWithUser: UUID): String
+  adminPlatformUsers: [AdminChatUser!]!
+  goRedirect(name: String!): AdminGoRedirect
+  testToken: TestToken!
+  customerIssue(id: UUID!): CustomerIssue!
+  customerIssues(customerID: UUID): [CustomerIssue!]!
+  customerIssueCordSessionToken(issueID: UUID!): String
+  customerSlackChannels: [CustomerSlackChannelsResult!]!
+}
+
+type Mutation {
+  createProvider(
+    name: String!
+    iconURL: String!
+    domains: [String!]!
+    nuxText: String!
+    mergeHashWithLocation: Boolean!
+    disableAnnotations: Boolean!
+    visibleInDiscoverToolsSection: Boolean!
+    claimingApplication: UUID
+  ): IDResult!
+  updateProvider(
+    id: UUID!
+    name: String
+    iconURL: String
+    domains: [String!]
+    nuxText: String
+    mergeHashWithLocation: Boolean
+    disableAnnotations: Boolean
+    visibleInDiscoverToolsSection: Boolean
+    claimingApplication: UUID
+  ): SuccessResult!
+  deleteProvider(id: UUID!): SuccessResult!
+  setProviderPublished(id: UUID!, published: Boolean!): SuccessResult!
+  revertProviderToPublishedState(id: UUID!): SuccessResult!
+  saveProviderRule(
+    id: UUID
+    providerID: UUID!
+    type: ProviderRuleType!
+    matchPatterns: JSONObject!
+    nameTemplate: String
+    contextTransformation: PageContextTransformationInputType!
+    observeDOMMutations: Boolean!
+  ): IDResult!
+  updateProviderRule(
+    id: UUID!
+    type: ProviderRuleType!
+    matchPatterns: JSONObject!
+    observeDOMMutations: Boolean!
+  ): SuccessResult!
+  updateProviderRulesOrder(providerID: UUID!, ruleIDs: [UUID!]!): SuccessResult!
+  deleteProviderRule(id: UUID!): SuccessResult!
+  createProviderDocumentMutator(
+    providerID: UUID!
+    type: ProviderDocumentMutatorType!
+    config: CSSMutatorConfig!
+  ): IDResult!
+  updateProviderDocumentMutator(
+    id: UUID!
+    config: CSSMutatorConfig!
+  ): SuccessResult!
+  deleteProviderDocumentMutator(id: UUID!): SuccessResult!
+  createProviderRuleTest(
+    providerID: UUID!
+    url: String!
+    documentHTML: String
+    expectedMatch: ProviderRuleTestMatchType!
+    expectedName: String
+    expectedContextData: JSONObject
+  ): IDResult!
+  deleteProviderRuleTest(id: UUID!): SuccessResult!
+  updateCustomS3BucketAccessKey(
+    id: UUID!
+    keyID: String!
+    keySecret: String!
+  ): SuccessResult!
+  createApplicationCustomS3Bucket(
+    applicationID: UUID!
+    bucket: String!
+    region: String!
+    accessKeyID: String!
+    accessKeySecret: String!
+  ): SuccessResult!
+  deleteApplicationCustomS3Bucket(applicationID: UUID!): SuccessResult!
+  createHeimdallSwitch(key: String!): HeimdallSwitch!
+  flipHeimdallSwitch(key: String!, value: Boolean!): SuccessResult!
+  createApplication(name: String!, customerID: UUID!): UUID!
+  updateApplication(
+    id: UUID!
+    name: String
+    customLinks: CustomLinks
+    customEmailTemplate: CustomEmailTemplate
+    enableEmailNotifications: Boolean
+    segmentWriteKey: String
+    iconURL: String
+    customNUX: CustomNUXInput
+    environment: ApplicationEnvironment
+    defaultProvider: UUID
+    redirectURI: String
+    eventWebhookURL: String
+    eventWebhookSubscriptions: [String!]
+  ): SuccessResult!
+  toggleInternalFlagOnOrg(orgID: UUID!): SuccessResult!
+  createCustomer(name: String!): UUID!
+  updateCustomer(
+    id: UUID!
+    name: String
+    type: CustomerType
+    implementationStage: CustomerImplementationStage
+    launchDate: DateTime
+    enableCustomS3Bucket: Boolean
+    enableCustomSegmentWriteKey: Boolean
+    slackChannel: String
+    pricingTier: PricingTier
+    billingType: BillingType
+    billingStatus: String
+    stripeCustomerID: String
+    addons: [AddonInput!]
+    renewalDate: DateTime
+    planDescription: [String!]
+  ): SuccessResult!
+  addConsoleUserToCustomer(
+    customerID: UUID!
+    email: String!
+    sendEmailInvites: Boolean
+  ): SuccessResult!
+  removeConsoleUserFromCustomer(
+    customerID: UUID!
+    email: String!
+  ): SuccessResult!
+  setGoRedirect(redirect: AdminGoRedirectInputType!): SuccessResult!
+  createCustomerIssue(
+    customerID: UUID!
+    title: String!
+    body: String!
+    comingFrom: AdminCRTComingFrom!
+    decision: AdminCRTDecision!
+    lastTouch: DateTime
+    communicationStatus: AdminCRTCommunicationStatus!
+    type: AdminCRTIssueType!
+    priority: AdminCRTPriority!
+    externallyVisible: Boolean!
+    assignee: UUID
+  ): SuccessResult!
+  updateCustomerIssue(
+    id: UUID!
+    customerID: UUID
+    title: String
+    body: String
+    comingFrom: AdminCRTComingFrom
+    decision: AdminCRTDecision
+    lastTouch: DateTime
+    communicationStatus: AdminCRTCommunicationStatus
+    type: AdminCRTIssueType
+    priority: AdminCRTPriority
+    externallyVisible: Boolean
+    assignee: UUID
+  ): SuccessResult!
+  deleteCustomerIssue(id: UUID!): SuccessResult!
+  addCustomerIssueSubscription(issueID: UUID!): SuccessResult!
+  removeCustomerIssueSubscription(issueID: UUID!): SuccessResult!
+  sendSlackMessageToCustomers(
+    type: CustomerSlackMessageType!
+    message: String!
+    customers: [String!]!
+  ): SuccessResult!
+  createStripeCustomer(
+    id: UUID!
+    email: String!
+    country: String!
+    postcode: String!
+  ): SuccessResult!
+  createStripeSubscription(
+    id: UUID!
+    price: Float!
+    recurrence: String!
+    pricingTier: PricingTier!
+  ): SuccessResult!
+}
+
+type Subscription {
+  viewerIdentityLiveQuery(_externalOrgID: String): ViewerIdentity!
+  userLiveQuery(since: Float): UserLiveQueryData!
+}
+
+# Admin-only graphql types below
+
+input CustomEmailTemplate {
+  partnerName: String!
+  imageURL: String!
+  sender: String
+  logoConfig: LogoConfigInput
+}
+
+input CustomLinks {
+  learnMore: String
+  upgradePlan: String
+  leaveFeedback: String
+}
+
+input CustomNUXInput {
+  initialOpen: CustomNUXStepInput
+  welcome: CustomNUXStepInput
+}
+
+input CustomNUXStepInput {
+  title: String
+  text: String
+  imageURL: String
+}
+
+type PageContextForURLResult {
+  match: ProviderRuleTestMatchType!
+  matchedRuleID: UUID
+  pageContext: PageContext
+  pageName: String
+}
+
+input PageContextTransformationInputType {
+  type: PageContextTransformationType!
+  data: JSONObject
+}
+
+enum PageContextTransformationType {
+  default
+  replace
+  extend
+  metabase
+}
+
+input CSSMutatorConfig {
+  cssTemplate: String!
+}
+
+type CustomerSlackChannelsResult {
+  id: UUID!
+  name: String!
+  slackChannelName: String!
+}
+
+enum CustomerSlackMessageType {
+  test
+  customer
+}
+
+input AddonInput {
+  key: String!
+  value: Boolean!
+}

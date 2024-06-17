@@ -1,0 +1,19 @@
+mutation SyncUserMutation(
+  $email: String!
+  $name: String
+  $picture: String
+  $signupCoupon: String
+  $createNewCustomer: Boolean
+) {
+  syncUser(
+    email: $email
+    name: $name
+    picture: $picture
+    signupCoupon: $signupCoupon
+    createNewCustomer: $createNewCustomer
+  ) {
+    success
+    customerIDs
+    customerName
+  }
+}

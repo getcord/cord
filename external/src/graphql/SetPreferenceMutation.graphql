@@ -1,0 +1,3 @@
+mutation SetPreference($key: String!, $value: JSON!) {
+  setPreference(key: $key, value: $value)
+}

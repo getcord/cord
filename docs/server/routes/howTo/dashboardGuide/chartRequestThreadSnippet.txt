@@ -1,0 +1,24 @@
+// Effect to update chart so that the requested thread can be displayed
+useEffect(
+  () => {
+    if (requestToOpenThread === null) {
+      return;
+    }
+
+    const metadata = threads.get(requestToOpenThread);
+    if (metadata?.type !== 'chart' || metadata.chartId !== chartId) {
+      // request is not for this chart
+      return;
+    }
+
+    // 1. Make the requested chart series visible
+    // 2. Adjust the range of the chart axes
+    // 3. Scroll the page to the chart and open the thread
+
+    setOpenThread(requestToOpenThread);
+    setRequestToOpenThread(null);
+  },
+  [
+    /* ... */
+  ],
+);

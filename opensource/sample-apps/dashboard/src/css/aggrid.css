@@ -1,0 +1,33 @@
+.ag-theme-alpine {
+  --ag-font-size: 17px;
+  --ag-font-family: monospace;
+
+  --ag-foreground-color: var(--white);
+  --ag-background-color: var(--black);
+
+  --ag-header-foreground-color: var(--white);
+  --ag-header-background-color: var(--grey-dark);
+  --ag-header-column-resize-handle-color: var(--white);
+
+  --ag-border-color: var(--grey-light);
+  --ag-secondary-border-color: var(--grey-light);
+
+  --ag-odd-row-background-color: var(--black);
+}
+
+.ag-header-cell {
+  border-right: 1px solid var(--grey-light);
+  cursor: auto;
+}
+.ag-cell {
+  border-right: 1px solid var(--grey-light) !important;
+}
+
+.ag-root-wrapper {
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+cord-presence-facepile.cord-component {
+  margin-left: auto;
+}

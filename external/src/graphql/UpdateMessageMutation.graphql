@@ -1,0 +1,21 @@
+mutation UpdateMessage(
+  $id: UUID!
+  $content: MessageContent
+  $fileAttachments: [FileAttachmentInput!]
+  $annotationAttachments: [AnnotationAttachmentInput!]
+  $deleted: Boolean
+  $task: TaskInput
+  $_externalOrgID: String
+) {
+  updateMessage(
+    id: $id
+    content: $content
+    fileAttachments: $fileAttachments
+    annotationAttachments: $annotationAttachments
+    deleted: $deleted
+    task: $task
+    _externalOrgID: $_externalOrgID
+  ) {
+    success
+  }
+}

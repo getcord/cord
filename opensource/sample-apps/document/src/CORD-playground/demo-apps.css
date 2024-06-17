@@ -1,0 +1,11 @@
+#root {
+  margin-top: 140px;
+}
+
+.demo-no-header #root {
+  margin-top: 0;
+}
+
+.demo-no-header #headers {
+  display: none;
+}

@@ -1,0 +1,5 @@
+mutation ToggleInternalFlagOnOrg($orgID: UUID!) {
+  toggleInternalFlagOnOrg(orgID: $orgID) {
+    success
+  }
+}

@@ -1,0 +1,32 @@
+query Customer($id: UUID!) {
+  customer(id: $id) {
+    id
+    name
+    type
+    implementationStage
+    launchDate
+    enableCustomS3Bucket
+    enableCustomSegmentWriteKey
+    slackChannel
+    pricingTier
+    billingType
+    billingStatus
+    stripeCustomerID
+    addons {
+      key
+      value
+    }
+    renewalDate
+    planDescription
+    stripeSubscription {
+      id
+      url
+      status
+      startDate
+      currentPeriodStart
+      currentPeriodEnd
+      amount
+      recurrence
+    }
+  }
+}

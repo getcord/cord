@@ -1,0 +1,25 @@
+export function ThreadsProvider({ children }: PropsWithChildren) {
+  // ...
+  // Fetch existing threads associated with location
+  const {
+    threads: threadSummaries,
+    hasMore,
+    loading,
+    fetchMore,
+  } = thread.useLocationData(LOCATION, { includeResolved: false });
+  useEffect(() => {
+    if (loading) {
+      return;
+    }
+    if (hasMore) {
+      // NOTE: For this demo, fetch all threads on the page.
+      fetchMore(1000);
+    }
+    threadSummaries
+      .filter((t) => t.total > 0) // remove threads with no messages
+      .forEach((t) => addThread(t.id, t.metadata as ThreadMetadata));
+  }, [addThread, fetchMore, hasMore, loading, threadSummaries, threads]);
+
+  // ...
+}
+

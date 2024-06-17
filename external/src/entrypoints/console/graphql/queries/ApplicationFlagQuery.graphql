@@ -1,0 +1,6 @@
+query ApplicationFlagQuery($applicationID: UUID!, $flagKey: String!) {
+  applicationFlag(applicationID: $applicationID, flagKey: $flagKey) {
+    key
+    value
+  }
+}

@@ -1,0 +1,34 @@
+#import MessageFragment.graphql
+
+fragment InboxThreadFragment on Thread {
+  __typename
+  id
+  externalID
+  externalOrgID
+  metadata
+  name
+  newMessagesCount
+  messages(ignoreDeleted: true, range: -1) {
+    ...MessageFragment
+  }
+  url
+  messagesCountExcludingDeleted
+  location
+  resolved
+  sharedToSlack {
+    channel
+    slackURL
+  }
+  participants {
+    lastSeenTimestamp
+    user {
+      id
+    }
+  }
+  firstUnseenMessageID
+  replyingUserIDs
+  actionMessageReplyingUserIDs
+  subscribed
+  viewerIsThreadParticipant
+  extraClassnames
+}

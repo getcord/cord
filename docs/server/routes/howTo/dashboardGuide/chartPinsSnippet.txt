@@ -1,0 +1,26 @@
+const { threads } = useContext(ThreadsContext)!;
+return (
+  <div style={{ position: 'relative' }}>
+    <HighchartsReact />
+    {Array.from(threads)
+      .filter((keyVal) => {
+        const [_threadId, metadata] = keyVal;
+        // only render threads that belong to this chart
+        return metadata.type === 'chart' && metadata.chartId === chartId;
+      })
+      .map(([threadId, metadata]) => (
+        <Pin
+          key={threadId}
+          threadId={threadId}
+          location={LOCATION}
+          style={{
+            position: 'absolute',
+            top: /* compute from metadata.y */,
+            left: /* compute from metadata.x */,
+          }}
+        >
+          {/*...*/}
+        </Pin>
+      ))}
+  </div>
+);

@@ -1,0 +1,13 @@
+query SlackChannels($orgID: UUID!) {
+  organization(id: $orgID) {
+    id
+    joinableSlackChannels {
+      slackID
+      name
+    }
+    joinedSlackChannels {
+      slackID
+      name
+    }
+  }
+}

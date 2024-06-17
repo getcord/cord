@@ -1,0 +1,7 @@
+{
+  "name": "cord-demo-apps",
+  "version": "1.0.0",
+  "dependencies": {
+    "classnames": "^2.5.1"
+  }
+}

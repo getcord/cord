@@ -1,0 +1,14 @@
+#import fragments/InboxThreadFragment2.graphql
+
+query Inbox {
+  viewer {
+    inbox {
+      threads {
+        ...InboxThreadFragment2
+      }
+      threadsArchive {
+        ...InboxThreadFragment2
+      }
+    }
+  }
+}

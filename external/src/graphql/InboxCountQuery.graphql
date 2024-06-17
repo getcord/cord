@@ -1,0 +1,7 @@
+query InboxCount {
+  viewer {
+    inbox {
+      count
+    }
+  }
+}

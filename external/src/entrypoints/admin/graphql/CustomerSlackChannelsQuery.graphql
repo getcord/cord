@@ -1,0 +1,7 @@
+query CustomerSlackChannelQuery {
+  customerSlackChannels {
+    id
+    name
+    slackChannelName
+  }
+}

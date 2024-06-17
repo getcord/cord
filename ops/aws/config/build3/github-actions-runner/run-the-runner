@@ -1,0 +1,101 @@
+#!/bin/bash -e
+
+# This script initialises and runs a GitHub Actions Runner. We execute this
+# inside a Docker container, because that makes for easy deployment.
+#
+# This script does not take any arguments but it does look at a few environment
+# variables:
+# * RUNNER_LABELS: comma-separated list of runner labels to be added. GitHub
+#   actions can select where they run by requiring runner with given labels. We
+#   typically pass in "build3" here for the action runners that run on the
+#   build3 instance.
+# * RUNNER_NAME: the full name of the runner that should be used. Alternatively:
+# * RUNNER_NAME_PREFIX: when used, the value of this will be suffixed with the
+#   hostname (which, because we are running as Docker container, will be the
+#   container id and as such unique) to form the name of the runner
+#
+# On startup, this script registers the runner with our GitHub organisation,
+# then, as the name of the script suggests, runs the runner.
+# On exit, the GitHub runner is removed from our org.
+
+
+if ! test -w /var/run/docker.sock
+then
+  # This process does not have write access to the Docker socket. This needs to
+  # be fixed.
+  #
+  # Look up which group (by id) owns the Docker socket
+  docker_gid="$(stat -c '%g' /var/run/docker.sock)"
+
+  # Now create a group in this container with that gid, called 'docker'
+  sudo groupadd --gid "$docker_gid" docker
+
+  # Add the runner user (which executes this script) to that group
+  sudo adduser runner docker
+
+  # Adding the user to the group is not effective for the bash process that is
+  # executing this script. Lets call this script again through sudo. We set the
+  # user to 'runner' again, but sudo looks up which groups this user is in and
+  # equips the new process accordingly.
+  exec sudo --preserve-env --user=runner "$0" "$@"
+fi
+
+# We store a PAT (personal access token) for the GitHub account "ops@cord.com"
+# in SecretsManager
+SECRET_ID=github-ops-user
+ORGANIZATION=getcord
+
+ACCESS_TOKEN="$(
+    aws secretsmanager get-secret-value --secret-id "$SECRET_ID" | \
+    jq -r '.SecretString | fromjson | .accessToken'
+)"
+
+get_token() {
+    curl -X POST \
+        -H "Accept: application/vnd.github.v3+json" \
+        -H "Authorization: token ${ACCESS_TOKEN}" \
+	https://api.github.com/orgs/"$ORGANIZATION"/actions/runners/"$1"-token | \
+    jq -r '.token'
+}
+
+cd
+
+config_opts=()
+
+if test -n "$RUNNER_NAME"
+then
+  config_opts+=(--name "$RUNNER_NAME")
+elif test -n "$RUNNER_NAME_PREFIX"
+then
+  DOCKER_CONTAINER_ID="$(basename "$(cat /proc/1/cpuset)")"
+  config_opts+=(--name "$RUNNER_NAME_PREFIX (${DOCKER_CONTAINER_ID:0:10})")
+fi
+
+test -z "$RUNNER_LABELS" || config_opts+=(--labels "$RUNNER_LABELS")
+
+echo '*** Configuring Runner ***'
+./config.sh \
+    --unattended \
+    --url https://github.com/"$ORGANIZATION" \
+    --token "$(get_token registration)" \
+    "${config_opts[@]}"
+
+cleanup () {
+  echo '*** Removing Runner ***'
+  ./config.sh remove --unattended --token "$(get_token remove)"
+}
+
+trap 'cleanup' EXIT
+
+# The runner process might exit when it updates itself to a newer version. We
+# just wait five seconds and then restart.
+while sleep 5
+do
+  echo '*** Starting Runner ***'
+  if ./run.sh
+  then
+    echo '*** Runner exited ***'
+  else
+    echo '*** Runner died ($?) ***'
+  fi
+done

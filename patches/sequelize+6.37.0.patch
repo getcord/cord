@@ -1,0 +1,66 @@
+diff --git a/node_modules/sequelize/lib/errors/database-error.js b/node_modules/sequelize/lib/errors/database-error.js
+index c913748..dc0f8f0 100644
+--- a/node_modules/sequelize/lib/errors/database-error.js
++++ b/node_modules/sequelize/lib/errors/database-error.js
+@@ -44,7 +44,7 @@ class DatabaseError extends import_base_error.default {
+     this.sql = parent.sql;
+     this.parameters = (_a = parent.parameters) != null ? _a : {};
+     if (options.stack) {
+-      this.stack = options.stack;
++      this.stack = [this.stack, 'From original error:', options.stack.split('\n').slice(1).join('\n')].join('\n');
+     }
+   }
+ }
+diff --git a/node_modules/sequelize/lib/errors/validation-error.js b/node_modules/sequelize/lib/errors/validation-error.js
+index 0b28a60..ce771a7 100644
+--- a/node_modules/sequelize/lib/errors/validation-error.js
++++ b/node_modules/sequelize/lib/errors/validation-error.js
+@@ -115,7 +115,7 @@ class ValidationError extends import_base_error.default {
+       this.message = this.errors.map((err) => `${err.type || err.origin}: ${err.message}`).join(",\n");
+     }
+     if (options.stack) {
+-      this.stack = options.stack;
++      this.stack = [this.stack, 'From original error:', options.stack.split('\n').slice(1).join('\n')].join('\n');
+     }
+   }
+   get(path) {
+diff --git a/node_modules/sequelize/lib/transaction.js b/node_modules/sequelize/lib/transaction.js
+index 5e35a38..d92a5ae 100644
+--- a/node_modules/sequelize/lib/transaction.js
++++ b/node_modules/sequelize/lib/transaction.js
+@@ -42,6 +42,9 @@ class Transaction {
+     }
+     try {
+       await this.sequelize.getQueryInterface().commitTransaction(this, this.options);
++      for (const hook of this._afterCommitHooks) {
++        await hook.apply(this, [this]);
++      }
+       this.cleanup();
+     } catch (e) {
+       console.warn(`Committing transaction ${this.id} failed with error ${JSON.stringify(e.message)}. We are killing its connection as it is now in an undetermined state.`);
+@@ -49,9 +52,6 @@ class Transaction {
+       throw e;
+     } finally {
+       this.finished = "commit";
+-      for (const hook of this._afterCommitHooks) {
+-        await hook.apply(this, [this]);
+-      }
+     }
+   }
+   async rollback() {
+diff --git a/node_modules/sequelize/types/model.d.ts b/node_modules/sequelize/types/model.d.ts
+index 83c211b..a35b889 100644
+--- a/node_modules/sequelize/types/model.d.ts
++++ b/node_modules/sequelize/types/model.d.ts
+@@ -365,7 +365,10 @@ export interface WhereOperators<AttributeType = any> {
+   // https://www.postgresql.org/docs/14/functions-array.html array @> array
+   [Op.contains]?:
+     // RANGE @> ELEMENT
+-    | AttributeType extends Range<infer RangeType> ? OperatorValues<OperatorValues<NonNullable<RangeType>>> : never
++    | AttributeType extends Range<infer RangeType> ? OperatorValues<OperatorValues<NonNullable<RangeType>>>
++      // jsonb @> ELEMENT
++      : AttributeType extends object ? OperatorValues<Partial<AttributeType>>
++      : never
+     // ARRAY @> ARRAY ; RANGE @> RANGE
+     | WhereOperators<AttributeType>[typeof Op.overlap];
+ 

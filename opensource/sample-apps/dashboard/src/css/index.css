@@ -1,0 +1,359 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+:root {
+  --purple: #9a6aff;
+  --purple-dark: #442f71;
+  --orange: #fa7351;
+  --grey-x-light: #97979f;
+  --grey-light: #6a6b6c;
+  --grey-dark: #3d3a33;
+  --grey-x-dark: #1d1f24;
+  --black: #121314;
+  --white: #edeff1;
+  --pink: #e95b94;
+
+  --cord-color-base: var(--grey-x-dark);
+  --cord-color-base-strong: #f6f6f620;
+  --cord-color-base-x-strong: var(--grey-light);
+  --cord-color-content-emphasis: var(--white);
+  --cord-color-content-primary: var(--white);
+  --cord-color-content-secondary: var(--grey-light);
+  --cord-color-notification: var(--pink);
+  --cord-primary-button-background-color: var(--purple);
+  --cord-secondary-button-content-color: var(--white);
+  --cord-tertiary-button-content-color: var(--white);
+  --cord-color-brand-primary: var(--white);
+
+  /* Drop shadow large */
+  box-shadow: 0px 2px 16px 0px rgba(0, 0, 0, 0.16);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  --dashboard-bg-color: #302c2c;
+  background-color: var(--dashboard-bg-color);
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+.cord-component a {
+  color: var(--purple);
+}
+
+#dashboard {
+  background-color: var(--black);
+  border-radius: 32px;
+  font-family:
+    Roboto,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
+  color: var(--white);
+  margin: 16px;
+  min-width: 700px;
+  padding: 16px 0;
+}
+
+#dashboard .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: -8px;
+}
+
+#dashboard h1 {
+  line-height: 64px;
+  font-weight: 300;
+  font-size: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+#dashboard h2 {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 32px;
+  margin: 0;
+  padding: 0;
+}
+
+#dashboard .panel {
+  background: var(--grey-dark);
+  padding: 40px 64px;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
+#dashboard .panel.highcharts {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#dashboard .panel .chart-header {
+  margin-bottom: 8px;
+}
+
+#dashboard .grid {
+  display: grid;
+  grid-gap: 40px;
+  grid-template-columns: min(1200px, 95%);
+  justify-content: center;
+}
+
+#collaboration {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1; /* prevents pins from overlaying the dashboard header */
+}
+
+.ag-theme-alpine {
+  --ag-value-change-value-highlight-background-color: #e37400;
+  font-family:
+    'Roboto',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Oxygen',
+    'Ubuntu',
+    'Cantarell',
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+}
+
+#grid-container {
+  height: 400px;
+}
+
+.cell {
+  position: relative;
+}
+
+/* when cell is selected, make border of .cell-with-thread smaller */
+.ag-theme-alpine
+  .ag-ltr
+  .ag-cell-focus:not(.ag-cell-range-selected):focus-within
+  .cell-with-thread {
+  border-width: 1px;
+}
+
+/* we don't want gaps between cells */
+.ag-theme-alpine .ag-ltr .ag-cell {
+  border: none;
+}
+
+.action-button,
+.cord-button[data-cord-button='open-notification-list'] {
+  cursor: pointer;
+  max-width: 100%;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  font-size: 14px;
+  font-family: inherit;
+  line-height: 20px;
+  border-style: none;
+  text-transform: none;
+  border-radius: var(--cord-border-radius-medium, var(--cord-space-3xs, 4px));
+  padding: 10px;
+  color: var(--white);
+  background-color: var(--grey-dark);
+  gap: var(--cord-floating-threads-gap, var(--cord-space-3xs, 4px));
+}
+
+.action-button.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.action-button:hover,
+.cord-button[data-cord-button='open-notification-list']:hover {
+  color: var(--white);
+  background-color: var(--grey-light);
+}
+
+.action-button:active {
+  background-color: var(--grey-light);
+}
+
+.threadlist-container {
+  width: 300px;
+  background: var(--white);
+  margin-top: 6px;
+  border-radius: 4px;
+  z-index: 9;
+  box-shadow: var(
+    --cord-shadow-large,
+    0 var(--cord-space-4xs, 2px) var(--cord-space-m, 16px) 0 rgba(0, 0, 0, 0.16)
+  );
+  display: none;
+}
+
+.open-threadlist-container + .threadlist-container,
+[data-hovered-component='cord-threaded-comments'] .threadlist-container {
+  display: block;
+}
+
+.threadlist-container .cord-threaded-comments {
+  height: 100%;
+}
+
+.cord-component .cord-avatar-container {
+  border-radius: 50%;
+}
+
+cord-threaded-comments {
+  max-height: 400px;
+}
+
+.cord-empty-state-placeholder .cord-avatar-container {
+  height: 20px;
+  width: 20px;
+}
+
+.cord-threaded-comments .cord-empty-state-placeholder {
+  padding: 8px;
+}
+
+.cord-threaded-comments cord-message {
+  cursor: pointer;
+}
+
+.cord-empty-state-placeholder .cord-facepile {
+  margin-bottom: 12px;
+}
+
+cord-notification-list-launcher .cord-button-label {
+  font-size: 14px;
+}
+
+cord-notification-list-launcher
+  .cord-button[data-cord-button='open-notification-list']
+  .cord-icon
+  path:first-of-type {
+  fill: var(--white);
+}
+
+cord-page-presence.cord-component .cord-avatar-container {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.cord-badge::after {
+  color: var(--white);
+}
+
+cord-thread.cord-component {
+  border-radius: 8px;
+  display: none;
+}
+
+cord-thread.cord-component.open-thread,
+[data-hovered-component='cord-thread'] cord-thread.cord-component {
+  display: block;
+}
+
+.cord-message .cord-timestamp {
+  display: none;
+}
+
+.footnote {
+  font-size: 12px;
+  color: var(--grey-x-light);
+  margin: 0;
+}
+
+.cord-component .cord-inline-thread {
+  padding-top: 4px;
+}
+
+cord-thread.cord-component .cord-message-text .metadata-quote {
+  display: none;
+}
+
+.cord-message-text .metadata-quote {
+  font-size: 12px;
+  display: flex;
+  cursor: pointer;
+}
+
+.cord-message-text .metadata-quote::before {
+  background-color: var(--grey-light);
+  border-radius: 20px;
+  content: '';
+  height: 20px;
+  margin-right: 8px;
+  width: 3px;
+}
+
+.cord-message-text .metadata-quote.notion::before {
+  background-color: var(--orange);
+}
+
+.cord-message-text .metadata-quote.figma::before {
+  background-color: var(--purple);
+}
+
+.cord-message-text .metadata-quote.year:hover {
+  color: var(--grey-light);
+}
+
+.cord-message-text .metadata-quote.notion:hover {
+  color: var(--orange);
+}
+
+.cord-message-text .metadata-quote.figma:hover {
+  color: var(--purple);
+}
+
+.cord-component .cord-link-preview-container {
+  border-left: 4px solid var(--white);
+}
+
+.cord-component .cord-link-preview-url {
+  color: var(--white);
+}
+
+[data-hovered-component='cord-notification-list-launcher']
+  cord-notification-list-launcher
+  > .cord-button[data-cord-button='open-notification-list'],
+[data-hovered-component='cord-page-presence'] cord-page-presence,
+[data-hovered-component='cord-threaded-comments'] .cord-threaded-comments,
+[data-hovered-component='cord-thread'] cord-thread.cord-component {
+  border-radius: 8px;
+  box-shadow: 0 0 0 2px #9a6aff;
+}
+
+:is(
+    [data-hovered-component='cord-presence-observer'] .ag-cell,
+    [data-hovered-component='cord-presence-facepile']
+  )
+  .cord-avatar-container {
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #9a6aff;
+}

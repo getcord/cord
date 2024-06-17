@@ -1,0 +1,10 @@
+fragment UserFragment on User {
+  id
+  externalID
+  displayName
+  fullName
+  name
+  shortName
+  profilePictureURL
+  metadata
+}

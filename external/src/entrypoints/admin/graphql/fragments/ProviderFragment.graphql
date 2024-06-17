@@ -1,0 +1,29 @@
+#import ProviderRuleFragment.graphql
+#import ProviderDocumentMutatorFragment.graphql
+#import ProviderRuleTestFragment.graphql
+
+fragment ProviderFragment on ProviderFull {
+  __typename
+  id
+  name
+  iconURL
+  domains
+  public
+  dirty
+  nuxText
+  mergeHashWithLocation
+  disableAnnotations
+  visibleInDiscoverToolsSection
+  rules {
+    ...ProviderRuleFragment
+  }
+  documentMutators {
+    ...ProviderDocumentMutatorFragment
+  }
+  tests {
+    ...ProviderRuleTestFragment
+  }
+  claimingApplication {
+    id
+  }
+}

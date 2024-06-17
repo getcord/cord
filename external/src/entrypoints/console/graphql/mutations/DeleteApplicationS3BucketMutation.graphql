@@ -1,0 +1,5 @@
+mutation DeleteApplicationS3BucketMutation($applicationID: UUID!) {
+  deleteApplicationCustomS3Bucket(applicationID: $applicationID) {
+    success
+  }
+}

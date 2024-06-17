@@ -1,0 +1,5 @@
+fragment S3BucketFragment on S3BucketVisible {
+  id
+  name
+  region
+}

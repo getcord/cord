@@ -1,0 +1,17 @@
+mutation CreateApplicationCustomS3BucketMutation(
+  $applicationID: UUID!
+  $bucket: String!
+  $region: String!
+  $accessKeyID: String!
+  $accessKeySecret: String!
+) {
+  createApplicationCustomS3Bucket(
+    applicationID: $applicationID
+    bucket: $bucket
+    region: $region
+    accessKeyID: $accessKeyID
+    accessKeySecret: $accessKeySecret
+  ) {
+    success
+  }
+}

@@ -1,0 +1,3 @@
+mutation CreateCustomerMutation($name: String!) {
+  createCustomer(name: $name)
+}

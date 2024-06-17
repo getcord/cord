@@ -1,0 +1,62 @@
+#import UserFragment.graphql
+#import MessageFileAttachmentFragment.graphql
+#import MessageAnnotationAttachmentFragment.graphql
+#import MessageScreenshotAttachmentFragment.graphql
+#import MessageLinkPreviewFragment.graphql
+#import TaskFragment.graphql
+#import MessageReactionFragment.graphql
+
+fragment MessageFragment on Message {
+  __typename
+  id
+  externalID
+  source {
+    ... on User {
+      ...UserFragment
+    }
+  }
+  content
+  attachments {
+    __typename
+    ... on MessageFileAttachment {
+      ...MessageFileAttachmentFragment
+    }
+    ... on MessageAnnotationAttachment {
+      ...MessageAnnotationAttachmentFragment
+    }
+    ... on MessageScreenshotAttachment {
+      ...MessageScreenshotAttachmentFragment
+    }
+    ... on MessageLinkPreview {
+      ...MessageLinkPreviewFragment
+    }
+  }
+  url
+  seen
+  reactions {
+    ...MessageReactionFragment
+  }
+  referencedUserData {
+    id
+    name
+  }
+  timestamp
+  deletedTimestamp
+  lastUpdatedTimestamp
+  importedFromSlackChannel
+  task {
+    ...TaskFragment
+  }
+  importedSlackMessageType
+  slackURL
+  isFromEmailReply
+  type
+  iconURL
+  translationKey
+  metadata
+  extraClassnames
+  seenBy {
+    externalID
+  }
+  skipLinkPreviews
+}

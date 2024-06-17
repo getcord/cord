@@ -1,0 +1,5 @@
+mutation MarkAllNotificationsAsReadMutation($filter: NotificationFilterInput) {
+  markAllNotificationsAsRead(filter: $filter) {
+    success
+  }
+}

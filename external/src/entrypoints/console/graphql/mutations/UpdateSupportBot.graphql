@@ -1,0 +1,18 @@
+mutation UpdateSupportBotMutation(
+  $applicationID: UUID!
+  $profilePictureURL: String!
+  $supportSlackChannelID: String!
+  $name: String!
+) {
+  updateSupportBot(
+    applicationID: $applicationID
+    profilePictureURL: $profilePictureURL
+    supportSlackChannelID: $supportSlackChannelID
+    name: $name
+  ) {
+    success
+    failureDetails {
+      message
+    }
+  }
+}

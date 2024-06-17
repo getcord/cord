@@ -1,0 +1,143 @@
+:root {
+  --color-alert: #eb5757;
+  --color-acid: #f4ffa0;
+  --color-base: #ffffff;
+  --color-baseStrong: #f6f6f6;
+  --color-green: #71bc8f;
+  --color-greenLight: #c8edd7;
+  --color-greyXlight: #f7f7f7;
+  --color-greylight: #dadce0;
+  --color-greyDark: #797979;
+  --color-greyXdark: #191a1e;
+  --color-orange: #ef927b;
+  --color-pink: #fdefef;
+  --color-pinkhighlight: #ffcaca;
+  --color-purple: #9a6aff;
+  --color-purpleLight: #f6f1ff;
+  --color-purpleHighlight: #d1ccff;
+  --color-yellow: #ffd400;
+
+  --color-codebackground: #eeeeee;
+
+  --color-notionBlueLight: #2eaadb;
+  --color-notionBlueDark: #2b9bc8;
+  --color-notionGreyLight: #f1f1ef;
+  --color-notionGreyDark: #3d3d3d;
+  --color-notionGreyXDark: #303030;
+  --color-notionBlack: #121314;
+
+  --color-contentPrimary: #696a6c;
+  --color-contentSecondary: #97979f;
+
+  --font-text: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+
+  --box-shadow-small: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  --box-shadow-large: 0px 2px 16px rgba(0, 0, 0, 0.16);
+}
+
+@font-face {
+  font-family: 'FavoritWeb';
+  src:
+    url('/static/fonts/Favorit-MonoBeta.woff2') format('woff2'),
+    url('/static/fonts/Favorit-MonoBeta.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FavoritWeb';
+  src:
+    url('/static/fonts/Favorit-Regular.woff2') format('woff2'),
+    url('/static/fonts/Favorit-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FavoritWeb';
+  src:
+    url('/static/fonts/Favorit-Bold.woff2') format('woff2'),
+    url('/static/fonts/Favorit-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'abc_favoritbook';
+  src:
+    url('/static/fonts/abcfavorit-book-webfont.woff2') format('woff2'),
+    url('/static/fonts/abcfavorit-book-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  font-family: 'abc_favoritbook', sans-serif;
+  scroll-behavior: smooth;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+a,
+a:where(:link) {
+  color: var(--color-notionBlack);
+  text-decoration: underline;
+}
+
+a:active,
+a:hover {
+  color: var(--color-purple);
+}
+
+h4 {
+  letter-spacing: -1px;
+}
+
+/* 
+The classname version of this is so that we can fake P tag styling using divs
+inside of markdown. It wouldn't be necessary except that our syntax highlighter
+produces invalid HTML tag nestings so we sub out <p> tags for <div> tags to 
+keep the HTML legit.
+*/
+p,
+.p {
+  font-family: var(--font-text);
+  margin: 16px 0;
+}
+
+code {
+  background-color: var(--color-codebackground);
+  border-radius: 4px;
+  font-family: 'FavoritWeb', monospace;
+  font-size: 14px;
+  font-weight: inherit;
+  padding: 3px 4px 1px;
+}
+
+/* 
+Markdown generators will, by default, turn ``` blocks into
+<pre><code>...</code></pre> blocks. I'm working on a better
+solution (probably via an override) but this is a stop gap.
+*/
+pre code {
+  display: block;
+  margin: 8px 0;
+  padding: 8px;
+}
+
+/* 
+Prevents the content from adjusting everytime a live demo select is toggled,
+the radix ui select seems to add a margin right of 31px set with !important
+and this adjusts all of our content. CSS below is to prevent this */
+body.prevent-scrollbar-hidden {
+  margin-right: 0px !important;
+  overflow: auto !important;
+}

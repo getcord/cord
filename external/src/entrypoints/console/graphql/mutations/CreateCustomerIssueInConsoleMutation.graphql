@@ -1,0 +1,15 @@
+mutation CreateCustomerIssueInConsoleMutation(
+  $title: String!
+  $body: String!
+  $type: AdminCRTIssueType!
+  $priority: AdminCRTPriority!
+) {
+  createCustomerIssue(
+    title: $title
+    body: $body
+    type: $type
+    priority: $priority
+  ) {
+    success
+  }
+}

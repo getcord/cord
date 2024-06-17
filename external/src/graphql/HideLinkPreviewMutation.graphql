@@ -1,0 +1,5 @@
+mutation HideLinkPreviewMutation($linkPreviewID: UUID!) {
+  hideLinkPreview(linkPreviewID: $linkPreviewID) {
+    success
+  }
+}

@@ -1,0 +1,12 @@
+// Effect to close open thread on ESCAPE key press and also stop thread
+// creation mode
+useEffect(() => {
+  const close = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      setOpenThread(null);
+      setInThreadCreationMode(false);
+    }
+  };
+  document.addEventListener('keydown', close);
+  return () => document.removeEventListener('keydown', close);
+}, [setInThreadCreationMode, setOpenThread]);

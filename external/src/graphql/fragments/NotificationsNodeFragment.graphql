@@ -1,0 +1,48 @@
+#import NotificationsMessageFragment.graphql
+#import UserFragment.graphql
+
+fragment NotificationsNodeFragment on Notification {
+  id
+  externalID
+  senders {
+    __typename
+    ... on User {
+      ...UserFragment
+    }
+  }
+  header {
+    __typename
+    ... on NotificationHeaderTextNode {
+      text
+      bold
+    }
+    ... on NotificationHeaderUserNode {
+      user {
+        ...UserFragment
+      }
+    }
+  }
+  headerTranslationKey
+  headerSimpleTranslationParams
+  attachment {
+    __typename
+    ... on NotificationURLAttachment {
+      url
+    }
+    ... on NotificationMessageAttachment {
+      message {
+        ...NotificationsMessageFragment
+      }
+    }
+     ... on NotificationThreadAttachment {
+      thread {
+        ...ThreadFragment
+      }
+    }
+  }
+  iconUrl
+  readStatus
+  timestamp
+  extraClassnames
+  metadata
+}

@@ -1,0 +1,36 @@
+query CustomerIssue($id: UUID!) {
+  customerIssue(id: $id) {
+    id
+    title
+    body
+    customer {
+      id
+      name
+    }
+    comingFrom
+    decision
+    communicationStatus
+    nextAction
+    lastTouch
+    type
+    priority
+    externallyVisible
+    assignee {
+      id
+      displayName
+    }
+    history {
+      user {
+        displayName
+      }
+      created
+      updated {
+        field
+        oldValue
+        newValue
+      }
+      timestamp
+    }
+    subscribed
+  }
+}

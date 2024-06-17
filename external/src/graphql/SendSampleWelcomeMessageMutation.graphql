@@ -1,0 +1,13 @@
+mutation SendSampleWelcomeMessage(
+  $messageLocation: Context!
+  $url: String!
+  $_externalOrgID: String
+) {
+  sendSampleWelcomeMessage(
+    messageLocation: $messageLocation
+    url: $url
+    _externalOrgID: $_externalOrgID
+  ) {
+    success
+  }
+}

@@ -1,0 +1,5 @@
+const { setInThreadCreationMode } = useContext(ThreadsContext)!;
+// ...
+<button onClick={() => setInThreadCreationMode((val) => !val)}>
+  Add comment
+</button>

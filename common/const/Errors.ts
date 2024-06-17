@@ -1,0 +1,15 @@
+export enum Errors {
+  INVALID_SESSION = 'invalid_session',
+  EXTERNAL_API_FORBIDDEN_RESPONSE = 'external_api_forbidden_response',
+  APOLLO_INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR',
+  ADMIN_ONLY = 'admin_only',
+  PLATFORM_ORG_ALREADY_LINKED = 'platform_org_already_linked',
+  PLATFORM_NEW_USER_NOT_FOUND = 'platform_new_user_not_found',
+  CLIENT_TOO_OLD = 'client_too_old',
+  APPLICATION_SUPPORT_ORG_AND_CHANNEL_ID_DUPLICATE = 'application_support_org_and_channel_id_duplicate',
+  USER_IS_BLOCKED = 'user_is_blocked',
+  RATE_LIMITED = 'rate_limited',
+  CLIENT_FACING_ERROR = 'client_facing_error',
+  GENERIC_GRAPHQL_ERROR = 'Generic GraphQL Error',
+  USER_NOT_IN_GROUP = 'user_not_in_group',
+}

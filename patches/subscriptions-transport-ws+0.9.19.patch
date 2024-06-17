@@ -1,0 +1,64 @@
+diff --git a/node_modules/subscriptions-transport-ws/browser/client.js b/node_modules/subscriptions-transport-ws/browser/client.js
+index ae7cf0b..9904c48 100644
+--- a/node_modules/subscriptions-transport-ws/browser/client.js
++++ b/node_modules/subscriptions-transport-ws/browser/client.js
+@@ -238,10 +238,10 @@ var SubscriptionClient = (function () {
+                 this.sendMessage(undefined, message_types_1.default.GQL_CONNECTION_TERMINATE, null);
+             }
+             this.client.close();
+-            this.client.onopen = null;
++            if (this.client) { this.client.onopen = null;
+             this.client.onclose = null;
+             this.client.onerror = null;
+-            this.client.onmessage = null;
++            this.client.onmessage = null; }
+             this.client = null;
+             this.eventEmitter.emit('disconnected');
+             if (!isForced) {
+diff --git a/node_modules/subscriptions-transport-ws/dist/client.js b/node_modules/subscriptions-transport-ws/dist/client.js
+index 3202dcd..526da11 100644
+--- a/node_modules/subscriptions-transport-ws/dist/client.js
++++ b/node_modules/subscriptions-transport-ws/dist/client.js
+@@ -61,7 +61,6 @@ var Backoff = require("backo2");
+ var eventemitter3_1 = require("eventemitter3");
+ var is_string_1 = require("./utils/is-string");
+ var is_object_1 = require("./utils/is-object");
+-var printer_1 = require("graphql/language/printer");
+ var getOperationAST_1 = require("graphql/utilities/getOperationAST");
+ var symbol_observable_1 = require("symbol-observable");
+ var protocol_1 = require("./protocol");
+@@ -123,10 +122,10 @@ var SubscriptionClient = (function () {
+                 this.sendMessage(undefined, message_types_1.default.GQL_CONNECTION_TERMINATE, null);
+             }
+             this.client.close();
+-            this.client.onopen = null;
++            if (this.client) { this.client.onopen = null;
+             this.client.onclose = null;
+             this.client.onerror = null;
+-            this.client.onmessage = null;
++            this.client.onmessage = null; }
+             this.client = null;
+             this.eventEmitter.emit('disconnected');
+             if (!isForced) {
+@@ -345,12 +344,10 @@ var SubscriptionClient = (function () {
+         }
+     };
+     SubscriptionClient.prototype.buildMessage = function (id, type, payload) {
+-        var payloadToReturn = payload && payload.query ? __assign(__assign({}, payload), { query: typeof payload.query === 'string' ? payload.query : printer_1.print(payload.query) }) :
+-            payload;
+         return {
+             id: id,
+             type: type,
+-            payload: payloadToReturn,
++            payload: payload,
+         };
+     };
+     SubscriptionClient.prototype.formatErrors = function (errors) {
+@@ -443,6 +440,7 @@ var SubscriptionClient = (function () {
+     SubscriptionClient.prototype.connect = function () {
+         var _a;
+         var _this = this;
++        if (this.client) return;
+         this.client = new ((_a = this.wsImpl).bind.apply(_a, __spreadArrays([void 0, this.url, this.wsProtocols], this.wsOptionArguments)))();
+         this.checkMaxConnectTimeout();
+         this.client.onopen = function () { return __awaiter(_this, void 0, void 0, function () {

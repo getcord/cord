@@ -1,0 +1,15 @@
+mutation DeleteNotificationMutation(
+  $notificationID: String!
+  $byExternalID: Boolean
+) {
+  deleteNotification(
+    notificationID: $notificationID
+    byExternalID: $byExternalID
+  ) {
+    success
+    failureDetails {
+      message
+      code
+    }
+  }
+}

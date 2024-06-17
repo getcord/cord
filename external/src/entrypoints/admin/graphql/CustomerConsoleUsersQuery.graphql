@@ -1,0 +1,8 @@
+query CustomerConsoleUsers($customerID: UUID!) {
+  customerConsoleUsers(customerID: $customerID) {
+    id
+    email
+    name
+    pendingCustomerID
+  }
+}

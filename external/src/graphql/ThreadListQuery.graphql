@@ -1,0 +1,29 @@
+#import fragments/ThreadFragment.graphql
+
+query ThreadList(
+  $location: Context
+  $filter: ThreadFilterInput
+  $resolved: Boolean
+  $partialMatch: Boolean
+  $sort: ThreadSortInput!
+  $limit: Int
+  $after: String
+  $_externalOrgID: String
+) {
+  threadsAtLocation(
+    location: $location
+    filter: $filter
+    resolved: $resolved
+    partialMatch: $partialMatch
+    sort: $sort
+    limit: $limit
+    after: $after
+    _externalOrgID: $_externalOrgID
+  ) {
+    threads {
+      ...ThreadFragment
+    }
+    hasMore
+    token
+  }
+}

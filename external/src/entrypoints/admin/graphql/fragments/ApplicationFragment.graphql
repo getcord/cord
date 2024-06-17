@@ -1,0 +1,49 @@
+#import S3BucketFragment.graphql
+#import CustomNUXStepContentFragment.graphql
+
+fragment AdminApplicationFragment on Application {
+  id
+  name
+  sharedSecret
+  customerID
+  environment
+  customLinks {
+    learnMore
+    upgradePlan
+    leaveFeedback
+  }
+  customEmailTemplate {
+    partnerName
+    imageURL
+    sender
+    logoConfig {
+      height
+      width
+    }
+  }
+  enableEmailNotifications
+  customS3Bucket {
+    ...S3BucketFragment
+  }
+  segmentWriteKey
+  iconURL
+  customNUX {
+    initialOpen {
+      ...CustomNUXStepContentFragment
+    }
+    welcome {
+      ...CustomNUXStepContentFragment
+    }
+  }
+  defaultProvider
+  redirectURI
+  deploymentInfo {
+    usersSyncedAllTime
+    orgsSyncedAllTime
+    componentsInitializedAllTime
+    customLocations
+    customLocationsAllTime
+  }
+  eventWebhookURL
+  eventWebhookSubscriptions
+}

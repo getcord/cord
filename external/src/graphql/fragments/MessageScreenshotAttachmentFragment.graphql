@@ -1,0 +1,12 @@
+#import FileFragment.graphql
+
+fragment MessageScreenshotAttachmentFragment on MessageScreenshotAttachment {
+  __typename
+  id
+  screenshot {
+    ...FileFragment
+  }
+  blurredScreenshot {
+    ...FileFragment
+  }
+}

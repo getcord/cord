@@ -1,0 +1,9 @@
+mutation SetFileUploadStatus(
+  $id: UUID!
+  $status: FileUploadStatusEnumType!
+  $threadOrgID: UUID
+) {
+  setFileUploadStatus(id: $id, status: $status, threadOrgID: $threadOrgID) {
+    success
+  }
+}

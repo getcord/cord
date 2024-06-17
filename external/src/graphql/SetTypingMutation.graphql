@@ -1,0 +1,3 @@
+mutation SetTyping($threadID: UUID!, $typing: Boolean!) {
+  setTyping(threadID: $threadID, typing: $typing)
+}

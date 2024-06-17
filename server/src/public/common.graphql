@@ -1,0 +1,1444 @@
+###############################################
+# Public types, also used by our admin schema #
+###############################################
+
+scalar DateTime
+scalar ElementIdentifierVersion
+scalar SimpleValue
+scalar JSON
+scalar JSONObject
+scalar Context
+scalar Metadata
+scalar SimpleTranslationParameters
+scalar MessageContent
+scalar RuleProvider
+scalar UUID
+scalar JsonObjectReducerData
+
+type Message {
+  id: UUID!
+  externalID: String!
+  attachments: [MessageAttachment!]!
+  thread: Thread!
+  content: MessageContent
+  source: MessageSource!
+  timestamp: DateTime!
+  reactions: [MessageReaction!]!
+  seen: Boolean!
+  seenBy: [User!]!
+  url: String
+  deletedTimestamp: DateTime
+  lastUpdatedTimestamp: DateTime
+  importedFromSlackChannel: String
+  referencedUserData: [ReferencedUserData!]!
+  task: Task
+  importedSlackMessageType: ImportedSlackMessageType
+  slackURL: String
+  isFromEmailReply: Boolean!
+  type: MessageType!
+  iconURL: String
+  translationKey: String
+  metadata: Metadata!
+  extraClassnames: String
+  skipLinkPreviews: Boolean!
+}
+
+# ReferencedUserData is a type that contains enough information so that we can
+# render a user reference in a message. We have a specialized type because it
+# is possible to have references to users that do not exist in the viewer's
+# org. This can happen if someone is no longer a member, or if two orgs unlink.
+# By having a specialized type, we limit how much information we expose about
+# the user who might not be in viewer's org.
+type ReferencedUserData {
+  id: UUID!
+  name: String
+}
+
+union MessageAttachment =
+    MessageFileAttachment
+  | MessageAnnotationAttachment
+  | MessageScreenshotAttachment
+  | MessageLinkPreview
+
+type MessageScreenshotAttachment {
+  id: UUID!
+  screenshot: File
+  blurredScreenshot: File
+}
+
+type MessageFileAttachment {
+  id: UUID!
+  file: File
+}
+
+type File {
+  id: UUID!
+  name: String!
+  mimeType: String!
+  uploadStatus: FileUploadStatus!
+  url: String!
+  size: Float!
+}
+
+enum FileUploadStatus {
+  uploaded
+  uploading
+  failed
+  cancelled
+}
+
+type Point2D {
+  x: Float!
+  y: Float!
+}
+
+enum ViewerThreadFilter {
+  subscribed
+  mentioned
+}
+
+input ThreadFilterInput {
+  metadata: Metadata
+  viewer: [ViewerThreadFilter!]
+}
+
+enum SortBy {
+  first_message_timestamp
+  most_recent_message_timestamp
+}
+
+enum SortDirection {
+  ascending
+  descending
+}
+
+input LocationFilter {
+  value: Context!
+  partialMatch: Boolean!
+}
+
+input ThreadSortInput {
+  sortBy: SortBy!
+  sortDirection: SortDirection!
+}
+
+input NotificationFilterInput {
+  metadata: Metadata
+  location: Context
+  partialMatch: Boolean
+  organizationID: String
+}
+
+input UserFilterInput {
+  metadata: Metadata
+}
+
+input MarkThreadsSeenInput {
+  seen: Boolean!
+  externalThreadID: String
+  location: LocationFilter
+  resolved: Boolean
+  metadata: JSONObject
+  viewer: [ViewerThreadFilter!]
+}
+
+type MessageAnnotationAttachment {
+  id: UUID!
+  screenshot: File
+  blurredScreenshot: File
+  location: DocumentLocation
+  message: Message!
+  customLocation: Context
+  customHighlightedTextConfig: HighlightedTextConfig
+  customLabel: String
+  coordsRelativeToTarget: Point2D
+}
+
+type AnnotationsOnPage {
+  allAnnotations: [MessageAnnotationAttachment!]!
+  hiddenAnnotationIDs: [UUID!]!
+}
+
+type DocumentLocation {
+  selector: String!
+  x: Float!
+  y: Float!
+  iframeSelectors: [String!]!
+  onChart: Boolean
+  textConfig: LocationTextConfig
+  elementIdentifier: ElementIdentifier
+  multimediaConfig: MultimediaConfig
+  highlightedTextConfig: HighlightedTextConfig
+  additionalTargetData: AdditionalTargetData
+}
+
+enum TargetType {
+  monacoEditor
+  reactTree
+  konvaCanvas
+}
+
+type AdditionalTargetData {
+  targetType: TargetType!
+  monacoEditor: MonacoEditor
+  reactTree: ReactTree
+  konvaCanvas: KonvaCanvas
+}
+
+type MonacoEditor {
+  monacoID: String
+  lineNumber: Int!
+}
+
+type ReactTree {
+  key: String!
+  treeID: String
+  # prefixCls deprecated as of 16 Dec
+  prefixCls: String
+}
+
+type KonvaCanvas {
+  x: Float!
+  y: Float!
+}
+
+type LocationTextConfig {
+  selectedCharOffset: Int!
+  textToMatch: String!
+  textToMatchOffset: Int!
+  nodeIndex: Int!
+  xVsPointer: Float!
+  yVsPointer: Float!
+}
+
+type MultimediaConfig {
+  currentTime: Int!
+}
+
+type HighlightedTextConfig {
+  startElementSelector: String!
+  endElementSelector: String!
+  startNodeIndex: Int!
+  startNodeOffset: Int!
+  endNodeIndex: Int!
+  endNodeOffset: Int!
+  selectedText: String!
+  textToDisplay: String
+}
+
+type ElementIdentifier {
+  version: ElementIdentifierVersion!
+  identifier: JSONObject!
+}
+
+type Thread {
+  id: UUID!
+  externalID: String!
+  orgID: UUID!
+  externalOrgID: String!
+  metadata: Metadata!
+  messages(cursor: UUID, range: Int, ignoreDeleted: Boolean): [Message!]!
+  loadMessages(
+    cursor: UUID
+    range: Int
+    ignoreDeleted: Boolean
+  ): LoadMessagesResult!
+  name: String
+  participants: [ThreadParticipant!]!
+  mentioned: [User!]!
+  typingUsers: [User!]!
+  newMessagesCount: Int!
+  newReactionsCount: Int!
+  replyCount: Int!
+  firstUnseenMessageID: UUID
+  subscribed: Boolean!
+  messagesCountExcludingDeleted: Int!
+  allMessagesCount: Int!
+  userMessagesCount: Int!
+  actionMessagesCount: Int!
+  initialMessagesInclDeleted(initialFetchCount: Int): [Message!]!
+  viewerIsThreadParticipant: Boolean!
+  url: String!
+  navigationURL: String!
+  resolved: Boolean!
+  resolvedTimestamp: DateTime
+  sharedToSlack: SlackMirroredThreadInfo
+  loadNewestMessagesToTarget(
+    targetMessage: UUID!
+    ignoreDeleted: Boolean
+  ): LoadMessagesResult!
+  replyingUserIDs: [UUID!]!
+  actionMessageReplyingUserIDs: [UUID!]!
+  location: Context!
+  extraClassnames: String
+}
+
+type MaybeThread {
+  id: UUID!
+  thread: Thread
+}
+
+type SlackMirroredThreadInfo {
+  channel: String
+  slackURL: String
+}
+
+type LoadMessagesResult {
+  messages: [Message!]!
+  olderMessagesCount: Int!
+}
+
+type ThreadParticipant {
+  user: User
+  lastSeenTimestamp: DateTime
+  subscribed: Boolean
+}
+
+type User {
+  id: UUID!
+  externalID: String!
+  displayName: String!
+  fullName: String!
+  name: String
+  shortName: String
+  profilePictureURL: String
+  userType: UserType!
+  metadata: Metadata!
+}
+
+type UserWithOrgDetails {
+  id: UUID!
+  externalID: String!
+  displayName: String!
+  fullName: String!
+  name: String
+  shortName: String
+  profilePictureURL: String
+  userType: UserType!
+  metadata: Metadata!
+
+  # Cord userID of a user from Slack org
+  linkedUserID: UUID
+
+  canBeNotifiedOnSlack: Boolean!
+  slackUserWithMatchingEmail: UUID
+}
+
+input PresenceLiveQueryInput {
+  matcher: JSONObject!
+  excludeDurable: Boolean!
+  exactMatch: Boolean!
+}
+
+type PresenceLiveQueryData {
+  data: [UserLocation!]!
+  complete: Boolean!
+}
+
+type UserLiveQueryData {
+  users: [User!]!
+  upto: Float!
+}
+
+type PageThreadsResult {
+  threads: [Thread!]!
+  hasMore: Boolean!
+  token: String
+}
+
+type ProviderFull {
+  id: UUID!
+  name: String!
+  iconURL: String!
+  domains: [String!]!
+  nuxText: String
+  mergeHashWithLocation: Boolean!
+  disableAnnotations: Boolean!
+  visibleInDiscoverToolsSection: Boolean!
+  public: Boolean!
+  dirty: Boolean!
+  rules: [ProviderRule!]!
+  documentMutators: [ProviderDocumentMutator!]!
+  tests: [ProviderRuleTest!]!
+  claimingApplication: Application
+}
+
+type Application {
+  id: UUID!
+  name: String!
+  sharedSecret: String!
+  serverAccessToken: String!
+  customerAccessToken: String!
+  customLinks: ApplicationLinks
+  customEmailTemplate: ApplicationEmailTemplate
+  enableEmailNotifications: Boolean!
+  customS3Bucket: S3BucketVisible
+  segmentWriteKey: String
+  customNUX: ApplicationNUX
+  iconURL: String
+  type: ApplicationTierType!
+  environment: ApplicationEnvironment!
+  defaultProvider: UUID
+  supportSlackChannelID: String
+  supportBotInfo: ApplicationSupportBotInfo
+  redirectURI: String
+  customerID: UUID!
+  deploymentInfo: ApplicationDeploymentInfo!
+  usageMetrics(metrics: [String!]!, days: Int!): [JSONObject!]!
+  eventWebhookURL: String
+  eventWebhookSubscriptions: [String!]
+  setupInfo: ApplicationConsoleSetupInfo
+}
+
+type ApplicationDeploymentInfo {
+  messages: Int!
+  users: Int!
+  usersSyncedAllTime: Int!
+  orgs: Int!
+  orgsSyncedAllTime: Int!
+  customLocations: Int!
+  customLocationsAllTime: Int!
+  reactPackageVersion: [String!]!
+  components: [String!]!
+  componentsInitializedAllTime: [String!]!
+  browsers: [JSONObject!]!
+  operatingSystems: [JSONObject!]!
+}
+
+type ApplicationConsoleSetupInfo {
+  firstUser: User
+  firstOrg: Organization
+  isComponentInitialized: Boolean!
+}
+
+enum CustomerType {
+  verified
+  sample
+}
+
+enum CustomerImplementationStage {
+  launched
+  implementing
+  proof_of_concept
+  inactive
+}
+
+enum PricingTier {
+  free
+  pro
+  scale
+}
+
+enum BillingType {
+  stripe
+  manual
+}
+
+enum BillingStatus {
+  active
+  unpaid
+  inactive
+}
+
+type Addon {
+  key: String!
+  value: Boolean!
+}
+
+enum StripeSubscriptionRecurrence {
+  monthly
+  yearly
+}
+
+type StripeSubscription {
+  id: String!
+  url: String!
+  status: String!
+  startDate: DateTime!
+  currentPeriodStart: DateTime!
+  currentPeriodEnd: DateTime!
+  amount: Int!
+  recurrence: StripeSubscriptionRecurrence!
+}
+
+type Customer {
+  id: UUID!
+  name: String!
+  sharedSecret: String!
+  type: CustomerType!
+  enableCustomS3Bucket: Boolean!
+  enableCustomSegmentWriteKey: Boolean!
+  implementationStage: CustomerImplementationStage!
+  launchDate: DateTime
+  slackChannel: String
+  signupCoupon: String
+  pricingTier: PricingTier!
+  billingStatus: BillingStatus!
+  billingType: BillingType
+  stripeCustomerID: String
+  addons: [Addon!]!
+  renewalDate: DateTime
+  planDescription: [String!]!
+  stripeSubscription: StripeSubscription
+}
+
+type ConsoleUser {
+  id: UUID!
+  name: String
+  email: String!
+  picture: String
+  customerID: UUID
+  customer: Customer
+  pendingCustomerID: UUID
+}
+
+type ProviderRule {
+  id: UUID!
+  provider: ProviderFull!
+  type: ProviderRuleType!
+  order: Int!
+  matchPatterns: JSONObject!
+  nameTemplate: String
+  contextTransformation: JSONObject!
+  observeDOMMutations: Boolean!
+}
+
+enum ProviderRuleType {
+  deny
+  allow
+}
+
+enum ApplicationTierType {
+  free
+  starter
+  premium
+}
+
+enum ApplicationEnvironment {
+  production
+  staging
+  sample
+  sampletoken
+  demo
+}
+
+type ProviderDocumentMutator {
+  id: UUID!
+  provider: ProviderFull!
+  type: ProviderDocumentMutatorType!
+  config: JSONObject
+}
+
+enum ProviderDocumentMutatorType {
+  default_css
+  fixed_elements
+  custom_css
+}
+
+type ProviderRuleTest {
+  id: UUID!
+  url: String!
+  expectedMatch: ProviderRuleTestMatchType!
+  expectedName: String
+  expectedContextData: JSONObject
+  result: ProviderRuleTestResult!
+}
+
+enum ProviderRuleTestMatchType {
+  allow
+  deny
+  none
+}
+
+type ProviderRuleTestResult {
+  passes: Boolean!
+  match: ProviderRuleTestMatchType!
+  ruleID: UUID
+  pageContext: PageContext
+  pageName: String
+}
+
+type PageContext {
+  data: Context!
+  providerID: UUID
+}
+
+type PageVisitor {
+  user: User
+  lastPresentTimestamp: DateTime
+}
+
+enum OrgMemberState {
+  inactive
+  active
+  deleted
+}
+
+enum UserType {
+  person
+  bot
+}
+
+union MessageSource = User
+
+type MessageReaction {
+  id: UUID!
+  unicodeReaction: String!
+  user: User!
+  timestamp: DateTime!
+}
+
+type Task {
+  id: UUID!
+  done: Boolean!
+  assignees: [User]!
+  todos: [Todo!]!
+  doneStatusLastUpdatedBy: User
+  thirdPartyReference(type: ThirdPartyConnectionType!): TaskThirdPartyReference
+  thirdPartyReferences: [TaskThirdPartyReference!]!
+}
+
+type Todo {
+  id: UUID!
+  done: Boolean!
+}
+
+type TaskThirdPartyReference {
+  type: ThirdPartyConnectionType!
+  previewData: JSONObject
+  canEdit: Boolean!
+  imported: Boolean!
+}
+
+enum ThirdPartyConnectionType {
+  asana
+  jira
+  linear
+  trello
+  monday
+}
+
+enum SlackStateLinkingType {
+  link_org
+}
+
+enum ImportedSlackMessageType {
+  reply
+  supportBotReply
+}
+
+enum MessageType {
+  action_message
+  user_message
+}
+
+input PageContextInput {
+  data: Context!
+  providerID: UUID
+}
+
+# A restricted version of Viewer that only produces the identity values, which
+# can be used in the identity live query
+type ViewerIdentity {
+  user: User!
+  organization: Organization
+  email: String
+  isSlackConnected: Boolean!
+  organizations: [Organization!]!
+}
+
+type Viewer {
+  # groupID for accessToken is deprecated
+  accessToken(groupID: String, _externalOrgID: String): String!
+  user: User!
+  organization: Organization
+  inbox: Inbox!
+  thirdPartyConnection(
+    type: ThirdPartyConnectionType!
+    _externalOrgID: String
+  ): ThirdPartyConnection!
+  email: String
+  isSlackConnected: Boolean!
+  deepLinkInfo: DeepLinkInfo
+}
+
+type Organization {
+  id: UUID!
+  externalID: String!
+  domain: String
+  name: String!
+  imageURL: String
+  usersWithOrgDetails(
+    filter: UserFilterInput
+    nameQuery: String
+    sortUsersBy: Context
+    sortUsersDirection: SortDirection
+  ): [UserWithOrgDetails!]!
+  state: OrganizationState!
+  joinableSlackChannels: [SlackChannelSchema!]!
+  joinedSlackChannels: [SlackChannelSchema!]!
+  recentlyActiveThreads: [Thread!]!
+  linkedOrganization: LinkedOrganization
+  metadata: Metadata!
+}
+
+type LinkedOrganization {
+  id: UUID!
+  name: String!
+  usersWithOrgDetails(
+    filter: UserFilterInput
+    nameQuery: String
+    sortUsersBy: Context
+    sortUsersDirection: SortDirection
+  ): [UserWithOrgDetails!]!
+}
+
+enum OrganizationState {
+  inactive
+  active
+}
+
+type SlackChannelSchema {
+  name: String!
+  slackID: String!
+}
+
+type Inbox {
+  count: Int!
+  threads: [Thread!]!
+  threadsArchive: [Thread!]!
+}
+
+type ThirdPartyConnection {
+  connected: Boolean!
+  oAuthStateToken: String!
+  configuration: JSON
+}
+
+type Providers {
+  ruleProviders: [RuleProvider!]!
+  version: String!
+}
+
+type HeimdallSwitch {
+  key: String!
+  isOn: Boolean!
+}
+
+type FeatureFlag {
+  key: String!
+  value: SimpleValue!
+}
+
+input LogEventInput {
+  pageLoadID: UUID
+  installationID: UUID
+  eventNumber: Int!
+  clientTimestamp: DateTime!
+  type: String!
+  payload: JSONObject!
+  metadata: JSONObject!
+  logLevel: LogLevelType!
+  customEventMetadata: JSONObject
+}
+
+enum LogLevelType {
+  error
+  warn
+  info
+  debug
+}
+
+input FileAttachmentInput {
+  id: UUID!
+  fileID: UUID!
+}
+
+input Point2DInput {
+  x: Float!
+  y: Float!
+}
+
+input AnnotationAttachmentInput {
+  id: UUID!
+  screenshotFileID: UUID
+  blurredScreenshotFileID: UUID
+  location: DocumentLocationInput
+  customLocation: Context
+  customHighlightedTextConfig: HighlightedTextConfigInput
+  customLabel: String
+  coordsRelativeToTarget: Point2DInput
+}
+
+input ScreenshotAttachmentInput {
+  id: UUID!
+  screenshotFileID: UUID
+  blurredScreenshotFileID: UUID
+}
+
+input DocumentLocationInput {
+  selector: String!
+  x: Float!
+  y: Float!
+  iframeSelectors: [String!]
+  onChart: Boolean
+  textConfig: LocationTextConfigInput
+  elementIdentifier: ElementIdentifierInput
+  multimediaConfig: MultimediaConfigInput
+  highlightedTextConfig: HighlightedTextConfigInput
+  additionalTargetData: AdditionalTargetDataInput
+}
+
+input AdditionalTargetDataInput {
+  targetType: TargetType!
+  monacoEditor: MonacoEditorInput
+  reactTree: ReactTreeInput
+  konvaCanvas: KonvaCanvasInput
+}
+
+input MonacoEditorInput {
+  monacoID: String
+  lineNumber: Int!
+}
+
+input ReactTreeInput {
+  key: String!
+  treeID: String
+  # prefixCls deprecated as of 16 Dec
+  prefixCls: String
+}
+
+input KonvaCanvasInput {
+  x: Float!
+  y: Float!
+}
+
+input MultimediaConfigInput {
+  currentTime: Int!
+}
+
+input HighlightedTextConfigInput {
+  startElementSelector: String!
+  endElementSelector: String!
+  startNodeIndex: Int!
+  startNodeOffset: Int!
+  endNodeIndex: Int!
+  endNodeOffset: Int!
+  selectedText: String!
+  textToDisplay: String
+}
+
+input LocationTextConfigInput {
+  selectedCharOffset: Int!
+  textToMatch: String!
+  textToMatchOffset: Int!
+  nodeIndex: Int!
+  xVsPointer: Float!
+  yVsPointer: Float!
+}
+
+input ElementIdentifierInput {
+  version: ElementIdentifierVersion!
+  identifier: JSONObject!
+}
+
+input TaskInput {
+  id: UUID!
+  done: Boolean!
+  assigneeIDs: [UUID!]!
+  todos: [TaskTodoInput!]!
+  doneStatusUpdate: TaskDoneStatusUpdate
+  type: TaskInputType!
+}
+
+input TaskTodoInput {
+  id: UUID!
+  done: Boolean!
+}
+
+enum TaskDoneStatusUpdate {
+  update
+  remove
+  none
+}
+
+enum TaskInputType {
+  cord
+  asana
+  jira
+  linear
+  trello
+  monday
+}
+
+input CreateThreadMessageInput {
+  messageID: UUID!
+  threadID: UUID!
+  pageContext: PageContextInput
+  pageName: String
+  createNewThread: Boolean!
+
+  newMessageMetadata: Metadata
+  """
+  Only used when createNewThread is true. To update metadata on an existing
+  thread, use the setThreadMetadata mutation.
+  """
+  newThreadMetadata: Metadata
+
+  content: MessageContent
+  externalContent: MessageContent
+  url: String
+  fileAttachments: [FileAttachmentInput!]!
+  annotationAttachments: [AnnotationAttachmentInput!]!
+  screenshotAttachment: ScreenshotAttachmentInput
+  screenshotID: UUID
+  task: TaskInput
+  threadOptions: ThreadOptionsInput
+
+  # These are all copied from CreateMessageByExternalIDInput in case the user
+  # modifies the message to add some of them.
+  externalMessageID: String
+  type: MessageType # TODO(flooey): Remove after 2024-08-01
+  addReactions: [String!]
+  iconURL: String
+  translationKey: String
+  extraClassnames: String
+  createThread: CreateThreadInput
+  skipLinkPreviews: Boolean
+}
+
+input CreateMessageByExternalIDInput {
+  # NOTE: If you add anything here, see about adding it to
+  # CreateThreadMessageInput as well
+  messageID: UUID # TODO(flooey): Make this required
+  externalThreadID: String!
+  externalMessageID: String
+  content: MessageContent!
+  type: MessageType # TODO(flooey): Remove after 2024-08-01
+  url: String
+  addReactions: [String!]
+  metadata: Metadata
+  iconURL: String
+  translationKey: String
+  extraClassnames: String
+  createThread: CreateThreadInput
+  addFileAttachments: [String!]
+  screenshotAttachment: ScreenshotAttachmentInput
+  skipLinkPreviews: Boolean
+  subscribeToThread: Boolean
+}
+
+input UpdateMessageByExternalIDInput {
+  externalThreadID: String
+  externalMessageID: String!
+  content: MessageContent
+  type: MessageType
+  url: String
+  metadata: Metadata
+  iconURL: String
+  translationKey: String
+  extraClassnames: String
+  deleted: Boolean
+  addReactions: [String!]
+  removeReactions: [String!]
+  addFileAttachments: [String!]
+  removeFileAttachments: [String!]
+  skipLinkPreviews: Boolean
+  removePreviewLinks: [String!]
+}
+
+input CreateThreadInput {
+  location: Context!
+  url: String!
+  name: String!
+  metadata: Metadata
+  extraClassnames: String
+  addSubscribers: [String!]
+}
+
+input ThreadOptionsInput {
+  additionalSubscribersOnCreate: [String!]!
+}
+
+input ThreadByExternalID2Input {
+  externalThreadID: String!
+}
+
+type CreateFileResult {
+  uploadURL: String
+  downloadURL: String!
+}
+
+type IDResult {
+  id: UUID!
+}
+
+"""
+The details of what kind of failure occurred during the operation.
+"""
+type FailureDetails {
+  """
+  A code indicating the class of failure encountered.  For each operation,
+  there should be an enumerated list of possible failure codes that can occur
+  here.
+  """
+  code: String!
+
+  """
+  A message with additional information about the failure.  This should be
+  safe to display to the user, though it may not be ideal.
+  """
+  message: String
+}
+
+type SuccessResult {
+  success: Boolean!
+
+  """
+  If success is false, this field may contain additional details about what
+  kind of failure occurred.  If success is true, this field should always be
+  null.
+  """
+  failureDetails: FailureDetails
+}
+
+enum FileUploadStatusEnumType {
+  uploaded
+  uploading
+  failed
+  cancelled
+}
+
+union ThreadEvent =
+    ThreadCreated
+  | ThreadMessageAdded
+  | ThreadMessageUpdated
+  | ThreadMessageContentAppended
+  | ThreadMessageRemoved
+  | ThreadParticipantsUpdatedIncremental
+  | ThreadTypingUsersUpdated
+  | ThreadShareToSlack
+  | ThreadPropertiesUpdated
+  | ThreadSubscriberUpdated
+  | ThreadDeleted
+
+type ThreadCreated {
+  thread: Thread!
+}
+
+type ThreadDeleted {
+  id: UUID!
+}
+
+type ThreadMessageAdded {
+  message: Message!
+}
+
+type ThreadMessageUpdated {
+  message: Message!
+}
+
+type ThreadMessageContentAppended {
+  id: UUID!
+  appendedContent: String!
+}
+
+type ThreadPropertiesUpdated {
+  thread: Thread!
+}
+
+type ThreadMessageRemoved {
+  id: UUID!
+}
+
+type ThreadParticipantsUpdatedIncremental {
+  participant: ThreadParticipant!
+}
+
+type ThreadSubscriberUpdated {
+  subscriber: ThreadParticipant!
+}
+
+type ThreadTypingUsersUpdated {
+  users: [User!]!
+}
+
+type ThreadShareToSlack {
+  id: UUID!
+  info: SlackMirroredThreadInfo
+}
+
+type EphemeralLocation {
+  contexts: [Context!]
+}
+
+type DurableLocation {
+  context: Context!
+  timestamp: Float!
+}
+
+type UserLocation {
+  externalUserID: String!
+  ephemeral: EphemeralLocation
+  durable: DurableLocation
+}
+
+union PageEvent =
+    PageThreadAdded
+  | PageThreadDeleted
+  | PageThreadReplyAdded # TODO(flooey): Remove after 2024-06-01
+  | PageVisitorsUpdated # TODO(flooey): Remove after 2024-08-01
+  | PageThreadResolved # TODO(flooey): Remove after 2024-06-01
+  | PageThreadUnresolved # TODO(flooey): Remove after 2024-06-01
+  | ThreadFilterablePropertiesMatch
+  | ThreadFilterablePropertiesUnmatch
+
+type PageThreadAdded {
+  thread: Thread!
+}
+
+type PageThreadDeleted {
+  id: UUID!
+}
+
+type ThreadFilterablePropertiesMatch {
+  thread: Thread!
+}
+
+type ThreadFilterablePropertiesUnmatch {
+  id: UUID!
+  thread: Thread!
+}
+
+type PageThreadReplyAdded {
+  thread: Thread!
+  message: Message!
+}
+
+type PageVisitorsUpdated {
+  visitors: [PageVisitor!]!
+}
+
+type PageThreadResolved {
+  thread: Thread!
+}
+
+type PageThreadUnresolved {
+  thread: Thread!
+}
+
+type S3BucketVisible {
+  id: UUID!
+  name: String!
+  region: String!
+}
+
+type LogoConfigType {
+  height: String!
+  width: String!
+}
+
+input LogoConfigInput {
+  height: String!
+  width: String!
+}
+
+type ApplicationEmailTemplate {
+  partnerName: String!
+  imageURL: String!
+  sender: String
+  logoConfig: LogoConfigType
+}
+
+type ApplicationLinks {
+  learnMore: String
+  upgradePlan: String
+  leaveFeedback: String
+}
+
+type ApplicationColors {
+  launcherOpen: String
+  launcherClose: String
+  actions: String
+  presence: String
+  avatarTint: String
+  underlay: String
+}
+
+type ApplicationSupportBotInfo {
+  name: String!
+  profilePictureURL: String
+}
+
+type PublicApplication {
+  id: UUID!
+  name: String!
+  customLinks: ComputedCustomLinks!
+  customNUX: ApplicationNUX
+  iconURL: String
+  environment: ApplicationEnvironment!
+}
+
+type ComputedCustomLinks {
+  learnMore: String
+  upgradePlan: String
+  leaveFeedback: String
+}
+
+type CustomNUXStepContent {
+  title: String
+  text: String
+  imageURL: String
+}
+
+type ApplicationNUX {
+  initialOpen: CustomNUXStepContent
+  welcome: CustomNUXStepContent
+}
+
+type DeepLinkInfo {
+  threadID: UUID!
+  messageID: UUID
+}
+
+type AdminChatUser {
+  user: User!
+}
+
+union NotificationEvent =
+    NotificationAdded
+  | NotificationReadStateUpdated
+  | NotificationDeleted
+
+type NotificationAdded {
+  notification: Notification!
+}
+
+type NotificationReadStateUpdated {
+  notification: Notification!
+}
+
+type NotificationDeleted {
+  id: UUID!
+}
+
+type Notification {
+  id: UUID!
+  externalID: String!
+  senders: [NotificationSender!]!
+  iconUrl: String
+  header: [NotificationHeaderNode!]!
+  headerTranslationKey: String
+  headerSimpleTranslationParams: SimpleTranslationParameters
+  attachment: NotificationAttachment
+  readStatus: NotificationReadStatus!
+  timestamp: DateTime!
+  extraClassnames: String
+  metadata: Metadata!
+}
+
+enum NotificationReadStatus {
+  unread
+  read
+}
+
+union NotificationAttachment =
+    NotificationURLAttachment
+  | NotificationMessageAttachment
+  | NotificationThreadAttachment
+
+type NotificationURLAttachment {
+  url: String!
+}
+
+type NotificationMessageAttachment {
+  message: Message!
+}
+
+type NotificationThreadAttachment {
+  thread: Thread!
+}
+
+# The intent is for this to be:
+#   interface NotificationSender {
+#     profilePictureURL: String
+#   }
+# but our codegen doesn't support interface, and TypeScript's structural
+# subtyping would treat it the same anyway.
+union NotificationSender = User
+
+type NotificationPage {
+  nodes: [Notification!]!
+  paginationInfo: PaginationInfo!
+}
+
+type NotificationHeaderTextNode {
+  text: String!
+  bold: Boolean!
+}
+
+type NotificationHeaderUserNode {
+  user: User!
+}
+
+union NotificationHeaderNode =
+    NotificationHeaderTextNode
+  | NotificationHeaderUserNode
+
+type NotificationSummary {
+  unreadNotificationCount: Int!
+}
+
+type PaginationInfo {
+  endCursor: String!
+  hasNextPage: Boolean!
+}
+
+type AdminGoRedirect {
+  name: String!
+  url: String!
+  redirectCount: Int!
+}
+
+input AdminGoRedirectInputType {
+  name: String!
+  url: String!
+}
+
+type Activity {
+  threadSummary: ThreadActivitySummary!
+}
+
+type ThreadActivitySummary {
+  totalThreadCount: Int!
+  unreadThreadCount: Int!
+  newThreadCount: Int!
+  unreadSubscribedThreadCount: Int!
+  resolvedThreadCount: Int!
+  emptyThreadCount: Int!
+}
+
+type TestToken {
+  token: String!
+}
+
+enum AdminCRTComingFrom {
+  us
+  them
+}
+
+enum AdminCRTDecision {
+  done
+  accepted
+  rejected
+  pending
+}
+
+enum AdminCRTCommunicationStatus {
+  none
+  request_acked
+  decision_sent
+  decision_acked
+}
+
+enum AdminCRTIssueType {
+  request
+  bug
+  onboarding_step
+}
+
+enum AdminCRTPriority {
+  blocker
+  high
+  low
+}
+
+enum AdminCRTNextAction {
+  unknown
+  ack_receipt
+  make_decision
+  send_decision
+  do_work
+  wait_for_ack
+  done
+}
+
+type CustomerIssue {
+  id: UUID!
+  customer: Customer!
+  title: String!
+  body: String!
+  comingFrom: AdminCRTComingFrom!
+  decision: AdminCRTDecision!
+  communicationStatus: AdminCRTCommunicationStatus!
+  nextAction: AdminCRTNextAction!
+  lastTouch: DateTime
+  type: AdminCRTIssueType!
+  priority: AdminCRTPriority!
+  externallyVisible: Boolean!
+  assignee: User
+  history: [CustomerIssueChange!]!
+  subscribed: Boolean!
+}
+
+type CustomerIssueUpdate {
+  field: String!
+  oldValue: JSON
+  newValue: JSON
+}
+
+type CustomerIssueChange {
+  user: User!
+  created: Boolean!
+  updated: [CustomerIssueUpdate!]!
+  timestamp: DateTime!
+}
+
+input SearchLocationOptions {
+  location: Context!
+  partialMatch: Boolean!
+}
+
+input TimestampRange {
+  from: DateTime
+  to: DateTime
+}
+
+enum SearchSortByOptions {
+  created_timestamp
+  relevance
+}
+
+input SearchSortInput {
+  sortBy: SearchSortByOptions!
+  sortDirection: SortDirection!
+}
+
+type MessageLinkPreview {
+  id: UUID!
+  url: String!
+  title: String
+  description: String
+  img: String
+}
+
+union OrgMemberEvent = OrgMemberAdded | OrgMemberRemoved
+
+type OrgMemberAdded {
+  user: User!
+}
+
+type OrgMemberRemoved {
+  externalUserID: String!
+}
+
+type OrgMembersResult {
+  users: [User!]!
+  hasMore: Boolean!
+  token: String
+}
+
+type SlackConnectedResult {
+  isOrgConnected: Boolean!
+  isUserConnected: Boolean!
+}

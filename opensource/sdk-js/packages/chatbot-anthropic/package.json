@@ -1,0 +1,30 @@
+{
+  "name": "@cord-sdk/chatbot-anthropic",
+  "description": "Anthropic AI chatbot library for Cord",
+  "version": "1.47.2",
+  "homepage": "https://docs.cord.com/",
+  "license": "MIT",
+  "files": [
+    "dist/",
+    "!dist/cjs/**/*.d.ts",
+    "LICENSE",
+    "README.md"
+  ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "types": "dist/mjs/types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getcord/sdk-js.git",
+    "directory": "packages/chatbot-anthropic"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.20.3",
+    "@cord-sdk/chatbot-base": "1.47.2",
+    "@cord-sdk/types": "1.47.2"
+  },
+  "devDependencies": {
+    "typescript": "~5.1.6"
+  },
+  "type": "module"
+}

@@ -1,0 +1,3 @@
+query CustomerIssueCordSessionTokenQuery($issueID: UUID!) {
+  customerIssueCordSessionToken(issueID: $issueID)
+}

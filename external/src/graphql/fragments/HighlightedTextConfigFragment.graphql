@@ -1,0 +1,10 @@
+fragment HighlightedTextConfigFragment on HighlightedTextConfig {
+  startElementSelector
+  endElementSelector
+  startNodeIndex
+  startNodeOffset
+  endNodeIndex
+  endNodeOffset
+  selectedText
+  textToDisplay
+}

@@ -1,0 +1,17 @@
+query AllCustomerIssuesQuery {
+  customerIssues {
+    id
+    title
+    customer {
+      id
+      name
+    }
+    nextAction
+    lastTouch
+    priority
+    assignee {
+      id
+      displayName
+    }
+  }
+}

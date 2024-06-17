@@ -1,0 +1,8 @@
+mutation DisconnectThirdPartyMutation(
+  $type: ThirdPartyConnectionType!
+  $_externalOrgID: String
+) {
+  disconnectThirdParty(connectionType: $type, _externalOrgID: $_externalOrgID) {
+    success
+  }
+}

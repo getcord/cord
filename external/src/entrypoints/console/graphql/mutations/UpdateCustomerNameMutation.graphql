@@ -1,0 +1,8 @@
+mutation UpdateCustomerName($name: String!) {
+  updateCustomerName(name: $name) {
+    success
+    failureDetails {
+      message
+    }
+  }
+}

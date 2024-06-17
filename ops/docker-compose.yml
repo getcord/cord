@@ -1,0 +1,39 @@
+version: '3'
+services:
+  postgres:
+    build:
+      context: ./dockerfiles/postgres.dev
+      dockerfile: Dockerfile
+    image: 'ops_postgres:12-alpine'
+    ports:
+      - '127.0.0.1:${POSTGRES_PORT:-5432}:5432'
+      - '[::1]:${POSTGRES_PORT:-5432}:5432'
+    environment:
+      - 'CORD_POSTGRES_USER=${POSTGRES_USER}'
+      - 'CORD_POSTGRES_DB=${POSTGRES_DB}'
+      - 'POSTGRES_HOST='
+      - 'POSTGRES_PORT=5432'
+      - 'POSTGRES_DB='
+      - 'POSTGRES_USER='
+      - 'POSTGRES_PASSWORD=${POSTGRES_PASSWORD}'
+    volumes:
+      - db-data:/var/lib/postgresql/data/ # persist data across container restarts
+    command: ['postgres', '-c', 'max_connections=5000']
+  redis:
+    image: 'redis:6.0.5-alpine'
+    ports:
+      - '127.0.0.1:6379:6379'
+      - '[::1]:6379:6379'
+  localstack:
+    image: 'localstack/localstack'
+    environment:
+      SERVICES: s3
+      SKIP_SSL_CERT_DOWNLOAD: 1
+    ports:
+      - '127.0.0.1:8147:4566' # LocalStack Gateway
+    volumes:
+      - './local-s3:/etc/localstack/init/ready.d'
+      - '../localhost/localhost.packed:/var/lib/localstack/cache/server.test.pem'
+
+volumes:
+  db-data: {}

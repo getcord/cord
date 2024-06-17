@@ -1,0 +1,39 @@
+# my global config
+global:
+  scrape_interval: 60s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 60s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+    # Scrape metrics from Prometheus itself.
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ['localhost:9090']
+  - job_name: 'ec2_discovery'
+    # automatically discover EC2 instances. This machine has an attached AWS
+    # IAM Policy that allows it to basically call "aws ec2 describe-instances".
+    ec2_sd_configs:
+      - region: eu-west-2
+        port: 8111
+    relabel_configs:
+      # only keep instances with name matching the following regex
+      - source_labels: [__meta_ec2_tag_Name]
+        regex: '.*radical-stack/(prod|staging|loadtest)ServerLondonASG.*'
+        action: keep
+      # export some metadata
+      - source_labels: [__meta_ec2_tag_Name]
+        target_label: ec2_name
+      - source_labels: [__meta_ec2_instance_id]
+        target_label: ec2_instance_id
+      - source_labels: [__meta_ec2_private_ip]
+        target_label: ec2_private_ip
+      - source_labels: [__meta_ec2_instance_state]
+        target_label: ec2_instance_state
+
+rule_files:
+  - rules.yml

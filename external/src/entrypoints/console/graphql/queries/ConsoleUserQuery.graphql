@@ -1,0 +1,23 @@
+query ConsoleUserQuery {
+  consoleUser {
+    customer {
+      id
+      name
+      type
+      enableCustomS3Bucket
+      enableCustomSegmentWriteKey
+      sharedSecret
+      signupCoupon
+      pricingTier
+      billingStatus
+      billingType
+      renewalDate
+      addons {
+        key
+        value
+      }
+      planDescription
+    }
+    pendingCustomerID
+  }
+}

@@ -1,0 +1,7 @@
+mutation CreateCustomerForConsoleMutation($name: String!) {
+  createCustomer(name: $name) {
+    id
+    name
+    type
+  }
+}

@@ -1,0 +1,11 @@
+#import UserFragment.graphql
+
+fragment MessageReactionFragment on MessageReaction {
+  __typename
+  id
+  unicodeReaction
+  user {
+    ...UserFragment
+  }
+  timestamp
+}

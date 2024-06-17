@@ -1,0 +1,8 @@
+mutation UpdateAccessToCustomerMutation(
+  $email: String!
+  $approveAccess: Boolean!
+) {
+  updateAccessToCustomer(email: $email, approveAccess: $approveAccess) {
+    success
+  }
+}

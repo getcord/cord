@@ -1,0 +1,9 @@
+fragment FileFragment on File {
+  __typename
+  id
+  name
+  url
+  mimeType
+  uploadStatus
+  size
+}

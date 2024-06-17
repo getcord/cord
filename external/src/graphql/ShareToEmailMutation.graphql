@@ -1,0 +1,19 @@
+mutation ShareThreadToEmail(
+  $threadID: String!
+  $email: String!
+  $screenshotID: UUID
+  $byExternalID: Boolean
+) {
+  shareThreadToEmail(
+    threadID: $threadID
+    email: $email
+    screenshotID: $screenshotID
+    byExternalID: $byExternalID
+  ) {
+    success
+    failureDetails {
+      message
+      code
+    }
+  }
+}

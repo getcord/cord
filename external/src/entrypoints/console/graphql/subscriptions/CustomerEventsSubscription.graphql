@@ -1,0 +1,18 @@
+subscription CustomerEvents($customerID: UUID!) {
+  customerEvents(customerID: $customerID) {
+    __typename
+    ... on CustomerSubscriptionUpdated {
+      customer {
+        pricingTier
+        billingStatus
+        billingType
+        renewalDate
+        addons {
+          key
+          value
+        }
+        planDescription
+      }
+    }
+  }
+}

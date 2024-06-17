@@ -1,0 +1,212 @@
+#import ../public/common.graphql
+
+########################
+# CONSOLE GRAPHQL SCHEMA #
+########################
+
+type Query {
+  ping: String!
+  applications: [ConsoleApplication!]!
+  application(id: UUID!): Application
+  consoleUser: ConsoleUser
+  customerConsoleUsers: [ConsoleUser!]!
+  s3Bucket(id: UUID!): S3BucketVisible
+  featureFlags(keys: [String!]!): [FeatureFlag!]!
+  encodedSlackToken(nonce: String!, applicationID: UUID!): String
+  slackChannelsForConsole(applicationID: UUID!): [SlackChannelSchema!]!
+  applicationFlag(applicationID: UUID!, flagKey: String!): FeatureFlag
+  getOrgs(applicationID: String!): [ConsoleApplicationOrganization!]
+  getUsers(applicationID: String!, limit: Int): [ConsoleApplicationUser!]
+  customerIssues: [CustomerIssue!]!
+  getCustomerIssue(id: UUID!): CustomerIssue
+  consoleCordSessionToken: String
+  usageStats: UsageStats!
+}
+
+type Mutation {
+  logEvents(events: [LogEventInput!]!, _externalOrgID: String): Boolean!
+  syncUser(
+    email: String!
+    name: String
+    picture: String
+    signupCoupon: String
+    createNewCustomer: Boolean
+  ): SyncUserDuplicateDomainResult!
+  updateApplication(
+    id: UUID!
+    name: String
+    customLinks: CustomLinks
+    customEmailTemplate: CustomEmailTemplate
+    enableEmailNotifications: Boolean
+    segmentWriteKey: String
+    iconURL: String
+    customNUX: CustomNUXInput
+    redirectURI: String
+    eventWebhookURL: String
+    eventWebhookSubscriptions: [String!]
+  ): SuccessResult!
+  deleteApplicationCustomS3Bucket(applicationID: UUID!): SuccessResult!
+  updateCustomS3BucketSecret(
+    applicationID: UUID!
+    id: UUID!
+    keyID: String!
+    keySecret: String!
+  ): SuccessResult!
+  createApplicationCustomS3Bucket(
+    applicationID: UUID!
+    bucket: String!
+    region: String!
+    accessKeyID: String!
+    accessKeySecret: String!
+  ): SuccessResult!
+  getSignedUploadURL(
+    applicationID: UUID!
+    assetName: String!
+    size: Int!
+    mimeType: String!
+  ): SignedUploadURLResult!
+  createApplication(name: String!): UUID!
+  updateSupportBot(
+    applicationID: UUID!
+    supportSlackChannelID: String!
+    profilePictureURL: String!
+    name: String!
+  ): SuccessResult!
+  removeSlackSupportOrg(applicationID: UUID!): SuccessResult!
+  addConsoleUserToCustomer(email: String!): SuccessResult!
+  removeConsoleUserFromCustomer(email: String!): SuccessResult!
+  createCustomer(name: String!): Customer!
+  createCustomerIssue(
+    title: String!
+    body: String!
+    type: AdminCRTIssueType!
+    priority: AdminCRTPriority!
+  ): SuccessResult!
+  updateCustomerIssue(
+    id: UUID!
+    title: String
+    body: String
+    type: AdminCRTIssueType
+    priority: AdminCRTPriority
+  ): SuccessResult!
+  updateCustomerName(name: String!): SuccessResult!
+  updateUserDetails(id: String!, name: String!): SuccessResult!
+  updateAccessToCustomer(
+    email: String!
+    approveAccess: Boolean!
+  ): SuccessResult!
+  requestAccessToCustomer(customerID: UUID!): SuccessResult!
+  startCheckout(productKey: String!): StartCheckoutResult!
+  redirectToStripeCustomerPortal: RedirectToStripeCustomerPortalResult!
+}
+
+type Subscription {
+  customerEvents(customerID: UUID!): CustomerEvent!
+  applicationEvents(applicationID: UUID!): ApplicationEvent!
+}
+
+type CustomerSubscriptionUpdated {
+  customer: Customer!
+}
+
+union CustomerEvent = CustomerSubscriptionUpdated
+
+type ConsoleGettingStartedUpdated {
+  application: Application
+}
+union ApplicationEvent = ConsoleGettingStartedUpdated
+
+# Console-only graphql types below
+
+type ConsoleApplication {
+  application: Application!
+  userCount: Int!
+  orgCount: Int!
+}
+
+input CustomEmailTemplate {
+  partnerName: String!
+  imageURL: String!
+  sender: String
+  logoConfig: LogoConfigInput
+}
+
+input CustomLinks {
+  learnMore: String
+  upgradePlan: String
+  leaveFeedback: String
+}
+
+input CustomNUXInput {
+  initialOpen: CustomNUXStepInput
+  welcome: CustomNUXStepInput
+}
+
+input CustomNUXStepInput {
+  title: String
+  text: String
+  imageURL: String
+}
+
+type SignedUploadURLResult {
+  uploadURL: String
+  downloadURL: String
+}
+
+type StartCheckoutResult {
+  success: Boolean!
+  failureDetails: FailureDetails
+  redirectURL: String
+}
+
+type RedirectToStripeCustomerPortalResult {
+  success: Boolean!
+  failureDetails: FailureDetails
+  redirectURL: String
+}
+
+type ConsoleApplicationOrganization {
+  # id is externalID and not cord orgID
+  id: String!
+  name: String!
+  status: ConsoleApplicationOrganizationState!
+}
+
+type UsageStats {
+  mau: Int!
+}
+
+# states according to our REST API docs
+enum ConsoleApplicationOrganizationState {
+  active
+  deleted
+}
+
+type ConsoleApplicationUser {
+  # id is externalID and not cord userID
+  id: String
+  name: String
+  email: String
+  profilePictureURL: String
+  status: ConsoleApplicationUserState!
+  createdTimestamp: DateTime!
+}
+
+# states according to our REST API docs
+enum ConsoleApplicationUserState {
+  active
+  deleted
+}
+
+type SyncUserDuplicateDomainResult {
+  success: Boolean!
+  customerIDs: [String!]
+  # Only show the customer name if there is one customerID
+  customerName: String
+  """
+  If success is false, this field may contain additional details about what
+  kind of failure occurred.  If success is true, this field should always be
+  null.
+  """
+  failureDetails: FailureDetails
+}

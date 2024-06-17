@@ -1,0 +1,7 @@
+#import fragments/HeimdallSwitchFragment.graphql
+
+mutation CreateHeimdallSwitchMutation($key: String!) {
+  createHeimdallSwitch(key: $key) {
+    ...HeimdallSwitchFragment
+  }
+}

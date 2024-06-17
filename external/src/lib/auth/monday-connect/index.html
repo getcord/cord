@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Connect to Monday</title>
+    <link href="/static/cord-logo32.png" rel="icon" type="image/png" />
+    <style type="text/css">
+      body {
+        font-family: apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+          'Segoe UI Symbol';
+        padding: 32px;
+      }
+      .main-content {
+        display: flex;
+        flex-direction: column;
+        gap: 36px;
+        align-items: center;
+      }
+      .header-images {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+      }
+      .instructions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .step-wrapper {
+        display: flex;
+        gap: 12px;
+      }
+      .number-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding-bottom: 4px;
+      }
+      .number {
+        box-sizing: border-box;
+        height: 34px;
+        width: 34px;
+        padding: 5px 12px;
+        text-align: center;
+        background: #9a6aff;
+        border-radius: 50%;
+        font-weight: 700;
+        line-height: 24px;
+        font-size: 16px;
+        color: #ffffff;
+        display: inline-block;
+      }
+      .vertical-line {
+        margin: 0 auto;
+        width: 1px;
+        flex: 1;
+        background-color: #dadce0;
+      }
+      .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+        margin-bottom: 36px;
+      }
+      h3 {
+        margin: 0;
+        font-size: 24px;
+        line-height: 34px;
+      }
+      .link-button {
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 24px;
+        color: white;
+        background: #9a6aff;
+        border-radius: 100px;
+        padding: 8px calc(8px * 2);
+        display: inline-block;
+        margin-top: calc(8px * 3);
+        margin-bottom: 8px;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-content">
+      <div class="header-images">
+        <img src="/static/cord-logo.png" height="48px" />
+        <img src="/static/arrows-left-right.png" height="48px" />
+        <img src="/static/monday-logo.png" height="48px" />
+      </div>
+      <h1>Connect Cord and monday.com</h1>
+      <div class="instructions">
+        <div>
+          <div class="step-wrapper">
+            <div class="number-wrapper">
+              <span class="number">1</span>
+              <div class="vertical-line"></div>
+            </div>
+            <div class="content-wrapper">
+              <h3>Install the Cord application</h3>
+              <div class="text-wrapper">This only needs to be done once.</div>
+              <div class="text-wrapper">
+                (Only monday account admins can install apps.)
+              </div>
+              <div>
+                <a
+                  class="link-button"
+                  target="_blank"
+                  href="#"
+                  id="install-button"
+                  >Install→</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="step-wrapper">
+            <div class="number-wrapper">
+              <span class="number">2</span>
+            </div>
+            <div class="content-wrapper">
+              <h3>Authorize Cord to create tasks</h3>
+              <div>Authorize Cord to create tasks for you.</div>
+              <div>
+                <a class="link-button" href="#" id="auth-button">Authorize→</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="monday-connect.js"></script>
+  </body>
+</html>

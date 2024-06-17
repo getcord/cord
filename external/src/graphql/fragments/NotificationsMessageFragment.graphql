@@ -1,0 +1,11 @@
+#import MessageFragment.graphql
+#import ThreadFragment.graphql
+
+fragment NotificationsMessageFragment on Message {
+  id
+  url
+  thread {
+    ...ThreadFragment
+  }
+  ...MessageFragment
+}

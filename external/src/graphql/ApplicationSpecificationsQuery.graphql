@@ -1,0 +1,23 @@
+#import fragments/CustomNUXStepContentFragment.graphql
+
+query ApplicationSpecificationsQuery {
+  application {
+    id
+    name
+    customLinks {
+      learnMore
+      leaveFeedback
+      upgradePlan
+    }
+    iconURL
+    customNUX {
+      initialOpen {
+        ...CustomNUXStepContentFragment
+      }
+      welcome {
+        ...CustomNUXStepContentFragment
+      }
+    }
+    environment
+  }
+}

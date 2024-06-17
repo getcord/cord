@@ -1,0 +1,69 @@
+#import fragments/UserFragment.graphql
+#import fragments/MessageFragment.graphql
+#import fragments/ThreadFragment.graphql
+#import fragments/ThreadParticipantFragment.graphql
+
+subscription ThreadEvents($threadID: UUID!) {
+  threadEvents(threadID: $threadID) {
+    __typename
+    ... on ThreadCreated {
+      thread {
+        ...ThreadFragment
+      }
+    }
+    ... on ThreadMessageAdded {
+      message {
+        ...MessageFragment
+      }
+    }
+    ... on ThreadMessageUpdated {
+      message {
+        ...MessageFragment
+      }
+    }
+    ... on ThreadMessageContentAppended {
+      id
+      appendedContent
+    }
+    ... on ThreadPropertiesUpdated {
+      thread {
+        url
+        location
+        resolved
+        resolvedTimestamp
+        name
+        metadata
+        extraClassnames
+      }
+    }
+    ... on ThreadMessageRemoved {
+      id
+    }
+    ... on ThreadTypingUsersUpdated {
+      users {
+        ...UserFragment
+      }
+    }
+    ... on ThreadParticipantsUpdatedIncremental {
+      participant {
+        ...ThreadParticipantFragment
+      }
+    }
+    ... on ThreadSubscriberUpdated {
+      subscriber {
+        ...ThreadParticipantFragment
+      }
+    }
+    ... on ThreadShareToSlack {
+      id
+      info {
+        channel
+        slackURL
+      }
+    }
+
+    ... on ThreadDeleted {
+      id
+    }
+  }
+}

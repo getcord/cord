@@ -1,0 +1,39 @@
+diff --git a/node_modules/@emotion/react/dist/emotion-element-48d2c2e4.cjs.dev.js b/node_modules/@emotion/react/dist/emotion-element-48d2c2e4.cjs.dev.js
+index 9836e58..92595ee 100644
+--- a/node_modules/@emotion/react/dist/emotion-element-48d2c2e4.cjs.dev.js
++++ b/node_modules/@emotion/react/dist/emotion-element-48d2c2e4.cjs.dev.js
+@@ -211,7 +211,7 @@ var createEmotionProps = function createEmotionProps(type, props) {
+   newProps[typePropName] = type; // For performance, only call getLabelFromStackTrace in development and when
+   // the label hasn't already been computed
+ 
+-  if (process.env.NODE_ENV !== 'production' && !!props.css && (typeof props.css !== 'object' || typeof props.css.name !== 'string' || props.css.name.indexOf('-') === -1)) {
++  if (false && process.env.NODE_ENV !== 'production' && !!props.css && (typeof props.css !== 'object' || typeof props.css.name !== 'string' || props.css.name.indexOf('-') === -1)) {
+     var label = getLabelFromStackTrace(new Error().stack);
+     if (label) newProps[labelPropName] = label;
+   }
+diff --git a/node_modules/@emotion/react/dist/emotion-element-6bdfffb2.esm.js b/node_modules/@emotion/react/dist/emotion-element-6bdfffb2.esm.js
+index 059e87a..b3fc5d8 100644
+--- a/node_modules/@emotion/react/dist/emotion-element-6bdfffb2.esm.js
++++ b/node_modules/@emotion/react/dist/emotion-element-6bdfffb2.esm.js
+@@ -186,7 +186,7 @@ var createEmotionProps = function createEmotionProps(type, props) {
+   newProps[typePropName] = type; // For performance, only call getLabelFromStackTrace in development and when
+   // the label hasn't already been computed
+ 
+-  if (process.env.NODE_ENV !== 'production' && !!props.css && (typeof props.css !== 'object' || typeof props.css.name !== 'string' || props.css.name.indexOf('-') === -1)) {
++  if (false && process.env.NODE_ENV !== 'production' && !!props.css && (typeof props.css !== 'object' || typeof props.css.name !== 'string' || props.css.name.indexOf('-') === -1)) {
+     var label = getLabelFromStackTrace(new Error().stack);
+     if (label) newProps[labelPropName] = label;
+   }
+diff --git a/node_modules/@emotion/react/dist/emotion-element-c39617d8.browser.esm.js b/node_modules/@emotion/react/dist/emotion-element-c39617d8.browser.esm.js
+index 34ad447..89fb741 100644
+--- a/node_modules/@emotion/react/dist/emotion-element-c39617d8.browser.esm.js
++++ b/node_modules/@emotion/react/dist/emotion-element-c39617d8.browser.esm.js
+@@ -186,7 +186,7 @@ var createEmotionProps = function createEmotionProps(type, props) {
+   newProps[typePropName] = type; // For performance, only call getLabelFromStackTrace in development and when
+   // the label hasn't already been computed
+ 
+-  if (process.env.NODE_ENV !== 'production' && !!props.css && (typeof props.css !== 'object' || typeof props.css.name !== 'string' || props.css.name.indexOf('-') === -1)) {
++  if (false && process.env.NODE_ENV !== 'production' && !!props.css && (typeof props.css !== 'object' || typeof props.css.name !== 'string' || props.css.name.indexOf('-') === -1)) {
+     var label = getLabelFromStackTrace(new Error().stack);
+     if (label) newProps[labelPropName] = label;
+   }

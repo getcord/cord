@@ -1,0 +1,17 @@
+function CellWithThreadAndPresence(
+  params: ICellRendererParams,
+  gridId: string,
+  setReference: (el: Element | null) => void,
+) {
+  const { threads } = useContext(ThreadsContext)!;
+
+  // get rowId, colId from cell's params
+  const threadId = `${orgId}_${gridId}_${rowId}_${colId}`;
+
+  return (
+    <>
+      <div>{/* cell content */}</div>
+      {threads.has(threadId) && (/* visual indicator of conversation */)}
+    </>
+  );
+}

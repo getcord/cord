@@ -1,0 +1,9 @@
+query ConsoleCustomerIssues {
+  customerIssues {
+    id
+    title
+    body
+    type
+    priority
+  }
+}

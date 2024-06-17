@@ -1,0 +1,8 @@
+// Metadata stored on threads left on charts
+export type ChartThreadMetadata = {
+  type: 'chart';
+  chartId: string;
+  seriesId: string;
+  x: number;
+  y: number;
+};

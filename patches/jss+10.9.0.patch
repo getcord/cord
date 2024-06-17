@@ -1,0 +1,68 @@
+diff --git a/node_modules/jss/dist/jss.cjs.js b/node_modules/jss/dist/jss.cjs.js
+index 502be34..e5c16cb 100644
+--- a/node_modules/jss/dist/jss.cjs.js
++++ b/node_modules/jss/dist/jss.cjs.js
+@@ -1820,11 +1820,11 @@ var _insertRule = function insertRule(container, rule, index) {
+     return false;
+   }
+ 
+-  return container.cssRules[index];
++  return container?.cssRules[index];
+ };
+ 
+ var getValidRuleInsertionIndex = function getValidRuleInsertionIndex(container, index) {
+-  var maxIndex = container.cssRules.length; // In case previous insertion fails, passed index might be wrong
++  var maxIndex = container?.cssRules.length ?? 0; // In case previous insertion fails, passed index might be wrong
+ 
+   if (index === undefined || index > maxIndex) {
+     // eslint-disable-next-line no-param-reassign
+@@ -1996,6 +1996,7 @@ function () {
+ 
+   _proto.deleteRule = function deleteRule(cssRule) {
+     var sheet = this.element.sheet;
++    if (!sheet || !sheet.length) return false;
+     var index = this.indexOf(cssRule);
+     if (index === -1) return false;
+     sheet.deleteRule(index);
+@@ -2018,6 +2019,7 @@ function () {
+   _proto.replaceRule = function replaceRule(cssRule, rule) {
+     var index = this.indexOf(cssRule);
+     if (index === -1) return false;
++    if (!this.element.sheet || !this.element.sheet.length) return false;
+     this.element.sheet.deleteRule(index);
+     this.cssRules.splice(index, 1);
+     return this.insertRule(rule, index);
+diff --git a/node_modules/jss/dist/jss.esm.js b/node_modules/jss/dist/jss.esm.js
+index 37bc3f3..1c58592 100644
+--- a/node_modules/jss/dist/jss.esm.js
++++ b/node_modules/jss/dist/jss.esm.js
+@@ -1806,11 +1806,11 @@ var _insertRule = function insertRule(container, rule, index) {
+     return false;
+   }
+ 
+-  return container.cssRules[index];
++  return container?.cssRules[index];
+ };
+ 
+ var getValidRuleInsertionIndex = function getValidRuleInsertionIndex(container, index) {
+-  var maxIndex = container.cssRules.length; // In case previous insertion fails, passed index might be wrong
++  var maxIndex = container?.cssRules.length; // In case previous insertion fails, passed index might be wrong
+ 
+   if (index === undefined || index > maxIndex) {
+     // eslint-disable-next-line no-param-reassign
+@@ -1982,6 +1982,7 @@ function () {
+ 
+   _proto.deleteRule = function deleteRule(cssRule) {
+     var sheet = this.element.sheet;
++    if (!sheet || !sheet.length) return false;
+     var index = this.indexOf(cssRule);
+     if (index === -1) return false;
+     sheet.deleteRule(index);
+@@ -2004,6 +2005,7 @@ function () {
+   _proto.replaceRule = function replaceRule(cssRule, rule) {
+     var index = this.indexOf(cssRule);
+     if (index === -1) return false;
++    if (!this.element.sheet || !this.element.sheet.length) return false;
+     this.element.sheet.deleteRule(index);
+     this.cssRules.splice(index, 1);
+     return this.insertRule(rule, index);

@@ -1,0 +1,18 @@
+mutation CreateFile(
+  $id: UUID!
+  $name: String!
+  $mimeType: String!
+  $size: Int
+  $threadOrgID: UUID
+) {
+  createFile(
+    id: $id
+    name: $name
+    mimeType: $mimeType
+    size: $size
+    threadOrgID: $threadOrgID
+  ) {
+    downloadURL
+    uploadURL
+  }
+}

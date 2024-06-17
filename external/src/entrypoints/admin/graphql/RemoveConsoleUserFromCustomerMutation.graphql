@@ -1,0 +1,8 @@
+mutation RemoveConsoleUserFromCustomerMutation(
+  $customerID: UUID!
+  $email: String!
+) {
+  removeConsoleUserFromCustomer(customerID: $customerID, email: $email) {
+    success
+  }
+}

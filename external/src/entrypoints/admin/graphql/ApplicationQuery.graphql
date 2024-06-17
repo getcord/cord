@@ -1,0 +1,7 @@
+#import fragments/ApplicationFragment.graphql
+
+query Application($id: UUID!) {
+  application(id: $id) {
+    ...AdminApplicationFragment
+  }
+}

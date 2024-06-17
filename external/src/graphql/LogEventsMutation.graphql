@@ -1,0 +1,3 @@
+mutation LogEvents($events: [LogEventInput!]!, $_externalOrgID: String) {
+  logEvents(events: $events, _externalOrgID: $_externalOrgID)
+}

@@ -1,0 +1,9 @@
+#import FileFragment.graphql
+
+fragment MessageFileAttachmentFragment on MessageFileAttachment {
+  __typename
+  id
+  file {
+    ...FileFragment
+  }
+}

@@ -1,0 +1,8 @@
+fragment MessageLinkPreviewFragment on MessageLinkPreview {
+  __typename
+  id
+  url
+  img
+  title
+  description
+}

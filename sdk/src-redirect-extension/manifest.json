@@ -1,0 +1,11 @@
+{
+  "manifest_version": 2,
+  "name": "Cord SDK JS Redirector",
+  "version": "1.0",
+  "permissions": ["storage", "webRequest", "webRequestBlocking", "<all_urls>"],
+  "options_page": "options.html",
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  }
+}

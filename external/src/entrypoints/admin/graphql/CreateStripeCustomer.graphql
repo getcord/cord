@@ -1,0 +1,18 @@
+mutation CreateStripeCustomerMutation(
+  $id: UUID!
+  $email: String!
+  $country: String!
+  $postcode: String!
+) {
+  createStripeCustomer(
+    id: $id
+    email: $email
+    country: $country
+    postcode: $postcode
+  ) {
+    success
+    failureDetails {
+      message
+    }
+  }
+}

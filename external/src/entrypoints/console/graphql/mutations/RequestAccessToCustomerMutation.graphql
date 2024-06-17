@@ -1,0 +1,5 @@
+mutation RequestAccessToCustomerMutation($customerID: UUID!) {
+  requestAccessToCustomer(customerID: $customerID) {
+    success
+  }
+}

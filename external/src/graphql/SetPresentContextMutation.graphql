@@ -1,0 +1,15 @@
+mutation SetPresentContext(
+  $context: JSONObject!
+  $present: Boolean!
+  $durable: Boolean!
+  $exclusivityRegion: JSONObject
+  $_externalOrgID: String
+) {
+  setPresentContext(
+    context: $context
+    present: $present
+    durable: $durable
+    exclusivityRegion: $exclusivityRegion
+    _externalOrgID: $_externalOrgID
+  )
+}

@@ -1,0 +1,5 @@
+mutation FlipHeimdallSwitchMutation($key: String!, $value: Boolean!) {
+  flipHeimdallSwitch(key: $key, value: $value) {
+    success
+  }
+}

@@ -1,0 +1,12 @@
+<Pin style={{ position: absolute }}>
+  <ThreadWrapper
+    location={LOCATION}
+    threadId={threadId}
+    metadata={metadata}
+    style={{
+      position: 'absolute',
+      left: 0,
+      top: '100%',
+    }}
+  />
+</Pin>

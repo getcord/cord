@@ -1,0 +1,7 @@
+#import fragments/NotificationsNodeFragment.graphql
+
+query NotificationByExternalID($externalID: String!) {
+  notificationByExternalID(externalID: $externalID) {
+    ...NotificationsNodeFragment
+  }
+}

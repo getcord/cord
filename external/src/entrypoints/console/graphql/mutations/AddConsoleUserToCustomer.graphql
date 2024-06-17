@@ -1,0 +1,8 @@
+mutation AddConsoleUserToCustomer($email: String!) {
+  addConsoleUserToCustomer(email: $email) {
+    success
+    failureDetails {
+      message
+    }
+  }
+}

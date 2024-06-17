@@ -1,0 +1,46 @@
+diff --git a/node_modules/prom-client/lib/cluster.js b/node_modules/prom-client/lib/cluster.js
+index 5cb707e..6671c1d 100644
+--- a/node_modules/prom-client/lib/cluster.js
++++ b/node_modules/prom-client/lib/cluster.js
+@@ -53,12 +53,12 @@ class AggregatorRegistry extends Registry {
+ 
+ 			const request = {
+ 				responses: [],
+-				pending: 0,
++				pending: new Set(),
+ 				done,
+ 				errorTimeout: setTimeout(() => {
+-					const err = new Error('Operation timed out.');
++					const err = new Error('Operation timed out.', { cause: [...request.pending].map(id => cluster().workers[id]._cord?.workerName).join(', ') });
+ 					request.done(err);
+-				}, 5000),
++				}, 10000),
+ 			};
+ 			requests.set(requestId, request);
+ 
+@@ -72,11 +72,11 @@ class AggregatorRegistry extends Registry {
+ 				// list but not able to communicate.
+ 				if (cluster().workers[id].isConnected()) {
+ 					cluster().workers[id].send(message);
+-					request.pending++;
++					request.pending.add(cluster().workers[id].id);
+ 				}
+ 			}
+ 
+-			if (request.pending === 0) {
++			if (request.pending.size === 0) {
+ 				// No workers were up
+ 				clearTimeout(request.errorTimeout);
+ 				process.nextTick(() => done(null, ''));
+@@ -177,9 +177,9 @@ function addListeners() {
+ 				}
+ 
+ 				message.metrics.forEach(registry => request.responses.push(registry));
+-				request.pending--;
++				request.pending.delete(worker.id);
+ 
+-				if (request.pending === 0) {
++				if (request.pending.size === 0) {
+ 					// finalize
+ 					requests.delete(message.requestId);
+ 					clearTimeout(request.errorTimeout);

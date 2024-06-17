@@ -1,0 +1,11 @@
+groups:
+  - name: Drop appID
+    rules:
+      - record: GraphQlExecCount:withoutAppID
+        expr: sum without (appID) (GraphQlExecCount)
+      - record: RestApiCalls:withoutAppID
+        expr: sum without (appID) (RestApiCalls)
+      - record: OpenWebsockets:withoutAppID
+        expr: sum without (appID) (OpenWebsockets)
+      - record: DeprecatedCode:withoutAppID
+        expr: sum without (appID) (DeprecatedCode)

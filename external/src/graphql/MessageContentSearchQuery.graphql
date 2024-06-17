@@ -1,0 +1,33 @@
+#import fragments/MessageFragment.graphql
+
+query MessageContentSearch(
+  $textToMatch: String
+  $authorExternalID: String
+  $orgExternalID: String
+  $metadata: Metadata
+  $locationOptions: SearchLocationOptions
+  $timestampRange: TimestampRange
+  $limit: Int
+  $sortBy: SearchSortByOptions
+  $sortDirection: SortDirection
+) {
+  messageContentSearch(
+    textToMatch: $textToMatch
+    authorExternalID: $authorExternalID
+    orgExternalID: $orgExternalID
+    locationOptions: $locationOptions
+    timestampRange: $timestampRange
+    metadata: $metadata
+    limit: $limit
+    sortBy: $sortBy
+    sortDirection: $sortDirection
+  ) {
+    ...MessageFragment
+    thread {
+      externalID
+      externalOrgID
+      name
+      location
+    }
+  }
+}

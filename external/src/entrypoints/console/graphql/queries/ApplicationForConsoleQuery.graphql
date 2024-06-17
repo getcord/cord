@@ -1,0 +1,7 @@
+#import ../fragments/ApplicationFragment.graphql
+
+query ApplicationForConsole($id: UUID!) {
+  application(id: $id) {
+    ...ConsoleApplicationFragment
+  }
+}

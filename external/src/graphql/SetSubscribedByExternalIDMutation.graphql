@@ -1,0 +1,12 @@
+mutation SetSubscribedByExternalID(
+  $externalID: String!
+  $subscribed: Boolean!
+) {
+  setSubscribedByExternalID(externalID: $externalID, subscribed: $subscribed) {
+    success
+    failureDetails {
+      code
+      message
+    }
+  }
+}

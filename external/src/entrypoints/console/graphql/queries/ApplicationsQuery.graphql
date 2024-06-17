@@ -1,0 +1,11 @@
+query ApplicationsQuery {
+  applications {
+    application {
+      id
+      name
+      environment
+    }
+    userCount
+    orgCount
+  }
+}

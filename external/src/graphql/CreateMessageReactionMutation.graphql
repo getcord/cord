@@ -1,0 +1,11 @@
+mutation CreateMessageReactionMutation(
+  $messageID: UUID!
+  $unicodeReaction: String!
+) {
+  createMessageReaction(
+    messageID: $messageID
+    unicodeReaction: $unicodeReaction
+  ) {
+    success
+  }
+}

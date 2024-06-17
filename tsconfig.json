@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    // Enable absolute imports
+    "baseUrl": ".",
+    // https://www.sitepoint.com/javascript-decorators-what-they-are/
+    // NOTE(flooey): TypeScript 5.0 introduced the final version of decorators,
+    // which work differently than experimentalDecorators.  We need the latter
+    // still because sequelize hasn't been changed to use the new decorators.
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "incremental": true,
+    "jsx": "react-jsx",
+
+    // The most restrictive. See:
+    // https://www.typescriptlang.org/docs/handbook/modules/guides/choosing-compiler-options.html#im-writing-a-library
+    "module": "node16",
+
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2021",
+    "importsNotUsedAsValues": "preserve",
+    "ignoreDeprecations": "5.0"
+  },
+  "exclude": [
+    "build/",
+    "config/",
+    "cypress/",
+    "dist/",
+    "localhost/",
+    "node_modules/",
+    "opensource/",
+    "ops/",
+    "patches/",
+    "tmp/"
+  ]
+}

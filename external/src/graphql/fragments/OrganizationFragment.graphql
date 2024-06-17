@@ -1,0 +1,8 @@
+fragment OrganizationFragment on Organization {
+  __typename
+  id
+  externalID
+  linkedOrganization {
+    name
+  }
+}

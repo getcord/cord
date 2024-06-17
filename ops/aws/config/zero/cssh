@@ -1,0 +1,78 @@
+#!/bin/env python3
+
+import argparse
+import boto3
+import ipaddress
+import socket
+import subprocess
+import sys
+
+def doconnect(args, user, instance):
+    cmd = ['mssh', '-o', 'StrictHostKeyChecking=accept-new']
+
+    if args.port:
+        cmd.extend(['-p', args.port[0]])
+    if args.username:
+        cmd.extend(['-l', args.username[0]])
+    if args.region:
+        cmd.extend(['-r', args.region[0]])
+    if args.zone:
+        cmd.extend(['-z', args.zone[0]])
+
+    if user:
+        cmd.append(f'{user}@{instance}')
+    else:
+        cmd.append(instance)
+
+    print("> " + " ".join(cmd))
+    finish = subprocess.run(cmd)
+    sys.exit(finish.returncode)
+
+def getHostOrNone(host):
+    try:
+        return socket.gethostbyname(host)
+    except socket.gaierror:
+        return None
+
+def main():
+    parser = argparse.ArgumentParser(description='Connect to Cord instances')
+
+    parser.add_argument('instance',
+                        nargs=1,
+                        help='The instance to connect to')
+    parser.add_argument('-p',
+                        nargs=1,
+                        dest='port',
+                        metavar='port')
+    parser.add_argument('-l',
+                        nargs=1,
+                        dest='username',
+                        metavar='login_name')
+    parser.add_argument('-r', '--region',
+                        nargs=1,
+                        metavar='region')
+    parser.add_argument('-z', '--zone',
+                        nargs=1,
+                        metavar='availability_zone')
+
+    args = parser.parse_args()
+    instance = args.instance[0]
+    user = None
+    if '@' in instance:
+        user, instance = instance.split('@', 1)
+    ec2 = boto3.resource('ec2')
+
+    if instance.startswith('i-'):
+        doconnect(args, user, instance)
+    else:
+        ip = getHostOrNone(instance) or getHostOrNone(instance + ".int.cord.com")
+        is_private = ipaddress.ip_address(ip).is_private
+        key = 'private-ip-address' if is_private else 'ip-address'
+        instances = list(ec2.instances.filter(Filters=[{'Name': key, 'Values': [ip]}]))
+        if len(instances) == 1:
+            doconnect(args, user, instances[0].id)
+        else:
+            print("Could not find any matching instance", file=sys.stderr)
+    
+if __name__ == '__main__':
+    main()

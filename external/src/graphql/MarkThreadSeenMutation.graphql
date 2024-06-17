@@ -1,0 +1,5 @@
+mutation MarkThreadSeen($threadID: UUID!) {
+  markThreadSeen(threadID: $threadID) {
+    success
+  }
+}

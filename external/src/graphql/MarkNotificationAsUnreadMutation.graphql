@@ -1,0 +1,9 @@
+mutation MarkNotificationAsUnreadMutation($notificationExternalID: String!) {
+  markNotificationAsUnread(notificationExternalID: $notificationExternalID) {
+    success
+    failureDetails {
+      code
+      message
+    }
+  }
+}

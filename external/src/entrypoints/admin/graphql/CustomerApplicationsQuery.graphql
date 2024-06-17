@@ -1,0 +1,6 @@
+query CustomerApplicationsQuery($customerID: UUID!) {
+  customerApplications(customerID: $customerID) {
+    id
+    name
+  }
+}

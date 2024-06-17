@@ -1,0 +1,5 @@
+mutation SetAnnotationVisible($annotationID: UUID!, $visible: Boolean!, $_externalOrgID: String) {
+  setAnnotationVisible(annotationID: $annotationID, visible: $visible, _externalOrgID: $_externalOrgID) {
+    success
+  }
+}

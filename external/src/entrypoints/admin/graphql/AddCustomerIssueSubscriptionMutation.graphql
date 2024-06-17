@@ -1,0 +1,8 @@
+mutation RemoveCustomerIssueSubscriptionMutation($issueID: UUID!) {
+  removeCustomerIssueSubscription(issueID: $issueID) {
+    success
+    failureDetails {
+      message
+    }
+  }
+}

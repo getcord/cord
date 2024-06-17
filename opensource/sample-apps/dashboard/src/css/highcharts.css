@@ -1,0 +1,33 @@
+.date-range-selector {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  padding: 4px 0px 8px;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+
+.date-range-selector-option {
+  background-color: var(--black);
+  border-radius: 4px;
+  border: 0;
+  color: var(--white);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  padding: 4px 8px;
+}
+
+.date-range-selector-option:hover {
+  background-color: var(--purple);
+}
+
+.date-range-selector-option-active {
+  background-color: var(--purple);
+  color: white;
+  cursor: default;
+}
+
+.date-range-selector-option-active:hover {
+  background-color: var(--purple);
+}

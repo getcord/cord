@@ -1,0 +1,5 @@
+mutation DeleteCustomerIssueMutation($id: UUID!) {
+  deleteCustomerIssue(id: $id) {
+    success
+  }
+}

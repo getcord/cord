@@ -1,0 +1,43 @@
+{
+  "name": "@cord-sdk/types",
+  "description": "Common type declarations for the cord-sdk packages",
+  "version": "1.47.2",
+  "homepage": "https://docs.cord.com/",
+  "license": "MIT",
+  "files": [
+    "dist/",
+    "!dist/cjs/**/*.d.ts",
+    "LICENSE",
+    "README.md"
+  ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "types": "dist/mjs/types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getcord/sdk-js.git",
+    "directory": "packages/types"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "eslint": "^8.13.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.0.5",
+    "typescript": "~5.1.6"
+  },
+  "eslintConfig": {
+    "rules": {
+      "no-restricted-imports": [
+        "error",
+        {
+          "paths": [
+            "react"
+          ]
+        }
+      ]
+    }
+  },
+  "type": "module"
+}

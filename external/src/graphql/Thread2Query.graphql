@@ -1,0 +1,7 @@
+#import fragments/ThreadFragment.graphql
+
+query Thread2Query($threadID: UUID!) {
+  thread(threadID: $threadID) {
+    ...ThreadFragment
+  }
+}

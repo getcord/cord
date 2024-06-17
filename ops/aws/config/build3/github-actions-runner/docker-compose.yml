@@ -1,0 +1,18 @@
+version: '3.4'
+services:
+  runner:
+    image: '869934154475.dkr.ecr.eu-west-2.amazonaws.com/github-actions-runner:latest'
+    environment:
+      RUNNER_NAME_PREFIX: 'build3'
+      RUNNER_LABELS: 'build3,standard'
+    network_mode: 'host'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  large-runner:
+    image: '869934154475.dkr.ecr.eu-west-2.amazonaws.com/github-actions-runner:latest'
+    environment:
+      RUNNER_NAME_PREFIX: 'build3'
+      RUNNER_LABELS: 'build3,large'
+    network_mode: 'host'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

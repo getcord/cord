@@ -1,0 +1,2491 @@
+diff --git a/node_modules/react-bootstrap/cjs/AbstractNav.d.ts b/node_modules/react-bootstrap/cjs/AbstractNav.d.ts
+index 9b7bb71..b6f80b3 100644
+--- a/node_modules/react-bootstrap/cjs/AbstractNav.d.ts
++++ b/node_modules/react-bootstrap/cjs/AbstractNav.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixRefForwardingComponent } from './helpers';
+ interface AbstractNavProps {
+     activeKey?: any;
+diff --git a/node_modules/react-bootstrap/cjs/AbstractNavItem.d.ts b/node_modules/react-bootstrap/cjs/AbstractNavItem.d.ts
+index f28ba25..d5b15ea 100644
+--- a/node_modules/react-bootstrap/cjs/AbstractNavItem.d.ts
++++ b/node_modules/react-bootstrap/cjs/AbstractNavItem.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixRefForwardingComponent } from './helpers';
+ import { EventKey } from './types';
+ interface AbstractNavItemProps {
+diff --git a/node_modules/react-bootstrap/cjs/Accordion.d.ts b/node_modules/react-bootstrap/cjs/Accordion.d.ts
+index 71139f1..e349567 100644
+--- a/node_modules/react-bootstrap/cjs/Accordion.d.ts
++++ b/node_modules/react-bootstrap/cjs/Accordion.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import AccordionToggle from './AccordionToggle';
+ import AccordionCollapse from './AccordionCollapse';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent, SelectCallback } from './helpers';
+diff --git a/node_modules/react-bootstrap/cjs/AccordionCollapse.d.ts b/node_modules/react-bootstrap/cjs/AccordionCollapse.d.ts
+index 5da87a1..5ec0c81 100644
+--- a/node_modules/react-bootstrap/cjs/AccordionCollapse.d.ts
++++ b/node_modules/react-bootstrap/cjs/AccordionCollapse.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { CollapseProps } from './Collapse';
+ import { BsPrefixRefForwardingComponent } from './helpers';
+ export interface AccordionCollapseProps extends React.PropsWithChildren<CollapseProps> {
+diff --git a/node_modules/react-bootstrap/cjs/AccordionContext.d.ts b/node_modules/react-bootstrap/cjs/AccordionContext.d.ts
+index db9c28a..775b7af 100644
+--- a/node_modules/react-bootstrap/cjs/AccordionContext.d.ts
++++ b/node_modules/react-bootstrap/cjs/AccordionContext.d.ts
+@@ -1,3 +1,3 @@
+-import React from 'react';
++import * as React from 'react';
+ declare const context: React.Context<string | null>;
+ export default context;
+diff --git a/node_modules/react-bootstrap/cjs/AccordionToggle.d.ts b/node_modules/react-bootstrap/cjs/AccordionToggle.d.ts
+index 7f2bbb4..e993723 100644
+--- a/node_modules/react-bootstrap/cjs/AccordionToggle.d.ts
++++ b/node_modules/react-bootstrap/cjs/AccordionToggle.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ declare type EventHandler = React.EventHandler<React.SyntheticEvent>;
+ export interface AccordionToggleProps extends BsPrefixPropsWithChildren {
+diff --git a/node_modules/react-bootstrap/cjs/Alert.d.ts b/node_modules/react-bootstrap/cjs/Alert.d.ts
+index 259113a..8666bc6 100644
+--- a/node_modules/react-bootstrap/cjs/Alert.d.ts
++++ b/node_modules/react-bootstrap/cjs/Alert.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { Variant } from './types';
+ import SafeAnchor from './SafeAnchor';
+ import { TransitionType } from './helpers';
+diff --git a/node_modules/react-bootstrap/cjs/Breadcrumb.d.ts b/node_modules/react-bootstrap/cjs/Breadcrumb.d.ts
+index 8c8b35a..f32e4f3 100644
+--- a/node_modules/react-bootstrap/cjs/Breadcrumb.d.ts
++++ b/node_modules/react-bootstrap/cjs/Breadcrumb.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import BreadcrumbItem from './BreadcrumbItem';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ export interface BreadcrumbProps extends BsPrefixPropsWithChildren {
+diff --git a/node_modules/react-bootstrap/cjs/BreadcrumbItem.d.ts b/node_modules/react-bootstrap/cjs/BreadcrumbItem.d.ts
+index aacef17..e8cf75f 100644
+--- a/node_modules/react-bootstrap/cjs/BreadcrumbItem.d.ts
++++ b/node_modules/react-bootstrap/cjs/BreadcrumbItem.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ export interface BreadcrumbItemProps extends BsPrefixPropsWithChildren {
+     active?: boolean;
+diff --git a/node_modules/react-bootstrap/cjs/Button.d.ts b/node_modules/react-bootstrap/cjs/Button.d.ts
+index 49e65b9..f4e073c 100644
+--- a/node_modules/react-bootstrap/cjs/Button.d.ts
++++ b/node_modules/react-bootstrap/cjs/Button.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ import { ButtonVariant } from './types';
+ export declare type ButtonType = 'button' | 'reset' | 'submit' | string;
+diff --git a/node_modules/react-bootstrap/cjs/Card.d.ts b/node_modules/react-bootstrap/cjs/Card.d.ts
+index 7a4cc94..29d591d 100644
+--- a/node_modules/react-bootstrap/cjs/Card.d.ts
++++ b/node_modules/react-bootstrap/cjs/Card.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import CardImg from './CardImg';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ import { Color, Variant } from './types';
+diff --git a/node_modules/react-bootstrap/cjs/CardContext.d.ts b/node_modules/react-bootstrap/cjs/CardContext.d.ts
+index 0dc0c85..56faba2 100644
+--- a/node_modules/react-bootstrap/cjs/CardContext.d.ts
++++ b/node_modules/react-bootstrap/cjs/CardContext.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ interface CardContextType {
+     cardHeaderBsPrefix: string;
+ }
+diff --git a/node_modules/react-bootstrap/cjs/Carousel.d.ts b/node_modules/react-bootstrap/cjs/Carousel.d.ts
+index 7046fba..c26105e 100644
+--- a/node_modules/react-bootstrap/cjs/Carousel.d.ts
++++ b/node_modules/react-bootstrap/cjs/Carousel.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import CarouselCaption from './CarouselCaption';
+ import CarouselItem from './CarouselItem';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+diff --git a/node_modules/react-bootstrap/cjs/CloseButton.d.ts b/node_modules/react-bootstrap/cjs/CloseButton.d.ts
+index a25191f..a756ee8 100644
+--- a/node_modules/react-bootstrap/cjs/CloseButton.d.ts
++++ b/node_modules/react-bootstrap/cjs/CloseButton.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ export interface CloseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+     label?: string;
+ }
+diff --git a/node_modules/react-bootstrap/cjs/Collapse.d.ts b/node_modules/react-bootstrap/cjs/Collapse.d.ts
+index 756dda9..3996a5e 100644
+--- a/node_modules/react-bootstrap/cjs/Collapse.d.ts
++++ b/node_modules/react-bootstrap/cjs/Collapse.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { TransitionCallbacks } from './helpers';
+ declare type Dimension = 'height' | 'width';
+ export interface CollapseProps extends TransitionCallbacks, Pick<React.HTMLAttributes<HTMLElement>, 'role'> {
+diff --git a/node_modules/react-bootstrap/cjs/Dropdown.d.ts b/node_modules/react-bootstrap/cjs/Dropdown.d.ts
+index 80daeb4..071c2ab 100644
+--- a/node_modules/react-bootstrap/cjs/Dropdown.d.ts
++++ b/node_modules/react-bootstrap/cjs/Dropdown.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import DropdownItem from './DropdownItem';
+ import DropdownMenu from './DropdownMenu';
+ import DropdownToggle from './DropdownToggle';
+diff --git a/node_modules/react-bootstrap/cjs/DropdownButton.d.ts b/node_modules/react-bootstrap/cjs/DropdownButton.d.ts
+index 8bd13cd..88e7378 100644
+--- a/node_modules/react-bootstrap/cjs/DropdownButton.d.ts
++++ b/node_modules/react-bootstrap/cjs/DropdownButton.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { DropdownProps } from './Dropdown';
+ import { PropsFromToggle } from './DropdownToggle';
+ import { AlignType } from './DropdownMenu';
+diff --git a/node_modules/react-bootstrap/cjs/DropdownItem.d.ts b/node_modules/react-bootstrap/cjs/DropdownItem.d.ts
+index 95afa33..17b3ba9 100644
+--- a/node_modules/react-bootstrap/cjs/DropdownItem.d.ts
++++ b/node_modules/react-bootstrap/cjs/DropdownItem.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import SafeAnchor from './SafeAnchor';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent, SelectCallback } from './helpers';
+ import { EventKey } from './types';
+diff --git a/node_modules/react-bootstrap/cjs/DropdownToggle.d.ts b/node_modules/react-bootstrap/cjs/DropdownToggle.d.ts
+index e2b1a05..bc8ff6d 100644
+--- a/node_modules/react-bootstrap/cjs/DropdownToggle.d.ts
++++ b/node_modules/react-bootstrap/cjs/DropdownToggle.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { ButtonProps, CommonButtonProps } from './Button';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ export interface DropdownToggleProps extends BsPrefixPropsWithChildren, ButtonProps {
+diff --git a/node_modules/react-bootstrap/cjs/ElementChildren.d.ts b/node_modules/react-bootstrap/cjs/ElementChildren.d.ts
+index f889e27..28be7cc 100644
+--- a/node_modules/react-bootstrap/cjs/ElementChildren.d.ts
++++ b/node_modules/react-bootstrap/cjs/ElementChildren.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ /**
+  * Iterates through children that are typically specified as `props.children`,
+  * but only maps over children that are "valid elements".
+diff --git a/node_modules/react-bootstrap/cjs/Fade.d.ts b/node_modules/react-bootstrap/cjs/Fade.d.ts
+index 826f1c3..4684cd6 100644
+--- a/node_modules/react-bootstrap/cjs/Fade.d.ts
++++ b/node_modules/react-bootstrap/cjs/Fade.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import Transition from 'react-transition-group/Transition';
+ import { TransitionCallbacks } from './helpers';
+ export interface FadeProps extends TransitionCallbacks {
+diff --git a/node_modules/react-bootstrap/cjs/FigureImage.d.ts b/node_modules/react-bootstrap/cjs/FigureImage.d.ts
+index 4b36eb4..d6e77ad 100644
+--- a/node_modules/react-bootstrap/cjs/FigureImage.d.ts
++++ b/node_modules/react-bootstrap/cjs/FigureImage.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { ImageProps } from './Image';
+ declare const FigureImage: React.ForwardRefExoticComponent<ImageProps & React.RefAttributes<HTMLImageElement>>;
+ export default FigureImage;
+diff --git a/node_modules/react-bootstrap/cjs/Form.d.ts b/node_modules/react-bootstrap/cjs/Form.d.ts
+index a90380f..1b9e6da 100644
+--- a/node_modules/react-bootstrap/cjs/Form.d.ts
++++ b/node_modules/react-bootstrap/cjs/Form.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import FormCheck from './FormCheck';
+ import FormFile from './FormFile';
+ import FormControl from './FormControl';
+diff --git a/node_modules/react-bootstrap/cjs/FormCheck.d.ts b/node_modules/react-bootstrap/cjs/FormCheck.d.ts
+index 7166608..5553380 100644
+--- a/node_modules/react-bootstrap/cjs/FormCheck.d.ts
++++ b/node_modules/react-bootstrap/cjs/FormCheck.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import FormCheckInput from './FormCheckInput';
+ import FormCheckLabel from './FormCheckLabel';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+diff --git a/node_modules/react-bootstrap/cjs/FormCheckLabel.d.ts b/node_modules/react-bootstrap/cjs/FormCheckLabel.d.ts
+index 1cab390..ebbacde 100644
+--- a/node_modules/react-bootstrap/cjs/FormCheckLabel.d.ts
++++ b/node_modules/react-bootstrap/cjs/FormCheckLabel.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixProps } from './helpers';
+ export interface FormCheckLabelProps extends React.LabelHTMLAttributes<HTMLLabelElement>, BsPrefixProps {
+     bsCustomPrefix?: string;
+diff --git a/node_modules/react-bootstrap/cjs/FormContext.d.ts b/node_modules/react-bootstrap/cjs/FormContext.d.ts
+index 01c51ab..4dfdb6c 100644
+--- a/node_modules/react-bootstrap/cjs/FormContext.d.ts
++++ b/node_modules/react-bootstrap/cjs/FormContext.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ interface FormContextType {
+     controlId: any;
+     custom?: boolean;
+diff --git a/node_modules/react-bootstrap/cjs/FormControl.d.ts b/node_modules/react-bootstrap/cjs/FormControl.d.ts
+index 32914b5..ee3127d 100644
+--- a/node_modules/react-bootstrap/cjs/FormControl.d.ts
++++ b/node_modules/react-bootstrap/cjs/FormControl.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import Feedback from './Feedback';
+ import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
+ declare type FormControlElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+diff --git a/node_modules/react-bootstrap/cjs/FormFile.d.ts b/node_modules/react-bootstrap/cjs/FormFile.d.ts
+index 0e4c006..00584ac 100644
+--- a/node_modules/react-bootstrap/cjs/FormFile.d.ts
++++ b/node_modules/react-bootstrap/cjs/FormFile.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import FormFileInput from './FormFileInput';
+ import FormFileLabel from './FormFileLabel';
+ import { BsCustomPrefixProps, BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+diff --git a/node_modules/react-bootstrap/cjs/Image.d.ts b/node_modules/react-bootstrap/cjs/Image.d.ts
+index 3213c0c..8de2f59 100644
+--- a/node_modules/react-bootstrap/cjs/Image.d.ts
++++ b/node_modules/react-bootstrap/cjs/Image.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import PropTypes from 'prop-types';
+ import { BsPrefixAndClassNameOnlyProps } from './helpers';
+ export interface ImageProps extends BsPrefixAndClassNameOnlyProps, React.ImgHTMLAttributes<HTMLImageElement> {
+diff --git a/node_modules/react-bootstrap/cjs/InputGroup.d.ts b/node_modules/react-bootstrap/cjs/InputGroup.d.ts
+index e574217..79b3244 100644
+--- a/node_modules/react-bootstrap/cjs/InputGroup.d.ts
++++ b/node_modules/react-bootstrap/cjs/InputGroup.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
+ declare const InputGroupAppend: BsPrefixRefForwardingComponent<"div", unknown>;
+ declare const InputGroupPrepend: BsPrefixRefForwardingComponent<"div", unknown>;
+diff --git a/node_modules/react-bootstrap/cjs/ListGroupItem.d.ts b/node_modules/react-bootstrap/cjs/ListGroupItem.d.ts
+index d3e9aa8..bfec6f6 100644
+--- a/node_modules/react-bootstrap/cjs/ListGroupItem.d.ts
++++ b/node_modules/react-bootstrap/cjs/ListGroupItem.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
+ import { EventKey, Variant } from './types';
+ export interface ListGroupItemProps extends Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'>, BsPrefixProps {
+diff --git a/node_modules/react-bootstrap/cjs/Modal.d.ts b/node_modules/react-bootstrap/cjs/Modal.d.ts
+index 257f261..e2a0977 100644
+--- a/node_modules/react-bootstrap/cjs/Modal.d.ts
++++ b/node_modules/react-bootstrap/cjs/Modal.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BaseModalProps } from 'react-overlays/Modal';
+ import ModalBody from './ModalBody';
+ import ModalDialog from './ModalDialog';
+diff --git a/node_modules/react-bootstrap/cjs/ModalContext.d.ts b/node_modules/react-bootstrap/cjs/ModalContext.d.ts
+index 895cd5f..14842ba 100644
+--- a/node_modules/react-bootstrap/cjs/ModalContext.d.ts
++++ b/node_modules/react-bootstrap/cjs/ModalContext.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ interface ModalContextType {
+     onHide: () => void;
+ }
+diff --git a/node_modules/react-bootstrap/cjs/ModalDialog.d.ts b/node_modules/react-bootstrap/cjs/ModalDialog.d.ts
+index 684302b..35155ea 100644
+--- a/node_modules/react-bootstrap/cjs/ModalDialog.d.ts
++++ b/node_modules/react-bootstrap/cjs/ModalDialog.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren } from './helpers';
+ export interface ModalDialogProps extends React.HTMLAttributes<HTMLDivElement>, BsPrefixPropsWithChildren {
+     size?: 'sm' | 'lg' | 'xl';
+diff --git a/node_modules/react-bootstrap/cjs/ModalHeader.d.ts b/node_modules/react-bootstrap/cjs/ModalHeader.d.ts
+index bf12b99..b0339d1 100644
+--- a/node_modules/react-bootstrap/cjs/ModalHeader.d.ts
++++ b/node_modules/react-bootstrap/cjs/ModalHeader.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixAndClassNameOnlyProps } from './helpers';
+ export interface ModalHeaderProps extends React.PropsWithChildren<BsPrefixAndClassNameOnlyProps>, React.ComponentProps<'div'> {
+     closeLabel?: string;
+diff --git a/node_modules/react-bootstrap/cjs/Nav.d.ts b/node_modules/react-bootstrap/cjs/Nav.d.ts
+index 7e28836..20c558d 100644
+--- a/node_modules/react-bootstrap/cjs/Nav.d.ts
++++ b/node_modules/react-bootstrap/cjs/Nav.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import NavItem from './NavItem';
+ import NavLink from './NavLink';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent, SelectCallback } from './helpers';
+diff --git a/node_modules/react-bootstrap/cjs/NavContext.d.ts b/node_modules/react-bootstrap/cjs/NavContext.d.ts
+index 7f145c7..80cedd6 100644
+--- a/node_modules/react-bootstrap/cjs/NavContext.d.ts
++++ b/node_modules/react-bootstrap/cjs/NavContext.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ interface NavContextType {
+     role?: string;
+     activeKey: any;
+diff --git a/node_modules/react-bootstrap/cjs/NavDropdown.d.ts b/node_modules/react-bootstrap/cjs/NavDropdown.d.ts
+index bafe574..2805528 100644
+--- a/node_modules/react-bootstrap/cjs/NavDropdown.d.ts
++++ b/node_modules/react-bootstrap/cjs/NavDropdown.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import Dropdown, { DropdownProps } from './Dropdown';
+ import { BsPrefixRefForwardingComponent } from './helpers';
+ export interface NavDropdownProps extends DropdownProps, Omit<React.HTMLAttributes<HTMLElement>, 'onSelect' | 'title'> {
+diff --git a/node_modules/react-bootstrap/cjs/NavbarCollapse.d.ts b/node_modules/react-bootstrap/cjs/NavbarCollapse.d.ts
+index c8934b5..4e9b07f 100644
+--- a/node_modules/react-bootstrap/cjs/NavbarCollapse.d.ts
++++ b/node_modules/react-bootstrap/cjs/NavbarCollapse.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { CollapseProps } from './Collapse';
+ import { BsPrefixProps } from './helpers';
+ export interface NavbarCollapseProps extends Omit<CollapseProps, 'children'>, React.HTMLAttributes<HTMLDivElement>, BsPrefixProps {
+diff --git a/node_modules/react-bootstrap/cjs/NavbarContext.d.ts b/node_modules/react-bootstrap/cjs/NavbarContext.d.ts
+index 6e55d6d..cbd5809 100644
+--- a/node_modules/react-bootstrap/cjs/NavbarContext.d.ts
++++ b/node_modules/react-bootstrap/cjs/NavbarContext.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ export interface NavbarContextType {
+     onToggle: () => void;
+     bsPrefix?: string;
+diff --git a/node_modules/react-bootstrap/cjs/NavbarToggle.d.ts b/node_modules/react-bootstrap/cjs/NavbarToggle.d.ts
+index cc53072..c96a1e9 100644
+--- a/node_modules/react-bootstrap/cjs/NavbarToggle.d.ts
++++ b/node_modules/react-bootstrap/cjs/NavbarToggle.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ export interface NavbarToggleProps extends BsPrefixPropsWithChildren {
+     label?: string;
+diff --git a/node_modules/react-bootstrap/cjs/Overlay.d.ts b/node_modules/react-bootstrap/cjs/Overlay.d.ts
+index f47ad90..4cf1183 100644
+--- a/node_modules/react-bootstrap/cjs/Overlay.d.ts
++++ b/node_modules/react-bootstrap/cjs/Overlay.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import PropTypes from 'prop-types';
+ import { OverlayProps as BaseOverlayProps } from 'react-overlays/Overlay';
+ import { TransitionType } from './helpers';
+diff --git a/node_modules/react-bootstrap/cjs/OverlayTrigger.d.ts b/node_modules/react-bootstrap/cjs/OverlayTrigger.d.ts
+index 95868c6..2e48ee5 100644
+--- a/node_modules/react-bootstrap/cjs/OverlayTrigger.d.ts
++++ b/node_modules/react-bootstrap/cjs/OverlayTrigger.d.ts
+@@ -1,5 +1,5 @@
+ import PropTypes from 'prop-types';
+-import React from 'react';
++import * as React from 'react';
+ import { OverlayChildren, OverlayProps } from './Overlay';
+ export declare type OverlayTriggerType = 'hover' | 'click' | 'focus';
+ export declare type OverlayDelay = number | {
+diff --git a/node_modules/react-bootstrap/cjs/PageItem.d.ts b/node_modules/react-bootstrap/cjs/PageItem.d.ts
+index 4efdf0b..e5ac798 100644
+--- a/node_modules/react-bootstrap/cjs/PageItem.d.ts
++++ b/node_modules/react-bootstrap/cjs/PageItem.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ export interface PageItemProps extends React.HTMLAttributes<HTMLElement>, BsPrefixPropsWithChildren {
+     disabled?: boolean;
+diff --git a/node_modules/react-bootstrap/cjs/Popover.d.ts b/node_modules/react-bootstrap/cjs/Popover.d.ts
+index 2e858d5..c74e89e 100644
+--- a/node_modules/react-bootstrap/cjs/Popover.d.ts
++++ b/node_modules/react-bootstrap/cjs/Popover.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import PopoverTitle from './PopoverTitle';
+ import PopoverContent from './PopoverContent';
+ import { ArrowProps, Placement } from './Overlay';
+diff --git a/node_modules/react-bootstrap/cjs/ProgressBar.d.ts b/node_modules/react-bootstrap/cjs/ProgressBar.d.ts
+index da57703..b2a1fc8 100644
+--- a/node_modules/react-bootstrap/cjs/ProgressBar.d.ts
++++ b/node_modules/react-bootstrap/cjs/ProgressBar.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren } from './helpers';
+ export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement>, BsPrefixPropsWithChildren {
+     min?: number;
+diff --git a/node_modules/react-bootstrap/cjs/ResponsiveEmbed.d.ts b/node_modules/react-bootstrap/cjs/ResponsiveEmbed.d.ts
+index 07328d7..e706291 100644
+--- a/node_modules/react-bootstrap/cjs/ResponsiveEmbed.d.ts
++++ b/node_modules/react-bootstrap/cjs/ResponsiveEmbed.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ export interface ResponsiveEmbedProps extends BsPrefixPropsWithChildren {
+     children: React.ReactChild;
+diff --git a/node_modules/react-bootstrap/cjs/SafeAnchor.d.ts b/node_modules/react-bootstrap/cjs/SafeAnchor.d.ts
+index 9196d45..2ffacc1 100644
+--- a/node_modules/react-bootstrap/cjs/SafeAnchor.d.ts
++++ b/node_modules/react-bootstrap/cjs/SafeAnchor.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
+ export interface SafeAnchorProps extends React.HTMLAttributes<HTMLElement>, BsPrefixProps {
+     href?: string;
+diff --git a/node_modules/react-bootstrap/cjs/SelectableContext.d.ts b/node_modules/react-bootstrap/cjs/SelectableContext.d.ts
+index 6a6cdd9..4246833 100644
+--- a/node_modules/react-bootstrap/cjs/SelectableContext.d.ts
++++ b/node_modules/react-bootstrap/cjs/SelectableContext.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ declare type SelectableContextType = (key: string | null, event: any) => void;
+ declare const SelectableContext: React.Context<SelectableContextType | null>;
+ export declare const makeEventKey: (eventKey?: string | number | null | undefined, href?: string | null) => string | null;
+diff --git a/node_modules/react-bootstrap/cjs/Spinner.d.ts b/node_modules/react-bootstrap/cjs/Spinner.d.ts
+index 73335f7..f97a9d2 100644
+--- a/node_modules/react-bootstrap/cjs/Spinner.d.ts
++++ b/node_modules/react-bootstrap/cjs/Spinner.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren } from './helpers';
+ import { Variant } from './types';
+ export interface SpinnerProps extends React.HTMLAttributes<HTMLElement>, BsPrefixPropsWithChildren {
+diff --git a/node_modules/react-bootstrap/cjs/SplitButton.d.ts b/node_modules/react-bootstrap/cjs/SplitButton.d.ts
+index 2e84c47..8c74b67 100644
+--- a/node_modules/react-bootstrap/cjs/SplitButton.d.ts
++++ b/node_modules/react-bootstrap/cjs/SplitButton.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { ButtonType } from './Button';
+ import { DropdownProps } from './Dropdown';
+ import { AlignType } from './DropdownMenu';
+diff --git a/node_modules/react-bootstrap/cjs/Tab.d.ts b/node_modules/react-bootstrap/cjs/Tab.d.ts
+index d16438a..05f8f0e 100644
+--- a/node_modules/react-bootstrap/cjs/Tab.d.ts
++++ b/node_modules/react-bootstrap/cjs/Tab.d.ts
+@@ -1,5 +1,5 @@
+ import PropTypes from 'prop-types';
+-import React from 'react';
++import * as React from 'react';
+ import TabContent from './TabContent';
+ import TabPane from './TabPane';
+ import { EventKey } from './types';
+diff --git a/node_modules/react-bootstrap/cjs/TabContainer.d.ts b/node_modules/react-bootstrap/cjs/TabContainer.d.ts
+index 9fb0d03..2b6746f 100644
+--- a/node_modules/react-bootstrap/cjs/TabContainer.d.ts
++++ b/node_modules/react-bootstrap/cjs/TabContainer.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import PropTypes from 'prop-types';
+ import { SelectCallback, TransitionType } from './helpers';
+ import { EventKey } from './types';
+diff --git a/node_modules/react-bootstrap/cjs/TabContext.d.ts b/node_modules/react-bootstrap/cjs/TabContext.d.ts
+index 7cdbfe3..0c1b17d 100644
+--- a/node_modules/react-bootstrap/cjs/TabContext.d.ts
++++ b/node_modules/react-bootstrap/cjs/TabContext.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ export interface TabContextType {
+     onSelect: any;
+     activeKey: any;
+diff --git a/node_modules/react-bootstrap/cjs/Tabs.d.ts b/node_modules/react-bootstrap/cjs/Tabs.d.ts
+index 7cafe2c..ac6f2ba 100644
+--- a/node_modules/react-bootstrap/cjs/Tabs.d.ts
++++ b/node_modules/react-bootstrap/cjs/Tabs.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { SelectCallback, TransitionType } from './helpers';
+ import { EventKey } from './types';
+ export interface TabsProps extends React.PropsWithChildren<unknown> {
+diff --git a/node_modules/react-bootstrap/cjs/ThemeProvider.d.ts b/node_modules/react-bootstrap/cjs/ThemeProvider.d.ts
+index c2ef6ea..2efeb7c 100644
+--- a/node_modules/react-bootstrap/cjs/ThemeProvider.d.ts
++++ b/node_modules/react-bootstrap/cjs/ThemeProvider.d.ts
+@@ -1,5 +1,5 @@
+ import PropTypes from 'prop-types';
+-import React from 'react';
++import * as React from 'react';
+ export interface ThemeProviderProps {
+     prefixes: Record<string, unknown>;
+ }
+diff --git a/node_modules/react-bootstrap/cjs/ToastContext.d.ts b/node_modules/react-bootstrap/cjs/ToastContext.d.ts
+index 6dc9eab..3a833db 100644
+--- a/node_modules/react-bootstrap/cjs/ToastContext.d.ts
++++ b/node_modules/react-bootstrap/cjs/ToastContext.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ export interface ToastContextType {
+     onClose?: (e: Event) => void;
+ }
+diff --git a/node_modules/react-bootstrap/cjs/ToastHeader.d.ts b/node_modules/react-bootstrap/cjs/ToastHeader.d.ts
+index 0123901..9745bbc 100644
+--- a/node_modules/react-bootstrap/cjs/ToastHeader.d.ts
++++ b/node_modules/react-bootstrap/cjs/ToastHeader.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixAndClassNameOnlyProps, BsPrefixRefForwardingComponent } from './helpers';
+ export interface ToastHeaderProps extends React.PropsWithChildren<BsPrefixAndClassNameOnlyProps> {
+     closeLabel?: string;
+diff --git a/node_modules/react-bootstrap/cjs/ToggleButton.d.ts b/node_modules/react-bootstrap/cjs/ToggleButton.d.ts
+index 0f8f1eb..7117842 100644
+--- a/node_modules/react-bootstrap/cjs/ToggleButton.d.ts
++++ b/node_modules/react-bootstrap/cjs/ToggleButton.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { ButtonProps } from './Button';
+ import { BsPrefixAndClassNameOnlyProps, BsPrefixComponentClass } from './helpers';
+ export interface ToggleButtonProps extends ButtonProps, React.PropsWithChildren<BsPrefixAndClassNameOnlyProps> {
+diff --git a/node_modules/react-bootstrap/cjs/Tooltip.d.ts b/node_modules/react-bootstrap/cjs/Tooltip.d.ts
+index ce1cbb5..67ad9f7 100644
+--- a/node_modules/react-bootstrap/cjs/Tooltip.d.ts
++++ b/node_modules/react-bootstrap/cjs/Tooltip.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { ArrowProps, Placement } from './Overlay';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ export interface TooltipProps extends React.HTMLAttributes<HTMLDivElement>, BsPrefixPropsWithChildren {
+diff --git a/node_modules/react-bootstrap/cjs/createWithBsPrefix.d.ts b/node_modules/react-bootstrap/cjs/createWithBsPrefix.d.ts
+index 301fd97..3d907d7 100644
+--- a/node_modules/react-bootstrap/cjs/createWithBsPrefix.d.ts
++++ b/node_modules/react-bootstrap/cjs/createWithBsPrefix.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixRefForwardingComponent } from './helpers';
+ interface BsPrefixOptions<As extends React.ElementType = 'div'> {
+     displayName?: string;
+diff --git a/node_modules/react-bootstrap/cjs/divWithClassName.d.ts b/node_modules/react-bootstrap/cjs/divWithClassName.d.ts
+index 60853bb..6dc7e98 100644
+--- a/node_modules/react-bootstrap/cjs/divWithClassName.d.ts
++++ b/node_modules/react-bootstrap/cjs/divWithClassName.d.ts
+@@ -1,3 +1,3 @@
+-import React from 'react';
++import * as React from 'react';
+ declare const _default: (className: string) => React.ForwardRefExoticComponent<Pick<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React.HTMLAttributes<HTMLDivElement>> & React.RefAttributes<HTMLDivElement>>;
+ export default _default;
+diff --git a/node_modules/react-bootstrap/cjs/helpers.d.ts b/node_modules/react-bootstrap/cjs/helpers.d.ts
+index 8857c70..09b873c 100644
+--- a/node_modules/react-bootstrap/cjs/helpers.d.ts
++++ b/node_modules/react-bootstrap/cjs/helpers.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ export declare type Omit<T, U> = Pick<T, Exclude<keyof T, keyof U>>;
+ export declare type ReplaceProps<Inner extends React.ElementType, P> = Omit<React.ComponentPropsWithRef<Inner>, P> & P;
+ export interface BsPrefixAndClassNameOnlyProps {
+diff --git a/node_modules/react-bootstrap/esm/AbstractNav.d.ts b/node_modules/react-bootstrap/esm/AbstractNav.d.ts
+index 9b7bb71..b6f80b3 100644
+--- a/node_modules/react-bootstrap/esm/AbstractNav.d.ts
++++ b/node_modules/react-bootstrap/esm/AbstractNav.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixRefForwardingComponent } from './helpers';
+ interface AbstractNavProps {
+     activeKey?: any;
+diff --git a/node_modules/react-bootstrap/esm/AbstractNav.js b/node_modules/react-bootstrap/esm/AbstractNav.js
+index ec95ad5..627c994 100644
+--- a/node_modules/react-bootstrap/esm/AbstractNav.js
++++ b/node_modules/react-bootstrap/esm/AbstractNav.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["as", "onSelect", "activeKey", "role", "onKeyDown"];
+ import qsa from 'dom-helpers/querySelectorAll';
+-import React, { useContext, useEffect, useRef } from 'react';
++import * as React from 'react';
++import { useContext, useEffect, useRef } from 'react';
+ import useForceUpdate from '@restart/hooks/useForceUpdate';
+ import useMergedRefs from '@restart/hooks/useMergedRefs';
+ import NavContext from './NavContext';
+diff --git a/node_modules/react-bootstrap/esm/AbstractNavItem.d.ts b/node_modules/react-bootstrap/esm/AbstractNavItem.d.ts
+index f28ba25..d5b15ea 100644
+--- a/node_modules/react-bootstrap/esm/AbstractNavItem.d.ts
++++ b/node_modules/react-bootstrap/esm/AbstractNavItem.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixRefForwardingComponent } from './helpers';
+ import { EventKey } from './types';
+ interface AbstractNavItemProps {
+diff --git a/node_modules/react-bootstrap/esm/AbstractNavItem.js b/node_modules/react-bootstrap/esm/AbstractNavItem.js
+index 31e6fe0..8141b50 100644
+--- a/node_modules/react-bootstrap/esm/AbstractNavItem.js
++++ b/node_modules/react-bootstrap/esm/AbstractNavItem.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["active", "className", "eventKey", "onSelect", "onClick", "as"];
+ import classNames from 'classnames';
+-import React, { useContext } from 'react';
++import * as React from 'react';
++import { useContext } from 'react';
+ import useEventCallback from '@restart/hooks/useEventCallback';
+ import warning from 'warning';
+ import NavContext from './NavContext';
+diff --git a/node_modules/react-bootstrap/esm/Accordion.d.ts b/node_modules/react-bootstrap/esm/Accordion.d.ts
+index 71139f1..e349567 100644
+--- a/node_modules/react-bootstrap/esm/Accordion.d.ts
++++ b/node_modules/react-bootstrap/esm/Accordion.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import AccordionToggle from './AccordionToggle';
+ import AccordionCollapse from './AccordionCollapse';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent, SelectCallback } from './helpers';
+diff --git a/node_modules/react-bootstrap/esm/Accordion.js b/node_modules/react-bootstrap/esm/Accordion.js
+index 03fed5a..496d36a 100644
+--- a/node_modules/react-bootstrap/esm/Accordion.js
++++ b/node_modules/react-bootstrap/esm/Accordion.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["as", "activeKey", "bsPrefix", "children", "className", "onSelect"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useUncontrolled } from 'uncontrollable';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ import AccordionToggle from './AccordionToggle';
+diff --git a/node_modules/react-bootstrap/esm/AccordionCollapse.d.ts b/node_modules/react-bootstrap/esm/AccordionCollapse.d.ts
+index 5da87a1..5ec0c81 100644
+--- a/node_modules/react-bootstrap/esm/AccordionCollapse.d.ts
++++ b/node_modules/react-bootstrap/esm/AccordionCollapse.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { CollapseProps } from './Collapse';
+ import { BsPrefixRefForwardingComponent } from './helpers';
+ export interface AccordionCollapseProps extends React.PropsWithChildren<CollapseProps> {
+diff --git a/node_modules/react-bootstrap/esm/AccordionCollapse.js b/node_modules/react-bootstrap/esm/AccordionCollapse.js
+index 7c4da57..f445563 100644
+--- a/node_modules/react-bootstrap/esm/AccordionCollapse.js
++++ b/node_modules/react-bootstrap/esm/AccordionCollapse.js
+@@ -1,7 +1,8 @@
+ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["children", "eventKey"];
+-import React, { useContext } from 'react';
++import * as React from 'react';
++import { useContext } from 'react';
+ import Collapse from './Collapse';
+ import AccordionContext from './AccordionContext';
+ import SelectableContext from './SelectableContext';
+diff --git a/node_modules/react-bootstrap/esm/AccordionContext.d.ts b/node_modules/react-bootstrap/esm/AccordionContext.d.ts
+index db9c28a..775b7af 100644
+--- a/node_modules/react-bootstrap/esm/AccordionContext.d.ts
++++ b/node_modules/react-bootstrap/esm/AccordionContext.d.ts
+@@ -1,3 +1,3 @@
+-import React from 'react';
++import * as React from 'react';
+ declare const context: React.Context<string | null>;
+ export default context;
+diff --git a/node_modules/react-bootstrap/esm/AccordionContext.js b/node_modules/react-bootstrap/esm/AccordionContext.js
+index 4945016..0fd2831 100644
+--- a/node_modules/react-bootstrap/esm/AccordionContext.js
++++ b/node_modules/react-bootstrap/esm/AccordionContext.js
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ var context = /*#__PURE__*/React.createContext(null);
+ context.displayName = 'AccordionContext';
+ export default context;
+\ No newline at end of file
+diff --git a/node_modules/react-bootstrap/esm/AccordionToggle.d.ts b/node_modules/react-bootstrap/esm/AccordionToggle.d.ts
+index 7f2bbb4..e993723 100644
+--- a/node_modules/react-bootstrap/esm/AccordionToggle.d.ts
++++ b/node_modules/react-bootstrap/esm/AccordionToggle.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ declare type EventHandler = React.EventHandler<React.SyntheticEvent>;
+ export interface AccordionToggleProps extends BsPrefixPropsWithChildren {
+diff --git a/node_modules/react-bootstrap/esm/AccordionToggle.js b/node_modules/react-bootstrap/esm/AccordionToggle.js
+index e0d3eb7..9a5a4d2 100644
+--- a/node_modules/react-bootstrap/esm/AccordionToggle.js
++++ b/node_modules/react-bootstrap/esm/AccordionToggle.js
+@@ -1,7 +1,8 @@
+ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["as", "children", "eventKey", "onClick"];
+-import React, { useContext } from 'react';
++import * as React from 'react';
++import { useContext } from 'react';
+ import SelectableContext from './SelectableContext';
+ import AccordionContext from './AccordionContext';
+ export function useAccordionToggle(eventKey, onClick) {
+diff --git a/node_modules/react-bootstrap/esm/Alert.d.ts b/node_modules/react-bootstrap/esm/Alert.d.ts
+index 259113a..8666bc6 100644
+--- a/node_modules/react-bootstrap/esm/Alert.d.ts
++++ b/node_modules/react-bootstrap/esm/Alert.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { Variant } from './types';
+ import SafeAnchor from './SafeAnchor';
+ import { TransitionType } from './helpers';
+diff --git a/node_modules/react-bootstrap/esm/Alert.js b/node_modules/react-bootstrap/esm/Alert.js
+index 3cde11a..8331182 100644
+--- a/node_modules/react-bootstrap/esm/Alert.js
++++ b/node_modules/react-bootstrap/esm/Alert.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "show", "closeLabel", "className", "children", "variant", "onClose", "dismissible", "transition"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useUncontrolled } from 'uncontrollable';
+ import useEventCallback from '@restart/hooks/useEventCallback';
+ import { useBootstrapPrefix } from './ThemeProvider';
+diff --git a/node_modules/react-bootstrap/esm/Badge.js b/node_modules/react-bootstrap/esm/Badge.js
+index a0e73ba..e90c9cf 100644
+--- a/node_modules/react-bootstrap/esm/Badge.js
++++ b/node_modules/react-bootstrap/esm/Badge.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "variant", "pill", "className", "as"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var defaultProps = {
+   pill: false
+diff --git a/node_modules/react-bootstrap/esm/Breadcrumb.d.ts b/node_modules/react-bootstrap/esm/Breadcrumb.d.ts
+index 8c8b35a..f32e4f3 100644
+--- a/node_modules/react-bootstrap/esm/Breadcrumb.d.ts
++++ b/node_modules/react-bootstrap/esm/Breadcrumb.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import BreadcrumbItem from './BreadcrumbItem';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ export interface BreadcrumbProps extends BsPrefixPropsWithChildren {
+diff --git a/node_modules/react-bootstrap/esm/Breadcrumb.js b/node_modules/react-bootstrap/esm/Breadcrumb.js
+index 0aed3eb..a9c9b64 100644
+--- a/node_modules/react-bootstrap/esm/Breadcrumb.js
++++ b/node_modules/react-bootstrap/esm/Breadcrumb.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "listProps", "children", "label", "as"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ import BreadcrumbItem from './BreadcrumbItem';
+ var defaultProps = {
+diff --git a/node_modules/react-bootstrap/esm/BreadcrumbItem.d.ts b/node_modules/react-bootstrap/esm/BreadcrumbItem.d.ts
+index aacef17..e8cf75f 100644
+--- a/node_modules/react-bootstrap/esm/BreadcrumbItem.d.ts
++++ b/node_modules/react-bootstrap/esm/BreadcrumbItem.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ export interface BreadcrumbItemProps extends BsPrefixPropsWithChildren {
+     active?: boolean;
+diff --git a/node_modules/react-bootstrap/esm/BreadcrumbItem.js b/node_modules/react-bootstrap/esm/BreadcrumbItem.js
+index 98b9204..706c659 100644
+--- a/node_modules/react-bootstrap/esm/BreadcrumbItem.js
++++ b/node_modules/react-bootstrap/esm/BreadcrumbItem.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "active", "children", "className", "as", "linkAs", "linkProps", "href", "title", "target"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import SafeAnchor from './SafeAnchor';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var defaultProps = {
+diff --git a/node_modules/react-bootstrap/esm/Button.d.ts b/node_modules/react-bootstrap/esm/Button.d.ts
+index 49e65b9..f4e073c 100644
+--- a/node_modules/react-bootstrap/esm/Button.d.ts
++++ b/node_modules/react-bootstrap/esm/Button.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ import { ButtonVariant } from './types';
+ export declare type ButtonType = 'button' | 'reset' | 'submit' | string;
+diff --git a/node_modules/react-bootstrap/esm/Button.js b/node_modules/react-bootstrap/esm/Button.js
+index 7d779b4..33eb30e 100644
+--- a/node_modules/react-bootstrap/esm/Button.js
++++ b/node_modules/react-bootstrap/esm/Button.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "variant", "size", "active", "className", "block", "type", "as"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ import SafeAnchor from './SafeAnchor';
+ var defaultProps = {
+diff --git a/node_modules/react-bootstrap/esm/ButtonGroup.js b/node_modules/react-bootstrap/esm/ButtonGroup.js
+index 2c499e8..b7a3310 100644
+--- a/node_modules/react-bootstrap/esm/ButtonGroup.js
++++ b/node_modules/react-bootstrap/esm/ButtonGroup.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "size", "toggle", "vertical", "className", "as"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var defaultProps = {
+   vertical: false,
+diff --git a/node_modules/react-bootstrap/esm/ButtonToolbar.js b/node_modules/react-bootstrap/esm/ButtonToolbar.js
+index b752979..6a87f6b 100644
+--- a/node_modules/react-bootstrap/esm/ButtonToolbar.js
++++ b/node_modules/react-bootstrap/esm/ButtonToolbar.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var defaultProps = {
+   role: 'toolbar'
+diff --git a/node_modules/react-bootstrap/esm/Card.d.ts b/node_modules/react-bootstrap/esm/Card.d.ts
+index 7a4cc94..29d591d 100644
+--- a/node_modules/react-bootstrap/esm/Card.d.ts
++++ b/node_modules/react-bootstrap/esm/Card.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import CardImg from './CardImg';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ import { Color, Variant } from './types';
+diff --git a/node_modules/react-bootstrap/esm/Card.js b/node_modules/react-bootstrap/esm/Card.js
+index b590b11..4f900d1 100644
+--- a/node_modules/react-bootstrap/esm/Card.js
++++ b/node_modules/react-bootstrap/esm/Card.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "bg", "text", "border", "body", "children", "as"];
+ import classNames from 'classnames';
+-import React, { useMemo } from 'react';
++import * as React from 'react';
++import { useMemo } from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ import createWithBsPrefix from './createWithBsPrefix';
+ import divWithClassName from './divWithClassName';
+diff --git a/node_modules/react-bootstrap/esm/CardContext.d.ts b/node_modules/react-bootstrap/esm/CardContext.d.ts
+index 0dc0c85..56faba2 100644
+--- a/node_modules/react-bootstrap/esm/CardContext.d.ts
++++ b/node_modules/react-bootstrap/esm/CardContext.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ interface CardContextType {
+     cardHeaderBsPrefix: string;
+ }
+diff --git a/node_modules/react-bootstrap/esm/CardContext.js b/node_modules/react-bootstrap/esm/CardContext.js
+index f374633..958a549 100644
+--- a/node_modules/react-bootstrap/esm/CardContext.js
++++ b/node_modules/react-bootstrap/esm/CardContext.js
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ var context = /*#__PURE__*/React.createContext(null);
+ context.displayName = 'CardContext';
+ export default context;
+\ No newline at end of file
+diff --git a/node_modules/react-bootstrap/esm/CardImg.js b/node_modules/react-bootstrap/esm/CardImg.js
+index 8596343..35f70c1 100644
+--- a/node_modules/react-bootstrap/esm/CardImg.js
++++ b/node_modules/react-bootstrap/esm/CardImg.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "variant", "as"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var defaultProps = {
+   variant: null
+diff --git a/node_modules/react-bootstrap/esm/Carousel.d.ts b/node_modules/react-bootstrap/esm/Carousel.d.ts
+index 7046fba..c26105e 100644
+--- a/node_modules/react-bootstrap/esm/Carousel.d.ts
++++ b/node_modules/react-bootstrap/esm/Carousel.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import CarouselCaption from './CarouselCaption';
+ import CarouselItem from './CarouselItem';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+diff --git a/node_modules/react-bootstrap/esm/Carousel.js b/node_modules/react-bootstrap/esm/Carousel.js
+index 818ea9d..b0260e1 100644
+--- a/node_modules/react-bootstrap/esm/Carousel.js
++++ b/node_modules/react-bootstrap/esm/Carousel.js
+@@ -8,7 +8,8 @@ import useTimeout from '@restart/hooks/useTimeout';
+ import classNames from 'classnames';
+ import Transition from 'react-transition-group/Transition';
+ import PropTypes from 'prop-types';
+-import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
++import * as React from 'react';
++import { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+ import { useUncontrolled } from 'uncontrollable';
+ import CarouselCaption from './CarouselCaption';
+ import CarouselItem from './CarouselItem';
+diff --git a/node_modules/react-bootstrap/esm/CarouselItem.js b/node_modules/react-bootstrap/esm/CarouselItem.js
+index f0ae65c..0c9eeef 100644
+--- a/node_modules/react-bootstrap/esm/CarouselItem.js
++++ b/node_modules/react-bootstrap/esm/CarouselItem.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["as", "bsPrefix", "children", "className"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var CarouselItem = /*#__PURE__*/React.forwardRef(function (_ref, ref) {
+   var _ref$as = _ref.as,
+diff --git a/node_modules/react-bootstrap/esm/CloseButton.d.ts b/node_modules/react-bootstrap/esm/CloseButton.d.ts
+index a25191f..a756ee8 100644
+--- a/node_modules/react-bootstrap/esm/CloseButton.d.ts
++++ b/node_modules/react-bootstrap/esm/CloseButton.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ export interface CloseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+     label?: string;
+ }
+diff --git a/node_modules/react-bootstrap/esm/CloseButton.js b/node_modules/react-bootstrap/esm/CloseButton.js
+index ff8d5db..c751498 100644
+--- a/node_modules/react-bootstrap/esm/CloseButton.js
++++ b/node_modules/react-bootstrap/esm/CloseButton.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["label", "onClick", "className"];
+ import PropTypes from 'prop-types';
+-import React from 'react';
++import * as React from 'react';
+ import classNames from 'classnames';
+ var propTypes = {
+   label: PropTypes.string.isRequired,
+diff --git a/node_modules/react-bootstrap/esm/Col.js b/node_modules/react-bootstrap/esm/Col.js
+index 5f4bc4e..2d3f113 100644
+--- a/node_modules/react-bootstrap/esm/Col.js
++++ b/node_modules/react-bootstrap/esm/Col.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "as"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var DEVICE_SIZES = ['xl', 'lg', 'md', 'sm', 'xs'];
+ var Col = /*#__PURE__*/React.forwardRef( // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+diff --git a/node_modules/react-bootstrap/esm/Collapse.d.ts b/node_modules/react-bootstrap/esm/Collapse.d.ts
+index 756dda9..3996a5e 100644
+--- a/node_modules/react-bootstrap/esm/Collapse.d.ts
++++ b/node_modules/react-bootstrap/esm/Collapse.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { TransitionCallbacks } from './helpers';
+ declare type Dimension = 'height' | 'width';
+ export interface CollapseProps extends TransitionCallbacks, Pick<React.HTMLAttributes<HTMLElement>, 'role'> {
+diff --git a/node_modules/react-bootstrap/esm/Collapse.js b/node_modules/react-bootstrap/esm/Collapse.js
+index 6fdb4de..72e2a99 100644
+--- a/node_modules/react-bootstrap/esm/Collapse.js
++++ b/node_modules/react-bootstrap/esm/Collapse.js
+@@ -6,7 +6,8 @@ var _collapseStyles;
+ 
+ import classNames from 'classnames';
+ import css from 'dom-helpers/css';
+-import React, { useMemo } from 'react';
++import * as React from 'react';
++import { useMemo } from 'react';
+ import Transition, { ENTERED, ENTERING, EXITED, EXITING } from 'react-transition-group/Transition';
+ import transitionEndListener from './transitionEndListener';
+ import createChainedFunction from './createChainedFunction';
+diff --git a/node_modules/react-bootstrap/esm/Container.js b/node_modules/react-bootstrap/esm/Container.js
+index ebd32dd..1e4f5f0 100644
+--- a/node_modules/react-bootstrap/esm/Container.js
++++ b/node_modules/react-bootstrap/esm/Container.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "fluid", "as", "className"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var defaultProps = {
+   fluid: false
+diff --git a/node_modules/react-bootstrap/esm/Dropdown.d.ts b/node_modules/react-bootstrap/esm/Dropdown.d.ts
+index 80daeb4..071c2ab 100644
+--- a/node_modules/react-bootstrap/esm/Dropdown.d.ts
++++ b/node_modules/react-bootstrap/esm/Dropdown.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import DropdownItem from './DropdownItem';
+ import DropdownMenu from './DropdownMenu';
+ import DropdownToggle from './DropdownToggle';
+diff --git a/node_modules/react-bootstrap/esm/Dropdown.js b/node_modules/react-bootstrap/esm/Dropdown.js
+index b0e2674..afdafeb 100644
+--- a/node_modules/react-bootstrap/esm/Dropdown.js
++++ b/node_modules/react-bootstrap/esm/Dropdown.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "drop", "show", "className", "alignRight", "onSelect", "onToggle", "focusFirstItemOnShow", "as", "navbar"];
+ import classNames from 'classnames';
+-import React, { useContext } from 'react';
++import * as React from 'react';
++import { useContext } from 'react';
+ import BaseDropdown from 'react-overlays/Dropdown';
+ import { useUncontrolled } from 'uncontrollable';
+ import useEventCallback from '@restart/hooks/useEventCallback';
+diff --git a/node_modules/react-bootstrap/esm/DropdownButton.d.ts b/node_modules/react-bootstrap/esm/DropdownButton.d.ts
+index 8bd13cd..88e7378 100644
+--- a/node_modules/react-bootstrap/esm/DropdownButton.d.ts
++++ b/node_modules/react-bootstrap/esm/DropdownButton.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { DropdownProps } from './Dropdown';
+ import { PropsFromToggle } from './DropdownToggle';
+ import { AlignType } from './DropdownMenu';
+diff --git a/node_modules/react-bootstrap/esm/DropdownButton.js b/node_modules/react-bootstrap/esm/DropdownButton.js
+index c42f6dc..2cc7936 100644
+--- a/node_modules/react-bootstrap/esm/DropdownButton.js
++++ b/node_modules/react-bootstrap/esm/DropdownButton.js
+@@ -1,7 +1,7 @@
+ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["title", "children", "bsPrefix", "rootCloseEvent", "variant", "size", "menuAlign", "menuRole", "renderMenuOnMount", "disabled", "href", "id"];
+-import React from 'react';
++import * as React from 'react';
+ import PropTypes from 'prop-types';
+ import Dropdown from './Dropdown';
+ import DropdownToggle from './DropdownToggle';
+diff --git a/node_modules/react-bootstrap/esm/DropdownItem.d.ts b/node_modules/react-bootstrap/esm/DropdownItem.d.ts
+index 95afa33..17b3ba9 100644
+--- a/node_modules/react-bootstrap/esm/DropdownItem.d.ts
++++ b/node_modules/react-bootstrap/esm/DropdownItem.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import SafeAnchor from './SafeAnchor';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent, SelectCallback } from './helpers';
+ import { EventKey } from './types';
+diff --git a/node_modules/react-bootstrap/esm/DropdownItem.js b/node_modules/react-bootstrap/esm/DropdownItem.js
+index 4469e49..d35f4ba 100644
+--- a/node_modules/react-bootstrap/esm/DropdownItem.js
++++ b/node_modules/react-bootstrap/esm/DropdownItem.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "children", "eventKey", "disabled", "href", "onClick", "onSelect", "active", "as"];
+ import classNames from 'classnames';
+-import React, { useContext } from 'react';
++import * as React from 'react';
++import { useContext } from 'react';
+ import useEventCallback from '@restart/hooks/useEventCallback';
+ import SelectableContext, { makeEventKey } from './SelectableContext';
+ import { useBootstrapPrefix } from './ThemeProvider';
+diff --git a/node_modules/react-bootstrap/esm/DropdownMenu.js b/node_modules/react-bootstrap/esm/DropdownMenu.js
+index c857781..af0cde4 100644
+--- a/node_modules/react-bootstrap/esm/DropdownMenu.js
++++ b/node_modules/react-bootstrap/esm/DropdownMenu.js
+@@ -3,7 +3,8 @@ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWith
+ var _excluded = ["bsPrefix", "className", "align", "alignRight", "rootCloseEvent", "flip", "show", "renderOnMount", "as", "popperConfig"];
+ import classNames from 'classnames';
+ import PropTypes from 'prop-types';
+-import React, { useContext } from 'react';
++import * as React from 'react';
++import { useContext } from 'react';
+ import { useDropdownMenu } from 'react-overlays/DropdownMenu';
+ import useMergedRefs from '@restart/hooks/useMergedRefs';
+ import warning from 'warning';
+diff --git a/node_modules/react-bootstrap/esm/DropdownToggle.d.ts b/node_modules/react-bootstrap/esm/DropdownToggle.d.ts
+index e2b1a05..bc8ff6d 100644
+--- a/node_modules/react-bootstrap/esm/DropdownToggle.d.ts
++++ b/node_modules/react-bootstrap/esm/DropdownToggle.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { ButtonProps, CommonButtonProps } from './Button';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ export interface DropdownToggleProps extends BsPrefixPropsWithChildren, ButtonProps {
+diff --git a/node_modules/react-bootstrap/esm/DropdownToggle.js b/node_modules/react-bootstrap/esm/DropdownToggle.js
+index 6199d41..5145a56 100644
+--- a/node_modules/react-bootstrap/esm/DropdownToggle.js
++++ b/node_modules/react-bootstrap/esm/DropdownToggle.js
+@@ -3,7 +3,7 @@ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWith
+ var _excluded = ["bsPrefix", "split", "className", "childBsPrefix", "as"];
+ import classNames from 'classnames';
+ import isRequiredForA11y from 'prop-types-extra/lib/isRequiredForA11y';
+-import React from 'react';
++import * as React from 'react';
+ import { useDropdownToggle } from 'react-overlays/DropdownToggle';
+ import useMergedRefs from '@restart/hooks/useMergedRefs';
+ import Button from './Button';
+diff --git a/node_modules/react-bootstrap/esm/ElementChildren.d.ts b/node_modules/react-bootstrap/esm/ElementChildren.d.ts
+index f889e27..28be7cc 100644
+--- a/node_modules/react-bootstrap/esm/ElementChildren.d.ts
++++ b/node_modules/react-bootstrap/esm/ElementChildren.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ /**
+  * Iterates through children that are typically specified as `props.children`,
+  * but only maps over children that are "valid elements".
+diff --git a/node_modules/react-bootstrap/esm/ElementChildren.js b/node_modules/react-bootstrap/esm/ElementChildren.js
+index 1f9aa38..cc83274 100644
+--- a/node_modules/react-bootstrap/esm/ElementChildren.js
++++ b/node_modules/react-bootstrap/esm/ElementChildren.js
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ /**
+  * Iterates through children that are typically specified as `props.children`,
+  * but only maps over children that are "valid elements".
+diff --git a/node_modules/react-bootstrap/esm/Fade.d.ts b/node_modules/react-bootstrap/esm/Fade.d.ts
+index 826f1c3..4684cd6 100644
+--- a/node_modules/react-bootstrap/esm/Fade.d.ts
++++ b/node_modules/react-bootstrap/esm/Fade.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import Transition from 'react-transition-group/Transition';
+ import { TransitionCallbacks } from './helpers';
+ export interface FadeProps extends TransitionCallbacks {
+diff --git a/node_modules/react-bootstrap/esm/Fade.js b/node_modules/react-bootstrap/esm/Fade.js
+index 2fce18a..6b63bcc 100644
+--- a/node_modules/react-bootstrap/esm/Fade.js
++++ b/node_modules/react-bootstrap/esm/Fade.js
+@@ -5,7 +5,8 @@ var _excluded = ["className", "children"];
+ var _fadeStyles;
+ 
+ import classNames from 'classnames';
+-import React, { useCallback } from 'react';
++import * as React from 'react';
++import { useCallback } from 'react';
+ import Transition, { ENTERED, ENTERING } from 'react-transition-group/Transition';
+ import transitionEndListener from './transitionEndListener';
+ import triggerBrowserReflow from './triggerBrowserReflow';
+diff --git a/node_modules/react-bootstrap/esm/Feedback.js b/node_modules/react-bootstrap/esm/Feedback.js
+index c0f44ca..dff9e79 100644
+--- a/node_modules/react-bootstrap/esm/Feedback.js
++++ b/node_modules/react-bootstrap/esm/Feedback.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["as", "className", "type", "tooltip"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import PropTypes from 'prop-types';
+ var propTypes = {
+   /**
+diff --git a/node_modules/react-bootstrap/esm/FigureImage.d.ts b/node_modules/react-bootstrap/esm/FigureImage.d.ts
+index 4b36eb4..d6e77ad 100644
+--- a/node_modules/react-bootstrap/esm/FigureImage.d.ts
++++ b/node_modules/react-bootstrap/esm/FigureImage.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { ImageProps } from './Image';
+ declare const FigureImage: React.ForwardRefExoticComponent<ImageProps & React.RefAttributes<HTMLImageElement>>;
+ export default FigureImage;
+diff --git a/node_modules/react-bootstrap/esm/FigureImage.js b/node_modules/react-bootstrap/esm/FigureImage.js
+index 7790ac6..4efe7bf 100644
+--- a/node_modules/react-bootstrap/esm/FigureImage.js
++++ b/node_modules/react-bootstrap/esm/FigureImage.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["className"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import Image, { propTypes as imagePropTypes } from './Image';
+ var defaultProps = {
+   fluid: true
+diff --git a/node_modules/react-bootstrap/esm/Form.d.ts b/node_modules/react-bootstrap/esm/Form.d.ts
+index a90380f..1b9e6da 100644
+--- a/node_modules/react-bootstrap/esm/Form.d.ts
++++ b/node_modules/react-bootstrap/esm/Form.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import FormCheck from './FormCheck';
+ import FormFile from './FormFile';
+ import FormControl from './FormControl';
+diff --git a/node_modules/react-bootstrap/esm/Form.js b/node_modules/react-bootstrap/esm/Form.js
+index 07c11f2..2a48e93 100644
+--- a/node_modules/react-bootstrap/esm/Form.js
++++ b/node_modules/react-bootstrap/esm/Form.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "inline", "className", "validated", "as"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import FormCheck from './FormCheck';
+ import FormFile from './FormFile';
+ import FormControl from './FormControl';
+diff --git a/node_modules/react-bootstrap/esm/FormCheck.d.ts b/node_modules/react-bootstrap/esm/FormCheck.d.ts
+index 7166608..5553380 100644
+--- a/node_modules/react-bootstrap/esm/FormCheck.d.ts
++++ b/node_modules/react-bootstrap/esm/FormCheck.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import FormCheckInput from './FormCheckInput';
+ import FormCheckLabel from './FormCheckLabel';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+diff --git a/node_modules/react-bootstrap/esm/FormCheck.js b/node_modules/react-bootstrap/esm/FormCheck.js
+index c107613..bbf2212 100644
+--- a/node_modules/react-bootstrap/esm/FormCheck.js
++++ b/node_modules/react-bootstrap/esm/FormCheck.js
+@@ -3,7 +3,8 @@ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWith
+ var _excluded = ["id", "bsPrefix", "bsCustomPrefix", "inline", "disabled", "isValid", "isInvalid", "feedbackTooltip", "feedback", "className", "style", "title", "type", "label", "children", "custom", "as"];
+ import classNames from 'classnames';
+ import all from 'prop-types-extra/lib/all';
+-import React, { useContext, useMemo } from 'react';
++import * as React from 'react';
++import { useContext, useMemo } from 'react';
+ import Feedback from './Feedback';
+ import FormCheckInput from './FormCheckInput';
+ import FormCheckLabel from './FormCheckLabel';
+diff --git a/node_modules/react-bootstrap/esm/FormCheckInput.js b/node_modules/react-bootstrap/esm/FormCheckInput.js
+index f956e60..a59c37e 100644
+--- a/node_modules/react-bootstrap/esm/FormCheckInput.js
++++ b/node_modules/react-bootstrap/esm/FormCheckInput.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["id", "bsPrefix", "bsCustomPrefix", "className", "type", "isValid", "isInvalid", "isStatic", "as"];
+ import classNames from 'classnames';
+-import React, { useContext } from 'react';
++import * as React from 'react';
++import { useContext } from 'react';
+ import FormContext from './FormContext';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var FormCheckInput = /*#__PURE__*/React.forwardRef(function (_ref, ref) {
+diff --git a/node_modules/react-bootstrap/esm/FormCheckLabel.d.ts b/node_modules/react-bootstrap/esm/FormCheckLabel.d.ts
+index 1cab390..ebbacde 100644
+--- a/node_modules/react-bootstrap/esm/FormCheckLabel.d.ts
++++ b/node_modules/react-bootstrap/esm/FormCheckLabel.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixProps } from './helpers';
+ export interface FormCheckLabelProps extends React.LabelHTMLAttributes<HTMLLabelElement>, BsPrefixProps {
+     bsCustomPrefix?: string;
+diff --git a/node_modules/react-bootstrap/esm/FormCheckLabel.js b/node_modules/react-bootstrap/esm/FormCheckLabel.js
+index a984c6c..f44fa0d 100644
+--- a/node_modules/react-bootstrap/esm/FormCheckLabel.js
++++ b/node_modules/react-bootstrap/esm/FormCheckLabel.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "bsCustomPrefix", "className", "htmlFor"];
+ import classNames from 'classnames';
+-import React, { useContext } from 'react';
++import * as React from 'react';
++import { useContext } from 'react';
+ import FormContext from './FormContext';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var FormCheckLabel = /*#__PURE__*/React.forwardRef(function (_ref, ref) {
+diff --git a/node_modules/react-bootstrap/esm/FormContext.d.ts b/node_modules/react-bootstrap/esm/FormContext.d.ts
+index 01c51ab..4dfdb6c 100644
+--- a/node_modules/react-bootstrap/esm/FormContext.d.ts
++++ b/node_modules/react-bootstrap/esm/FormContext.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ interface FormContextType {
+     controlId: any;
+     custom?: boolean;
+diff --git a/node_modules/react-bootstrap/esm/FormContext.js b/node_modules/react-bootstrap/esm/FormContext.js
+index 92ad8dc..22ee594 100644
+--- a/node_modules/react-bootstrap/esm/FormContext.js
++++ b/node_modules/react-bootstrap/esm/FormContext.js
+@@ -1,4 +1,4 @@
+-import React from 'react'; // TODO
++import * as React from 'react'; // TODO
+ 
+ var FormContext = /*#__PURE__*/React.createContext({
+   controlId: undefined
+diff --git a/node_modules/react-bootstrap/esm/FormControl.d.ts b/node_modules/react-bootstrap/esm/FormControl.d.ts
+index 32914b5..ee3127d 100644
+--- a/node_modules/react-bootstrap/esm/FormControl.d.ts
++++ b/node_modules/react-bootstrap/esm/FormControl.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import Feedback from './Feedback';
+ import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
+ declare type FormControlElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+diff --git a/node_modules/react-bootstrap/esm/FormControl.js b/node_modules/react-bootstrap/esm/FormControl.js
+index 1a1bb14..626f112 100644
+--- a/node_modules/react-bootstrap/esm/FormControl.js
++++ b/node_modules/react-bootstrap/esm/FormControl.js
+@@ -3,7 +3,8 @@ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWith
+ var _excluded = ["bsPrefix", "bsCustomPrefix", "type", "size", "htmlSize", "id", "className", "isValid", "isInvalid", "plaintext", "readOnly", "custom", "as"];
+ import classNames from 'classnames';
+ import all from 'prop-types-extra/lib/all';
+-import React, { useContext } from 'react';
++import * as React from 'react';
++import { useContext } from 'react';
+ import warning from 'warning';
+ import Feedback from './Feedback';
+ import FormContext from './FormContext';
+diff --git a/node_modules/react-bootstrap/esm/FormFile.d.ts b/node_modules/react-bootstrap/esm/FormFile.d.ts
+index 0e4c006..00584ac 100644
+--- a/node_modules/react-bootstrap/esm/FormFile.d.ts
++++ b/node_modules/react-bootstrap/esm/FormFile.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import FormFileInput from './FormFileInput';
+ import FormFileLabel from './FormFileLabel';
+ import { BsCustomPrefixProps, BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+diff --git a/node_modules/react-bootstrap/esm/FormFile.js b/node_modules/react-bootstrap/esm/FormFile.js
+index ff306c2..6dbfc26 100644
+--- a/node_modules/react-bootstrap/esm/FormFile.js
++++ b/node_modules/react-bootstrap/esm/FormFile.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["id", "bsPrefix", "bsCustomPrefix", "disabled", "isValid", "isInvalid", "feedbackTooltip", "feedback", "className", "style", "label", "children", "custom", "lang", "data-browse", "as", "inputAs"];
+ import classNames from 'classnames';
+-import React, { useContext, useMemo } from 'react';
++import * as React from 'react';
++import { useContext, useMemo } from 'react';
+ import all from 'prop-types-extra/lib/all';
+ import Feedback from './Feedback';
+ import FormFileInput from './FormFileInput';
+diff --git a/node_modules/react-bootstrap/esm/FormFileInput.js b/node_modules/react-bootstrap/esm/FormFileInput.js
+index b183af7..7876235 100644
+--- a/node_modules/react-bootstrap/esm/FormFileInput.js
++++ b/node_modules/react-bootstrap/esm/FormFileInput.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["id", "bsPrefix", "bsCustomPrefix", "className", "isValid", "isInvalid", "lang", "as"];
+ import classNames from 'classnames';
+-import React, { useContext } from 'react';
++import * as React from 'react';
++import { useContext } from 'react';
+ import FormContext from './FormContext';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var FormFileInput = /*#__PURE__*/React.forwardRef(function (_ref, ref) {
+diff --git a/node_modules/react-bootstrap/esm/FormFileLabel.js b/node_modules/react-bootstrap/esm/FormFileLabel.js
+index e4d26f3..4a2dd4f 100644
+--- a/node_modules/react-bootstrap/esm/FormFileLabel.js
++++ b/node_modules/react-bootstrap/esm/FormFileLabel.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "bsCustomPrefix", "className", "htmlFor"];
+ import classNames from 'classnames';
+-import React, { useContext } from 'react';
++import * as React from 'react';
++import { useContext } from 'react';
+ import FormContext from './FormContext';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var FormFileLabel = /*#__PURE__*/React.forwardRef(function (_ref, ref) {
+diff --git a/node_modules/react-bootstrap/esm/FormGroup.js b/node_modules/react-bootstrap/esm/FormGroup.js
+index 7e5aced..368af45 100644
+--- a/node_modules/react-bootstrap/esm/FormGroup.js
++++ b/node_modules/react-bootstrap/esm/FormGroup.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "children", "controlId", "as"];
+ import classNames from 'classnames';
+-import React, { useMemo } from 'react';
++import * as React from 'react';
++import { useMemo } from 'react';
+ import FormContext from './FormContext';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var FormGroup = /*#__PURE__*/React.forwardRef(function (_ref, ref) {
+diff --git a/node_modules/react-bootstrap/esm/FormLabel.js b/node_modules/react-bootstrap/esm/FormLabel.js
+index 1e253fd..5418c83 100644
+--- a/node_modules/react-bootstrap/esm/FormLabel.js
++++ b/node_modules/react-bootstrap/esm/FormLabel.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["as", "bsPrefix", "column", "srOnly", "className", "htmlFor"];
+ import classNames from 'classnames';
+-import React, { useContext } from 'react';
++import * as React from 'react';
++import { useContext } from 'react';
+ import warning from 'warning';
+ import Col from './Col';
+ import FormContext from './FormContext';
+diff --git a/node_modules/react-bootstrap/esm/FormText.js b/node_modules/react-bootstrap/esm/FormText.js
+index 1b836c2..d2c47e5 100644
+--- a/node_modules/react-bootstrap/esm/FormText.js
++++ b/node_modules/react-bootstrap/esm/FormText.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "as", "muted"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var FormText = /*#__PURE__*/React.forwardRef( // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+ function (_ref, ref) {
+diff --git a/node_modules/react-bootstrap/esm/Image.d.ts b/node_modules/react-bootstrap/esm/Image.d.ts
+index 3213c0c..8de2f59 100644
+--- a/node_modules/react-bootstrap/esm/Image.d.ts
++++ b/node_modules/react-bootstrap/esm/Image.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import PropTypes from 'prop-types';
+ import { BsPrefixAndClassNameOnlyProps } from './helpers';
+ export interface ImageProps extends BsPrefixAndClassNameOnlyProps, React.ImgHTMLAttributes<HTMLImageElement> {
+diff --git a/node_modules/react-bootstrap/esm/Image.js b/node_modules/react-bootstrap/esm/Image.js
+index 0575270..b85de86 100644
+--- a/node_modules/react-bootstrap/esm/Image.js
++++ b/node_modules/react-bootstrap/esm/Image.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "fluid", "rounded", "roundedCircle", "thumbnail"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import PropTypes from 'prop-types';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ export var propTypes = {
+diff --git a/node_modules/react-bootstrap/esm/InputGroup.d.ts b/node_modules/react-bootstrap/esm/InputGroup.d.ts
+index e574217..79b3244 100644
+--- a/node_modules/react-bootstrap/esm/InputGroup.d.ts
++++ b/node_modules/react-bootstrap/esm/InputGroup.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
+ declare const InputGroupAppend: BsPrefixRefForwardingComponent<"div", unknown>;
+ declare const InputGroupPrepend: BsPrefixRefForwardingComponent<"div", unknown>;
+diff --git a/node_modules/react-bootstrap/esm/InputGroup.js b/node_modules/react-bootstrap/esm/InputGroup.js
+index 284c72e..bc82a08 100644
+--- a/node_modules/react-bootstrap/esm/InputGroup.js
++++ b/node_modules/react-bootstrap/esm/InputGroup.js
+@@ -2,7 +2,7 @@ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWith
+ import _extends from "@babel/runtime/helpers/esm/extends";
+ var _excluded = ["bsPrefix", "size", "hasValidation", "className", "as"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import createWithBsPrefix from './createWithBsPrefix';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var InputGroupAppend = createWithBsPrefix('input-group-append');
+diff --git a/node_modules/react-bootstrap/esm/Jumbotron.js b/node_modules/react-bootstrap/esm/Jumbotron.js
+index f68e63e..107c7c3 100644
+--- a/node_modules/react-bootstrap/esm/Jumbotron.js
++++ b/node_modules/react-bootstrap/esm/Jumbotron.js
+@@ -1,7 +1,7 @@
+ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["as", "className", "fluid", "bsPrefix"];
+-import React from 'react';
++import * as React from 'react';
+ import classNames from 'classnames';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var defaultProps = {
+diff --git a/node_modules/react-bootstrap/esm/ListGroup.js b/node_modules/react-bootstrap/esm/ListGroup.js
+index c5a5537..82b8ffe 100644
+--- a/node_modules/react-bootstrap/esm/ListGroup.js
++++ b/node_modules/react-bootstrap/esm/ListGroup.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["className", "bsPrefix", "variant", "horizontal", "as"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import warning from 'warning';
+ import { useUncontrolled } from 'uncontrollable';
+ import { useBootstrapPrefix } from './ThemeProvider';
+diff --git a/node_modules/react-bootstrap/esm/ListGroupItem.d.ts b/node_modules/react-bootstrap/esm/ListGroupItem.d.ts
+index d3e9aa8..bfec6f6 100644
+--- a/node_modules/react-bootstrap/esm/ListGroupItem.d.ts
++++ b/node_modules/react-bootstrap/esm/ListGroupItem.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
+ import { EventKey, Variant } from './types';
+ export interface ListGroupItemProps extends Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'>, BsPrefixProps {
+diff --git a/node_modules/react-bootstrap/esm/ListGroupItem.js b/node_modules/react-bootstrap/esm/ListGroupItem.js
+index b3c8a02..e0d9584 100644
+--- a/node_modules/react-bootstrap/esm/ListGroupItem.js
++++ b/node_modules/react-bootstrap/esm/ListGroupItem.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "active", "disabled", "className", "variant", "action", "as", "onClick"];
+ import classNames from 'classnames';
+-import React, { useCallback } from 'react';
++import * as React from 'react';
++import { useCallback } from 'react';
+ import AbstractNavItem from './AbstractNavItem';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var defaultProps = {
+diff --git a/node_modules/react-bootstrap/esm/Media.js b/node_modules/react-bootstrap/esm/Media.js
+index 0d3bb37..7c20c48 100644
+--- a/node_modules/react-bootstrap/esm/Media.js
++++ b/node_modules/react-bootstrap/esm/Media.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "as"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import createWithBsPrefix from './createWithBsPrefix';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var MediaBody = createWithBsPrefix('media-body');
+diff --git a/node_modules/react-bootstrap/esm/Modal.d.ts b/node_modules/react-bootstrap/esm/Modal.d.ts
+index 257f261..e2a0977 100644
+--- a/node_modules/react-bootstrap/esm/Modal.d.ts
++++ b/node_modules/react-bootstrap/esm/Modal.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BaseModalProps } from 'react-overlays/Modal';
+ import ModalBody from './ModalBody';
+ import ModalDialog from './ModalDialog';
+diff --git a/node_modules/react-bootstrap/esm/Modal.js b/node_modules/react-bootstrap/esm/Modal.js
+index 12a048e..a892339 100644
+--- a/node_modules/react-bootstrap/esm/Modal.js
++++ b/node_modules/react-bootstrap/esm/Modal.js
+@@ -11,7 +11,8 @@ import useCallbackRef from '@restart/hooks/useCallbackRef';
+ import useEventCallback from '@restart/hooks/useEventCallback';
+ import useWillUnmount from '@restart/hooks/useWillUnmount';
+ import transitionEnd from 'dom-helpers/transitionEnd';
+-import React, { useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
++import * as React from 'react';
++import { useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
+ import BaseModal from 'react-overlays/Modal';
+ import warning from 'warning';
+ import BootstrapModalManager from './BootstrapModalManager';
+diff --git a/node_modules/react-bootstrap/esm/ModalContext.d.ts b/node_modules/react-bootstrap/esm/ModalContext.d.ts
+index 895cd5f..14842ba 100644
+--- a/node_modules/react-bootstrap/esm/ModalContext.d.ts
++++ b/node_modules/react-bootstrap/esm/ModalContext.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ interface ModalContextType {
+     onHide: () => void;
+ }
+diff --git a/node_modules/react-bootstrap/esm/ModalContext.js b/node_modules/react-bootstrap/esm/ModalContext.js
+index cb3e1d0..043be7f 100644
+--- a/node_modules/react-bootstrap/esm/ModalContext.js
++++ b/node_modules/react-bootstrap/esm/ModalContext.js
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ var ModalContext = /*#__PURE__*/React.createContext({
+   // eslint-disable-next-line @typescript-eslint/no-empty-function
+   onHide: function onHide() {}
+diff --git a/node_modules/react-bootstrap/esm/ModalDialog.d.ts b/node_modules/react-bootstrap/esm/ModalDialog.d.ts
+index 684302b..35155ea 100644
+--- a/node_modules/react-bootstrap/esm/ModalDialog.d.ts
++++ b/node_modules/react-bootstrap/esm/ModalDialog.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren } from './helpers';
+ export interface ModalDialogProps extends React.HTMLAttributes<HTMLDivElement>, BsPrefixPropsWithChildren {
+     size?: 'sm' | 'lg' | 'xl';
+diff --git a/node_modules/react-bootstrap/esm/ModalDialog.js b/node_modules/react-bootstrap/esm/ModalDialog.js
+index 2ab0133..3d377d9 100644
+--- a/node_modules/react-bootstrap/esm/ModalDialog.js
++++ b/node_modules/react-bootstrap/esm/ModalDialog.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "contentClassName", "centered", "size", "children", "scrollable"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var ModalDialog = /*#__PURE__*/React.forwardRef(function (_ref, ref) {
+   var bsPrefix = _ref.bsPrefix,
+diff --git a/node_modules/react-bootstrap/esm/ModalHeader.d.ts b/node_modules/react-bootstrap/esm/ModalHeader.d.ts
+index bf12b99..b0339d1 100644
+--- a/node_modules/react-bootstrap/esm/ModalHeader.d.ts
++++ b/node_modules/react-bootstrap/esm/ModalHeader.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixAndClassNameOnlyProps } from './helpers';
+ export interface ModalHeaderProps extends React.PropsWithChildren<BsPrefixAndClassNameOnlyProps>, React.ComponentProps<'div'> {
+     closeLabel?: string;
+diff --git a/node_modules/react-bootstrap/esm/ModalHeader.js b/node_modules/react-bootstrap/esm/ModalHeader.js
+index 0afa812..b8c85b7 100644
+--- a/node_modules/react-bootstrap/esm/ModalHeader.js
++++ b/node_modules/react-bootstrap/esm/ModalHeader.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "closeLabel", "closeButton", "onHide", "className", "children"];
+ import classNames from 'classnames';
+-import React, { useContext } from 'react';
++import * as React from 'react';
++import { useContext } from 'react';
+ import useEventCallback from '@restart/hooks/useEventCallback';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ import CloseButton from './CloseButton';
+diff --git a/node_modules/react-bootstrap/esm/Nav.d.ts b/node_modules/react-bootstrap/esm/Nav.d.ts
+index 7e28836..20c558d 100644
+--- a/node_modules/react-bootstrap/esm/Nav.d.ts
++++ b/node_modules/react-bootstrap/esm/Nav.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import NavItem from './NavItem';
+ import NavLink from './NavLink';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent, SelectCallback } from './helpers';
+diff --git a/node_modules/react-bootstrap/esm/Nav.js b/node_modules/react-bootstrap/esm/Nav.js
+index 07a58ad..9382edc 100644
+--- a/node_modules/react-bootstrap/esm/Nav.js
++++ b/node_modules/react-bootstrap/esm/Nav.js
+@@ -3,7 +3,8 @@ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWith
+ var _excluded = ["as", "bsPrefix", "variant", "fill", "justify", "navbar", "navbarScroll", "className", "children", "activeKey"];
+ import classNames from 'classnames';
+ import all from 'prop-types-extra/lib/all';
+-import React, { useContext } from 'react';
++import * as React from 'react';
++import { useContext } from 'react';
+ import { useUncontrolled } from 'uncontrollable';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ import NavbarContext from './NavbarContext';
+diff --git a/node_modules/react-bootstrap/esm/NavContext.d.ts b/node_modules/react-bootstrap/esm/NavContext.d.ts
+index 7f145c7..80cedd6 100644
+--- a/node_modules/react-bootstrap/esm/NavContext.d.ts
++++ b/node_modules/react-bootstrap/esm/NavContext.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ interface NavContextType {
+     role?: string;
+     activeKey: any;
+diff --git a/node_modules/react-bootstrap/esm/NavContext.js b/node_modules/react-bootstrap/esm/NavContext.js
+index 8ce6c49..d4eaa66 100644
+--- a/node_modules/react-bootstrap/esm/NavContext.js
++++ b/node_modules/react-bootstrap/esm/NavContext.js
+@@ -1,4 +1,4 @@
+-import React from 'react'; // TODO: check this
++import * as React from 'react'; // TODO: check this
+ 
+ var NavContext = /*#__PURE__*/React.createContext(null);
+ NavContext.displayName = 'NavContext';
+diff --git a/node_modules/react-bootstrap/esm/NavDropdown.d.ts b/node_modules/react-bootstrap/esm/NavDropdown.d.ts
+index bafe574..2805528 100644
+--- a/node_modules/react-bootstrap/esm/NavDropdown.d.ts
++++ b/node_modules/react-bootstrap/esm/NavDropdown.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import Dropdown, { DropdownProps } from './Dropdown';
+ import { BsPrefixRefForwardingComponent } from './helpers';
+ export interface NavDropdownProps extends DropdownProps, Omit<React.HTMLAttributes<HTMLElement>, 'onSelect' | 'title'> {
+diff --git a/node_modules/react-bootstrap/esm/NavDropdown.js b/node_modules/react-bootstrap/esm/NavDropdown.js
+index 04da9cf..e260031 100644
+--- a/node_modules/react-bootstrap/esm/NavDropdown.js
++++ b/node_modules/react-bootstrap/esm/NavDropdown.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["id", "title", "children", "bsPrefix", "className", "rootCloseEvent", "menuRole", "disabled", "active", "renderMenuOnMount"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ import Dropdown from './Dropdown';
+ import NavLink from './NavLink';
+diff --git a/node_modules/react-bootstrap/esm/NavItem.js b/node_modules/react-bootstrap/esm/NavItem.js
+index 81d128a..6dc8378 100644
+--- a/node_modules/react-bootstrap/esm/NavItem.js
++++ b/node_modules/react-bootstrap/esm/NavItem.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "children", "as"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var NavItem = /*#__PURE__*/React.forwardRef( // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+ function (_ref, ref) {
+diff --git a/node_modules/react-bootstrap/esm/NavLink.js b/node_modules/react-bootstrap/esm/NavLink.js
+index 1bcec54..90e1f61 100644
+--- a/node_modules/react-bootstrap/esm/NavLink.js
++++ b/node_modules/react-bootstrap/esm/NavLink.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "disabled", "className", "href", "eventKey", "onSelect", "as"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import SafeAnchor from './SafeAnchor';
+ import AbstractNavItem from './AbstractNavItem';
+ import { useBootstrapPrefix } from './ThemeProvider';
+diff --git a/node_modules/react-bootstrap/esm/Navbar.js b/node_modules/react-bootstrap/esm/Navbar.js
+index aab82ca..433631f 100644
+--- a/node_modules/react-bootstrap/esm/Navbar.js
++++ b/node_modules/react-bootstrap/esm/Navbar.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "expand", "variant", "bg", "fixed", "sticky", "className", "children", "as", "expanded", "onToggle", "onSelect", "collapseOnSelect"];
+ import classNames from 'classnames';
+-import React, { useCallback, useMemo } from 'react';
++import * as React from 'react';
++import { useCallback, useMemo } from 'react';
+ import { useUncontrolled } from 'uncontrollable';
+ import createWithBsPrefix from './createWithBsPrefix';
+ import NavbarBrand from './NavbarBrand';
+diff --git a/node_modules/react-bootstrap/esm/NavbarBrand.js b/node_modules/react-bootstrap/esm/NavbarBrand.js
+index 4fcfbeb..6c3bfc9 100644
+--- a/node_modules/react-bootstrap/esm/NavbarBrand.js
++++ b/node_modules/react-bootstrap/esm/NavbarBrand.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "as"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var NavbarBrand = /*#__PURE__*/React.forwardRef(function (_ref, ref) {
+   var bsPrefix = _ref.bsPrefix,
+diff --git a/node_modules/react-bootstrap/esm/NavbarCollapse.d.ts b/node_modules/react-bootstrap/esm/NavbarCollapse.d.ts
+index c8934b5..4e9b07f 100644
+--- a/node_modules/react-bootstrap/esm/NavbarCollapse.d.ts
++++ b/node_modules/react-bootstrap/esm/NavbarCollapse.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { CollapseProps } from './Collapse';
+ import { BsPrefixProps } from './helpers';
+ export interface NavbarCollapseProps extends Omit<CollapseProps, 'children'>, React.HTMLAttributes<HTMLDivElement>, BsPrefixProps {
+diff --git a/node_modules/react-bootstrap/esm/NavbarCollapse.js b/node_modules/react-bootstrap/esm/NavbarCollapse.js
+index 4119ed3..8adbf4c 100644
+--- a/node_modules/react-bootstrap/esm/NavbarCollapse.js
++++ b/node_modules/react-bootstrap/esm/NavbarCollapse.js
+@@ -1,7 +1,7 @@
+ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["children", "bsPrefix"];
+-import React from 'react';
++import * as React from 'react';
+ import Collapse from './Collapse';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ import NavbarContext from './NavbarContext';
+diff --git a/node_modules/react-bootstrap/esm/NavbarContext.d.ts b/node_modules/react-bootstrap/esm/NavbarContext.d.ts
+index 6e55d6d..cbd5809 100644
+--- a/node_modules/react-bootstrap/esm/NavbarContext.d.ts
++++ b/node_modules/react-bootstrap/esm/NavbarContext.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ export interface NavbarContextType {
+     onToggle: () => void;
+     bsPrefix?: string;
+diff --git a/node_modules/react-bootstrap/esm/NavbarContext.js b/node_modules/react-bootstrap/esm/NavbarContext.js
+index 6979b37..b5bb810 100644
+--- a/node_modules/react-bootstrap/esm/NavbarContext.js
++++ b/node_modules/react-bootstrap/esm/NavbarContext.js
+@@ -1,4 +1,4 @@
+-import React from 'react'; // TODO: check
++import * as React from 'react'; // TODO: check
+ 
+ var context = /*#__PURE__*/React.createContext(null);
+ context.displayName = 'NavbarContext';
+diff --git a/node_modules/react-bootstrap/esm/NavbarToggle.d.ts b/node_modules/react-bootstrap/esm/NavbarToggle.d.ts
+index cc53072..c96a1e9 100644
+--- a/node_modules/react-bootstrap/esm/NavbarToggle.d.ts
++++ b/node_modules/react-bootstrap/esm/NavbarToggle.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ export interface NavbarToggleProps extends BsPrefixPropsWithChildren {
+     label?: string;
+diff --git a/node_modules/react-bootstrap/esm/NavbarToggle.js b/node_modules/react-bootstrap/esm/NavbarToggle.js
+index ec47f0e..37c5b76 100644
+--- a/node_modules/react-bootstrap/esm/NavbarToggle.js
++++ b/node_modules/react-bootstrap/esm/NavbarToggle.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "children", "label", "as", "onClick"];
+ import classNames from 'classnames';
+-import React, { useContext } from 'react';
++import * as React from 'react';
++import { useContext } from 'react';
+ import useEventCallback from '@restart/hooks/useEventCallback';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ import NavbarContext from './NavbarContext';
+diff --git a/node_modules/react-bootstrap/esm/Overlay.d.ts b/node_modules/react-bootstrap/esm/Overlay.d.ts
+index f47ad90..4cf1183 100644
+--- a/node_modules/react-bootstrap/esm/Overlay.d.ts
++++ b/node_modules/react-bootstrap/esm/Overlay.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import PropTypes from 'prop-types';
+ import { OverlayProps as BaseOverlayProps } from 'react-overlays/Overlay';
+ import { TransitionType } from './helpers';
+diff --git a/node_modules/react-bootstrap/esm/Overlay.js b/node_modules/react-bootstrap/esm/Overlay.js
+index 6abb8f9..839cfb8 100644
+--- a/node_modules/react-bootstrap/esm/Overlay.js
++++ b/node_modules/react-bootstrap/esm/Overlay.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["children", "transition", "popperConfig"],
+     _excluded2 = ["props", "arrowProps", "show", "update", "forceUpdate", "placement", "state"];
+-import React, { useRef } from 'react';
++import * as React from 'react';
++import { useRef } from 'react';
+ import classNames from 'classnames';
+ import BaseOverlay from 'react-overlays/Overlay';
+ import safeFindDOMNode from 'react-overlays/safeFindDOMNode';
+diff --git a/node_modules/react-bootstrap/esm/OverlayTrigger.d.ts b/node_modules/react-bootstrap/esm/OverlayTrigger.d.ts
+index 95868c6..2e48ee5 100644
+--- a/node_modules/react-bootstrap/esm/OverlayTrigger.d.ts
++++ b/node_modules/react-bootstrap/esm/OverlayTrigger.d.ts
+@@ -1,5 +1,5 @@
+ import PropTypes from 'prop-types';
+-import React from 'react';
++import * as React from 'react';
+ import { OverlayChildren, OverlayProps } from './Overlay';
+ export declare type OverlayTriggerType = 'hover' | 'click' | 'focus';
+ export declare type OverlayDelay = number | {
+diff --git a/node_modules/react-bootstrap/esm/OverlayTrigger.js b/node_modules/react-bootstrap/esm/OverlayTrigger.js
+index c4180e9..858f02b 100644
+--- a/node_modules/react-bootstrap/esm/OverlayTrigger.js
++++ b/node_modules/react-bootstrap/esm/OverlayTrigger.js
+@@ -3,7 +3,8 @@ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWith
+ import _inheritsLoose from "@babel/runtime/helpers/esm/inheritsLoose";
+ var _excluded = ["trigger", "overlay", "children", "popperConfig", "show", "defaultShow", "onToggle", "delay", "placement", "flip"];
+ import contains from 'dom-helpers/contains';
+-import React, { cloneElement, useCallback, useRef } from 'react';
++import * as React from 'react';
++import { cloneElement, useCallback, useRef } from 'react';
+ import useTimeout from '@restart/hooks/useTimeout';
+ import safeFindDOMNode from 'react-overlays/safeFindDOMNode';
+ import warning from 'warning';
+diff --git a/node_modules/react-bootstrap/esm/PageItem.d.ts b/node_modules/react-bootstrap/esm/PageItem.d.ts
+index 4efdf0b..e5ac798 100644
+--- a/node_modules/react-bootstrap/esm/PageItem.d.ts
++++ b/node_modules/react-bootstrap/esm/PageItem.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ export interface PageItemProps extends React.HTMLAttributes<HTMLElement>, BsPrefixPropsWithChildren {
+     disabled?: boolean;
+diff --git a/node_modules/react-bootstrap/esm/PageItem.js b/node_modules/react-bootstrap/esm/PageItem.js
+index ddf9f06..550702c 100644
+--- a/node_modules/react-bootstrap/esm/PageItem.js
++++ b/node_modules/react-bootstrap/esm/PageItem.js
+@@ -5,7 +5,7 @@ var _excluded = ["active", "disabled", "className", "style", "activeLabel", "chi
+ 
+ /* eslint-disable react/no-multi-comp */
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import SafeAnchor from './SafeAnchor';
+ var defaultProps = {
+   active: false,
+diff --git a/node_modules/react-bootstrap/esm/Pagination.js b/node_modules/react-bootstrap/esm/Pagination.js
+index 2633d41..c079b49 100644
+--- a/node_modules/react-bootstrap/esm/Pagination.js
++++ b/node_modules/react-bootstrap/esm/Pagination.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "children", "size"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ import PageItem, { Ellipsis, First, Last, Next, Prev } from './PageItem';
+ 
+diff --git a/node_modules/react-bootstrap/esm/Popover.d.ts b/node_modules/react-bootstrap/esm/Popover.d.ts
+index 2e858d5..c74e89e 100644
+--- a/node_modules/react-bootstrap/esm/Popover.d.ts
++++ b/node_modules/react-bootstrap/esm/Popover.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import PopoverTitle from './PopoverTitle';
+ import PopoverContent from './PopoverContent';
+ import { ArrowProps, Placement } from './Overlay';
+diff --git a/node_modules/react-bootstrap/esm/Popover.js b/node_modules/react-bootstrap/esm/Popover.js
+index bc70467..12a9978 100644
+--- a/node_modules/react-bootstrap/esm/Popover.js
++++ b/node_modules/react-bootstrap/esm/Popover.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "placement", "className", "style", "children", "content", "arrowProps", "popper", "show"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import isRequiredForA11y from 'prop-types-extra/lib/isRequiredForA11y';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ import PopoverTitle from './PopoverTitle';
+diff --git a/node_modules/react-bootstrap/esm/PopoverContent.js b/node_modules/react-bootstrap/esm/PopoverContent.js
+index eeda8eb..edfed7e 100644
+--- a/node_modules/react-bootstrap/esm/PopoverContent.js
++++ b/node_modules/react-bootstrap/esm/PopoverContent.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["as", "bsPrefix", "className", "children"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var PopoverContent = /*#__PURE__*/React.forwardRef(function (_ref, ref) {
+   var _ref$as = _ref.as,
+diff --git a/node_modules/react-bootstrap/esm/PopoverTitle.js b/node_modules/react-bootstrap/esm/PopoverTitle.js
+index 76f3213..116f553 100644
+--- a/node_modules/react-bootstrap/esm/PopoverTitle.js
++++ b/node_modules/react-bootstrap/esm/PopoverTitle.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["as", "bsPrefix", "className", "children"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var PopoverTitle = /*#__PURE__*/React.forwardRef(function (_ref, ref) {
+   var _ref$as = _ref.as,
+diff --git a/node_modules/react-bootstrap/esm/ProgressBar.d.ts b/node_modules/react-bootstrap/esm/ProgressBar.d.ts
+index da57703..b2a1fc8 100644
+--- a/node_modules/react-bootstrap/esm/ProgressBar.d.ts
++++ b/node_modules/react-bootstrap/esm/ProgressBar.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren } from './helpers';
+ export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement>, BsPrefixPropsWithChildren {
+     min?: number;
+diff --git a/node_modules/react-bootstrap/esm/ProgressBar.js b/node_modules/react-bootstrap/esm/ProgressBar.js
+index b76445f..2debed2 100644
+--- a/node_modules/react-bootstrap/esm/ProgressBar.js
++++ b/node_modules/react-bootstrap/esm/ProgressBar.js
+@@ -4,7 +4,8 @@ var _excluded = ["min", "now", "max", "label", "srOnly", "striped", "animated",
+     _excluded2 = ["isChild"],
+     _excluded3 = ["min", "now", "max", "label", "srOnly", "striped", "animated", "bsPrefix", "variant", "className", "children"];
+ import classNames from 'classnames';
+-import React, { cloneElement } from 'react';
++import * as React from 'react';
++import { cloneElement } from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ import { map } from './ElementChildren';
+ var ROUND_PRECISION = 1000;
+diff --git a/node_modules/react-bootstrap/esm/ResponsiveEmbed.d.ts b/node_modules/react-bootstrap/esm/ResponsiveEmbed.d.ts
+index 07328d7..e706291 100644
+--- a/node_modules/react-bootstrap/esm/ResponsiveEmbed.d.ts
++++ b/node_modules/react-bootstrap/esm/ResponsiveEmbed.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ export interface ResponsiveEmbedProps extends BsPrefixPropsWithChildren {
+     children: React.ReactChild;
+diff --git a/node_modules/react-bootstrap/esm/ResponsiveEmbed.js b/node_modules/react-bootstrap/esm/ResponsiveEmbed.js
+index 150c8a4..e8145dc 100644
+--- a/node_modules/react-bootstrap/esm/ResponsiveEmbed.js
++++ b/node_modules/react-bootstrap/esm/ResponsiveEmbed.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "children", "aspectRatio"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var defaultProps = {
+   aspectRatio: '1by1'
+diff --git a/node_modules/react-bootstrap/esm/Row.js b/node_modules/react-bootstrap/esm/Row.js
+index 9b9dcaf..2757ddc 100644
+--- a/node_modules/react-bootstrap/esm/Row.js
++++ b/node_modules/react-bootstrap/esm/Row.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "noGutters", "as"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var DEVICE_SIZES = ['xl', 'lg', 'md', 'sm', 'xs'];
+ var defaultProps = {
+diff --git a/node_modules/react-bootstrap/esm/SafeAnchor.d.ts b/node_modules/react-bootstrap/esm/SafeAnchor.d.ts
+index 9196d45..2ffacc1 100644
+--- a/node_modules/react-bootstrap/esm/SafeAnchor.d.ts
++++ b/node_modules/react-bootstrap/esm/SafeAnchor.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
+ export interface SafeAnchorProps extends React.HTMLAttributes<HTMLElement>, BsPrefixProps {
+     href?: string;
+diff --git a/node_modules/react-bootstrap/esm/SafeAnchor.js b/node_modules/react-bootstrap/esm/SafeAnchor.js
+index 2a7968b..1870025 100644
+--- a/node_modules/react-bootstrap/esm/SafeAnchor.js
++++ b/node_modules/react-bootstrap/esm/SafeAnchor.js
+@@ -1,7 +1,7 @@
+ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["as", "disabled", "onKeyDown"];
+-import React from 'react';
++import * as React from 'react';
+ import createChainedFunction from './createChainedFunction';
+ 
+ function isTrivialHref(href) {
+diff --git a/node_modules/react-bootstrap/esm/SelectableContext.d.ts b/node_modules/react-bootstrap/esm/SelectableContext.d.ts
+index 6a6cdd9..4246833 100644
+--- a/node_modules/react-bootstrap/esm/SelectableContext.d.ts
++++ b/node_modules/react-bootstrap/esm/SelectableContext.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ declare type SelectableContextType = (key: string | null, event: any) => void;
+ declare const SelectableContext: React.Context<SelectableContextType | null>;
+ export declare const makeEventKey: (eventKey?: string | number | null | undefined, href?: string | null) => string | null;
+diff --git a/node_modules/react-bootstrap/esm/SelectableContext.js b/node_modules/react-bootstrap/esm/SelectableContext.js
+index 6e06f0f..2af02a0 100644
+--- a/node_modules/react-bootstrap/esm/SelectableContext.js
++++ b/node_modules/react-bootstrap/esm/SelectableContext.js
+@@ -1,4 +1,4 @@
+-import React from 'react'; // TODO (apparently this is a bare "onSelect"?)
++import * as React from 'react'; // TODO (apparently this is a bare "onSelect"?)
+ 
+ var SelectableContext = /*#__PURE__*/React.createContext(null);
+ export var makeEventKey = function makeEventKey(eventKey, href) {
+diff --git a/node_modules/react-bootstrap/esm/Spinner.d.ts b/node_modules/react-bootstrap/esm/Spinner.d.ts
+index 73335f7..f97a9d2 100644
+--- a/node_modules/react-bootstrap/esm/Spinner.d.ts
++++ b/node_modules/react-bootstrap/esm/Spinner.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixPropsWithChildren } from './helpers';
+ import { Variant } from './types';
+ export interface SpinnerProps extends React.HTMLAttributes<HTMLElement>, BsPrefixPropsWithChildren {
+diff --git a/node_modules/react-bootstrap/esm/Spinner.js b/node_modules/react-bootstrap/esm/Spinner.js
+index 3903865..2ff8ddc 100644
+--- a/node_modules/react-bootstrap/esm/Spinner.js
++++ b/node_modules/react-bootstrap/esm/Spinner.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "variant", "animation", "size", "children", "as", "className"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var Spinner = /*#__PURE__*/React.forwardRef(function (_ref, ref) {
+   var bsPrefix = _ref.bsPrefix,
+diff --git a/node_modules/react-bootstrap/esm/SplitButton.d.ts b/node_modules/react-bootstrap/esm/SplitButton.d.ts
+index 2e84c47..8c74b67 100644
+--- a/node_modules/react-bootstrap/esm/SplitButton.d.ts
++++ b/node_modules/react-bootstrap/esm/SplitButton.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { ButtonType } from './Button';
+ import { DropdownProps } from './Dropdown';
+ import { AlignType } from './DropdownMenu';
+diff --git a/node_modules/react-bootstrap/esm/SplitButton.js b/node_modules/react-bootstrap/esm/SplitButton.js
+index c2326bc..860499c 100644
+--- a/node_modules/react-bootstrap/esm/SplitButton.js
++++ b/node_modules/react-bootstrap/esm/SplitButton.js
+@@ -1,7 +1,7 @@
+ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["id", "bsPrefix", "size", "variant", "title", "type", "toggleLabel", "children", "onClick", "href", "target", "menuAlign", "menuRole", "renderMenuOnMount", "rootCloseEvent"];
+-import React from 'react';
++import * as React from 'react';
+ import PropTypes from 'prop-types';
+ import Button from './Button';
+ import ButtonGroup from './ButtonGroup';
+diff --git a/node_modules/react-bootstrap/esm/Switch.js b/node_modules/react-bootstrap/esm/Switch.js
+index ec47dc1..00ffa53 100644
+--- a/node_modules/react-bootstrap/esm/Switch.js
++++ b/node_modules/react-bootstrap/esm/Switch.js
+@@ -1,5 +1,5 @@
+ import _extends from "@babel/runtime/helpers/esm/extends";
+-import React from 'react';
++import * as React from 'react';
+ import FormCheck from './FormCheck';
+ var Switch = /*#__PURE__*/React.forwardRef(function (props, ref) {
+   return /*#__PURE__*/React.createElement(FormCheck, _extends({}, props, {
+diff --git a/node_modules/react-bootstrap/esm/Tab.d.ts b/node_modules/react-bootstrap/esm/Tab.d.ts
+index d16438a..05f8f0e 100644
+--- a/node_modules/react-bootstrap/esm/Tab.d.ts
++++ b/node_modules/react-bootstrap/esm/Tab.d.ts
+@@ -1,5 +1,5 @@
+ import PropTypes from 'prop-types';
+-import React from 'react';
++import * as React from 'react';
+ import TabContent from './TabContent';
+ import TabPane from './TabPane';
+ import { EventKey } from './types';
+diff --git a/node_modules/react-bootstrap/esm/Tab.js b/node_modules/react-bootstrap/esm/Tab.js
+index e284ed7..7c04517 100644
+--- a/node_modules/react-bootstrap/esm/Tab.js
++++ b/node_modules/react-bootstrap/esm/Tab.js
+@@ -1,5 +1,5 @@
+ import _inheritsLoose from "@babel/runtime/helpers/esm/inheritsLoose";
+-import React from 'react';
++import * as React from 'react';
+ import TabContainer from './TabContainer';
+ import TabContent from './TabContent';
+ import TabPane from './TabPane';
+diff --git a/node_modules/react-bootstrap/esm/TabContainer.d.ts b/node_modules/react-bootstrap/esm/TabContainer.d.ts
+index 9fb0d03..2b6746f 100644
+--- a/node_modules/react-bootstrap/esm/TabContainer.d.ts
++++ b/node_modules/react-bootstrap/esm/TabContainer.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import PropTypes from 'prop-types';
+ import { SelectCallback, TransitionType } from './helpers';
+ import { EventKey } from './types';
+diff --git a/node_modules/react-bootstrap/esm/TabContainer.js b/node_modules/react-bootstrap/esm/TabContainer.js
+index a26d324..4f78856 100644
+--- a/node_modules/react-bootstrap/esm/TabContainer.js
++++ b/node_modules/react-bootstrap/esm/TabContainer.js
+@@ -1,4 +1,5 @@
+-import React, { useMemo } from 'react';
++import * as React from 'react';
++import { useMemo } from 'react';
+ import { useUncontrolled } from 'uncontrollable';
+ import TabContext from './TabContext';
+ import SelectableContext from './SelectableContext';
+diff --git a/node_modules/react-bootstrap/esm/TabContent.js b/node_modules/react-bootstrap/esm/TabContent.js
+index 15accc5..6552a38 100644
+--- a/node_modules/react-bootstrap/esm/TabContent.js
++++ b/node_modules/react-bootstrap/esm/TabContent.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "as", "className"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var TabContent = /*#__PURE__*/React.forwardRef(function (_ref, ref) {
+   var bsPrefix = _ref.bsPrefix,
+diff --git a/node_modules/react-bootstrap/esm/TabContext.d.ts b/node_modules/react-bootstrap/esm/TabContext.d.ts
+index 7cdbfe3..0c1b17d 100644
+--- a/node_modules/react-bootstrap/esm/TabContext.d.ts
++++ b/node_modules/react-bootstrap/esm/TabContext.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ export interface TabContextType {
+     onSelect: any;
+     activeKey: any;
+diff --git a/node_modules/react-bootstrap/esm/TabContext.js b/node_modules/react-bootstrap/esm/TabContext.js
+index 81ed010..98e7d01 100644
+--- a/node_modules/react-bootstrap/esm/TabContext.js
++++ b/node_modules/react-bootstrap/esm/TabContext.js
+@@ -1,3 +1,3 @@
+-import React from 'react';
++import * as React from 'react';
+ var TabContext = /*#__PURE__*/React.createContext(null);
+ export default TabContext;
+\ No newline at end of file
+diff --git a/node_modules/react-bootstrap/esm/TabPane.js b/node_modules/react-bootstrap/esm/TabPane.js
+index e8abd16..b0f5272 100644
+--- a/node_modules/react-bootstrap/esm/TabPane.js
++++ b/node_modules/react-bootstrap/esm/TabPane.js
+@@ -3,7 +3,8 @@ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWith
+ var _excluded = ["activeKey", "getControlledId", "getControllerId"],
+     _excluded2 = ["bsPrefix", "className", "active", "onEnter", "onEntering", "onEntered", "onExit", "onExiting", "onExited", "mountOnEnter", "unmountOnExit", "transition", "as", "eventKey"];
+ import classNames from 'classnames';
+-import React, { useContext } from 'react';
++import * as React from 'react';
++import { useContext } from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ import TabContext from './TabContext';
+ import SelectableContext, { makeEventKey } from './SelectableContext';
+diff --git a/node_modules/react-bootstrap/esm/Table.js b/node_modules/react-bootstrap/esm/Table.js
+index a248156..a4597c4 100644
+--- a/node_modules/react-bootstrap/esm/Table.js
++++ b/node_modules/react-bootstrap/esm/Table.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "striped", "bordered", "borderless", "hover", "size", "variant", "responsive"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var Table = /*#__PURE__*/React.forwardRef(function (_ref, ref) {
+   var bsPrefix = _ref.bsPrefix,
+diff --git a/node_modules/react-bootstrap/esm/Tabs.d.ts b/node_modules/react-bootstrap/esm/Tabs.d.ts
+index 7cafe2c..ac6f2ba 100644
+--- a/node_modules/react-bootstrap/esm/Tabs.d.ts
++++ b/node_modules/react-bootstrap/esm/Tabs.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { SelectCallback, TransitionType } from './helpers';
+ import { EventKey } from './types';
+ export interface TabsProps extends React.PropsWithChildren<unknown> {
+diff --git a/node_modules/react-bootstrap/esm/Tabs.js b/node_modules/react-bootstrap/esm/Tabs.js
+index f4e20b9..71cdf28 100644
+--- a/node_modules/react-bootstrap/esm/Tabs.js
++++ b/node_modules/react-bootstrap/esm/Tabs.js
+@@ -1,7 +1,7 @@
+ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["id", "onSelect", "transition", "mountOnEnter", "unmountOnExit", "children", "activeKey"];
+-import React from 'react';
++import * as React from 'react';
+ import requiredForA11y from 'prop-types-extra/lib/isRequiredForA11y';
+ import { useUncontrolled } from 'uncontrollable';
+ import Nav from './Nav';
+diff --git a/node_modules/react-bootstrap/esm/ThemeProvider.d.ts b/node_modules/react-bootstrap/esm/ThemeProvider.d.ts
+index c2ef6ea..2efeb7c 100644
+--- a/node_modules/react-bootstrap/esm/ThemeProvider.d.ts
++++ b/node_modules/react-bootstrap/esm/ThemeProvider.d.ts
+@@ -1,5 +1,5 @@
+ import PropTypes from 'prop-types';
+-import React from 'react';
++import * as React from 'react';
+ export interface ThemeProviderProps {
+     prefixes: Record<string, unknown>;
+ }
+diff --git a/node_modules/react-bootstrap/esm/ThemeProvider.js b/node_modules/react-bootstrap/esm/ThemeProvider.js
+index df77ae2..6ca12ef 100644
+--- a/node_modules/react-bootstrap/esm/ThemeProvider.js
++++ b/node_modules/react-bootstrap/esm/ThemeProvider.js
+@@ -1,5 +1,6 @@
+ import _extends from "@babel/runtime/helpers/esm/extends";
+-import React, { useContext, useMemo } from 'react';
++import * as React from 'react';
++import { useContext, useMemo } from 'react';
+ var ThemeContext = /*#__PURE__*/React.createContext({});
+ var Consumer = ThemeContext.Consumer,
+     Provider = ThemeContext.Provider;
+diff --git a/node_modules/react-bootstrap/esm/Toast.js b/node_modules/react-bootstrap/esm/Toast.js
+index 02255b5..e154d1e 100644
+--- a/node_modules/react-bootstrap/esm/Toast.js
++++ b/node_modules/react-bootstrap/esm/Toast.js
+@@ -1,7 +1,8 @@
+ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "className", "children", "transition", "show", "animation", "delay", "autohide", "onClose"];
+-import React, { useEffect, useMemo, useRef, useCallback } from 'react';
++import * as React from 'react';
++import { useEffect, useMemo, useRef, useCallback } from 'react';
+ import classNames from 'classnames';
+ import useTimeout from '@restart/hooks/useTimeout';
+ import Fade from './Fade';
+diff --git a/node_modules/react-bootstrap/esm/ToastContext.d.ts b/node_modules/react-bootstrap/esm/ToastContext.d.ts
+index 6dc9eab..3a833db 100644
+--- a/node_modules/react-bootstrap/esm/ToastContext.d.ts
++++ b/node_modules/react-bootstrap/esm/ToastContext.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ export interface ToastContextType {
+     onClose?: (e: Event) => void;
+ }
+diff --git a/node_modules/react-bootstrap/esm/ToastContext.js b/node_modules/react-bootstrap/esm/ToastContext.js
+index 7fdaa14..5466a4e 100644
+--- a/node_modules/react-bootstrap/esm/ToastContext.js
++++ b/node_modules/react-bootstrap/esm/ToastContext.js
+@@ -1,4 +1,4 @@
+-import React from 'react'; // TODO: check
++import * as React from 'react'; // TODO: check
+ 
+ var ToastContext = /*#__PURE__*/React.createContext({
+   // eslint-disable-next-line @typescript-eslint/no-empty-function
+diff --git a/node_modules/react-bootstrap/esm/ToastHeader.d.ts b/node_modules/react-bootstrap/esm/ToastHeader.d.ts
+index 0123901..9745bbc 100644
+--- a/node_modules/react-bootstrap/esm/ToastHeader.d.ts
++++ b/node_modules/react-bootstrap/esm/ToastHeader.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixAndClassNameOnlyProps, BsPrefixRefForwardingComponent } from './helpers';
+ export interface ToastHeaderProps extends React.PropsWithChildren<BsPrefixAndClassNameOnlyProps> {
+     closeLabel?: string;
+diff --git a/node_modules/react-bootstrap/esm/ToastHeader.js b/node_modules/react-bootstrap/esm/ToastHeader.js
+index 896de11..57da3d3 100644
+--- a/node_modules/react-bootstrap/esm/ToastHeader.js
++++ b/node_modules/react-bootstrap/esm/ToastHeader.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "closeLabel", "closeButton", "className", "children"];
+ import classNames from 'classnames';
+-import React, { useContext } from 'react';
++import * as React from 'react';
++import { useContext } from 'react';
+ import useEventCallback from '@restart/hooks/useEventCallback';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ import CloseButton from './CloseButton';
+diff --git a/node_modules/react-bootstrap/esm/ToggleButton.d.ts b/node_modules/react-bootstrap/esm/ToggleButton.d.ts
+index 0f8f1eb..7117842 100644
+--- a/node_modules/react-bootstrap/esm/ToggleButton.d.ts
++++ b/node_modules/react-bootstrap/esm/ToggleButton.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { ButtonProps } from './Button';
+ import { BsPrefixAndClassNameOnlyProps, BsPrefixComponentClass } from './helpers';
+ export interface ToggleButtonProps extends ButtonProps, React.PropsWithChildren<BsPrefixAndClassNameOnlyProps> {
+diff --git a/node_modules/react-bootstrap/esm/ToggleButton.js b/node_modules/react-bootstrap/esm/ToggleButton.js
+index d6c6ca5..5b3c10b 100644
+--- a/node_modules/react-bootstrap/esm/ToggleButton.js
++++ b/node_modules/react-bootstrap/esm/ToggleButton.js
+@@ -2,7 +2,8 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["children", "name", "className", "checked", "type", "onChange", "value", "disabled", "inputRef"];
+ import classNames from 'classnames';
+-import React, { useCallback, useState } from 'react';
++import * as React from 'react';
++import { useCallback, useState } from 'react';
+ import Button from './Button';
+ 
+ var noop = function noop() {
+diff --git a/node_modules/react-bootstrap/esm/ToggleButtonGroup.js b/node_modules/react-bootstrap/esm/ToggleButtonGroup.js
+index bd9f91d..70128f2 100644
+--- a/node_modules/react-bootstrap/esm/ToggleButtonGroup.js
++++ b/node_modules/react-bootstrap/esm/ToggleButtonGroup.js
+@@ -1,7 +1,7 @@
+ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["children", "type", "name", "value", "onChange"];
+-import React from 'react';
++import * as React from 'react';
+ import invariant from 'invariant';
+ import { useUncontrolled } from 'uncontrollable';
+ import chainFunction from './createChainedFunction';
+diff --git a/node_modules/react-bootstrap/esm/Tooltip.d.ts b/node_modules/react-bootstrap/esm/Tooltip.d.ts
+index ce1cbb5..67ad9f7 100644
+--- a/node_modules/react-bootstrap/esm/Tooltip.d.ts
++++ b/node_modules/react-bootstrap/esm/Tooltip.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { ArrowProps, Placement } from './Overlay';
+ import { BsPrefixPropsWithChildren, BsPrefixRefForwardingComponent } from './helpers';
+ export interface TooltipProps extends React.HTMLAttributes<HTMLDivElement>, BsPrefixPropsWithChildren {
+diff --git a/node_modules/react-bootstrap/esm/Tooltip.js b/node_modules/react-bootstrap/esm/Tooltip.js
+index 3f39254..7520f8c 100644
+--- a/node_modules/react-bootstrap/esm/Tooltip.js
++++ b/node_modules/react-bootstrap/esm/Tooltip.js
+@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/esm/extends";
+ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
+ var _excluded = ["bsPrefix", "placement", "className", "style", "children", "arrowProps", "popper", "show"];
+ import classNames from 'classnames';
+-import React from 'react';
++import * as React from 'react';
+ import isRequiredForA11y from 'prop-types-extra/lib/isRequiredForA11y';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ var defaultProps = {
+diff --git a/node_modules/react-bootstrap/esm/createWithBsPrefix.d.ts b/node_modules/react-bootstrap/esm/createWithBsPrefix.d.ts
+index 301fd97..3d907d7 100644
+--- a/node_modules/react-bootstrap/esm/createWithBsPrefix.d.ts
++++ b/node_modules/react-bootstrap/esm/createWithBsPrefix.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ import { BsPrefixRefForwardingComponent } from './helpers';
+ interface BsPrefixOptions<As extends React.ElementType = 'div'> {
+     displayName?: string;
+diff --git a/node_modules/react-bootstrap/esm/createWithBsPrefix.js b/node_modules/react-bootstrap/esm/createWithBsPrefix.js
+index c7c2130..32cfb93 100644
+--- a/node_modules/react-bootstrap/esm/createWithBsPrefix.js
++++ b/node_modules/react-bootstrap/esm/createWithBsPrefix.js
+@@ -3,7 +3,7 @@ import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWith
+ var _excluded = ["className", "bsPrefix", "as"];
+ import classNames from 'classnames';
+ import camelize from 'dom-helpers/camelize';
+-import React from 'react';
++import * as React from 'react';
+ import { useBootstrapPrefix } from './ThemeProvider';
+ 
+ var pascalCase = function pascalCase(str) {
+diff --git a/node_modules/react-bootstrap/esm/divWithClassName.d.ts b/node_modules/react-bootstrap/esm/divWithClassName.d.ts
+index 60853bb..6dc7e98 100644
+--- a/node_modules/react-bootstrap/esm/divWithClassName.d.ts
++++ b/node_modules/react-bootstrap/esm/divWithClassName.d.ts
+@@ -1,3 +1,3 @@
+-import React from 'react';
++import * as React from 'react';
+ declare const _default: (className: string) => React.ForwardRefExoticComponent<Pick<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React.HTMLAttributes<HTMLDivElement>> & React.RefAttributes<HTMLDivElement>>;
+ export default _default;
+diff --git a/node_modules/react-bootstrap/esm/divWithClassName.js b/node_modules/react-bootstrap/esm/divWithClassName.js
+index b3feae1..96c8403 100644
+--- a/node_modules/react-bootstrap/esm/divWithClassName.js
++++ b/node_modules/react-bootstrap/esm/divWithClassName.js
+@@ -1,5 +1,5 @@
+ import _extends from "@babel/runtime/helpers/esm/extends";
+-import React from 'react';
++import * as React from 'react';
+ import classNames from 'classnames';
+ export default (function (className) {
+   return /*#__PURE__*/React.forwardRef(function (p, ref) {
+diff --git a/node_modules/react-bootstrap/esm/helpers.d.ts b/node_modules/react-bootstrap/esm/helpers.d.ts
+index 8857c70..09b873c 100644
+--- a/node_modules/react-bootstrap/esm/helpers.d.ts
++++ b/node_modules/react-bootstrap/esm/helpers.d.ts
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import * as React from 'react';
+ export declare type Omit<T, U> = Pick<T, Exclude<keyof T, keyof U>>;
+ export declare type ReplaceProps<Inner extends React.ElementType, P> = Omit<React.ComponentPropsWithRef<Inner>, P> & P;
+ export interface BsPrefixAndClassNameOnlyProps {
+diff --git a/node_modules/react-bootstrap/esm/helpers.js b/node_modules/react-bootstrap/esm/helpers.js
+index 314cd50..afe3be8 100644
+--- a/node_modules/react-bootstrap/esm/helpers.js
++++ b/node_modules/react-bootstrap/esm/helpers.js
+@@ -1,5 +1,5 @@
+ import _inheritsLoose from "@babel/runtime/helpers/esm/inheritsLoose";
+-import React from 'react';
++import * as React from 'react';
+ export var BsPrefixComponent = /*#__PURE__*/function (_React$Component) {
+   _inheritsLoose(BsPrefixComponent, _React$Component);
+ 

@@ -1,0 +1,614 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  --black: #121314;
+  --grey-dark: #2e2e2e;
+  --grey-light: #97979f;
+  --white: #fff;
+  --purple-dark: #442f71;
+  --purple: #9a6aff;
+
+  --yellow-dark: #e9e469;
+  --pink: #e95b94;
+  height: 100%;
+  --scrollbar-thumb: #504f4f;
+  --video-border-radius: 32px;
+  --threaded-comments-width: 320px;
+  --pin-scale-up: 1.1765;
+  --commentable-video-width: calc(100% - 400px);
+  --commentable-video-max-width: 1400px;
+  --thread-border-radius: 8px;
+}
+
+body {
+  --video-player-bg-color: #f8f4f4;
+  background-color: var(--video-player-bg-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  height: auto;
+}
+
+.cord-component a {
+  color: var(--purple);
+}
+
+/* Style scrollbar like MacOS. Only works in WebKit-based and Blink broswers 
+(e.g Chrome, Safari, Opera but not Firefox */
+.cord-threaded-comments-thread-list::-webkit-scrollbar {
+  background-color: transparent;
+  width: 16px;
+}
+
+.cord-threaded-comments-thread-list::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.cord-threaded-comments-thread-list::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 16px;
+  border: 5px solid #2e2e2e;
+}
+
+.cord-threaded-comments .cord-threaded-comments-tab-container {
+  margin-top: 16px;
+  background-color: var(--grey-dark);
+  color: var(--white);
+  border-radius: 16px;
+  gap: 4px;
+}
+
+.cord-threaded-comments .cord-threaded-comments-tab:first-child {
+  border-radius: 16px 4px 4px 16px;
+}
+
+.cord-threaded-comments .cord-threaded-comments-tab:last-child {
+  border-radius: 4px 16px 16px 4px;
+}
+
+.cord-threaded-comments .cord-threaded-comments-tab:not(.cord-active):hover {
+  color: var(--black);
+}
+
+/* Hide buttons at the top and bottom of the scrollbar */
+.scrollbar::-webkit-scrollbar-button {
+  display: none;
+}
+
+#top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(var(--commentable-video-width) + var(--threaded-comments-width));
+  margin: 0 auto;
+  padding: 0 40px;
+  max-width: var(--commentable-video-max-width);
+}
+
+#content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 800px;
+  max-width: var(--commentable-video-max-width);
+  margin: auto;
+}
+
+.custom-controls-container {
+  position: absolute;
+  bottom: 0;
+  color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+  /* Users can drag to seek the video. This prevents 
+     users from selecting e.g. the elapsed time */
+  user-select: none;
+  font-family: Roboto, sans-serif;
+
+  --timeline-height: 4px;
+
+  /* Same as the browser native controls */
+  background: linear-gradient(to bottom, var(--gradient-steps)) repeat-x bottom;
+  --gradient-steps: hsla(0, 0%, 0%, 0) 0%, hsla(0, 0%, 0%, 0.013) 8.1%,
+    hsla(0, 0%, 0%, 0.049) 15.5%, hsla(0, 0%, 0%, 0.104) 22.5%,
+    hsla(0, 0%, 0%, 0.175) 29%, hsla(0, 0%, 0%, 0.259) 35.3%,
+    hsla(0, 0%, 0%, 0.352) 41.2%, hsla(0, 0%, 0%, 0.45) 47.1%,
+    hsla(0, 0%, 0%, 0.55) 52.9%, hsla(0, 0%, 0%, 0.648) 58.8%,
+    hsla(0, 0%, 0%, 0.741) 64.7%, hsla(0, 0%, 0%, 0.825) 71%,
+    hsla(0, 0%, 0%, 0.896) 77.5%, hsla(0, 0%, 0%, 0.951) 84.5%,
+    hsla(0, 0%, 0%, 0.987) 91.9%, hsl(0, 0%, 0%) 100%;
+}
+
+.custom-controls {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+}
+
+.custom-controls .play-pause-btn {
+  margin-right: 8px;
+}
+
+.custom-controls .mute-btn {
+  margin-left: auto;
+}
+
+.custom-controls .duration {
+  margin-left: 4px;
+}
+
+.custom-controls-container .progress-bar-background {
+  width: 100%;
+  height: var(--timeline-height);
+  background: var(--grey-light);
+  border-radius: 2px;
+}
+
+.custom-controls-container .progress-bar-foreground {
+  height: var(--timeline-height);
+  background-color: var(--white);
+  border-radius: 2px;
+  /* Make it overlap with the background */
+  transform: translateY(-100%);
+}
+
+.timeline-container .progress-bar-foreground::after {
+  --thumb-size: 12px;
+  content: '';
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  background: var(--white);
+  border-radius: 50%;
+  top: -4px;
+  left: calc(100% - calc(var(--thumb-size) / 2));
+  position: absolute;
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+.timeline-container:is(:hover, .seeking) .progress-bar-foreground::after {
+  opacity: 1;
+}
+
+.timeline-container {
+  /* Padding bottom Makes it easier to click it */
+  padding-bottom: 20px;
+}
+
+#video-player-demo-container {
+  background-color: var(--yellow-dark);
+  display: flex;
+  min-width: 768px;
+  padding: 36px 0 100px;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#commentableVideo {
+  display: flex;
+  width: var(--commentable-video-width);
+  border-radius: var(--video-border-radius) 0 0 var(--video-border-radius);
+  background: var(--black);
+  align-self: stretch;
+  box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.16);
+}
+
+#videoWrapper {
+  position: relative;
+  align-self: center;
+  opacity: 0;
+}
+
+#videoWrapper.ready {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+
+video {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+  /* The data url below is generated by taking the contents of images/cursor.svg and turning it into
+  a Base 64 encoded data url.  I did that with the following site: https://fffuel.co/eeencode/ */
+  cursor:
+    url('data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iMzciIGhlaWdodD0iNDEiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsdGVyPSJ1cmwoI2EpIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCI+PHBhdGggZD0iTTEyLjExIDM0LjIyMyA0LjYwNiA2LjIxbDI3LjY2MiAxNC4zNy0xMy40OTYgMy42MTYtLjIzLjI5NC02LjQzIDkuNzMyWiIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Im03LjYgOS43MjQgNS4yNTUgMTkuNjA4IDQuMzQtNi41NDYuMjQxLS4zMjYgOS42NDktMi41N0w3LjYgOS43MjRaIiBmaWxsPSIjOUE2QUZGIi8+PC9nPjxkZWZzPjxmaWx0ZXIgaWQ9ImEiIHg9Ii42MDUiIHk9IjQuMjExIiB3aWR0aD0iMzUuNjYyIiBoZWlnaHQ9IjM2LjAxMiIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBjb2xvci1pbnRlcnBvbGF0aW9uLWZpbHRlcnM9InNSR0IiPjxmZUZsb29kIGZsb29kLW9wYWNpdHk9IjAiIHJlc3VsdD0iQmFja2dyb3VuZEltYWdlRml4Ii8+PGZlQ29sb3JNYXRyaXggaW49IlNvdXJjZUFscGhhIiB2YWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDEyNyAwIiByZXN1bHQ9ImhhcmRBbHBoYSIvPjxmZU9mZnNldCBkeT0iMiIvPjxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjIiLz48ZmVDb2xvck1hdHJpeCB2YWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAuMiAwIi8+PGZlQmxlbmQgaW4yPSJCYWNrZ3JvdW5kSW1hZ2VGaXgiIHJlc3VsdD0iZWZmZWN0MV9kcm9wU2hhZG93XzE2MTdfNjkwODkiLz48ZmVCbGVuZCBpbj0iU291cmNlR3JhcGhpYyIgaW4yPSJlZmZlY3QxX2Ryb3BTaGFkb3dfMTYxN182OTA4OSIgcmVzdWx0PSJzaGFwZSIvPjwvZmlsdGVyPjwvZGVmcz48L3N2Zz4=')
+      5 7,
+    auto;
+}
+
+.thread-underlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.pin-on-video {
+  animation: moveToVideo 0.33s;
+  bottom: calc(100% - var(--pin-y-percent));
+  left: var(--pin-x-percent);
+}
+
+.pin-on-control {
+  animation: moveToControl 0.33s;
+  bottom: 26px;
+  left: calc((100% - 32px) * var(--pin-time-ratio) + 16px - 2px);
+}
+
+.pin-on-control .cord-pin-container .cord-annotation-pin {
+  display: none;
+}
+
+.pin-on-control .cord-avatar-container {
+  border-radius: 50%;
+  border: 2px solid var(--black);
+  height: 24px;
+  width: 24px;
+}
+
+.cord-component .cord-avatar-container {
+  border-radius: 50%;
+}
+
+@keyframes moveToVideo {
+  from {
+    left: calc((100% - 32px) * var(--pin-time-ratio) + 16px - 2px);
+    bottom: 22px;
+  }
+  to {
+    left: var(--pin-x-percent);
+    bottom: calc(100% - var(--pin-y-percent));
+  }
+}
+
+@keyframes moveToControl {
+  from {
+    left: var(--pin-x-percent);
+    bottom: calc(100% - var(--pin-y-percent));
+  }
+  to {
+    left: calc((100% - 32px) * var(--pin-time-ratio) + 16px - 2px);
+    bottom: 22px;
+  }
+}
+
+.cursor-tooltip {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  position: fixed;
+  padding: 4px 8px 5px 8px;
+  border-radius: 2px 11px 11px 11px;
+  background: var(--purple);
+  color: var(--white);
+}
+
+.cord-threaded-comments-thread .cord-message .timestamp {
+  font-weight: bold;
+  background-color: var(--white);
+  color: var(--cord-color-base);
+  border-radius: 99px;
+  padding: 2px 4px 2px 8px;
+  margin-right: 4px;
+  font-size: 12px;
+}
+
+/* Cord components  */
+#video-player-demo-container {
+  --cord-color-base: var(--black);
+  --cord-color-base-strong: rgba(var(--grey-light), 0.2);
+  --cord-color-content-emphasis: var(--white);
+  --cord-color-content-primary: var(--white);
+  --cord-color-notification: var(--pink);
+  --cord-secondary-button-content-color: var(--white);
+  --cord-tertiary-button-content-color: var(--white);
+  --cord-color-brand-primary: var(--white);
+}
+
+.cord-menu.cord-mention-menu {
+  background-color: var(--grey-dark);
+}
+
+.cord-annotation-pin {
+  /* Remove annotation pin border */
+  --cord-color-content-secondary: transparent;
+}
+
+#video-player-demo-container .cord-threaded-comments {
+  background-color: var(--cord-color-base);
+  border: 0;
+  border-radius: 0 var(--video-border-radius) var(--video-border-radius) 0;
+  padding: 16px;
+  box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.16);
+  min-height: 624px;
+  max-height: 624px;
+  align-self: stretch;
+  /* Put it above the underlay */
+  isolation: isolate;
+
+  width: var(--threaded-comments-width);
+}
+
+.cord-threaded-comments [data-cord-menu-item='thread-resolve'] {
+  display: list-item;
+}
+
+.cord-threaded-comments-thread.cord-highlighted,
+.cord-threaded-comments-thread:hover,
+.cord-threaded-comments-thread:hover .cord-message {
+  background-color: var(--grey-dark);
+  border-radius: 16px;
+}
+
+#video-player-demo-container .cord-threaded-comments-thread-list {
+  gap: 24px;
+  padding: 0 4px;
+  /* // Scrollbar styling for Firefox */
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+  scrollbar-width: thin;
+}
+
+.cord-threaded-comments .cord-expand-replies {
+  color: var(--grey-light);
+}
+
+#videoWrapper cord-pin {
+  position: absolute;
+}
+
+cord-pin,
+.cord-pin-container .cord-avatar-container,
+.timeline-container,
+.play-pause-btn,
+.mute-btn,
+.cord-threaded-comments-thread {
+  cursor: pointer;
+}
+
+#commentableVideo .cord-composer {
+  border-radius: var(--thread-border-radius);
+}
+
+.cord-component .cord-composer:focus-within {
+  box-shadow: unset;
+}
+
+.cord-component .cord-composer {
+  background-color: var(--black);
+}
+
+#video-player-demo-container .cord-tooltip {
+  background: var(--grey-dark);
+  color: var(--white);
+}
+#video-player-demo-container .cord-threaded-comments .cord-tooltip {
+  background: var(--black);
+}
+
+.cord-send-button.cord-disabled {
+  opacity: 0.5;
+}
+
+.cord-send-button:not(.cord-disabled):hover {
+  background-color: var(--yellow-dark);
+}
+
+.cord-composer-primary-buttons .cord-close-button:hover {
+  background-color: var(--grey-light);
+}
+
+:is(.cord-threaded-comments, cord-thread)
+  .cord-message-options-buttons
+  .cord-button:hover {
+  background-color: var(--grey-light);
+}
+
+#video-player-demo-container cord-thread {
+  border: none;
+  box-shadow: 0px 2px 16px 0px var(--black);
+  display: none;
+  width: 250px;
+  max-height: 300px;
+  border-radius: var(--thread-border-radius);
+  position: absolute;
+}
+
+#video-player-demo-container cord-thread.open-thread,
+[data-hovered-component='cord-thread']
+  #video-player-demo-container
+  :where(.pin-on-video-pulse, .pin-on-video)
+  > cord-thread {
+  display: block;
+}
+
+#video-player-demo-container cord-thread .cord-message-text .timestamp {
+  display: none;
+}
+
+cord-pin .cord-pin-container {
+  transition: transform 0.2s;
+}
+
+cord-pin .cord-pin-container:hover {
+  /* To get to 40x40 from starting size of 34px */
+  transform: scale(var(--pin-scale-up));
+  transform-origin: bottom left;
+}
+
+cord-pin cord-thread {
+  border-radius: 2px;
+  left: calc(100% + 8px);
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+
+cord-thread .cord-timestamp {
+  display: none;
+}
+
+cord-pin.thread-on-the-left cord-thread {
+  left: calc(-250px - 8px);
+}
+cord-pin.thread-on-the-top cord-thread {
+  bottom: 0;
+  top: auto;
+}
+
+cord-pin .thread-preview-bubble {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  font-size: 12px;
+  line-height: 16px;
+  max-width: 160px;
+  margin: 0;
+  overflow: hidden;
+  width: max-content;
+}
+
+cord-pin .thread-preview-bubble-container {
+  background-color: var(--white);
+  border-radius: 4px;
+  padding: 8px;
+  position: absolute;
+  --pin-half-width: 12px;
+  /* 2px to align preview to left of Pin
+   4px gap between preview and top of Pin */
+  transform: translate(
+    calc(-1 * calc(var(--pin-half-width) + 2px)),
+    calc(-100% - calc(var(--pin-half-width) + 4px))
+  );
+}
+/* Don't make video timeline disappear */
+video::-webkit-media-controls-panel,
+video::-webkit-media-controls-timeline {
+  opacity: 1 !important;
+}
+
+.cord-component .cord-reaction-list .cord-from-viewer {
+  background-color: var(--grey-light);
+}
+
+cord-notification-list-launcher
+  [data-cord-button='open-notification-list']
+  .cord-icon {
+  display: none;
+}
+
+cord-notification-list-launcher {
+  background: var(--white);
+  --cord-secondary-button-content-color: var(--black);
+  --border-radius: 32px;
+  border-radius: var(--border-radius);
+  height: 40px;
+  display: flex;
+}
+
+cord-notification-list-launcher [data-cord-button='open-notification-list'] {
+  width: var(--threaded-comments-width);
+  padding: 0 16px;
+  justify-content: start;
+}
+
+.cord-notification-container [data-cord-button='open-notification-options'] {
+  color: var(--white);
+}
+
+.cord-notification-container
+  [data-cord-button='open-notification-options']:hover {
+  color: var(--black);
+}
+
+cord-notification-list-launcher
+  [data-cord-button='open-notification-list']:hover {
+  border-radius: var(--border-radius);
+  background-color: var(--grey-light);
+}
+
+cord-page-presence {
+  padding: 2px 4px;
+}
+
+cord-page-presence .cord-avatar-container {
+  box-shadow: 4px 0px 0px var(--yellow-dark);
+  height: 40px;
+  width: 40px;
+}
+
+cord-notification-list-launcher .cord-button.cord-badge::after {
+  top: unset;
+  transform: unset;
+  color: var(--white);
+  border: 0;
+  right: 16px;
+}
+
+/* CSS that is only applied to threads with metadata containing 'autogenerated: true' */
+.pin-on-video-pulse {
+  animation-name: pulse, moveToVideo;
+  animation-duration: 1s, 0.33s;
+  animation-iteration-count: 1, 1;
+  animation-delay: 0.5s, 0s;
+  bottom: calc(100% - var(--pin-y-percent));
+  left: var(--pin-x-percent);
+  transform-origin: bottom left;
+  transition-timing-function: ease;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(var(--pin-scale-up));
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cord-component .cord-link-preview-container {
+  border-left: 4px solid var(--white);
+}
+
+.cord-component .cord-link-preview-url {
+  color: var(--white);
+}
+
+.cord-component .cord-message-link-previews {
+  color: var(--white);
+}
+
+[data-hovered-component='cord-threaded-comments']
+  #video-player-demo-container
+  .cord-threaded-comments {
+  box-shadow: 0 0 0 2px inset var(--purple);
+}
+
+[data-hovered-component='cord-notification-list-launcher']
+  cord-notification-list-launcher,
+[data-hovered-component='cord-thread'] #video-player-demo-container cord-thread,
+[data-hovered-component='cord-pin'] .cord-pin-container .cord-avatar-container {
+  box-shadow: 0 0 0 2px var(--purple);
+}
+
+[data-hovered-component='cord-page-presence'] cord-page-presence {
+  border-radius: 8px;
+  box-shadow: 0 0 0 2px var(--purple);
+}

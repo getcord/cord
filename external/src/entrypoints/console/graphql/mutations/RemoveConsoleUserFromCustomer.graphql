@@ -1,0 +1,5 @@
+mutation RemoveConsoleUserFromCustomer($email: String!) {
+  removeConsoleUserFromCustomer(email: $email) {
+    success
+  }
+}

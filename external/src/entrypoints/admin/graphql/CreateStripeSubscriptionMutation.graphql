@@ -1,0 +1,18 @@
+mutation CreateStripeSubscriptionMutation(
+  $id: UUID!
+  $price: Float!
+  $recurrence: String!
+  $pricingTier: PricingTier!
+) {
+  createStripeSubscription(
+    id: $id
+    price: $price
+    recurrence: $recurrence
+    pricingTier: $pricingTier
+  ) {
+    success
+    failureDetails {
+      message
+    }
+  }
+}

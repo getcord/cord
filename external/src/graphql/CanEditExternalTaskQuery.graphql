@@ -1,0 +1,11 @@
+query CanEditExternalTaskQuery(
+  $taskID: UUID!
+  $externalType: ThirdPartyConnectionType!
+  $_externalOrgID: String
+) {
+  task(id: $taskID, _externalOrgID: $_externalOrgID) {
+    thirdPartyReference(type: $externalType) {
+      canEdit
+    }
+  }
+}

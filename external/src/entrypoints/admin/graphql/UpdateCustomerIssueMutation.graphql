@@ -1,0 +1,31 @@
+mutation UpdateCustomerIssueMutation(
+  $id: UUID!
+  $customerID: UUID
+  $title: String
+  $body: String
+  $comingFrom: AdminCRTComingFrom
+  $decision: AdminCRTDecision
+  $communicationStatus: AdminCRTCommunicationStatus
+  $lastTouch: DateTime
+  $type: AdminCRTIssueType
+  $priority: AdminCRTPriority
+  $externallyVisible: Boolean
+  $assignee: UUID
+) {
+  updateCustomerIssue(
+    id: $id
+    customerID: $customerID
+    title: $title
+    body: $body
+    comingFrom: $comingFrom
+    decision: $decision
+    communicationStatus: $communicationStatus
+    lastTouch: $lastTouch
+    type: $type
+    priority: $priority
+    externallyVisible: $externallyVisible
+    assignee: $assignee
+  ) {
+    success
+  }
+}

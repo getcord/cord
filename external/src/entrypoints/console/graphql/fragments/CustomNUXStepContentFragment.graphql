@@ -1,0 +1,5 @@
+fragment CustomNUXStepContentFragment on CustomNUXStepContent {
+  title
+  text
+  imageURL
+}

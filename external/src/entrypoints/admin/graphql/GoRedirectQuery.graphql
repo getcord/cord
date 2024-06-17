@@ -1,0 +1,7 @@
+query GoRedirectAdminQuery($name: String!) {
+  goRedirect(name: $name) {
+    name
+    url
+    redirectCount
+  }
+}

@@ -1,0 +1,52 @@
+html {
+  --threaded-comments-width: 312px;
+}
+.website-demo body {
+  background: #2e2e2e;
+}
+
+.website-demo #root {
+  margin: 0;
+  padding: 0;
+}
+
+.website-demo #root #top-bar {
+  display: none;
+}
+.website-demo #root #content {
+  height: 100%;
+  max-height: none;
+}
+
+.website-demo #root #content #videoWrapper video {
+  border-radius: 0px;
+}
+
+.website-demo #root #content #videoWrapper {
+  height: 100%;
+
+  overflow: hidden; /* Prevent threads from overflowing the video */
+  /* Fix Safari's problem with the above `overflow: hidden` */
+  isolation: isolate;
+  width: 100%;
+}
+
+.website-demo #root #video-player-demo-container {
+  height: 100vh;
+  max-width: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0px;
+}
+.website-demo #root #video-player-demo-container .cord-threaded-comments {
+  border-radius: 0px;
+  max-height: none;
+  /* Different min height to reduce scrolling when video is scaled down */
+  min-height: 538px;
+}
+
+.website-demo #commentableVideo {
+  border-radius: 0px;
+  max-width: 768px;
+  width: calc(100% - var(--threaded-comments-width));
+}

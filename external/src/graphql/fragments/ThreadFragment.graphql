@@ -1,0 +1,9 @@
+#import MessageFragment.graphql
+#import ThreadFragmentBase.graphql
+
+fragment ThreadFragment on Thread {
+  ...ThreadFragmentBase
+  initialMessagesInclDeleted {
+    ...MessageFragment
+  }
+}

@@ -1,0 +1,23 @@
+#import fragments/ThreadActivitySummaryFragment.graphql
+
+query ThreadActivityQuery(
+  $pageContext: PageContextInput
+  $partialMatch: Boolean
+  $metadata: Metadata
+  $resolved: Boolean
+  $viewer: [ViewerThreadFilter!]
+  $_externalOrgID: String
+) {
+  activity(
+    pageContext: $pageContext
+    partialMatch: $partialMatch
+    metadata: $metadata
+    resolved: $resolved
+    viewer: $viewer
+    _externalOrgID: $_externalOrgID
+  ) {
+    threadSummary {
+      ...ThreadActivitySummaryFragment
+    }
+  }
+}

@@ -1,0 +1,9 @@
+mutation StartCheckoutMutation($productKey: String!) {
+  startCheckout(productKey: $productKey) {
+    success
+    failureDetails {
+      code
+    }
+    redirectURL
+  }
+}

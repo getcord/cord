@@ -1,0 +1,36 @@
+{
+  "extends": "../.eslintrc",
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": [
+              "i18next",
+              "i18next/*",
+              "react-i18next",
+              "react-i18next/*"
+            ],
+            "message": "Use the hooks in useCordTranslation.tsx in @cord-sdk/react instead."
+          },
+          {
+            "group": ["@cord-sdk/types/*"],
+            "message": "Don't import from a specific file within @cord-sdk/types, it breaks our build.  Import from the top-level package instead."
+          }
+        ]
+      }
+    ],
+    "no-relative-import-paths/no-relative-import-paths": "off",
+    // Allow interfaces that extend a single other interface but do nothing
+    // else.  We use these in our opensource types to give a name to something
+    // like Partial<Pick<BaseType, 'foo' | 'bar'>>, which are really ugly in the
+    // docs otherwise.
+    "@typescript-eslint/no-empty-interface": [
+      "error",
+      {
+        "allowSingleExtends": true
+      }
+    ]
+  }
+}

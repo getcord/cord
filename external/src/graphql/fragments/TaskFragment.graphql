@@ -1,0 +1,21 @@
+#import UserFragment.graphql
+
+fragment TaskFragment on Task {
+  __typename
+  id
+  done
+  todos {
+    id
+    done
+  }
+  assignees {
+    ...UserFragment
+  }
+  doneStatusLastUpdatedBy {
+    ...UserFragment
+  }
+  thirdPartyReferences {
+    type
+    previewData
+  }
+}

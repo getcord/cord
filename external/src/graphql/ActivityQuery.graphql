@@ -1,0 +1,13 @@
+#import fragments/InboxThreadFragment.graphql
+
+query ActivityQuery($_externalOrgID: String) {
+  viewer(_externalOrgID: $_externalOrgID) {
+    organization {
+      id
+      recentlyActiveThreads {
+        # This uses the old (non-Cord2) fragment because we want the last message only
+        ...InboxThreadFragment
+      }
+    }
+  }
+}

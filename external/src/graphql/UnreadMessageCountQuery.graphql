@@ -1,0 +1,5 @@
+query UnreadMessageCountQuery($threadID: UUID!) {
+  thread(threadID: $threadID) {
+    newMessagesCount
+  }
+}

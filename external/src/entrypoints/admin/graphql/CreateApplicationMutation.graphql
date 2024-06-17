@@ -1,0 +1,3 @@
+mutation CreateApplicationMutation($name: String!, $customerID: UUID!) {
+  createApplication(name: $name, customerID: $customerID)
+}

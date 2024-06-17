@@ -1,0 +1,7 @@
+#import fragments/UserFragment.graphql
+
+query UsersQuery($ids: [UUID!]!) {
+  users(ids: $ids) {
+    ...UserFragment
+  }
+}

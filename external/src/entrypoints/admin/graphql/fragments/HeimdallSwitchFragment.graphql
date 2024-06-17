@@ -1,0 +1,4 @@
+fragment HeimdallSwitchFragment on HeimdallSwitch {
+  key
+  isOn
+}

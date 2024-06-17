@@ -1,0 +1,17 @@
+export enum ComposerActions {
+  SET_ATTACHMENTS = 'set_attachments',
+  ADD_ATTACHMENT = 'add_attachment',
+  REMOVE_ATTACHMENT = 'remove_attachment',
+  SET_ATTACHMENT_UPLOAD_STATUS = 'set_attachment_upload_status',
+  SET_EDITING = 'set_editing',
+  SET_TASK = 'set_task',
+  SET_TASK_TYPE = 'set_task_type',
+  ADD_TODO = 'add_todo',
+  UPDATE_TODO = 'update_todo',
+  REMOVE_TODO = 'remove_todo',
+  ADD_ASSIGNEE = 'add_assignee',
+  REMOVE_ASSIGNEE = 'remove_assignee',
+  SET_SHAKING_TODO = 'set_shaking_todo',
+  SET_COMPOSER_EXPANDED = 'set_composer_expanded',
+  RESET_COMPOSER_STATE = 'reset_composer_state',
+}

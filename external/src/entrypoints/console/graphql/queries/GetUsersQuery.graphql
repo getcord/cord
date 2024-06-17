@@ -1,0 +1,10 @@
+query GetUsersQuery($applicationID: String!) {
+  getUsers(applicationID: $applicationID) {
+    id
+    name
+    email
+    profilePictureURL
+    status
+    createdTimestamp
+  }
+}

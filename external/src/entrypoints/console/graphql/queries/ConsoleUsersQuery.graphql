@@ -1,0 +1,8 @@
+query ConsoleUsers {
+  customerConsoleUsers {
+    id
+    email
+    name
+    pendingCustomerID
+  }
+}

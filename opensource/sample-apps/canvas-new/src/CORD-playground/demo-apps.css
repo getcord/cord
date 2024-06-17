@@ -1,0 +1,52 @@
+@font-face {
+  font-family: Favorit;
+  src: url(./fonts/Favorit-Regular.woff) format('woff');
+  src: url(./fonts/Favorit-Regular.woff2) format('woff2');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Favorit;
+  src: url(./fonts/Favorit-Bold.woff) format('woff2');
+  src: url(./fonts/Favorit-Bold.woff2) format('woff2');
+  font-weight: bold;
+}
+
+#root {
+  margin-top: 140px;
+}
+
+.demo-no-header #root {
+  margin-top: 0;
+}
+
+.demo-no-header #headers {
+  display: none;
+}
+
+/* 57px is the height of the use cases header */
+.threadListContainer {
+  top: calc(24px + 57px);
+  height: calc(100% - 48px - 57px);
+}
+
+:root {
+  --cord-font-family: Favorit, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
+}
+
+cord-page-presence {
+  --cord-page-presence-avatar-size: 56px;
+  --cord-avatar-border-radius: 64px;
+  --cord-font-family: var(--cord-font-family);
+}
+
+cord-floating-threads {
+  --cord-annotation-pin-z-index: 5;
+  --cord-font-family: var(--cord-font-family);
+}
+
+cord-thread-list {
+  --cord-font-family: var(--cord-font-family);
+}

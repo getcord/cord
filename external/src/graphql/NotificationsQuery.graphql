@@ -1,0 +1,17 @@
+#import fragments/NotificationsNodeFragment.graphql
+
+query Notifications(
+  $first: Int!
+  $after: String
+  $filter: NotificationFilterInput
+) {
+  notifications(first: $first, after: $after, filter: $filter) {
+    nodes {
+      ...NotificationsNodeFragment
+    }
+    paginationInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}

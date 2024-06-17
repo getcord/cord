@@ -1,0 +1,5 @@
+mutation SetDeepLinkThreadID($threadID: UUID!) {
+  setDeepLinkThreadID(threadID: $threadID) {
+    success
+  }
+}

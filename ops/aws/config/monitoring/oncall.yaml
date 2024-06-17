@@ -1,0 +1,83 @@
+server:
+  host: 0.0.0.0
+  port: 8080
+debug: False
+oncall_host: https://oncall.cord.com
+metrics: dummy
+db:
+  conn:
+    kwargs:
+      scheme: mysql+pymysql
+      user: root
+      password: 'quVCYmirvoC0xn1v44GG'
+      host: localhost
+      port: 3306
+      database: oncall
+      charset: utf8
+      echo: True
+    str: '%(scheme)s://%(user)s:%(password)s@%(host)s/%(database)s?charset=%(charset)s'
+  kwargs:
+    pool_recycle: 3600
+session:
+  encrypt_key: 'vYe2kaBbrsBVYULQ6qxq'
+  sign_key: 'kjp8trN4I0LLXqFAlg0r'
+auth:
+  debug: False
+  module: 'oncall.auth.modules.password'
+notifier:
+  skipsend: True
+healthcheck_path: /tmp/status
+messengers:
+  - type: dummy
+    application: oncall
+    iris_api_key: magic
+allow_http: True
+
+# allow_origins_list:
+#   - http://www.example.com
+
+supported_timezones:
+  - 'Europe/London'
+
+index_content_setting:
+  #footer: |
+  #  <ul>
+  #    <li>Oncall © LinkedIn 2020</li>
+  #    <li>Feedback</li>
+  #    <li><a href="http://oncall.tools" target="_blank">About</a></li>
+  #  </ul>
+  missing_number_note: 'No number'
+
+notifications:
+  default_roles:
+    - 'primary'
+    - 'secondary'
+  default_times:
+    - 86400
+    - 604800
+  default_modes:
+    - 'email'
+
+reminder:
+  activated: True
+  polling_interval: 360
+  default_timezone: 'Europe/London'
+
+user_validator:
+  activated: False
+  subject: 'Warning: Missing phone number in Oncall'
+  body: 'You are scheduled for an on-call shift in the future, but have no phone number recorded. Please update your information in Oncall.'
+
+user_sync:
+  module: 'oncall.user_sync.slack'
+
+# This is an oauth token for our "Grafana Monitoring" Slack app
+slack:
+  oauth_access_token: 'INSERT OAUTH SLACK APP TOKEN'
+
+slack_instance: getcord
+header_color: '#343a40'
+
+public_calendar_base_url: 'https://oncall.cord.com/api/v0/ical'
+
+require_auth: True

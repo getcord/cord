@@ -1,0 +1,7 @@
+// Metadata stored on threads left on table grids
+export type GridThreadMetadata = {
+  type: 'grid';
+  gridId: string;
+  rowId: string;
+  colId: string;
+};

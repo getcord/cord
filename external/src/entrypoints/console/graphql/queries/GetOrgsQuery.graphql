@@ -1,0 +1,7 @@
+query GetOrgsQuery($applicationID: String!) {
+  getOrgs(applicationID: $applicationID) {
+    id
+    name
+    status
+  }
+}

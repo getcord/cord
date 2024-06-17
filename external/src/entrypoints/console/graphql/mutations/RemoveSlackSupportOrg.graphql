@@ -1,0 +1,5 @@
+mutation RemoveSlackSupportOrgMutation($applicationID: UUID!) {
+  removeSlackSupportOrg(applicationID: $applicationID) {
+    success
+  }
+}

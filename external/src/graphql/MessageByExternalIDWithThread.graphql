@@ -1,0 +1,11 @@
+#import fragments/MessageFragment.graphql
+#import fragments/ThreadFragment.graphql
+
+query MessageByExternalIDWithThread($id: String!, $_externalOrgID: String) {
+  messageByExternalID(id: $id, _externalOrgID: $_externalOrgID) {
+    ...MessageFragment
+    thread {
+      ...ThreadFragment
+    }
+  }
+}

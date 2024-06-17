@@ -1,0 +1,10 @@
+#import fragments/UserFragment.graphql
+
+subscription UserLiveQuerySubscription($since: Float) {
+  userLiveQuery(since: $since) {
+    users {
+      ...UserFragment
+    }
+    upto
+  }
+}

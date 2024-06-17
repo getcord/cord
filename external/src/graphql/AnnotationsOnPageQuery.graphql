@@ -1,0 +1,29 @@
+#import fragments/MessageAnnotationAttachmentFragment.graphql
+
+query AnnotationsOnPageQuery(
+  $pageContext: PageContextInput!
+  $includeDeleted: Boolean
+  $_externalOrgID: String
+) {
+  annotationsOnPage(
+    pageContext: $pageContext
+    includeDeleted: $includeDeleted
+    _externalOrgID: $_externalOrgID
+  ) {
+    allAnnotations {
+      ...MessageAnnotationAttachmentFragment
+      message {
+        id
+        source {
+          ... on User {
+            id
+          }
+        }
+        thread {
+          id
+        }
+      }
+    }
+    hiddenAnnotationIDs
+  }
+}

@@ -1,0 +1,14 @@
+#import fragments/ThreadByExternalIDFragment.graphql
+
+query ThreadByExternalID2Query(
+  $input: ThreadByExternalID2Input!
+  $initialFetchCount: Int
+  $_externalOrgID: String
+) {
+  threadByExternalID2(input: $input, _externalOrgID: $_externalOrgID) {
+    id
+    thread {
+      ...ThreadByExternalIDFragment
+    }
+  }
+}

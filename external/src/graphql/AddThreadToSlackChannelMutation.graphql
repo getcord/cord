@@ -1,0 +1,19 @@
+mutation AddThreadToSlackChannel(
+  $slackChannelID: String!
+  $threadID: String!
+  $installBot: Boolean
+  $byExternalID: Boolean
+) {
+  addThreadToSlackChannel(
+    slackChannelID: $slackChannelID
+    threadID: $threadID
+    installBot: $installBot
+    byExternalID: $byExternalID
+  ) {
+    success
+    failureDetails {
+      code
+      message
+    }
+  }
+}

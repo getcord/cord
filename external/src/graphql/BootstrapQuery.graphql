@@ -1,0 +1,27 @@
+#import fragments/CustomNUXStepContentFragment.graphql
+
+query BootstrapQuery($featureFlagKeys: [String!]!) {
+  featureFlags(keys: $featureFlagKeys) {
+    key
+    value
+  }
+  application {
+    id
+    name
+    customLinks {
+      learnMore
+      leaveFeedback
+      upgradePlan
+    }
+    iconURL
+    customNUX {
+      initialOpen {
+        ...CustomNUXStepContentFragment
+      }
+      welcome {
+        ...CustomNUXStepContentFragment
+      }
+    }
+    environment
+  }
+}

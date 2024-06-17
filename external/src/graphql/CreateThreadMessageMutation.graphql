@@ -1,0 +1,8 @@
+mutation CreateThreadMessage(
+  $input: CreateThreadMessageInput!
+  $_externalOrgID: String
+) {
+  createThreadMessage(input: $input, _externalOrgID: $_externalOrgID) {
+    success
+  }
+}

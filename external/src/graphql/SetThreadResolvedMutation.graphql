@@ -1,0 +1,5 @@
+mutation SetThreadResolved($threadID: UUID!, $resolved: Boolean!) {
+  setThreadResolved(threadID: $threadID, resolved: $resolved) {
+    success
+  }
+}

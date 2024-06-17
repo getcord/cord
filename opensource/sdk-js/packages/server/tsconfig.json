@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "typeRoots": ["./node_modules/@types"],
+    "target": "es2021",
+    "module": "node16",
+    "moduleResolution": "node16",
+    "strict": true,
+    "esModuleInterop": true,
+    "verbatimModuleSyntax": true,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationDir": "./types",
+    "inlineSourceMap": true,
+  },
+}

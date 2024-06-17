@@ -1,0 +1,20 @@
+#import fragments/ThreadFragment.graphql
+
+query ConversationThreads($location: Context!, $_externalOrgID: String) {
+  threadsAtLocation(
+    location: $location
+    partialMatch: false
+    sort: { sortBy: most_recent_message_timestamp, sortDirection: descending }
+    _externalOrgID: $_externalOrgID
+  ) {
+    threads {
+      ...ThreadFragment
+    }
+  }
+  viewer {
+    deepLinkInfo {
+      threadID
+      messageID
+    }
+  }
+}

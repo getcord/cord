@@ -1,0 +1,6 @@
+{
+  "watch": ["dist/server/index.js", ".env"],
+  "ext": "*",
+  "delay": 300,
+  "exec": "npm run start-server-dev-snapshots"
+}

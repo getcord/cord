@@ -1,0 +1,16 @@
+mutation AddConsoleUserToCustomerMutation(
+  $customerID: UUID!
+  $email: String!
+  $sendEmailInvites: Boolean
+) {
+  addConsoleUserToCustomer(
+    customerID: $customerID
+    email: $email
+    sendEmailInvites: $sendEmailInvites
+  ) {
+    success
+    failureDetails {
+      message
+    }
+  }
+}

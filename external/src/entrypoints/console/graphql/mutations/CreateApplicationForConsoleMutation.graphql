@@ -1,0 +1,3 @@
+mutation CreateApplicationForConsoleMutation($name: String!) {
+  createApplication(name: $name)
+}

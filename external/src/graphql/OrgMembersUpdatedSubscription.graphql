@@ -1,0 +1,15 @@
+#import fragments/UserFragment.graphql
+
+subscription OrgMembersUpdatedSubscription($externalOrgID: String!) {
+  orgMembersByExternalIDUpdated(externalOrgID: $externalOrgID) {
+     __typename
+    ... on OrgMemberAdded {
+      user {
+        ...UserFragment
+      }
+    }
+    ... on OrgMemberRemoved {
+      externalUserID
+    }
+  }
+}

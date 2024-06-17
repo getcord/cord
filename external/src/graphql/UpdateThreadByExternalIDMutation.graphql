@@ -1,0 +1,25 @@
+mutation UpdateThreadByExternalID(
+  $externalThreadID: String!
+  $url: String
+  $name: String
+  $metadata: Metadata
+  $resolved: Boolean
+  $extraClassnames: String
+  $typing: Boolean
+) {
+  updateThreadByExternalID(
+    externalThreadID: $externalThreadID
+    url: $url
+    name: $name
+    metadata: $metadata
+    resolved: $resolved
+    extraClassnames: $extraClassnames
+    typing: $typing
+  ) {
+    success
+    failureDetails {
+      code
+      message
+    }
+  }
+}

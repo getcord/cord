@@ -1,0 +1,8 @@
+fragment ThreadActivitySummaryFragment on ThreadActivitySummary {
+  totalThreadCount
+  unreadThreadCount
+  newThreadCount
+  unreadSubscribedThreadCount
+  resolvedThreadCount
+  emptyThreadCount
+}

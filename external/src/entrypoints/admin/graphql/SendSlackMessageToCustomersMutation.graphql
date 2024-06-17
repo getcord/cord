@@ -1,0 +1,16 @@
+mutation SendSlackMessageToCustomers(
+  $type: CustomerSlackMessageType!
+  $message: String!
+  $customers: [String!]!
+) {
+  sendSlackMessageToCustomers(
+    type: $type
+    message: $message
+    customers: $customers
+  ) {
+    success
+    failureDetails {
+      message
+    }
+  }
+}

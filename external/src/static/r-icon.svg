@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="23" height="21" viewBox="0 0 23 21">
+  <g id="Group_373" data-name="Group 373" transform="translate(-1392 -103)" opacity="0.4">
+    <ellipse id="Ellipse_4" data-name="Ellipse 4" cx="11.5" cy="9.5" rx="11.5" ry="9.5" transform="translate(1392 103)" fill="#6f77ca"/>
+    <path id="Path_1" data-name="Path 1" d="M-22023-12310l9-4-9-9Z" transform="translate(23417 12434)" fill="#6f77ca"/>
+    <g id="Group_8" data-name="Group 8" transform="translate(18 -48)">
+      <path id="Path_2" data-name="Path 2" d="M0,1V9" transform="translate(1383 156)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+      <g id="Union_2" data-name="Union 2" transform="translate(-22019 -12325)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M23401,12487v-6h4a3,3,0,1,1,0,6Z" stroke="none"/>
+        <path d="M 23404.998046875 12485.0009765625 C 23405.55078125 12485.0009765625 23406 12484.5517578125 23406 12483.9990234375 C 23406 12483.4501953125 23405.55078125 12483.0029296875 23404.998046875 12483.0029296875 L 23402.998046875 12483.0029296875 L 23402.998046875 12485.0009765625 L 23404.998046875 12485.0009765625 M 23404.998046875 12487.0009765625 L 23400.998046875 12487.0009765625 L 23400.998046875 12481.0029296875 L 23404.998046875 12481.0029296875 C 23406.654296875 12481.0029296875 23408 12482.341796875 23408 12483.9990234375 C 23408 12485.6552734375 23406.654296875 12487.0009765625 23404.998046875 12487.0009765625 Z" stroke="none" fill="#fff"/>
+      </g>
+      <path id="Path_3" data-name="Path 3" d="M0,.5,2.5,4" transform="translate(1385.5 161)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

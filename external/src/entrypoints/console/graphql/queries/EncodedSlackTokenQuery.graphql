@@ -1,0 +1,3 @@
+query EncodedSlackTokenQuery($nonce: String!, $applicationID: UUID!) {
+  encodedSlackToken(nonce: $nonce, applicationID: $applicationID)
+}

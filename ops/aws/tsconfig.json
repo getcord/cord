@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "baseUrl": "../..",
+    "rootDir": "../..",
+    "esModuleInterop": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "incremental": true,
+    "module": "node16",
+    "moduleResolution": "node16",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "resolveJsonModule": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "strict": true,
+    "target": "es2021",
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "typeRoots": ["./node_modules/@types"],
+    "outDir": "dist"
+  },
+  "exclude": ["dist", "node_modules", "cdk.out"]
+}

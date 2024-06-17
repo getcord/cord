@@ -1,0 +1,5 @@
+query AccessTokenQuery($_externalOrgID: String) {
+  viewer(_externalOrgID: $_externalOrgID) {
+    accessToken
+  }
+}

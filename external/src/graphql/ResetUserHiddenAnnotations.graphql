@@ -1,0 +1,5 @@
+mutation ResetUserHiddenAnnotations {
+  resetUserHiddenAnnotations {
+    success
+  }
+}

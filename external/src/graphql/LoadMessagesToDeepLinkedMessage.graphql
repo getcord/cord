@@ -1,0 +1,20 @@
+#import fragments/MessageFragment.graphql
+
+query LoadMessagesToDeepLinkedMessageQuery(
+  $threadID: UUID!
+  $deepLinkedMessageID: UUID!
+  $ignoreDeleted: Boolean
+) {
+  thread(threadID: $threadID) {
+    id
+    loadNewestMessagesToTarget(
+      targetMessage: $deepLinkedMessageID
+      ignoreDeleted: $ignoreDeleted
+    ) {
+      messages {
+        ...MessageFragment
+      }
+      olderMessagesCount
+    }
+  }
+}

@@ -1,0 +1,15 @@
+mutation ClearNotificationsForMessage(
+  $messageID: String!
+  $byExternalID: Boolean!
+) {
+  clearNotificationsForMessage(
+    messageID: $messageID
+    byExternalID: $byExternalID
+  ) {
+    success
+    failureDetails {
+      message
+      code
+    }
+  }
+}

@@ -1,0 +1,16 @@
+mutation GetSignedUploadURL(
+  $applicationID: UUID!
+  $assetName: String!
+  $size: Int!
+  $mimeType: String!
+) {
+  getSignedUploadURL(
+    applicationID: $applicationID
+    assetName: $assetName
+    size: $size
+    mimeType: $mimeType
+  ) {
+    uploadURL
+    downloadURL
+  }
+}

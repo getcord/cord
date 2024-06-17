@@ -1,0 +1,33 @@
+mutation UpdateApplicationForConsoleMutation(
+  $id: UUID!
+  $name: String
+  $customLinks: CustomLinks
+  $customEmailTemplate: CustomEmailTemplate
+  $enableEmailNotifications: Boolean
+  $segmentWriteKey: String
+  $iconURL: String
+  $customNUX: CustomNUXInput
+  $redirectURI: String
+  $eventWebhookURL: String
+  $eventWebhookSubscriptions: [String!]
+) {
+  updateApplication(
+    id: $id
+    name: $name
+    customLinks: $customLinks
+    customEmailTemplate: $customEmailTemplate
+    enableEmailNotifications: $enableEmailNotifications
+    segmentWriteKey: $segmentWriteKey
+    iconURL: $iconURL
+    customNUX: $customNUX
+    redirectURI: $redirectURI
+    eventWebhookURL: $eventWebhookURL
+    eventWebhookSubscriptions: $eventWebhookSubscriptions
+  ) {
+    success
+    failureDetails {
+      code
+      message
+    }
+  }
+}

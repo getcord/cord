@@ -1,0 +1,17 @@
+mutation CreateThread(
+  $input: CreateThreadInput!
+  $externalThreadID: String
+  $_externalOrgID: String
+) {
+  createThread(
+    input: $input
+    externalThreadID: $externalThreadID
+    _externalOrgID: $_externalOrgID
+  ) {
+    success
+    failureDetails {
+      message
+      code
+    }
+  }
+}

@@ -1,0 +1,10 @@
+query ThirdPartyConnectionConfigurationQuery(
+  $type: ThirdPartyConnectionType!
+  $_externalOrgID: String
+) {
+  viewer {
+    thirdPartyConnection(type: $type, _externalOrgID: $_externalOrgID) {
+      configuration
+    }
+  }
+}

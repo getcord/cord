@@ -1,0 +1,18 @@
+subscription PresenceLiveQuerySubscription(
+  $input: PresenceLiveQueryInput!
+  $_externalOrgID: String
+) {
+  presenceLiveQuery(input: $input, _externalOrgID: $_externalOrgID) {
+    data {
+      externalUserID
+      ephemeral {
+        contexts
+      }
+      durable {
+        context
+        timestamp
+      }
+    }
+    complete
+  }
+}

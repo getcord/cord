@@ -1,0 +1,30 @@
+{
+  "name": "cord-sample-dashboard",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@cord-sdk/react": "^1.41.0",
+    "@floating-ui/react": "^0.24.3",
+    "@floating-ui/react-dom": "^0.7.0",
+    "ag-grid-community": "^28.0.0",
+    "ag-grid-react": "^28.0.0",
+    "classnames": "^2.5.1",
+    "highcharts": "^10.2.0",
+    "highcharts-react-official": "^3.1.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@cord-sdk/types": "^1.41.0",
+    "@types/react": "^18.2.18",
+    "@types/react-dom": "^18.0.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "~5.1.6",
+    "vite": "^5.0.11"
+  }
+}

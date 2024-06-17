@@ -1,0 +1,6 @@
+query SlackChannelsForConsole($applicationID: UUID!) {
+  slackChannelsForConsole(applicationID: $applicationID) {
+    name
+    slackID
+  }
+}

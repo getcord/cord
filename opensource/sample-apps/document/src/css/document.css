@@ -1,0 +1,601 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  padding: 0;
+}
+
+body {
+  --document-bg-color: #f8f4f4;
+  background-color: var(--document-bg-color);
+  font-family:
+    Roboto,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Helvetica,
+    Arial,
+    sans-serif,
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol';
+
+  --black: #1f1f1f;
+  --grey-light: #dadce0;
+  --threaded-comments-z-index: 8;
+  --header-z-index: 7;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0px;
+}
+
+.container-frame {
+  background-color: #c2e7ff;
+  border-radius: 32px 32px 0 0;
+  display: flex;
+  justify-content: center;
+  margin: 0 16px;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.demo-no-header .container-frame {
+  margin: 0;
+}
+
+.container {
+  margin: 80px 80px 0 80px;
+  padding: 0 0 16px 0;
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 8px;
+  border: 1px solid var(--grey-light);
+  background: #f9fbfd;
+  box-shadow:
+    0px 2px 2px 0px rgba(0, 0, 0, 0.1),
+    0px 2px 20px 0px rgba(0, 0, 0, 0.16);
+  min-height: 100%;
+  overflow: hidden;
+  /* 590px is an arbitrary number. Anything below that crops the container */
+  min-width: min(100%, 590px);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 8px;
+  background-color: #f9fbfd;
+  z-index: var(--header-z-index);
+}
+
+.header-subgroup {
+  display: flex;
+  gap: 8px;
+}
+
+.container hr {
+  border: 0;
+  border-top: 1px solid #c7c7c7;
+  margin: 0 20px 16px 20px;
+  /* We need to reliably have the horizontal line
+     behind the header, so as to correctly create a 
+     stacking context where the ThreadedComments
+     are always on top. */
+  z-index: calc(var(--header-z-index) - 1);
+}
+
+.comments-action-button {
+  border: none;
+  border-radius: 50%;
+  height: 34px;
+  width: 34px;
+  padding: 8px;
+  background-color: transparent;
+}
+
+.comments-action-button.open {
+  background-color: var(--grey-light);
+}
+
+.comments-action-button:hover {
+  cursor: pointer;
+  background-color: var(--grey-light);
+}
+
+#sheet {
+  --header-height: 64px;
+  --padding: 48px;
+  align-items: flex-start;
+  background-color: white;
+  border: 1px solid #c7c7c7;
+  border-bottom: none;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  height: fit-content;
+  margin-left: 5%;
+  margin-right: 350px;
+  padding: var(--padding);
+  max-width: 768px;
+  min-width: fit-content;
+  pointer-events: auto;
+  user-select: text;
+}
+
+#sheet > * {
+  isolation: isolate;
+}
+
+.comment-button {
+  align-items: center;
+  background: var(--black);
+  border-radius: 4px;
+  border: 0;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.16);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  font-size: 14px;
+  gap: 4px;
+  padding: 6px 8px;
+  position: fixed;
+  z-index: 2;
+}
+
+#body {
+  margin: 0;
+  white-space: pre-line;
+}
+
+.caret {
+  color: deeppink;
+  margin-left: -3px;
+}
+.caret::after {
+  content: attr(data-typing-user);
+  position: absolute;
+  background-color: deeppink;
+  color: white;
+  font-size: 12px;
+  transform: translateY(-80%);
+  padding: 2px;
+  border-radius: 4px;
+}
+
+cord-thread.cord-component:hover {
+  z-index: 5;
+}
+
+cord-thread.cord-component.open-thread {
+  --cord-color-base: unset;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    0 4px 8px 3px rgba(0, 0, 0, 0.15);
+  gap: 12px;
+}
+
+/* Hides the composer when a thread is not open (in focus) */
+cord-thread:not(.open-thread) .cord-composer {
+  display: none;
+}
+
+/* We normally hide the main composer when a thread is not open
+ (in focus), but we don't want to hide the composer when we are
+ in the middle of editing a message - even if the thread is not
+ open. */
+.cord-message.cord-editing .cord-composer {
+  display: flex;
+}
+
+.click-underlay {
+  display: none;
+}
+
+.click-underlay.show {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: auto;
+  isolation: isolate;
+}
+
+.comments-underlay {
+  z-index: var(--threaded-comments-z-index);
+}
+
+cord-thread.cord-component {
+  display: flex;
+  width: 256px;
+  padding: 12px;
+  flex-direction: column;
+  border-radius: 16px;
+  border: 0;
+  z-index: 1;
+
+  --cord-color-base: #edf2fa;
+  --cord-color-content-primary: var(--black);
+  --cord-color-content-secondary: var(--black);
+  --cord-color-content-emphasis: var(--black);
+}
+
+cord-thread .cord-thread-container {
+  margin-bottom: -14px;
+}
+
+.cord-message:not(.cord-deleted, .cord-action) {
+  border-radius: 0;
+  gap: 0;
+  grid-template-rows: 18px 16px auto auto;
+  grid-template-columns: 48px auto auto auto 1fr auto;
+  grid-template-areas:
+    'avatar authorName  sentViaIcon . optionsMenu'
+    'avatar timestamp  timestamp timestamp optionsMenu'
+    'messageContent messageContent messageContent messageContent messageContent'
+    'reactions reactions reactions reactions reactions';
+  margin: 0 0 16px;
+  padding-left: 5px;
+  margin-top: 0;
+  padding: 0;
+}
+
+cord-thread .cord-message:is(.cord-deleted, .cord-action) {
+  padding: 4px 4px 8px;
+}
+
+.cord-threaded-comments .cord-message:not(.cord-deleted, .cord-action) {
+  padding: 4px 4px 8px 8px;
+  margin: 0;
+}
+
+.cord-component .cord-message-block::first-child {
+  padding-top: 12px;
+}
+
+.cord-message.cord-no-reactions:not(.cord-deleted, .cord-action) {
+  grid-template-rows: 18px 16px auto;
+  grid-template-columns: 48px auto auto auto 1fr auto;
+  grid-template-areas:
+    'avatar authorName  sentViaIcon . optionsMenu'
+    'avatar timestamp  timestamp timestamp optionsMenu'
+    'messageContent messageContent messageContent messageContent messageContent';
+}
+
+:is(.cord-component .cord-message, .cord-viewer-avatar-with-composer)
+  .cord-avatar-container {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  grid-area: avatar;
+}
+
+.cord-component .cord-message .cord-timestamp {
+  grid-area: timestamp;
+  margin-top: 0;
+}
+
+.cord-component .cord-message .cord-author-name {
+  margin: 0 8px 0 0;
+}
+
+.cord-component .cord-message .cord-options-menu-trigger {
+  display: contents;
+}
+
+.cord-component
+  .cord-message
+  .cord-options-menu-trigger
+  .cord-message-options-buttons {
+  display: contents;
+}
+
+.cord-message .cord-message-options-buttons [data-cord-button='select-emoji'] {
+  align-self: end;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+  grid-area: messageContent;
+  height: 32px;
+  justify-self: end;
+  translate: 0 30%;
+  width: 32px;
+}
+
+.cord-component
+  .cord-message
+  .cord-options-menu-trigger
+  .cord-message-options-buttons
+  .cord-button[data-cord-button='thread-options'] {
+  background: transparent;
+  border-radius: 50%;
+  grid-area: optionsMenu;
+  height: 32px;
+  justify-self: flex-end;
+  rotate: 90deg;
+  width: 32px;
+}
+
+.cord-component
+  .cord-message
+  .cord-options-menu-trigger
+  .cord-message-options-buttons
+  .cord-button[data-cord-button='thread-options']:hover {
+  background: rgba(68, 71, 70, 0.08);
+}
+
+cord-thread.cord-component .cord-message .cord-message-content {
+  border-radius: 6px;
+  margin-top: 4px;
+  padding: 6px 32px 3px 8px;
+}
+
+cord-thread.cord-component .cord-message-content:hover {
+  background: #f0f0f0;
+}
+
+.cord-threaded-comments {
+  z-index: var(--threaded-comments-z-index);
+  border-radius: 8px;
+  max-height: 800px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.comments-container {
+  margin-top: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
+  visibility: hidden;
+}
+
+.open + .comments-container,
+[data-hovered-component='cord-threaded-comments'] .comments-container {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cord-threaded-comments .cord-threaded-comments-thread-list {
+  gap: 16px;
+  padding: 8px 0;
+}
+
+.cord-threaded-comments .cord-threaded-comments-thread {
+  border-radius: 8px;
+  border: 1px solid #c7c7c7;
+  margin: 0 8px;
+}
+
+.cord-threaded-comments .cord-threaded-comments-thread:hover {
+  background-color: #f6f6f6;
+  cursor: pointer;
+}
+
+.cord-threaded-comments .cord-threaded-comments-thread.cord-highlighted {
+  border: none;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    0 4px 8px 3px rgba(0, 0, 0, 0.15);
+}
+
+.cord-threaded-comments .cord-expand-replies {
+  padding: 8px;
+  border-radius: 0 0 8px 8px;
+  gap: 4px;
+}
+
+.cord-expand-replies .cord-avatar-container {
+  display: none;
+}
+
+.cord-threaded-comments .cord-unseen cord-facepile::before {
+  margin-left: 0;
+}
+
+.cord-threaded-comments button:not(.cord-threaded-comments-reopen-button) {
+  margin: 0;
+}
+
+.cord-threaded-comments .cord-highlighted button:hover {
+  background-color: var(--grey-light);
+}
+
+.cord-threaded-comments .cord-hide-replies {
+  padding-left: 8px;
+}
+
+.cord-threaded-comments .cord-show-more::before,
+.cord-threaded-comments .cord-show-more::after {
+  display: none;
+}
+
+.cord-threaded-comments .cord-replies-container {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.cord-threaded-comments .cord-viewer-avatar-with-composer {
+  margin-left: 0;
+}
+
+.cord-threaded-comments .cord-viewer-avatar-with-composer cord-avatar {
+  margin-top: 6px;
+}
+
+.cord-threaded-comments
+  .cord-message:not(.cord-deleted, .cord-action, .cord-editing) {
+  grid-template-areas:
+    'avatar authorName  sentViaIcon . optionsMenu'
+    'avatar timestamp  timestamp . optionsMenu'
+    '. messageContent messageContent messageContent .';
+  margin-top: 4px;
+}
+
+.cord-threaded-comments button[data-cord-button='select-emoji'] {
+  display: none;
+}
+
+.cord-threaded-comments .cord-message .cord-reactions-container {
+  display: none;
+}
+
+.cord-threaded-comments
+  .cord-message.cord-no-reactions:not(
+    .cord-deleted,
+    .cord-action,
+    .cord-editing
+  ) {
+  grid-template-areas:
+    'avatar authorName  sentViaIcon . optionsMenu'
+    'avatar timestamp  timestamp . optionsMenu'
+    '. messageContent messageContent messageContent .';
+}
+
+.cord-component
+  :is(.cord-scroll-container, .cord-message, .cord-message-content) {
+  background: transparent;
+}
+
+.cord-component .cord-message .cord-reaction-list {
+  margin-top: 5px;
+}
+
+.cord-component .cord-message .cord-reaction-list .cord-pill {
+  align-items: center;
+  background: transparent;
+  border: 1px solid rgb(199, 199, 199);
+  border-radius: 14px;
+  padding: 2px 7px;
+}
+
+.cord-component .cord-message .cord-reaction-list .cord-pill .cord-emoji {
+  font-size: 20px;
+  line-height: 20px;
+}
+
+.cord-component
+  .cord-message
+  .cord-reactions-container
+  [data-cord-button='select-emoji'] {
+  display: none;
+}
+
+/* We want to hide the select-emoji button from
+all floating threads except the open one, when
+we have at least one open thread. That is due to
+the stacking context created by floating threads. */
+.floating-thread-is-open
+  .floating-thread-container:not(.open)
+  .cord-message
+  [data-cord-button='select-emoji'] {
+  display: none;
+}
+
+.cord-component .cord-message.cord-editing {
+  grid-template-columns: auto 1fr;
+  grid-template-areas: 'avatar messageContent';
+  grid-template-rows: auto;
+}
+
+.cord-component .cord-message.cord-editing .cord-avatar-container {
+  margin-top: 6px;
+}
+
+.cord-component .cord-message .cord-menu {
+  background: white;
+}
+
+.cord-component .cord-thread-seen-by-container {
+  padding-left: 8px;
+  color: #696a6c;
+}
+
+.cord-component .cord-composer .cord-placeholder {
+  color: rgb(60, 64, 67);
+}
+
+.cord-component .cord-composer {
+  gap: 0;
+  height: auto;
+  background-color: white;
+  border-radius: 16px;
+  border: 1px solid var(--grey-light);
+  margin: 4px;
+}
+
+.cord-component .cord-editing .cord-composer {
+  grid-area: messageContent;
+}
+
+.cord-component .cord-composer .cord-editor-container {
+  margin: 0px 16px;
+  max-height: none;
+  min-height: 20px;
+}
+
+.cord-component .cord-composer .cord-composer-menu {
+  border: none;
+  padding: 0 8px 0;
+}
+
+cord-avatar.cord-component .cord-avatar-container {
+  border-radius: 40px;
+  box-shadow:
+    0 0 0 1px #2e2e2e,
+    0px 2px 4px 0px rgba(0, 0, 0, 0.08);
+  user-select: none;
+}
+
+cord-page-presence.cord-component .cord-avatar-container {
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+}
+
+cord-page-presence.cord-component .cord-avatar-container.cord-present {
+  box-shadow: 0 0 0 2px #b80672;
+}
+
+cord-page-presence.cord-component .cord-facepile {
+  gap: 8px;
+}
+
+emoji-picker.cord-emoji-picker {
+  --background: white;
+}
+
+:is(.blockSelection, #sheet.blockSelection) {
+  user-select: none;
+  pointer-events: none;
+}
+
+/* The following styles only exist for the Cord demo
+ They are not necessary if you are building this yourself! */
+[data-hovered-component='cord-thread'] cord-thread.cord-component,
+[data-hovered-component='cord-threaded-comments'] .cord-threaded-comments {
+  box-shadow: 0 0 0 2px #9a6aff;
+}
+
+[data-hovered-component='cord-page-presence'] cord-page-presence {
+  border-radius: 8px;
+  box-shadow: 0 0 0 2px #9a6aff;
+}
+
+[data-hovered-component='cord-avatar'] .cord-avatar-container,
+[data-hovered-component='cord-avatar'] cord-avatar {
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #9a6aff;
+}

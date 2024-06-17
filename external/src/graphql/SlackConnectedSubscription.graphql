@@ -1,0 +1,6 @@
+subscription SlackConnectedLiveQuerySubscription($orgID: UUID!) {
+  slackConnectedLiveQuery(orgID: $orgID) {
+    isOrgConnected
+    isUserConnected
+  }
+}

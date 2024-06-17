@@ -1,0 +1,7 @@
+#import fragments/S3BucketFragment.graphql
+
+query S3Bucket($id: UUID!) {
+  s3Bucket(id: $id) {
+    ...S3BucketFragment
+  }
+}

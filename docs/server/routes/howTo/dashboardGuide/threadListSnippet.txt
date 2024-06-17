@@ -1,0 +1,10 @@
+const { openThread, setRequestToOpenThread } = useContext(ThreadsContext)!;
+
+return (
+  <ThreadList
+    location={LOCATION}
+    highlightThreadId={openThread ?? undefined}
+    onThreadClick={setRequestToOpenThread}
+    style={{ maxHeight: '400px' }}
+  />
+);

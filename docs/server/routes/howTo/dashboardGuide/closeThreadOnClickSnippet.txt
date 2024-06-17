@@ -1,0 +1,22 @@
+// Effect to close thread if user clicks anywhere but a Pin or Thread
+useEffect(() => {
+  if (openThread) {
+    const close = (event: MouseEvent) => {
+      if (
+        !event.composedPath().some((e) => {
+          if (e instanceof Element) {
+            const elName = e.tagName.toLowerCase();
+            return elName === 'cord-pin' || elName === 'cord-thread';
+          }
+          return false;
+        })
+      ) {
+        // user clicked somewhere that's not the pin nor thread
+        setOpenThread(null);
+      }
+    };
+    document.addEventListener('mousedown', close);
+    return () => document.removeEventListener('mousedown', close);
+  }
+  return () => {};
+}, [openThread, setOpenThread]);

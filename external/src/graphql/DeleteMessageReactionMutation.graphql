@@ -1,0 +1,5 @@
+mutation DeleteMessageReactionMutation($messageID: UUID!, $reactionID: UUID!) {
+  deleteMessageReaction(messageID: $messageID, reactionID: $reactionID) {
+    success
+  }
+}

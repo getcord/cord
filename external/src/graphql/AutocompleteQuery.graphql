@@ -1,0 +1,46 @@
+query AutocompleteQuery(
+  $nameQuery: String
+  $_externalOrgID: String!
+  $sortUsersBy: Context
+  $sortUsersDirection: SortDirection
+) {
+  organizationByExternalID(
+    id: $_externalOrgID
+    _externalOrgID: $_externalOrgID
+  ) {
+    usersWithOrgDetails(
+      nameQuery: $nameQuery
+      sortUsersBy: $sortUsersBy
+      sortUsersDirection: $sortUsersDirection
+    ) {
+      id
+      externalID
+      displayName
+      fullName
+      name
+      shortName
+      profilePictureURL
+      metadata
+      canBeNotifiedOnSlack
+      linkedUserID
+      slackUserWithMatchingEmail
+    }
+    linkedOrganization {
+      usersWithOrgDetails(
+        nameQuery: $nameQuery
+        sortUsersBy: $sortUsersBy
+        sortUsersDirection: $sortUsersDirection
+      ) {
+        id
+        externalID
+        displayName
+        fullName
+        name
+        shortName
+        profilePictureURL
+        metadata
+        canBeNotifiedOnSlack
+      }
+    }
+  }
+}

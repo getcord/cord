@@ -1,0 +1,9 @@
+fragment ProviderRuleFragment on ProviderRule {
+  __typename
+  id
+  type
+  matchPatterns
+  nameTemplate
+  contextTransformation
+  observeDOMMutations
+}

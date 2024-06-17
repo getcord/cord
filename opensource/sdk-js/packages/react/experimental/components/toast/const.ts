@@ -1,0 +1,2 @@
+export const SUCCESS_POP_UP_TIMEOUT_MS = 3000;
+export const SUCCESS_POP_UP_TRANSITION_MS = 300;

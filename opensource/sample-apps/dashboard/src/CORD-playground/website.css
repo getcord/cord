@@ -1,0 +1,20 @@
+.website-demo {
+  overflow: hidden;
+}
+
+.website-demo #root #dashboard .header {
+  display: none;
+}
+
+.website-demo #root #dashboard #grid-container {
+  display: none;
+}
+
+/* Make selector very specific to override Chrome's
+"prevent-scrollbar-hidden" class. */
+.website-demo body:not(#very.specific.selector) {
+  overflow: hidden !important;
+
+  background: var(--grey-dark);
+  padding: 0;
+}

@@ -1,0 +1,8 @@
+mutation AddCustomerIssueSubscriptionMutation($issueID: UUID!) {
+  addCustomerIssueSubscription(issueID: $issueID) {
+    success
+    failureDetails {
+      message
+    }
+  }
+}

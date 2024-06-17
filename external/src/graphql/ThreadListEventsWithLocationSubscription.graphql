@@ -1,0 +1,45 @@
+#import fragments/ThreadFragment.graphql
+#import fragments/MessageFragment.graphql
+subscription ThreadListEventsWithLocation(
+  $location: Context
+  $partialMatch: Boolean
+  $resolved: Boolean
+  $filter: ThreadFilterInput
+  $_externalOrgID: String
+) {
+  pageEventsWithLocation(
+    location: $location
+    partialMatch: $partialMatch
+    resolved: $resolved
+    filter: $filter
+    _externalOrgID: $_externalOrgID
+  ) {
+    __typename
+    ... on PageThreadAdded {
+      thread {
+        ...ThreadFragment
+      }
+    }
+    ... on PageThreadDeleted {
+      id
+    }
+    ... on PageThreadResolved {
+      thread {
+        ...ThreadFragment
+      }
+    }
+    ... on PageThreadUnresolved {
+      thread {
+        ...ThreadFragment
+      }
+    }
+    ... on ThreadFilterablePropertiesMatch {
+      thread {
+        ...ThreadFragment
+      }
+    }
+    ... on ThreadFilterablePropertiesUnmatch {
+      id
+    }
+  }
+}

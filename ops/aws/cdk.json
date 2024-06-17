@@ -1,0 +1,8 @@
+{
+  "app": "NODE_PATH=\"$PWD\"/dist node dist/index.js",
+  "context": {
+    "aws-cdk-lib:enableStackNameDuplicates": true,
+    "aws-cdk:enableDiffNoFail": true,
+    "aws-cdk-lib:stackRelativeExports": true
+  }
+}

@@ -1,0 +1,9 @@
+#import UserFragment.graphql
+
+fragment PageVisitorFragment on PageVisitor {
+  __typename
+  user {
+    ...UserFragment
+  }
+  lastPresentTimestamp
+}

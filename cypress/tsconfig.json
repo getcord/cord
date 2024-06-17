@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "incremental": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "strict": true,
+    "target": "es2021",
+    "importsNotUsedAsValues": "error",
+    // TODO(flooey): This ignores the deprecation of importsNotUsedAsValues, we
+    // should switch to verbatimModuleSyntax
+    "ignoreDeprecations": "5.0"
+  }
+}

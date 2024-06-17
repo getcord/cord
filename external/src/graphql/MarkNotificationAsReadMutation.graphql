@@ -1,0 +1,15 @@
+mutation MarkNotificationAsReadMutation(
+  $notificationID: String!
+  $byExternalID: Boolean!
+) {
+  markNotificationAsRead(
+    notificationID: $notificationID
+    byExternalID: $byExternalID
+  ) {
+    success
+    failureDetails {
+      code
+      message
+    }
+  }
+}

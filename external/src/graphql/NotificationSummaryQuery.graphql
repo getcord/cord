@@ -1,0 +1,5 @@
+query NotificationSummary($filter: NotificationFilterInput) {
+  notificationSummary(filter: $filter) {
+    unreadNotificationCount
+  }
+}

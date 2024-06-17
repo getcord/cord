@@ -1,0 +1,42 @@
+#import UserFragment.graphql
+#import ThreadParticipantFragment.graphql
+
+fragment ThreadFragmentBase on Thread {
+  id
+  externalID
+  orgID
+  externalOrgID
+  name
+  metadata
+  newMessagesCount
+  newReactionsCount
+  subscribed
+  typingUsers {
+    ...UserFragment
+  }
+  mentioned {
+    ...UserFragment
+  }
+  allMessagesCount
+  replyCount
+  messagesCountExcludingDeleted
+  userMessagesCount
+  actionMessagesCount
+  viewerIsThreadParticipant
+  url
+  navigationURL
+  resolved
+  resolvedTimestamp
+  sharedToSlack {
+    channel
+    slackURL
+  }
+  participants {
+    ...ThreadParticipantFragment
+  }
+  firstUnseenMessageID
+  replyingUserIDs
+  actionMessageReplyingUserIDs
+  location
+  extraClassnames
+}

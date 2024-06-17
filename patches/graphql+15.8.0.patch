@@ -1,0 +1,37 @@
+diff --git a/node_modules/graphql/subscription/subscribe.d.ts b/node_modules/graphql/subscription/subscribe.d.ts
+index 3ed750a..96fd762 100644
+--- a/node_modules/graphql/subscription/subscribe.d.ts
++++ b/node_modules/graphql/subscription/subscribe.d.ts
+@@ -1,7 +1,8 @@
+ import { Maybe } from '../jsutils/Maybe';
++import { PromiseOrValue } from '../jsutils/PromiseOrValue';
+ 
+ import { DocumentNode } from '../language/ast';
+-import { ExecutionResult } from '../execution/execute';
++import { ExecutionArgs, ExecutionResult } from '../execution/execute';
+ import { GraphQLSchema } from '../type/schema';
+ import { GraphQLFieldResolver } from '../type/definition';
+ 
+@@ -14,6 +15,7 @@ export interface SubscriptionArgs {
+   operationName?: Maybe<string>;
+   fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
+   subscribeFieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
++  customExecute?: Maybe<(args: ExecutionArgs) => PromiseOrValue<ExecutionResult>>;
+ }
+ 
+ /**
+diff --git a/node_modules/graphql/subscription/subscribe.js b/node_modules/graphql/subscription/subscribe.js
+index 9f8225d..12c208c 100644
+--- a/node_modules/graphql/subscription/subscribe.js
++++ b/node_modules/graphql/subscription/subscribe.js
+@@ -73,8 +73,9 @@ function subscribeImpl(args) {
+   // "ExecuteSubscriptionEvent" algorithm, as it is nearly identical to the
+   // "ExecuteQuery" algorithm, for which `execute` is also used.
+ 
++  var localExecute = args.customExecute ?? _execute.execute;
+   var mapSourceToResponse = function mapSourceToResponse(payload) {
+-    return (0, _execute.execute)({
++    return (0, localExecute)({
+       schema: schema,
+       document: document,
+       rootValue: payload,

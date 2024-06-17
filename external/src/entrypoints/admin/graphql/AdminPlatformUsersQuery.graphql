@@ -1,0 +1,9 @@
+query AdminPlatformUsersQuery {
+  adminPlatformUsers {
+    user {
+      id
+      displayName
+      externalID
+    }
+  }
+}

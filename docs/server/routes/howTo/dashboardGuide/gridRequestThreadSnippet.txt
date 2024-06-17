@@ -1,0 +1,23 @@
+// Effect to show the correct thread when the user requests to open a
+// specific thread (e.g. by clicking a thread in ThreadList)
+useEffect(
+  () => {
+    const metadata =
+      requestToOpenThread !== null ? threads.get(requestToOpenThread) : null;
+    if (metadata?.type === 'grid' && metadata.gridId === gridId) {
+      // this is a request for this grid, make the thread visible
+      const { rowId, colId } = metadata;
+
+      // 1. Remove table filters if needed
+      // 2. Scroll the page to the table
+      // 3. Scroll the table itself to the row rowId
+      // 4. Flash the cell for to guide user's eye
+
+      setRequestToOpenThread(null);
+      setOpenThread(requestToOpenThread);
+    }
+  },
+  [
+    /* ... */
+  ],
+);

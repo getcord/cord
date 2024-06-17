@@ -1,0 +1,5 @@
+subscription NotificationSummarySubscription($filter: NotificationFilterInput) {
+  notificationSummaryUpdated(filter: $filter) {
+    unreadNotificationCount
+  }
+}

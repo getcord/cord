@@ -1,0 +1,3 @@
+mutation RefreshFileUploadURL($id: UUID!, $size: Int!) {
+  refreshFileUploadURL(id: $id, size: $size)
+}

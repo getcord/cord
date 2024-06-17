@@ -1,0 +1,20 @@
+#import fragments/NotificationsNodeFragment.graphql
+
+subscription NotificationEventsSubscription($filter: NotificationFilterInput) {
+  notificationEvents(filter: $filter) {
+    __typename
+    ... on NotificationAdded {
+      notification {
+        ...NotificationsNodeFragment
+      }
+    }
+    ... on NotificationReadStateUpdated {
+      notification {
+        ...NotificationsNodeFragment
+      }
+    }
+    ... on NotificationDeleted {
+      id
+    }
+  }
+}

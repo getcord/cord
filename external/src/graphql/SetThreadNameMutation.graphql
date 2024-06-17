@@ -1,0 +1,5 @@
+mutation SetThreadName($threadID: UUID!, $name: String!) {
+  setThreadName(threadID: $threadID, name: $name) {
+    success
+  }
+}

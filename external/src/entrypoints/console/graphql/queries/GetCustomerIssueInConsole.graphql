@@ -1,0 +1,9 @@
+query GetCustomerIssueInConsole($id: UUID!) {
+  getCustomerIssue(id: $id) {
+    id
+    title
+    body
+    type
+    priority
+  }
+}

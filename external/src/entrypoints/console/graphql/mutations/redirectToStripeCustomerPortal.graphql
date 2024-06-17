@@ -1,0 +1,9 @@
+mutation RedirectToStripeCustomerPortalMutation {
+  redirectToStripeCustomerPortal {
+    success
+    failureDetails {
+      code
+    }
+    redirectURL
+  }
+}

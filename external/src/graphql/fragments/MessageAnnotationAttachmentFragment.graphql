@@ -1,0 +1,69 @@
+#import FileFragment.graphql
+#import HighlightedTextConfigFragment.graphql
+
+fragment MessageAnnotationAttachmentFragment on MessageAnnotationAttachment {
+  __typename
+  id
+  location {
+    selector
+    x
+    y
+    iframeSelectors
+    onChart
+    textConfig {
+      selectedCharOffset
+      textToMatch
+      textToMatchOffset
+      nodeIndex
+      xVsPointer
+      yVsPointer
+    }
+    elementIdentifier {
+      identifier
+      version
+    }
+    highlightedTextConfig {
+      ...HighlightedTextConfigFragment
+    }
+    multimediaConfig {
+      currentTime
+    }
+    additionalTargetData {
+      targetType
+      monacoEditor {
+        monacoID
+        lineNumber
+      }
+      reactTree {
+        key
+        treeID
+      }
+      konvaCanvas {
+        x
+        y
+      }
+    }
+  }
+  customLocation
+  customHighlightedTextConfig {
+    ...HighlightedTextConfigFragment
+  }
+  customLabel
+  coordsRelativeToTarget {
+    x
+    y
+  }
+  screenshot {
+    ...FileFragment
+  }
+  blurredScreenshot {
+    ...FileFragment
+  }
+  message {
+    source {
+      ... on User {
+        id
+      }
+    }
+  }
+}

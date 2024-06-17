@@ -1,0 +1,17 @@
+fragment ProviderRuleTestFragment on ProviderRuleTest {
+  __typename
+  id
+  url
+  expectedMatch
+  expectedName
+  expectedContextData
+  result {
+    passes
+    match
+    ruleID
+    pageContext {
+      data
+    }
+    pageName
+  }
+}

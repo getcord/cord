@@ -1,0 +1,9 @@
+fragment ThreadParticipantFragment on ThreadParticipant {
+  lastSeenTimestamp
+  user {
+    id
+    externalID
+    displayName
+  }
+  subscribed
+}

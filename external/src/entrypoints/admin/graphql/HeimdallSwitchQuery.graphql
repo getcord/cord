@@ -1,0 +1,7 @@
+#import fragments/HeimdallSwitchFragment.graphql
+
+query HeimdallSwitchAdminQuery($key: String!) {
+  heimdallSwitchAdmin(key: $key) {
+    ...HeimdallSwitchFragment
+  }
+}

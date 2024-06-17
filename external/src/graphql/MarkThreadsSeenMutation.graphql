@@ -1,0 +1,12 @@
+mutation MarkThreadsSeenMutation(
+  $input: MarkThreadsSeenInput!
+  $_externalOrgID: String
+) {
+  markThreadsSeen(input: $input, _externalOrgID: $_externalOrgID) {
+    success
+    failureDetails {
+      code
+      message
+    }
+  }
+}

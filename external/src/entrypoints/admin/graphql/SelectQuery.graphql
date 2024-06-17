@@ -1,0 +1,3 @@
+query Select($query: String!, $parameters: JSONObject!) {
+  select(query: $query, parameters: $parameters)
+}

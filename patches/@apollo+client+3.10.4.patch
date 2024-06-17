@@ -1,0 +1,28 @@
+diff --git a/node_modules/@apollo/client/package.json b/node_modules/@apollo/client/package.json
+index 96f8c83..d9098e9 100644
+--- a/node_modules/@apollo/client/package.json
++++ b/node_modules/@apollo/client/package.json
+@@ -16,6 +16,23 @@
+   "main": "./main.cjs",
+   "module": "./index.js",
+   "types": "./index.d.ts",
++  "exports": {
++    ".": {
++      "types": "./index.d.ts",
++      "import": "./index.js",
++      "require": "./main.cjs"
++    },
++    "./link/error": {
++      "types": "./link/error/index.d.ts",
++      "import": "./link/error/index.js",
++      "require": "./link/error/error.cjs"
++    },
++    "./link/ws": {
++      "types": "./link/ws/index.d.ts",
++      "import": "./link/ws/index.js",
++      "require": "./link/ws/ws.cjs"
++    }
++  },
+   "sideEffects": false,
+   "react-native": {
+     "./dist/cache/inmemory/fixPolyfills.js": "./cache/inmemory/fixPolyfills.native.js",
