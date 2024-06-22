@@ -34,3 +34,10 @@ Linux:
 * Install `mkcert` via `apt install mkcert`
 * Run `scripts/generate-localhost-certificates.sh`
 
+### Configuration
+
+Run `scripts/generate-dotenv.cjs --include-secrets=false` to generate a `.env` file that contains configuration options for running the dev server.
+
+## Running
+
+Run `npm run local-dev` to start the local development environment.
