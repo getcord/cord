@@ -26,19 +26,19 @@ export const FeatureFlags = {
   } as FeatureFlag<'support_chat_enabled', boolean>,
   ENABLE_ANNOTATIONS_SCREENSHOTS: {
     key: 'enable_annotations_screenshots',
-    defaultValue: false,
+    defaultValue: true,
   } as FeatureFlag<'enable_annotations_screenshots', boolean>,
   ENABLE_PLAINTEXT_ANNOTATIONS: {
     key: 'enable_plaintext_annotations',
-    defaultValue: false,
+    defaultValue: true,
   } as FeatureFlag<'enable_plaintext_annotations', boolean>,
   ENABLE_ATTACHMENTS: {
     key: 'enable_attachments',
-    defaultValue: false,
+    defaultValue: true,
   } as FeatureFlag<'enable_attachments', boolean>,
   EMAIL_SHARING: {
     key: 'email_sharing',
-    defaultValue: false,
+    defaultValue: true,
   } as FeatureFlag<'email_sharing', boolean>,
   ENABLE_FORCE_REFRESH_PROVIDER: {
     key: 'enable_force_refresh_provider',
@@ -83,7 +83,7 @@ export const FeatureFlags = {
   } as FeatureFlag<'remove_tasks_feature', boolean>,
   SHOW_COMMUNITY_IN_CONSOLE: {
     key: 'show-community-in-console',
-    defaultValue: false,
+    defaultValue: true,
   } as FeatureFlag<'show-community-in-console', boolean>,
   SHOW_CUSTOMER_ISSUES_IN_CONSOLE: {
     key: 'show-customer-issues-in-console',
@@ -95,11 +95,11 @@ export const FeatureFlags = {
   } as FeatureFlag<'take_screenshot_of_canvas_only', boolean>,
   SHOW_EVENTS_TAB_IN_CONSOLE: {
     key: 'show_events_tab_in_console',
-    defaultValue: false,
+    defaultValue: true,
   } as FeatureFlag<'show_events_tab_in_console', boolean>,
   ENABLE_TEXT_ANNOTATIONS: {
     key: 'enable_text_annotations',
-    defaultValue: false,
+    defaultValue: true,
   } as FeatureFlag<'enable_text_annotations', boolean>,
   ENABLE_EMAIL_NOTIFICATIONS: {
     key: 'enable_email_notifications',
@@ -123,12 +123,12 @@ export const FeatureFlags = {
   } as FeatureFlag<'enable_video_capabilities', boolean>,
   SHOW_LINK_PREVIEWS: {
     key: 'show-link-previews',
-    defaultValue: false,
+    defaultValue: true,
   } as FeatureFlag<'show-link-previews', boolean>,
   BILLING_ENABLED_IN_CONSOLE: {
     key: 'billing_enabled_in_console',
-    defaultValue: false,
-  },
+    defaultValue: true,
+  } as FeatureFlag<'billing_enabled_in_console', boolean>,
   MENTION_NOTIFICATION_EMAIL_TEMPLATE_ID: {
     key: 'mention_notification_email_template_id',
     defaultValue: 'd-6309e6ccb36a4a769957795f475c8130',

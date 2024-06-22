@@ -40,11 +40,11 @@ const ServerOnlyFeatureFlags = {
   } as FeatureFlag<'user_is_blocked', boolean>,
   SHOW_CORD_COPY_IN_TASKS: {
     key: 'show-cord-copy-in-tasks',
-    defaultValue: false,
+    defaultValue: true,
   } as FeatureFlag<'show-cord-copy-in-tasks', boolean>,
   LOADER_CACHES: {
     key: 'loader_caches',
-    defaultValue: false,
+    defaultValue: true,
   } as FeatureFlag<'loader_caches', boolean>,
   SUBSCRIBE_ALL_ORG_MEMBERS: {
     key: 'subscribe_all_org_members',
@@ -52,7 +52,7 @@ const ServerOnlyFeatureFlags = {
   },
   WRITE_TO_EVENTS_TABLE: {
     key: 'write_to_events_table',
-    defaultValue: false,
+    defaultValue: true,
   },
   ALLOW_MAGIC_GRAPHQL_ORG_ID_OVERRIDE: {
     key: 'allow-magic-graph-ql-org-id-override',
