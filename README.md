@@ -41,3 +41,10 @@ Run `scripts/generate-dotenv.cjs --include-secrets=false` to generate a `.env` f
 ## Running
 
 Run `npm run local-dev` to start the local development environment.
+
+### Local endpoints
+
+* Docs: https://local.cord.com:8191
+* Testbed/Playground: https://local.cord.com:8179/sdk/test/
+* API: https://local.cord.com:8161
+* Console: https://local.cord.com:8171
