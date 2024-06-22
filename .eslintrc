@@ -1,0 +1,269 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true,
+    "jest/globals": true
+  },
+  "plugins": [
+    "import",
+    "jest",
+    "prettier",
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "no-relative-import-paths",
+    "i18next"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module"
+  },
+
+  "settings": {
+    "import/resolver": "typescript",
+    "react": {
+      "version": "detect"
+    }
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "plugin:no-lookahead-lookbehind-regexp/recommended",
+    "plugin:cypress/recommended"
+  ],
+  "rules": {
+    "curly": ["error", "all"],
+    "eqeqeq": ["error", "smart"],
+    "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
+    "import/order": "error",
+    "import/no-restricted-paths": [
+      "error",
+      {
+        "basePath": "./",
+        "zones": [
+          { "target": "./common", "from": "./server" },
+          { "target": "./common", "from": "./external" },
+          { "target": "./external", "from": "./server" },
+          { "target": "./server", "from": "./external" },
+          { "target": "./opensource", "from": "./common" },
+          { "target": "./opensource", "from": "./external" },
+          { "target": "./opensource", "from": "./server" }
+        ]
+      }
+    ],
+    "import/no-duplicates": ["error", { "prefer-inline": false }],
+    "no-relative-import-paths/no-relative-import-paths": "error",
+    "no-alert": "error",
+    "no-case-declarations": "error",
+    "no-console": "off",
+    "no-constant-condition": "warn",
+    "no-debugger": "error",
+    "no-empty": ["error", { "allowEmptyCatch": true }],
+    "no-return-await": "off",
+    "no-undef": "error",
+    // This needs to be off in favour of the type-aware rule below
+    "no-unused-vars": "off",
+    "no-useless-escape": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react/display-name": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
+    "react/no-unescaped-entities": "error",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/button-has-type": "error",
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["./*", "../*", "\\."]
+          },
+          {
+            "group": ["lodash", "lodash/*"],
+            "message": "Don't use `lodash`. Use `radash` instead, or one of our helpers in `common`. See PR#5983."
+          },
+          {
+            "group": ["@vanilla-extract/*"],
+            "message": "Please use `common/ui/style` instead."
+          },
+          {
+            "group": ["opensource/sdk-js"],
+            "message": "Please use `@cord-sdk` instead."
+          },
+          {
+            "group": [
+              "i18next",
+              "i18next/*",
+              "react-i18next",
+              "react-i18next/*"
+            ],
+            "message": "Use the hooks in useCordTranslation.tsx in @cord-sdk/react instead."
+          }
+        ],
+        "paths": [
+          {
+            "name": "validator",
+            "message": "Please import validator function from specific file, ex: import isUUID from 'validator/lib/isUUID.js'"
+          }
+        ]
+      }
+    ],
+    // Docs: "note you must disable the base rule as it can report incorrect errors"
+    "no-redeclare": "off",
+    "@typescript-eslint/no-redeclare": ["error"],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
+
+    // `args: after-used` will start checking only after the first used argument.
+    // This will allow this situation: foo(unusedArg, firstUsedArg){};
+    // ignoreRestSiblings: won't mark as unused siblings of ...rest
+    // This will allow foo(unusedVar, ...rest){};
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+    ],
+    "@typescript-eslint/consistent-type-imports": "error",
+
+    // Allow @ts-whatever comments.  These are slightly dangerous, since they
+    // bypass typechecking, but we legitimately use them in a few places to
+    // access private fields or compensate for not having types for external
+    // libraries.
+    "@typescript-eslint/ban-ts-comment": "off",
+
+    // Allow empty bodies for arrow functions.  We frequently have need to use
+    // the `const foo = () => {}` construct, so allow that specific use of an
+    // empty function body.
+    "@typescript-eslint/no-empty-function": [
+      "error",
+      { "allow": ["arrowFunctions"] }
+    ],
+
+    // Allow using the `any` type.  We use this in a number of places where we
+    // interact with external APIs, accept user input, etc.  Ideally we would
+    // use a more specific type, but it's not worth cleaning up for now.
+    "@typescript-eslint/no-explicit-any": "off",
+
+    // Allow non-null assertions (the `value!` construct).  There are a number
+    // of places where we know we have a non-null value due to other properties
+    // and we can't easily express that in the type system (eg, because they're
+    // coming from a third-party API).
+    "@typescript-eslint/no-non-null-assertion": "off"
+  },
+  "globals": { "BUILDCONSTANTS": "readonly" },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parserOptions": {
+        "project": true,
+        "EXPERIMENTAL_useProjectService": true,
+        "tsconfigRootDir": "."
+      },
+      "rules": {
+        // Type-aware rules which require the above parserOptions:
+        "@typescript-eslint/consistent-type-exports": "error",
+        "@typescript-eslint/no-floating-promises": "error",
+        "@typescript-eslint/no-misused-promises": "error",
+        "@typescript-eslint/no-unnecessary-type-assertion": "error",
+        "@typescript-eslint/return-await": ["error", "always"],
+        // Docs: "We strongly recommend that you do not use the no-undef lintrule on
+        // TypeScript projects"
+        "no-undef": "off",
+        "no-lookahead-lookbehind-regexp/no-lookahead-lookbehind-regexp": [
+          "error",
+          "no-lookbehind",
+          "no-negative-lookbehind"
+        ]
+      }
+    },
+    {
+      "files": ["*.js"],
+      "rules": {
+        // Our JS files are CommonJS, so don't prevent require()
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    },
+    {
+      "files": ["common/**", "external/**", "sdk/client/**"],
+      "rules": {
+        // Don't console.log randomly in code running on end users' browsers.
+        // Our own logging code is preferred, or console.warn and console.error
+        // if it would help developers debug.
+        "no-console": [
+          "error",
+          {
+            "allow": ["warn", "error"]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["docs/**"],
+      // Spell-check our docs site.
+      "extends": ["plugin:@cspell/recommended"],
+      "rules": {
+        "@cspell/spellchecker": [
+          "warn",
+          {
+            "customWordListFile": "./.dictionary.txt",
+            "checkComments": false,
+            "checkIdentifiers": false
+          }
+        ]
+      }
+    },
+    {
+      "files": ["opensource/**"],
+      "extends": ["plugin:@cspell/recommended"],
+      "rules": {
+        "@cspell/spellchecker": [
+          "warn",
+          {
+            "customWordListFile": "./.dictionary.txt",
+            "checkComments": true,
+            "checkIdentifiers": false
+          }
+        ]
+      }
+    },
+    {
+      "files": ["external/src/entrypoints/admin/**"],
+      "rules": {
+        // For our own internal pages, an alert() on error is okay for
+        // simplicity, since we're the only ones seeing it.
+        "no-alert": "off"
+      }
+    },
+    {
+      "files": ["build/**", "cypress/**", "ops/**", "scripts/**"],
+      "rules": {
+        "no-relative-import-paths/no-relative-import-paths": "off"
+      }
+    },
+    {
+      "files": ["external/**", "sdk/**", "opensource/sdk-js/packages/react/**"],
+      "excludedFiles": [
+        "external/src/entrypoints/admin/**",
+        "external/src/entrypoints/console/**",
+        "external/src/entrypoints/docs/**",
+        "external/src/components/hacks/*.tsx",
+        "sdk/test/**"
+      ],
+      "rules": {
+        "i18next/no-literal-string": [
+          "error",
+          {
+            "mode": "jsx-only",
+            "jsx-attributes": {
+              "include": ["label", "title", "subtext"]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

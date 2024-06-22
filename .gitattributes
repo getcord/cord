@@ -1,0 +1,13 @@
+common/graphql/types.ts linguist-generated=true
+common/graphql/admin/types.ts linguist-generated=true
+common/graphql/console/types.ts linguist-generated=true
+docs/server/apiData/apiData.ts linguist-generated=true
+external/src/entrypoints/admin/graphql/operations.ts linguist-generated=true
+external/src/entrypoints/console/graphql/operations.ts linguist-generated=true
+external/src/graphql/operations.ts linguist-generated=true
+opensource/sdk-js/packages/api-types/generate/* linguist-generated=true
+sdk/client/core/graphql/operations.ts linguist-generated=true
+server/src/admin/resolverTypes.ts linguist-generated=true
+server/src/console/resolverTypes.ts linguist-generated=true
+server/src/schema/resolverTypes.ts linguist-generated=true
+server/src/schema/operations.ts linguist-generated=true

@@ -1,0 +1,4 @@
+**/node_modules
+**/dist
+marketing/
+docs/server/searchData/

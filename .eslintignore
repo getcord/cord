@@ -1,0 +1,11 @@
+!.*
+**/node_modules
+**/dist
+marketing/
+documentation/
+ops/aws/cdk.out/
+docs/server/searchData/
+opensource/cli/
+opensource/sample-apps/*/vite.config.ts
+opensource/sample-apps/sandpackDemoFileObject.ts
+opensource/sdk-js/packages/react/common/lib/fast-deep-equal.ts
