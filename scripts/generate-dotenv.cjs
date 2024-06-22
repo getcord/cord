@@ -342,7 +342,10 @@ function buildDevEnv(commitHash) {
     JWT_SIGNING_SECRET: 'SpongeBob_signs_your_jwt',
     S3_ENDPOINT: 'https://local.cord.com:8147',
     S3_USE_PATH_BASED_URLS: true,
-    CLOUDWATCH_LOG_GROUP_NAME: `server.${unixUserName}`,
+    S3_ACCESS_KEY_ID: 's3_access_key',
+    S3_ACCESS_KEY_SECRET: 's3_access_secret',
+    CLOUDWATCH_LOGLEVEL: undefined,
+    CLOUDWATCH_LOG_GROUP_NAME: undefined,
     ADMIN_SERVER_STATIC_PATH: undefined,
     CONSOLE_SERVER_STATIC_PATH: undefined,
     DOCS_SERVER_STATIC_PATH: undefined,
@@ -479,12 +482,12 @@ async function buildEnv(tier, oldEnv, prNumber, commitHash) {
   }
 }
 
-async function diffDevEnv(oldEnv) {
+async function diffDevEnv(oldEnv, includeSecrets) {
   const commitHash = (
     await run('git', ['rev-parse', '--short', 'HEAD']).catch(() => '')
   ).trim();
 
-  const newEnv = await cleanEnv(buildDevEnv(commitHash), true);
+  const newEnv = await cleanEnv(buildDevEnv(commitHash), includeSecrets);
 
   const diffs = Object.entries(oldEnv)
     .filter(([k]) => !(k in newEnv) && k !== 'CORD_TIER')
@@ -557,6 +560,11 @@ async function main() {
     process.exit(1);
   }
 
+  const includeSecrets =
+    argv['include-secrets'] === undefined
+      ? tier === 'dev'
+      : argv['include-secrets'];
+
   let oldEnv = {};
   if (tier === 'dev') {
     // Only in dev we start by reading the existing .env file and keep all values
@@ -575,15 +583,10 @@ async function main() {
       oldEnv = dotenv.parse(fileContents);
     }
     if (diff) {
-      await diffDevEnv(oldEnv);
+      await diffDevEnv(oldEnv, includeSecrets);
       return;
     }
   }
-
-  const includeSecrets =
-    argv['include-secrets'] === undefined
-      ? tier === 'dev'
-      : argv['include-secrets'];
 
   let newEnv = await cleanEnv(
     await buildEnv(tier, oldEnv, prNumber, commitHash),
