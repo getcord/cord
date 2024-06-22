@@ -2,8 +2,9 @@
 
 # https://github.com/FiloSottile/mkcert
 
-brew install mkcert
-brew install nss # this seems to be needed for Firefox
+# nss is needed for Firefox
+which brew && brew install mkcert nss
+
 mkcert -install
 
 SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
