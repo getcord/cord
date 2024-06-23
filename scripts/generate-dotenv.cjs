@@ -349,7 +349,11 @@ function buildDevEnv(commitHash) {
     ADMIN_SERVER_STATIC_PATH: undefined,
     CONSOLE_SERVER_STATIC_PATH: undefined,
     DOCS_SERVER_STATIC_PATH: undefined,
-    LAUNCHDARKLY_API_KEY: secrets.LAUNCHDARKLY.test,
+    // NOTE(flooey): Commenting out to prevent errors when secrets are unavailable
+    // LAUNCHDARKLY_API_KEY: secrets.LAUNCHDARKLY.test,
+    LAUNCHDARKLY_API_KEY: undefined,
+    // NOTE(flooey): Remove if secrets are available
+    SENDGRID_API_KEY: 'SG.llama',
     NUM_WORKERS: '0',
     PLATFORM_SECRETS_ENCRYPTION_KEY: '12345678901234567890123456789012',
     FILE_PROXY_SIGNING_SECRET_KEY: '12345678901234567890123456789012',

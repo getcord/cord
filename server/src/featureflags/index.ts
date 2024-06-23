@@ -100,6 +100,9 @@ export async function initFeatureFlags() {
   if (client) {
     throw new Error('Feature flags already initialized');
   }
+  if (!env.LAUNCHDARKLY_API_KEY) {
+    return;
+  }
   client = LaunchDarkly.init(env.LAUNCHDARKLY_API_KEY);
   await client.waitForInitialization();
   clientReady = true;
