@@ -532,6 +532,9 @@ export async function sendMessageToCord(
   slackChannelID?: string,
   clackChannel?: string,
 ): Promise<void> {
+  if (process.env.IS_TEST) {
+    return;
+  }
   if (!slackChannelID && !clackChannel) {
     throw new Error(
       'Asked to send a message but gave no destinations, that probably is a bug',
