@@ -1,0 +1,59 @@
+name: generate-docs-embeddings
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs every day at midnight
+  workflow_dispatch:
+
+jobs:
+  generate-docs-embeddings:
+    runs-on: [self-hosted, linux, x64, build3]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # make sure the checkout can access the parent commit, too
+          fetch-depth: 2
+          # checkout pull request HEAD commit instead of merge commit
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.node-version'
+
+      - name: 'npm ci'
+        shell: bash
+        run: npm ci
+
+      - name: 'Generate prod .env'
+        shell: bash
+        run: node ./scripts/generate-dotenv.cjs --tier="dev"
+
+      - name: 'npm generate-docs-embeddings'
+        shell: bash
+        run: npm run generate-docs-embeddings
+
+      - name: Check for changes
+        id: check-changes
+        run: |
+          git diff --exit-code || echo "changes=yes" >> $GITHUB_ENV
+        continue-on-error: true
+
+      - name: Remove the dotenv file
+        if: env.changes == 'yes'
+        run: |
+          rm -rf .env
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Pull Request
+        if: env.changes == 'yes'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.CORD_OPS_USER_PAT }}
+          title: 'Generating docs embeddings'
+          body: |
+            PR automatically created by \`generate-docs-embeddings\` workflow.
+          commit-message: 'Generating docs embeddings'
+          branch: docs_generate_embeddings
+          base: master
+          team-reviewers: getcord/e

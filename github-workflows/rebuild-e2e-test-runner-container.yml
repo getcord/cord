@@ -1,0 +1,29 @@
+name: Rebuild e2e-test-runner Container
+
+on:
+  schedule:
+    # daily, at 10:30am UTC
+    - cron: '30 10 * * *'
+  push:
+    branches:
+      - master
+    paths:
+      - 'cypress/**'
+      - 'ops/dockerfiles/e2e-test/**'
+  workflow_dispatch:
+
+jobs:
+  rebuild-e2e-test-runner-container:
+    runs-on: [self-hosted, linux, x64, build3]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: build
+        shell: bash
+        run: |
+          ops/dockerfiles/e2e-test/build.sh
+          scripts/connect-docker-to-aws-ecr.sh
+          docker push \
+            869934154475.dkr.ecr.eu-west-2.amazonaws.com/e2e-test-runner:latest

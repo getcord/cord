@@ -1,0 +1,114 @@
+# This workflow will run daily on the master branch.
+
+name: copy-prod-data-to-replica
+
+on:
+  schedule:
+    # daily, at 5:00am UTC
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  copy-prod-data-to-replica:
+    if: ${{ github.repository == 'getcord/monorepo' }}
+    runs-on: [self-hosted, linux, x64, build3]
+    steps:
+      - name: copy data
+        shell: bash
+        run: |
+          export PGUSER=ChuckNorris
+          export PGDATABASE=radical_db
+          SOURCE_DB_HOST=database-prod-read.int.cord.com
+          SOURCE_DB_SECRET=database-prod-1
+          SOURCE_DB_PASSWORD="$(
+            aws secretsmanager get-secret-value --secret-id "$SOURCE_DB_SECRET" | \
+            jq -r '.SecretString | fromjson | .password'
+          )"
+          DESTINATION_DB_HOST=prod-replica.int.cord.com
+          DESTINATION_DB_SECRET=prod-replica-1
+          DESTINATION_DB_PASSWORD="$(
+            aws secretsmanager get-secret-value --secret-id "$DESTINATION_DB_SECRET" | \
+            jq -r '.SecretString | fromjson | .password'
+          )"
+
+          (
+            export PGHOST="$DESTINATION_DB_HOST"
+            export PGPASSWORD="$DESTINATION_DB_PASSWORD"
+            
+            cat <<"EOF" | psql --variable=ON_ERROR_STOP=1
+          BEGIN;
+          CREATE OR REPLACE FUNCTION public.gen_random_uuid()
+              RETURNS uuid AS 'SELECT uuid_generate_v4();' LANGUAGE SQL;
+          COMMIT;
+          EOF
+          )
+
+          (
+            export PGHOST="$SOURCE_DB_HOST"
+            export PGPASSWORD="$SOURCE_DB_PASSWORD"
+
+            # -Fc => output the Postgres custom data format
+            # -Z0 => disable compression (some comments indicated compression slows things down a lot)
+            pg_dump --no-owner --no-acl --schema=cord -Fc -Z0 --exclude-table=cord.events
+          ) | (
+            export PGHOST="$DESTINATION_DB_HOST"
+            export PGPASSWORD="$DESTINATION_DB_PASSWORD"
+
+            # -v => verbose, output progress messages
+            # --clean => drop any objects the input data writes (so drop and recreate tables, etc)
+            # --if-exists => use IF EXISTS in the above DROPs
+            # || true => We expect pg_restore to have errors, because we are keeping cord.events, and we don't want to abort the script
+            pg_restore -d $PGDATABASE -v --clean --if-exists || true
+          )
+
+          # Get the latest timestamp we have on the replica
+          MAX_TIMESTAMP=$(echo 'SELECT MAX("serverTimestamp") FROM cord.events;' | PGHOST="$DESTINATION_DB_HOST" PGPASSWORD="$DESTINATION_DB_PASSWORD" psql -t --csv)
+
+          (
+            export PGHOST="$SOURCE_DB_HOST"
+            export PGPASSWORD="$SOURCE_DB_PASSWORD"
+
+            # This creates a script that gets piped into psql and executed on the replica
+
+            echo 'BEGIN;'
+            # We use a temp table in case we end up with some events that are duplicated
+            echo 'CREATE TEMP TABLE temp_incoming_events ON COMMIT DROP AS SELECT * FROM cord.events WITH NO DATA;'
+            echo 'COPY temp_incoming_events FROM STDIN;'
+            # NB: This command is piped to psql *here*, and thus executed on the
+            # source DB, so that the *output* goes into the script. The output
+            # is the rows we want to import
+            echo 'COPY (SELECT * FROM cord.events WHERE "serverTimestamp" > '\'"${MAX_TIMESTAMP}"\'') TO STDOUT;' | psql
+            echo '\.'
+            # We copy from the temp table into the real table, with ON CONFLICT DO NOTHING to prevent
+            # any duplicates from causing errors
+            echo 'INSERT INTO cord.events SELECT * FROM temp_incoming_events ON CONFLICT DO NOTHING;'
+            echo 'COMMIT;'
+          ) | (
+            export PGHOST="$DESTINATION_DB_HOST"
+            export PGPASSWORD="$DESTINATION_DB_PASSWORD"
+
+            psql --variable=ON_ERROR_STOP=1
+          )
+
+          (
+            export PGHOST="$DESTINATION_DB_HOST"
+            export PGPASSWORD="$DESTINATION_DB_PASSWORD"
+            
+            cat <<"EOF" | psql --variable=ON_ERROR_STOP=1
+          BEGIN;
+          GRANT SELECT ON ALL TABLES IN SCHEMA cord TO winnie, grafanareader;
+          GRANT USAGE ON SCHEMA cord TO winnie, grafanareader;
+          COMMIT;
+          EOF
+          )
+
+          echo 'Done.'
+
+      - name: Send Slack notification on failure
+        if: failure()
+        uses: ravsamhq/notify-slack-action@v1
+        with:
+          status: ${{ job.status }}
+          notify_when: 'failure'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.FAILED_DEPLOY_SLACK_WEBHOOK }}

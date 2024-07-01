@@ -1,0 +1,37 @@
+# This workflow will run after a push to the master branch.
+
+name: build-and-deploy-on-push
+
+concurrency:
+  group: staging
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy-on-push:
+    runs-on: [self-hosted, linux, x64, build3, standard]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # make sure the checkout can access the parent commit, too
+          fetch-depth: 2
+
+      - name: build
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: 'scripts/ci/build-on-commit.sh'
+
+      - name: Send Slack notification on failure
+        if: failure()
+        uses: ravsamhq/notify-slack-action@v1
+        with:
+          status: ${{ job.status }}
+          notify_when: 'failure'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.FAILED_DEPLOY_SLACK_WEBHOOK }}

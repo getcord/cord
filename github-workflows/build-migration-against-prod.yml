@@ -1,0 +1,45 @@
+name: build-migration-against-prod
+
+on:
+  pull_request:
+    paths:
+      - 'database/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-migration-against-prod:
+    runs-on: [self-hosted, linux, x64, build3, large]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # Need access to prod and the pull request HEAD, no idea how far away
+          # they are from each other.
+          fetch-depth: 0
+          ref: prod
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.node-version'
+
+      - name: 'Checkout new database/ directory'
+        shell: bash
+        run: |
+          git restore --source ${{ github.event.pull_request.head.sha }} database/
+
+      - name: 'npm ci'
+        shell: bash
+        run: npm ci
+
+      - name: 'Generate test .env'
+        shell: bash
+        run: node ./scripts/generate-dotenv.cjs --tier="test"
+
+      - name: 'Check database schema'
+        shell: bash
+        run: npm run check-database-schema
+
+      - name: 'Run tests'
+        shell: bash
+        run: npm run test

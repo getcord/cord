@@ -1,0 +1,37 @@
+name: Rebuild PR-Server Container
+
+on:
+  schedule:
+    # daily, at 6am UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: [self-hosted, linux, x64, build3]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: build
+        shell: bash
+        run: |
+          npm ci
+
+          # Build the script that prepares a minimal database dump (used by
+          # build.sh below)
+          build/index.mjs --target=scripts/pr-server-bootstrap-database.ts
+
+          # Create a .env file with staging config, so the build.sh script can
+          # connect to the prod/staging database to extract a minimal dump that
+          # gets included in the Docker image
+          scripts/generate-dotenv.cjs --tier=staging --include-secrets
+
+          # Build the container!
+          ops/dockerfiles/pr-server/build.sh
+
+          # Connect to ECR and push the image
+          scripts/connect-docker-to-aws-ecr.sh
+          docker push \
+            869934154475.dkr.ecr.eu-west-2.amazonaws.com/pr-server:latest

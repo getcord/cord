@@ -1,0 +1,24 @@
+name: Promote staging docs to prod
+on:
+  workflow_run:
+    workflows: [daily-prod-push]
+    types: [completed]
+  workflow_dispatch:
+
+jobs:
+  promote-staging-docs-to-prod:
+    runs-on: ubuntu-latest
+    # run if daily-prod-push succeeded or if manually triggered
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} || ${{ github.event_name == 'workflow_dispatch' }}
+    steps:
+      - name: Trigger production build in documentation repo
+        shell: bash
+        env:
+          TOKEN: ${{ secrets.CORD_OPS_USER_PAT }}
+        run: |
+          curl \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Content-Type: application/json" \
+            -H "Accept: application/vnd.github.everest-preview+json" \
+            --data '{"event_type": "publish-to-prod"}' \
+            https://api.github.com/repos/getcord/documentation/dispatches

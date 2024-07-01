@@ -1,0 +1,26 @@
+name: Deploy Pull Request to dev.cord.com
+
+concurrency:
+  group: pr-server
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+
+jobs:
+  deploy-pr-to-dev-cord-com:
+    # This workflow is triggered when a PR is opened/updated/labeled, but we
+    # only want to continue if the PR is labelled with the `deploy-pr` label
+    if: ${{ github.event_name != 'pull_request' || contains(github.event.pull_request.labels.*.name, 'deploy-pr') }}
+    runs-on: [self-hosted, linux, x64, build3, standard]
+    timeout-minutes: 30
+    steps:
+      - name: Trigger Deploy
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REF: ${{ github.event.pull_request.head.sha }}
+        run: |
+          URL="http://pr-server.int.cord.com:8081/deploy?pr=$PR_NUMBER&ref=$REF"
+          echo "$URL"
+          curl --no-progress-meter --no-buffer "$URL"

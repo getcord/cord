@@ -1,0 +1,25 @@
+name: Rebuild GitHub-Actions-Runner Container
+
+on:
+  schedule:
+    # daily, at 6am UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  rebuild-github-actions-runner-container:
+    runs-on: [self-hosted, linux, x64, build3]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: build
+        shell: bash
+        run: |
+          docker build --no-cache --tag \
+            869934154475.dkr.ecr.eu-west-2.amazonaws.com/github-actions-runner:latest \
+            ops/aws/config/build3/github-actions-runner
+          scripts/connect-docker-to-aws-ecr.sh
+          docker push \
+            869934154475.dkr.ecr.eu-west-2.amazonaws.com/github-actions-runner:latest

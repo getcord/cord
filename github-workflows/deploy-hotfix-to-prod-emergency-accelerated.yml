@@ -1,0 +1,31 @@
+# This workflow can be triggered interactively here:
+# https://github.com/getcord/monorepo/actions/workflows/deploy-hotfix-to-prod-emergency-accelerated.yml
+
+# It is the same as deploy-hotfix-to-prod but skips a couple of nice-to-have steps
+# which we don't want to spend time on if prod is literally down and we would
+# like to shave a few minutes off bringing it back up.  Specifically, running
+# npm test and waiting 30s when deregistering EC2s to settle load balancer state.
+
+name: deploy-hotfix-to-prod-emergency-accelerated
+
+concurrency:
+  group: prod
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-hotfix-to-prod:
+    runs-on: [self-hosted, linux, x64, build3]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # make sure the checkout can access the parent commit, too
+          fetch-depth: 2
+
+      - name: build
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACCELERATE_DEPLOY: true
+        run: 'scripts/ci/build-and-deploy-hotfix.sh prod'

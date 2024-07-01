@@ -1,0 +1,30 @@
+# This workflow will run daily on the master branch.
+
+name: daily-prod-push
+
+concurrency:
+  group: prod
+
+on:
+  schedule:
+    # 8:30am BST, Monday through Friday
+    - cron: '30 7 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  daily-prod-push:
+    runs-on: [self-hosted, linux, x64, build3]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # make sure the checkout can access the parent commit, too
+          fetch-depth: 2
+          # use PAT of Cord Ops user, otherwise the "git push" (after "bump version" in daily-prod-push.sh)
+          # will not trigger a re-deploy
+          token: ${{ secrets.CORD_OPS_USER_PAT }}
+
+      - name: build
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: 'scripts/ci/daily-prod-push.sh'

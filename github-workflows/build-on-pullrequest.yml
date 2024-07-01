@@ -1,0 +1,222 @@
+# This workflow will run when a pull request is opened, reopened or updated.
+
+name: build-on-pullrequest
+
+on: [pull_request]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-pr:
+    runs-on: [self-hosted, linux, x64, build3, standard]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # make sure the checkout can access the parent commit, too
+          fetch-depth: 2
+          # checkout pull request HEAD commit instead of merge commit
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.node-version'
+
+      - name: 'npm ci'
+        shell: bash
+        run: npm ci --prefer-offline
+
+      - name: 'Check if generated docs code is up to date'
+        shell: bash
+        run: |
+          npm run docs-codegen
+
+          if ! git diff --quiet HEAD --
+          then
+            echo "::error::There are uncommitted changes to the generated docs code"
+            echo
+            echo "This can be fixed by:"
+            echo "  npm run docs-codegen"
+            echo
+            git diff -- .
+            exit 1
+          fi
+
+      - name: 'Generate prod .env'
+        shell: bash
+        run: node ./scripts/generate-dotenv.cjs --tier="prod"
+
+      - name: 'Run TypeScript and build all targets'
+        shell: bash
+        run: npm run build
+
+      - name: 'Build demo apps'
+        shell: bash
+        run: npm run build-demo-apps
+
+  test-pr:
+    runs-on: [self-hosted, linux, x64, build3, large]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # make sure the checkout can access the parent commit, too
+          fetch-depth: 2
+          # checkout pull request HEAD commit instead of merge commit
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.node-version'
+
+      - name: 'npm ci'
+        shell: bash
+        run: npm ci --prefer-offline
+
+      - name: 'Generate test .env'
+        shell: bash
+        run: node ./scripts/generate-dotenv.cjs --tier="test"
+
+      - name: 'Run tests'
+        shell: bash
+        run: npm run test -- --maxWorkers=75%
+
+  test-opensource:
+    runs-on: [self-hosted, linux, x64, build3, standard]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # make sure the checkout can access the parent commit, too
+          fetch-depth: 2
+          # checkout pull request HEAD commit instead of merge commit
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.node-version'
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22.0'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'oracle'
+          java-version: '17'
+          cache: 'gradle'
+      - uses: gradle/actions/setup-gradle@v3
+
+      # NB: we do NOT do `npm ci` here, the OSS projects should be
+      # self-contained and not rely on monorepo packages.
+
+      - name: 'Install dependencies of and typecheck sdk-js'
+        shell: bash
+        run: |
+          cd opensource/sdk-js
+          npm ci --prefer-offline
+          npm run tsc-packages
+          npm run test
+
+      - name: 'Install dependencies of and typecheck cli'
+        shell: bash
+        run: |
+          cd opensource/cli
+          npm ci --prefer-offline
+          npm run check
+          npm run test
+
+      - name: 'Check types are built correctly'
+        shell: bash
+        run: |
+          cd opensource/sdk-js
+          npm ci --prefer-offline
+          npm run build
+          # Check that each package has an index.d.ts in /dist/mjs/types
+          test "$(ls packages/ | wc -l)" = "$(find . -name 'index.d.ts' | grep -E '/packages/[^/]+/dist/mjs/types/index.d.ts' | wc -l)" || { echo "Some number of types/index.d.ts files missing"; false; }
+
+      - name: 'Install dependencies of and test sdk-go'
+        shell: bash
+        run: |
+          cd opensource/sdk-go/server
+          go test
+
+      - name: 'Build and test sdk-java'
+        shell: bash
+        run: |
+          cd opensource/sdk-java
+          ./gradlew -b build.gradle project --info
+          ./gradlew test
+
+  lint-pr:
+    runs-on: [self-hosted, linux, x64, build3, standard]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          # fetch complete history
+          fetch-depth: 0
+          # checkout pull request HEAD commit instead of merge commit
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.node-version'
+
+      - name: 'Enforce private section if changing opensource/'
+        shell: bash
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          EVENT_CONTEXT: ${{ toJSON(github.event) }}
+        run: |
+          # Calculate the merge-base of the pull request's ref and this PR's
+          # HEAD in order to figure out what this PR contains.  We don't want to
+          # use pull_request.base.sha because sometimes that's a stale value if
+          # the PR was rebased, and we don't want to use pull_request.base.ref
+          # directly because it may be newer than the commit this PR was based
+          # on.
+          echo "BASE_REF: ${BASE_REF}"
+          echo "HEAD: $(git rev-parse HEAD)"
+          echo "FULL_CONTEXT: ${EVENT_CONTEXT}"
+          BASE="$(git merge-base HEAD "origin/$BASE_REF")"
+          echo "You changed these files: " $(git diff --name-only "$BASE" HEAD)
+          OPENSOURCE_COUNT="$(git diff --name-only "$BASE" HEAD -- opensource/ | (grep -vE '(^|/)CORD-' || true) | wc -l)"
+          if [[ "$OPENSOURCE_COUNT" -ne 0 ]]; then
+            echo "You changed ${OPENSOURCE_COUNT} files in opensource (excluding files and directories prefixed with 'CORD-')"
+            echo "Your PR message is: $PR_BODY"
+            node ./scripts/ci/check-private-section.cjs
+          fi
+
+      - name: 'No opensource-specific deps in root package-lock.json'
+        shell: bash
+        run: |
+          # Don't immediately fail if grep "fails" with no matches
+          set +e
+          # Check to ensure that we don't end up in a situation where the root
+          # build has two different versions of the same package installed, one
+          # for opensource and one for monorepo.  That tends to break builds
+          # from time to time, and we should instead upgrade the root package to
+          # match.
+
+          grep 'opensource/sdk-js/.*node_modules' package-lock.json
+
+          # grep returns 0 if it finds a match, 1 for no matches, and >1 for
+          # errors, so our check "succeeded" only if it returned exactly 1
+          test $? = 1
+
+      - name: install eslint
+        run: |
+          npm ci --prefer-offline
+      - name: eslint
+        shell: bash
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          # use the merge-base just in case Github gives us a master commit
+          # that is newer than the commit on which this PR is actually based on
+          base="$(git merge-base HEAD "$BASE")"
+
+          # what files have been modified or added since the base?
+          readarray -t files < <(
+            git diff --name-status "$base" HEAD | grep '^[MA]' | cut -f 2 | \
+            grep -E '\.[jt]sx?$'
+          )
+
+          # call eslint on changed files
+          node_modules/.bin/eslint "${files[@]}"

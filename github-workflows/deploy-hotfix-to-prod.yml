@@ -1,0 +1,25 @@
+# This workflow can be triggered interactively here:
+# https://github.com/getcord/monorepo/actions/workflows/deploy-hotfix-to-prod.yml
+
+name: deploy-hotfix-to-prod
+
+concurrency:
+  group: prod
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-hotfix-to-prod:
+    runs-on: [self-hosted, linux, x64, build3]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # make sure the checkout can access the parent commit, too
+          fetch-depth: 2
+
+      - name: build
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: 'scripts/ci/build-and-deploy-hotfix.sh prod'
