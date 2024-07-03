@@ -28,7 +28,6 @@ export async function migrateObjects(
       {
         orgID,
         contextHash: destContextHash,
-        providerID: null,
         contextData: destContextData,
       },
     ],

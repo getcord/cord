@@ -29,13 +29,6 @@ export class PageEntity extends Model<
   contextHash!: UUID;
 
   @Column({
-    type: DataTypes.UUID,
-    allowNull: true,
-    unique: 'orgID-providerID-contextHash-unique',
-  })
-  providerID!: UUID | null;
-
-  @Column({
     type: DataTypes.JSONB,
     allowNull: false,
   })
@@ -44,7 +37,7 @@ export class PageEntity extends Model<
   get pageContext(): PageContext {
     return {
       data: this.contextData,
-      providerID: this.providerID,
+      providerID: null,
     };
   }
 }

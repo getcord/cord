@@ -26,7 +26,6 @@ export class PageMutator {
         {
           orgID,
           contextHash,
-          providerID: null,
           contextData,
         },
       ],
@@ -55,7 +54,6 @@ export class PageMutator {
       defaults: {
         orgID,
         contextHash,
-        providerID: null,
         contextData,
       },
       transaction,
