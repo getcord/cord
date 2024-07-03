@@ -443,17 +443,6 @@ export type CustomNUXStepInput = {
   imageURL: Maybe<string>;
 };
 
-export type PageContextTransformationInputType = {
-  type: PageContextTransformationType;
-  data: Maybe<JSONObject>;
-};
-
-export type PageContextTransformationType =
-  | 'default'
-  | 'replace'
-  | 'extend'
-  | 'metabase';
-
 export type CSSMutatorConfig = {
   cssTemplate: string;
 };
@@ -515,61 +504,6 @@ export type CustomNUXStepContentFragment = {
 export type HeimdallSwitchFragment = {
   key: string;
   isOn: boolean;
-};
-
-export type ProviderDocumentMutatorFragment = {
-  __typename: 'ProviderDocumentMutator';
-  id: UUID;
-  type: ProviderDocumentMutatorType;
-  config: Nullable<JSONObject>;
-};
-
-export type ProviderFragment = {
-  __typename: 'ProviderFull';
-  id: UUID;
-  name: string;
-  iconURL: string;
-  domains: Array<string>;
-  public: boolean;
-  dirty: boolean;
-  nuxText: Nullable<string>;
-  mergeHashWithLocation: boolean;
-  disableAnnotations: boolean;
-  visibleInDiscoverToolsSection: boolean;
-  rules: Array<ProviderRuleFragment>;
-  documentMutators: Array<ProviderDocumentMutatorFragment>;
-  tests: Array<ProviderRuleTestFragment>;
-  claimingApplication: Nullable<{
-    id: UUID;
-  }>;
-};
-
-export type ProviderRuleFragment = {
-  __typename: 'ProviderRule';
-  id: UUID;
-  type: ProviderRuleType;
-  matchPatterns: JSONObject;
-  nameTemplate: Nullable<string>;
-  contextTransformation: JSONObject;
-  observeDOMMutations: boolean;
-};
-
-export type ProviderRuleTestFragment = {
-  __typename: 'ProviderRuleTest';
-  id: UUID;
-  url: string;
-  expectedMatch: ProviderRuleTestMatchType;
-  expectedName: Nullable<string>;
-  expectedContextData: Nullable<JSONObject>;
-  result: {
-    passes: boolean;
-    match: ProviderRuleTestMatchType;
-    ruleID: Nullable<UUID>;
-    pageContext: Nullable<{
-      data: Context;
-    }>;
-    pageName: Nullable<string>;
-  };
 };
 
 export type S3BucketFragment = {
@@ -930,22 +864,6 @@ export type HeimdallSwitchesQueryResult = {
   heimdallSwitches: Array<HeimdallSwitchFragment>;
 };
 
-export type PageContextForURLQueryResult = {
-  pageContextForURL: {
-    match: ProviderRuleTestMatchType;
-    matchedRuleID: Nullable<UUID>;
-    pageContext: Nullable<{
-      providerID: Nullable<UUID>;
-      data: Context;
-    }>;
-    pageName: Nullable<string>;
-  };
-};
-
-export type PageContextForURLQueryVariables = {
-  url: string;
-};
-
 export type RemoveConsoleUserFromCustomerMutationResult = {
   removeConsoleUserFromCustomer: {
     success: boolean;
@@ -1052,7 +970,6 @@ export type UpdateApplicationMutationVariables = {
   iconURL: Maybe<string>;
   customNUX: Maybe<CustomNUXInput>;
   environment: Maybe<ApplicationEnvironment>;
-  defaultProvider: Maybe<UUID>;
   redirectURI: Maybe<string>;
   eventWebhookURL: Maybe<string>;
   eventWebhookSubscriptions: Maybe<Array<string>>;

@@ -76,7 +76,6 @@ import {
   userResolver,
   userWithOrgDetailsResolver,
 } from 'server/src/schema/user.ts';
-import { providerForDomainQueryResolver } from 'server/src/public/queries/provider_for_domain.ts';
 import { refreshFileUploadURLMutationResolver } from 'server/src/public/mutations/refresh_file_upload_url.ts';
 import { s3BucketVisibleResolver } from 'server/src/schema/s3_bucket.ts';
 import { heimdallSwitchResolver } from 'server/src/schema/heimdall_switch.ts';
@@ -250,7 +249,6 @@ export const allResolvers: Resolvers = {
     users: usersQueryResolver,
     usersByExternalID: usersByExternalIDQueryResolver,
     providers: providersQueryResolver,
-    providerForDomain: providerForDomainQueryResolver,
     ping: pingQueryResolver,
     thread: threadQueryResolver,
     threadByExternalID2: threadByExternalID2QueryResolver,

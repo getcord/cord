@@ -134,12 +134,6 @@ export class ApplicationEntity extends Model {
     type: DataTypes.UUID,
     defaultValue: null,
   })
-  defaultProvider!: UUID | null;
-
-  @Column({
-    type: DataTypes.UUID,
-    defaultValue: null,
-  })
   customerID!: UUID;
 
   @Column({

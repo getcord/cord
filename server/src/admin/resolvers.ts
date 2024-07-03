@@ -1,26 +1,9 @@
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { createHeimdallSwitchResolver } from 'server/src/admin/mutations/create_heimdall_switch.ts';
-import { createProviderMutationResolver } from 'server/src/admin/mutations/create_provider.ts';
-import { createProviderDocumentMutatorMutationResolver } from 'server/src/admin/mutations/create_provider_document_mutator.ts';
-import { saveProviderRuleMutationResolver } from 'server/src/admin/mutations/save_provider_rule.ts';
-import { createProviderRuleTestMutationResolver } from 'server/src/admin/mutations/create_provider_rule_test.ts';
-import { deleteProviderMutationResolver } from 'server/src/admin/mutations/delete_provider.ts';
-import { deleteProviderDocumentMutatorMutationResolver } from 'server/src/admin/mutations/delete_provider_document_mutator.ts';
-import { deleteProviderRuleMutationResolver } from 'server/src/admin/mutations/delete_provider_rule.ts';
-import { deleteProviderRuleTestMutationResolver } from 'server/src/admin/mutations/delete_provider_rule_test.ts';
 import { flipHeimdallSwitchResolver } from 'server/src/admin/mutations/flip_heimdall_switch.ts';
-import { revertProviderToPublishedStateMutationResolver } from 'server/src/admin/mutations/revert_provider_to_published_state.ts';
-import { setProviderPublishedMutationResolver } from 'server/src/admin/mutations/set_provider_published.ts';
 import { updateCustomS3BucketSecretResolver } from 'server/src/admin/mutations/update_custom_s3_bucket_secret.ts';
-import { updateProviderMutationResolver } from 'server/src/admin/mutations/update_provider.ts';
-import { updateProviderDocumentMutatorMutationResolver } from 'server/src/admin/mutations/update_provider_document_mutator.ts';
-import { updateProviderRuleMutationResolver } from 'server/src/admin/mutations/update_provider_rule.ts';
-import { updateProviderRulesOrderMutationResolver } from 'server/src/admin/mutations/update_provider_rules_order.ts';
 import { applicationQueryResolver } from 'server/src/admin/queries/application.ts';
 import { heimdallSwitchesQueryResolver } from 'server/src/admin/queries/heimdall_switches.ts';
-import { pageContextForURLQueryResolver } from 'server/src/admin/queries/page_context_for_url.ts';
-import { providerQueryResolver } from 'server/src/admin/queries/provider.ts';
-import { providersQueryResolver } from 'server/src/admin/queries/providers.ts';
 import { s3BucketQueryResolver } from 'server/src/admin/queries/s3_bucket.ts';
 import { selectQueryResolver } from 'server/src/admin/queries/select.ts';
 import type { Resolvers } from 'server/src/admin/resolverTypes.ts';
@@ -78,9 +61,6 @@ export const allAdminResolvers: Resolvers = {
     users: usersQueryResolver,
     usersByExternalID: usersByExternalIDQueryResolver,
     select: selectQueryResolver,
-    providers: providersQueryResolver,
-    provider: providerQueryResolver,
-    pageContextForURL: pageContextForURLQueryResolver,
     ping: pingQueryResolver,
     s3Bucket: s3BucketQueryResolver,
     application: applicationQueryResolver,
@@ -100,24 +80,6 @@ export const allAdminResolvers: Resolvers = {
     customerSlackChannels: customerSlackChannelsResolver,
   },
   Mutation: {
-    createProvider: createProviderMutationResolver,
-    updateProvider: updateProviderMutationResolver,
-    deleteProvider: deleteProviderMutationResolver,
-    setProviderPublished: setProviderPublishedMutationResolver,
-    revertProviderToPublishedState:
-      revertProviderToPublishedStateMutationResolver,
-    saveProviderRule: saveProviderRuleMutationResolver,
-    updateProviderRule: updateProviderRuleMutationResolver,
-    updateProviderRulesOrder: updateProviderRulesOrderMutationResolver,
-    deleteProviderRule: deleteProviderRuleMutationResolver,
-    createProviderDocumentMutator:
-      createProviderDocumentMutatorMutationResolver,
-    updateProviderDocumentMutator:
-      updateProviderDocumentMutatorMutationResolver,
-    deleteProviderDocumentMutator:
-      deleteProviderDocumentMutatorMutationResolver,
-    createProviderRuleTest: createProviderRuleTestMutationResolver,
-    deleteProviderRuleTest: deleteProviderRuleTestMutationResolver,
     createApplicationCustomS3Bucket: createApplicationCustomS3BucketResolver,
     deleteApplicationCustomS3Bucket: deleteApplicationCustomS3BucketResolver,
     updateCustomS3BucketAccessKey: updateCustomS3BucketSecretResolver,
@@ -145,7 +107,6 @@ export const allAdminResolvers: Resolvers = {
     viewerIdentityLiveQuery: viewerIdentityLiveQueryResolver,
     userLiveQuery: userLiveQueryResolver,
   },
-  PageContextForURLResult: {},
   SuccessResult: {},
   IDResult: {},
   CustomerSlackChannelsResult: {},

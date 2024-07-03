@@ -1,6 +1,0 @@
-fragment ProviderDocumentMutatorFragment on ProviderDocumentMutator {
-  __typename
-  id
-  type
-  config
-}

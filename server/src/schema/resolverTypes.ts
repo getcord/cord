@@ -1437,10 +1437,6 @@ export type ProvidersQueryArgs = {
   version: Maybe<string>;
 };
 
-export type ProviderForDomainQueryArgs = {
-  domain: string;
-};
-
 export type ThreadQueryArgs = {
   threadID: UUID;
   _externalOrgID: Maybe<string>;
@@ -1527,7 +1523,6 @@ export type Query = {
   users: Array<M['User']>;
   usersByExternalID: Array<M['User']>;
   providers: Maybe<M['Providers']>;
-  providerForDomain: Maybe<M['RuleProvider']>;
   ping: M['String'];
   thread: M['Thread'];
   threadByExternalID2: M['MaybeThread'];
@@ -4980,11 +4975,6 @@ type QueryResolver = {
     args: ProvidersQueryArgs,
     context: RequestContext,
   ) => Maybe<M['Providers']> | Promise<Maybe<M['Providers']>>;
-  providerForDomain: (
-    parent: M['Query'],
-    args: ProviderForDomainQueryArgs,
-    context: RequestContext,
-  ) => Maybe<M['RuleProvider']> | Promise<Maybe<M['RuleProvider']>>;
   ping: (
     parent: M['Query'],
     args: Record<string, never>,

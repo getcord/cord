@@ -9,9 +9,6 @@ type Query {
   users(ids: [UUID!]!): [User!]!
   usersByExternalID(externalIDs: [String!]!): [User!]!
   select(query: String!, parameters: JSONObject!): [JSONObject!]!
-  providers: [ProviderFull!]!
-  provider(id: UUID!): ProviderFull
-  pageContextForURL(url: String!): PageContextForURLResult!
   ping: String!
   s3Bucket(id: UUID!): S3BucketVisible
   application(id: UUID!): Application
@@ -32,66 +29,6 @@ type Query {
 }
 
 type Mutation {
-  createProvider(
-    name: String!
-    iconURL: String!
-    domains: [String!]!
-    nuxText: String!
-    mergeHashWithLocation: Boolean!
-    disableAnnotations: Boolean!
-    visibleInDiscoverToolsSection: Boolean!
-    claimingApplication: UUID
-  ): IDResult!
-  updateProvider(
-    id: UUID!
-    name: String
-    iconURL: String
-    domains: [String!]
-    nuxText: String
-    mergeHashWithLocation: Boolean
-    disableAnnotations: Boolean
-    visibleInDiscoverToolsSection: Boolean
-    claimingApplication: UUID
-  ): SuccessResult!
-  deleteProvider(id: UUID!): SuccessResult!
-  setProviderPublished(id: UUID!, published: Boolean!): SuccessResult!
-  revertProviderToPublishedState(id: UUID!): SuccessResult!
-  saveProviderRule(
-    id: UUID
-    providerID: UUID!
-    type: ProviderRuleType!
-    matchPatterns: JSONObject!
-    nameTemplate: String
-    contextTransformation: PageContextTransformationInputType!
-    observeDOMMutations: Boolean!
-  ): IDResult!
-  updateProviderRule(
-    id: UUID!
-    type: ProviderRuleType!
-    matchPatterns: JSONObject!
-    observeDOMMutations: Boolean!
-  ): SuccessResult!
-  updateProviderRulesOrder(providerID: UUID!, ruleIDs: [UUID!]!): SuccessResult!
-  deleteProviderRule(id: UUID!): SuccessResult!
-  createProviderDocumentMutator(
-    providerID: UUID!
-    type: ProviderDocumentMutatorType!
-    config: CSSMutatorConfig!
-  ): IDResult!
-  updateProviderDocumentMutator(
-    id: UUID!
-    config: CSSMutatorConfig!
-  ): SuccessResult!
-  deleteProviderDocumentMutator(id: UUID!): SuccessResult!
-  createProviderRuleTest(
-    providerID: UUID!
-    url: String!
-    documentHTML: String
-    expectedMatch: ProviderRuleTestMatchType!
-    expectedName: String
-    expectedContextData: JSONObject
-  ): IDResult!
-  deleteProviderRuleTest(id: UUID!): SuccessResult!
   updateCustomS3BucketAccessKey(
     id: UUID!
     keyID: String!
@@ -118,7 +55,6 @@ type Mutation {
     iconURL: String
     customNUX: CustomNUXInput
     environment: ApplicationEnvironment
-    defaultProvider: UUID
     redirectURI: String
     eventWebhookURL: String
     eventWebhookSubscriptions: [String!]
@@ -230,25 +166,6 @@ input CustomNUXStepInput {
   title: String
   text: String
   imageURL: String
-}
-
-type PageContextForURLResult {
-  match: ProviderRuleTestMatchType!
-  matchedRuleID: UUID
-  pageContext: PageContext
-  pageName: String
-}
-
-input PageContextTransformationInputType {
-  type: PageContextTransformationType!
-  data: JSONObject
-}
-
-enum PageContextTransformationType {
-  default
-  replace
-  extend
-  metabase
 }
 
 input CSSMutatorConfig {

@@ -1414,14 +1414,6 @@ export type SelectQueryArgs = {
   parameters: JSONObject;
 };
 
-export type ProviderQueryArgs = {
-  id: UUID;
-};
-
-export type PageContextForURLQueryArgs = {
-  url: string;
-};
-
 export type S3BucketQueryArgs = {
   id: UUID;
 };
@@ -1475,9 +1467,6 @@ export type Query = {
   users: Array<M['User']>;
   usersByExternalID: Array<M['User']>;
   select: Array<M['JSONObject']>;
-  providers: Array<M['ProviderFull']>;
-  provider: Maybe<M['ProviderFull']>;
-  pageContextForURL: M['PageContextForURLResult'];
   ping: M['String'];
   s3Bucket: Maybe<M['S3BucketVisible']>;
   application: Maybe<M['Application']>;
@@ -1495,96 +1484,6 @@ export type Query = {
   customerIssues: Array<M['CustomerIssue']>;
   customerIssueCordSessionToken: Maybe<M['String']>;
   customerSlackChannels: Array<M['CustomerSlackChannelsResult']>;
-};
-
-export type CreateProviderMutationArgs = {
-  name: string;
-  iconURL: string;
-  domains: Array<string>;
-  nuxText: string;
-  mergeHashWithLocation: boolean;
-  disableAnnotations: boolean;
-  visibleInDiscoverToolsSection: boolean;
-  claimingApplication: Maybe<UUID>;
-};
-
-export type UpdateProviderMutationArgs = {
-  id: UUID;
-  name: Maybe<string>;
-  iconURL: Maybe<string>;
-  domains: Maybe<Array<string>>;
-  nuxText: Maybe<string>;
-  mergeHashWithLocation: Maybe<boolean>;
-  disableAnnotations: Maybe<boolean>;
-  visibleInDiscoverToolsSection: Maybe<boolean>;
-  claimingApplication: Maybe<UUID>;
-};
-
-export type DeleteProviderMutationArgs = {
-  id: UUID;
-};
-
-export type SetProviderPublishedMutationArgs = {
-  id: UUID;
-  published: boolean;
-};
-
-export type RevertProviderToPublishedStateMutationArgs = {
-  id: UUID;
-};
-
-export type SaveProviderRuleMutationArgs = {
-  id: Maybe<UUID>;
-  providerID: UUID;
-  type: ProviderRuleType;
-  matchPatterns: JSONObject;
-  nameTemplate: Maybe<string>;
-  contextTransformation: PageContextTransformationInputType;
-  observeDOMMutations: boolean;
-};
-
-export type UpdateProviderRuleMutationArgs = {
-  id: UUID;
-  type: ProviderRuleType;
-  matchPatterns: JSONObject;
-  observeDOMMutations: boolean;
-};
-
-export type UpdateProviderRulesOrderMutationArgs = {
-  providerID: UUID;
-  ruleIDs: Array<UUID>;
-};
-
-export type DeleteProviderRuleMutationArgs = {
-  id: UUID;
-};
-
-export type CreateProviderDocumentMutatorMutationArgs = {
-  providerID: UUID;
-  type: ProviderDocumentMutatorType;
-  config: CSSMutatorConfig;
-};
-
-export type UpdateProviderDocumentMutatorMutationArgs = {
-  id: UUID;
-  config: CSSMutatorConfig;
-};
-
-export type DeleteProviderDocumentMutatorMutationArgs = {
-  id: UUID;
-};
-
-export type CreateProviderRuleTestMutationArgs = {
-  providerID: UUID;
-  url: string;
-  documentHTML: Maybe<string>;
-  expectedMatch: ProviderRuleTestMatchType;
-  expectedName: Maybe<string>;
-  expectedContextData: Maybe<JSONObject>;
-};
-
-export type DeleteProviderRuleTestMutationArgs = {
-  id: UUID;
 };
 
 export type UpdateCustomS3BucketAccessKeyMutationArgs = {
@@ -1629,7 +1528,6 @@ export type UpdateApplicationMutationArgs = {
   iconURL: Maybe<string>;
   customNUX: Maybe<CustomNUXInput>;
   environment: Maybe<ApplicationEnvironment>;
-  defaultProvider: Maybe<UUID>;
   redirectURI: Maybe<string>;
   eventWebhookURL: Maybe<string>;
   eventWebhookSubscriptions: Maybe<Array<string>>;
@@ -1738,20 +1636,6 @@ export type CreateStripeSubscriptionMutationArgs = {
 };
 
 export type Mutation = {
-  createProvider: M['IDResult'];
-  updateProvider: M['SuccessResult'];
-  deleteProvider: M['SuccessResult'];
-  setProviderPublished: M['SuccessResult'];
-  revertProviderToPublishedState: M['SuccessResult'];
-  saveProviderRule: M['IDResult'];
-  updateProviderRule: M['SuccessResult'];
-  updateProviderRulesOrder: M['SuccessResult'];
-  deleteProviderRule: M['SuccessResult'];
-  createProviderDocumentMutator: M['IDResult'];
-  updateProviderDocumentMutator: M['SuccessResult'];
-  deleteProviderDocumentMutator: M['SuccessResult'];
-  createProviderRuleTest: M['IDResult'];
-  deleteProviderRuleTest: M['SuccessResult'];
   updateCustomS3BucketAccessKey: M['SuccessResult'];
   createApplicationCustomS3Bucket: M['SuccessResult'];
   deleteApplicationCustomS3Bucket: M['SuccessResult'];
@@ -1811,24 +1695,6 @@ export type CustomNUXStepInput = {
   text: Maybe<string>;
   imageURL: Maybe<string>;
 };
-
-export type PageContextForURLResult = {
-  match: M['ProviderRuleTestMatchType'];
-  matchedRuleID: Maybe<M['UUID']>;
-  pageContext: Maybe<M['PageContext']>;
-  pageName: Maybe<M['String']>;
-};
-
-export type PageContextTransformationInputType = {
-  type: PageContextTransformationType;
-  data: Maybe<JSONObject>;
-};
-
-export type PageContextTransformationType =
-  | 'default'
-  | 'replace'
-  | 'extend'
-  | 'metabase';
 
 export type CSSMutatorConfig = {
   cssTemplate: string;
@@ -2051,9 +1917,6 @@ export type NameToType = {
   CustomLinks: CustomLinks;
   CustomNUXInput: CustomNUXInput;
   CustomNUXStepInput: CustomNUXStepInput;
-  PageContextForURLResult: PageContextForURLResult;
-  PageContextTransformationInputType: PageContextTransformationInputType;
-  PageContextTransformationType: PageContextTransformationType;
   CSSMutatorConfig: CSSMutatorConfig;
   CustomerSlackChannelsResult: CustomerSlackChannelsResult;
   CustomerSlackMessageType: CustomerSlackMessageType;
@@ -4952,21 +4815,6 @@ type QueryResolver = {
     args: SelectQueryArgs,
     context: RequestContext,
   ) => Array<M['JSONObject']> | Promise<Array<M['JSONObject']>>;
-  providers: (
-    parent: M['Query'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => Array<M['ProviderFull']> | Promise<Array<M['ProviderFull']>>;
-  provider: (
-    parent: M['Query'],
-    args: ProviderQueryArgs,
-    context: RequestContext,
-  ) => Maybe<M['ProviderFull']> | Promise<Maybe<M['ProviderFull']>>;
-  pageContextForURL: (
-    parent: M['Query'],
-    args: PageContextForURLQueryArgs,
-    context: RequestContext,
-  ) => M['PageContextForURLResult'] | Promise<M['PageContextForURLResult']>;
   ping: (
     parent: M['Query'],
     args: Record<string, never>,
@@ -5057,76 +4905,6 @@ type QueryResolver = {
 };
 
 type MutationResolver = {
-  createProvider: (
-    parent: M['Mutation'],
-    args: CreateProviderMutationArgs,
-    context: RequestContext,
-  ) => M['IDResult'] | Promise<M['IDResult']>;
-  updateProvider: (
-    parent: M['Mutation'],
-    args: UpdateProviderMutationArgs,
-    context: RequestContext,
-  ) => M['SuccessResult'] | Promise<M['SuccessResult']>;
-  deleteProvider: (
-    parent: M['Mutation'],
-    args: DeleteProviderMutationArgs,
-    context: RequestContext,
-  ) => M['SuccessResult'] | Promise<M['SuccessResult']>;
-  setProviderPublished: (
-    parent: M['Mutation'],
-    args: SetProviderPublishedMutationArgs,
-    context: RequestContext,
-  ) => M['SuccessResult'] | Promise<M['SuccessResult']>;
-  revertProviderToPublishedState: (
-    parent: M['Mutation'],
-    args: RevertProviderToPublishedStateMutationArgs,
-    context: RequestContext,
-  ) => M['SuccessResult'] | Promise<M['SuccessResult']>;
-  saveProviderRule: (
-    parent: M['Mutation'],
-    args: SaveProviderRuleMutationArgs,
-    context: RequestContext,
-  ) => M['IDResult'] | Promise<M['IDResult']>;
-  updateProviderRule: (
-    parent: M['Mutation'],
-    args: UpdateProviderRuleMutationArgs,
-    context: RequestContext,
-  ) => M['SuccessResult'] | Promise<M['SuccessResult']>;
-  updateProviderRulesOrder: (
-    parent: M['Mutation'],
-    args: UpdateProviderRulesOrderMutationArgs,
-    context: RequestContext,
-  ) => M['SuccessResult'] | Promise<M['SuccessResult']>;
-  deleteProviderRule: (
-    parent: M['Mutation'],
-    args: DeleteProviderRuleMutationArgs,
-    context: RequestContext,
-  ) => M['SuccessResult'] | Promise<M['SuccessResult']>;
-  createProviderDocumentMutator: (
-    parent: M['Mutation'],
-    args: CreateProviderDocumentMutatorMutationArgs,
-    context: RequestContext,
-  ) => M['IDResult'] | Promise<M['IDResult']>;
-  updateProviderDocumentMutator: (
-    parent: M['Mutation'],
-    args: UpdateProviderDocumentMutatorMutationArgs,
-    context: RequestContext,
-  ) => M['SuccessResult'] | Promise<M['SuccessResult']>;
-  deleteProviderDocumentMutator: (
-    parent: M['Mutation'],
-    args: DeleteProviderDocumentMutatorMutationArgs,
-    context: RequestContext,
-  ) => M['SuccessResult'] | Promise<M['SuccessResult']>;
-  createProviderRuleTest: (
-    parent: M['Mutation'],
-    args: CreateProviderRuleTestMutationArgs,
-    context: RequestContext,
-  ) => M['IDResult'] | Promise<M['IDResult']>;
-  deleteProviderRuleTest: (
-    parent: M['Mutation'],
-    args: DeleteProviderRuleTestMutationArgs,
-    context: RequestContext,
-  ) => M['SuccessResult'] | Promise<M['SuccessResult']>;
   updateCustomS3BucketAccessKey: (
     parent: M['Mutation'],
     args: UpdateCustomS3BucketAccessKeyMutationArgs,
@@ -5259,29 +5037,6 @@ type SubscriptionResolver = {
       context: RequestContext,
     ) => M['UserLiveQueryData'] | Promise<M['UserLiveQueryData']>;
   };
-};
-
-type PageContextForURLResultResolver = {
-  match: (
-    parent: M['PageContextForURLResult'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['ProviderRuleTestMatchType'] | Promise<M['ProviderRuleTestMatchType']>;
-  matchedRuleID: (
-    parent: M['PageContextForURLResult'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => Maybe<M['UUID']> | Promise<Maybe<M['UUID']>>;
-  pageContext: (
-    parent: M['PageContextForURLResult'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => Maybe<M['PageContext']> | Promise<Maybe<M['PageContext']>>;
-  pageName: (
-    parent: M['PageContextForURLResult'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => Maybe<M['String']> | Promise<Maybe<M['String']>>;
 };
 
 type CustomerSlackChannelsResultResolver = {
@@ -5870,11 +5625,6 @@ export type Resolvers = {
     SubscriptionResolver,
     Subscription,
     M['Subscription']
-  >;
-  PageContextForURLResult: MakeExistingFieldsOptional<
-    PageContextForURLResultResolver,
-    PageContextForURLResult,
-    M['PageContextForURLResult']
   >;
   CustomerSlackChannelsResult: MakeExistingFieldsOptional<
     CustomerSlackChannelsResultResolver,

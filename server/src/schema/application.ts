@@ -2,6 +2,7 @@ import * as jwt from 'jsonwebtoken';
 import { CustomerEntity } from 'server/src/entity/customer/CustomerEntity.ts';
 import { UserEntity } from 'server/src/entity/user/UserEntity.ts';
 import { userDisplayName } from 'server/src/entity/user/util.ts';
+import { deprecatedFunction } from 'server/src/logging/deprecate.ts';
 import type {
   Resolvers,
   ApplicationLinks,
@@ -93,4 +94,9 @@ export const applicationResolver: Resolvers['Application'] = {
       isComponentInitialized,
     };
   },
+
+  defaultProvider: deprecatedFunction(
+    () => null,
+    'graphql: application.defaultProvider',
+  ),
 };

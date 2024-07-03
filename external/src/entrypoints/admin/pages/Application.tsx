@@ -97,7 +97,6 @@ export function Application() {
       imageURL: null,
     },
   });
-  const [defaultProvider, setDefaultProvider] = useState<string | null>(null);
   const [redirectURI, setRedirectURI] = useState<string>('');
   const [eventWebhookURL, setEventWebhookURL] = useState<string>('');
   const [eventWebhookSubscriptions, setEventWebhookSubscriptions] = useState<
@@ -156,7 +155,6 @@ export function Application() {
           data.application.eventWebhookSubscriptions,
         );
       }
-      setDefaultProvider(data.application.defaultProvider ?? null);
     }
   }, [data]);
 
@@ -344,7 +342,6 @@ export function Application() {
                 iconURL,
                 customNUX: NUX,
                 environment,
-                defaultProvider: defaultProvider || null,
                 redirectURI,
                 eventWebhookURL,
                 eventWebhookSubscriptions,
@@ -442,21 +439,6 @@ export function Application() {
                   value={writeKey ?? ''}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setWriteKey(e.target.value)
-                  }
-                />
-              </InputGroup>
-            </Form.Group>
-
-            <Form.Group>
-              <InputGroup>
-                <InputGroup.Prepend>
-                  <InputGroup.Text>Default Provider</InputGroup.Text>
-                </InputGroup.Prepend>
-                <Form.Control
-                  type="text"
-                  value={defaultProvider ?? ''}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setDefaultProvider(e.target.value)
                   }
                 />
               </InputGroup>

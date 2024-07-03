@@ -14,7 +14,6 @@ type Query {
   users(ids: [UUID!]!): [User!]!
   usersByExternalID(externalIDs: [String!]!): [User!]!
   providers(latest: Boolean, version: String): Providers
-  providerForDomain(domain: String!): RuleProvider
   ping: String!
   thread(threadID: UUID!, _externalOrgID: String): Thread!
   threadByExternalID2(

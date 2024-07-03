@@ -8,7 +8,6 @@ mutation UpdateApplicationMutation(
   $iconURL: String
   $customNUX: CustomNUXInput
   $environment: ApplicationEnvironment
-  $defaultProvider: UUID
   $redirectURI: String
   $eventWebhookURL: String
   $eventWebhookSubscriptions: [String!]
@@ -23,7 +22,6 @@ mutation UpdateApplicationMutation(
     iconURL: $iconURL
     customNUX: $customNUX
     environment: $environment
-    defaultProvider: $defaultProvider
     redirectURI: $redirectURI
     eventWebhookURL: $eventWebhookURL
     eventWebhookSubscriptions: $eventWebhookSubscriptions

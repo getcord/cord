@@ -109,18 +109,12 @@ import type {
   CustomLinks,
   CustomNUXInput,
   CustomNUXStepInput,
-  PageContextTransformationInputType,
-  PageContextTransformationType,
   CSSMutatorConfig,
   CustomerSlackMessageType,
   AddonInput,
   AdminApplicationFragment,
   CustomNUXStepContentFragment,
   HeimdallSwitchFragment,
-  ProviderDocumentMutatorFragment,
-  ProviderFragment,
-  ProviderRuleFragment,
-  ProviderRuleTestFragment,
   S3BucketFragment,
   AddConsoleUserToCustomerMutationResult,
   AddConsoleUserToCustomerMutationVariables,
@@ -169,8 +163,6 @@ import type {
   HeimdallSwitchAdminQueryResult,
   HeimdallSwitchAdminQueryVariables,
   HeimdallSwitchesQueryResult,
-  PageContextForURLQueryResult,
-  PageContextForURLQueryVariables,
   RemoveConsoleUserFromCustomerMutationResult,
   RemoveConsoleUserFromCustomerMutationVariables,
   AddCustomerIssueSubscriptionMutationResult,
@@ -282,18 +274,12 @@ export type {
   CustomLinks,
   CustomNUXInput,
   CustomNUXStepInput,
-  PageContextTransformationInputType,
-  PageContextTransformationType,
   CSSMutatorConfig,
   CustomerSlackMessageType,
   AddonInput,
   AdminApplicationFragment,
   CustomNUXStepContentFragment,
   HeimdallSwitchFragment,
-  ProviderDocumentMutatorFragment,
-  ProviderFragment,
-  ProviderRuleFragment,
-  ProviderRuleTestFragment,
   S3BucketFragment,
   AddConsoleUserToCustomerMutationResult,
   AddConsoleUserToCustomerMutationVariables,
@@ -342,8 +328,6 @@ export type {
   HeimdallSwitchAdminQueryResult,
   HeimdallSwitchAdminQueryVariables,
   HeimdallSwitchesQueryResult,
-  PageContextForURLQueryResult,
-  PageContextForURLQueryVariables,
   RemoveConsoleUserFromCustomerMutationResult,
   RemoveConsoleUserFromCustomerMutationVariables,
   AddCustomerIssueSubscriptionMutationResult,
@@ -421,8 +405,6 @@ import { default as HeimdallSwitchAdminQuery } from 'external/src/entrypoints/ad
 export { HeimdallSwitchAdminQuery };
 import { default as HeimdallSwitchesQuery } from 'external/src/entrypoints/admin/graphql/HeimdallSwitchesQuery.graphql';
 export { HeimdallSwitchesQuery };
-import { default as PageContextForURLQuery } from 'external/src/entrypoints/admin/graphql/PageContextForURLQuery.graphql';
-export { PageContextForURLQuery };
 import { default as RemoveConsoleUserFromCustomerMutation } from 'external/src/entrypoints/admin/graphql/RemoveConsoleUserFromCustomerMutation.graphql';
 export { RemoveConsoleUserFromCustomerMutation };
 import { default as AddCustomerIssueSubscriptionMutation } from 'external/src/entrypoints/admin/graphql/RemoveCustomerIssueSubscriptionMutation.graphql';
@@ -1018,35 +1000,6 @@ export function useLazyHeimdallSwitchesQuery<T>(
   );
 }
 
-export function usePageContextForURLQuery<T>(
-  options: QueryHookOptions<
-    PageContextForURLQueryResult,
-    PageContextForURLQueryVariables,
-    T
-  >,
-) {
-  return useQuery<
-    PageContextForURLQueryResult,
-    PageContextForURLQueryVariables
-  >(PageContextForURLQuery, options);
-}
-
-export function useLazyPageContextForURLQuery<T>(
-  options?: LazyQueryHookOptions<
-    PageContextForURLQueryResult,
-    PageContextForURLQueryVariables,
-    T
-  >,
-): LazyQueryReturnType<
-  PageContextForURLQueryResult,
-  PageContextForURLQueryVariables
-> {
-  return useLazyQuery<
-    PageContextForURLQueryResult,
-    PageContextForURLQueryVariables
-  >(PageContextForURLQuery, options);
-}
-
 export function useRemoveConsoleUserFromCustomerMutation<T>(
   options?: MutationHookOptions<
     RemoveConsoleUserFromCustomerMutationResult,
@@ -1310,10 +1263,6 @@ export type QueryTypes = {
     variables: Record<string, never>;
     result: HeimdallSwitchesQueryResult;
   };
-  PageContextForURLQuery: {
-    variables: PageContextForURLQueryVariables;
-    result: PageContextForURLQueryResult;
-  };
   S3BucketQuery: {
     variables: S3BucketQueryVariables;
     result: S3BucketQueryResult;
@@ -1340,7 +1289,6 @@ export const queries: Record<keyof QueryTypes, DocumentNode> = {
   GoRedirectAdminQuery: GoRedirectAdminQuery,
   HeimdallSwitchAdminQuery: HeimdallSwitchAdminQuery,
   HeimdallSwitchesQuery: HeimdallSwitchesQuery,
-  PageContextForURLQuery: PageContextForURLQuery,
   S3BucketQuery: S3BucketQuery,
   SelectQuery: SelectQuery,
   TestTokenQuery: TestTokenQuery,
