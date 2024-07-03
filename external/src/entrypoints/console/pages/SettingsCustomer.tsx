@@ -12,8 +12,6 @@ import { SPACING_BASE } from 'external/src/entrypoints/console/components/Layout
 import { useUpdateCustomerNameMutation } from 'external/src/entrypoints/console/graphql/operations.ts';
 import { CustomerInfoContext } from 'external/src/entrypoints/console/contexts/CustomerInfoProvider.tsx';
 import { useContextThrowingIfNoProvider } from 'external/src/effects/useContextThrowingIfNoProvider.ts';
-import { FeatureFlags } from 'common/const/FeatureFlags.ts';
-import { useFeatureFlag } from 'external/src/effects/useFeatureFlag.ts';
 import { UnsavedChangesBanner } from 'external/src/entrypoints/console/components/UnsavedChangesBanner.tsx';
 import { HelpIconWithTooltip } from 'external/src/entrypoints/console/components/HelpIconWithTooltip.tsx';
 
@@ -41,7 +39,7 @@ const useStyles = createUseStyles({
 
 export function SettingsCustomer() {
   const classes = useStyles();
-  const { customerID, sharedSecret, customerName, billingInfo, refetch } =
+  const { customerID, sharedSecret, customerName, refetch } =
     useContextThrowingIfNoProvider(CustomerInfoContext);
   const [name, setName] = useState(customerName ?? '');
   const [updateName] = useUpdateCustomerNameMutation();
@@ -56,10 +54,6 @@ export function SettingsCustomer() {
     }
     return false;
   }, [customerName, name]);
-
-  const isBillingInConsoleEnabled = useFeatureFlag(
-    FeatureFlags.BILLING_ENABLED_IN_CONSOLE,
-  );
 
   const onSave = useCallback(async () => {
     const result = await updateName({
@@ -157,42 +151,39 @@ export function SettingsCustomer() {
           </form>
         </div>
       </Box>
-      {isBillingInConsoleEnabled === false ||
-      billingInfo.pricingTier !== 'free' ? (
-        <Box>
-          <div className={classes.boxContent}>
-            <section className={classes.boxHeader}>
-              <Typography fontWeight={Sizes.BOLD_TEXT_WEIGHT}>
-                Your Account API keys
-              </Typography>
-              <Typography variant="body2" mt={8 / SPACING_BASE}>
-                API keys that will allow you to programatically manage your
-                projects
-              </Typography>
-            </section>
-            {customerID && (
-              <BoxRow
-                label="Customer ID"
-                tooltip="Use this when managing your account through the Cord API"
-              >
-                <SecretBox text={customerID} canBeCopiedToClipboard />
-              </BoxRow>
-            )}
-            {sharedSecret && (
-              <BoxRow
-                label="Customer Secret"
-                tooltip="Use this when managing your account through the Cord API"
-              >
-                <SecretBox
-                  text={sharedSecret}
-                  canBeCopiedToClipboard
-                  hiddenOnRender
-                />
-              </BoxRow>
-            )}
-          </div>
-        </Box>
-      ) : null}
+      <Box>
+        <div className={classes.boxContent}>
+          <section className={classes.boxHeader}>
+            <Typography fontWeight={Sizes.BOLD_TEXT_WEIGHT}>
+              Your Account API keys
+            </Typography>
+            <Typography variant="body2" mt={8 / SPACING_BASE}>
+              API keys that will allow you to programatically manage your
+              projects
+            </Typography>
+          </section>
+          {customerID && (
+            <BoxRow
+              label="Customer ID"
+              tooltip="Use this when managing your account through the Cord API"
+            >
+              <SecretBox text={customerID} canBeCopiedToClipboard />
+            </BoxRow>
+          )}
+          {sharedSecret && (
+            <BoxRow
+              label="Customer Secret"
+              tooltip="Use this when managing your account through the Cord API"
+            >
+              <SecretBox
+                text={sharedSecret}
+                canBeCopiedToClipboard
+                hiddenOnRender
+              />
+            </BoxRow>
+          )}
+        </div>
+      </Box>
     </Stack>
   );
 }
