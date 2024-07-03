@@ -99,7 +99,7 @@ const DataTableQueryToSQL: { [query in DataTableQueries]: string } = {
     SELECT * FROM cord.deploys ORDER BY "deployStartTime" DESC LIMIT 100;
   `,
   [DataTableQueries.PAGE_CONTEXTS]: `
-    SELECT pages."orgID", pages."providerID", count(threads.id) as "threads", pages."contextData", pages."contextHash" from orgs, pages
+    SELECT pages."orgID", count(threads.id) as "threads", pages."contextData", pages."contextHash" from orgs, pages
     LEFT JOIN threads ON threads."pageContextHash" = pages."contextHash" AND threads."orgID" = pages."orgID"
     WHERE orgs."platformApplicationID" = $applicationID and orgs.id = pages."orgID"
     GROUP BY pages."orgID", pages."contextHash"

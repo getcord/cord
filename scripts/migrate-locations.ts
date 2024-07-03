@@ -88,7 +88,6 @@ async function main() {
        INNER JOIN orgs o
           ON p."orgID" = o."id"
        WHERE o."platformApplicationID" = $1
-         AND p."providerID" IS NULL
          AND p."contextData" @> $2::jsonb`,
       {
         type: QueryTypes.SELECT,

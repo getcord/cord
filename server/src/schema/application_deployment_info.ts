@@ -113,7 +113,6 @@ export const applicationDeploymentInfoResolver: Resolvers['ApplicationDeployment
             AND pv."orgID" = p."orgID"
           WHERE o."platformApplicationID" = $1
             AND pv."lastPresentTimestamp" > NOW() - '1 week'::interval
-            AND p."providerID" IS NULL
             AND p."contextData" - 'location' != '{}'`,
         { bind: [application.id], type: QueryTypes.SELECT },
       );
@@ -126,8 +125,7 @@ export const applicationDeploymentInfoResolver: Resolvers['ApplicationDeployment
           FROM pages p
           INNER JOIN orgs o ON p."orgID" = o.id
           AND p."orgID" = o.id
-          WHERE o."platformApplicationID" = $1
-            AND p."providerID" IS NULL`,
+          WHERE o."platformApplicationID" = $1`,
         { bind: [application.id], type: QueryTypes.SELECT },
       );
 
