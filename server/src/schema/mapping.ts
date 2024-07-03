@@ -6,7 +6,6 @@ import type {
   JsonValue,
   MessageContent,
   PageContext,
-  RuleProvider,
   SimpleValue,
   UUID,
   NotificationListFilter,
@@ -19,10 +18,6 @@ import type { MessageAttachmentEntity } from 'server/src/entity/message_attachme
 import type { MessageReactionEntity } from 'server/src/entity/message_reaction/MessageReactionEntity.ts';
 import type { OrgEntity } from 'server/src/entity/org/OrgEntity.ts';
 import type { PageVisitorEntity } from 'server/src/entity/page_visitor/PageVisitorEntity.ts';
-import type { ProviderEntity } from 'server/src/entity/provider/ProviderEntity.ts';
-import type { ProviderDocumentMutatorEntity } from 'server/src/entity/provider_document_mutator/ProviderDocumentMutatorEntity.ts';
-import type { ProviderRuleEntity } from 'server/src/entity/provider_rule/ProviderRuleEntity.ts';
-import type { ProviderRuleTestEntity } from 'server/src/entity/provider_rule_test/ProviderRuleTestEntity.ts';
 import type { SlackChannelEntity } from 'server/src/entity/slack_channel/SlackChannelEntity.ts';
 import type { TaskEntity } from 'server/src/entity/task/TaskEntity.ts';
 import type { TaskThirdPartyReference } from 'server/src/entity/task_third_party_reference/TaskThirdPartyReferenceEntity.ts';
@@ -77,7 +72,6 @@ export type Mapping = {
   Int: number;
   MessageContent: MessageContent;
   ElementIdentifierVersion: ElementIdentifierVersion;
-  RuleProvider: RuleProvider;
   JsonObjectReducerData: JsonObjectReducerData;
 
   // query types
@@ -116,10 +110,6 @@ export type Mapping = {
   ThreadFilterablePropertiesMatch: PubSubEvent<'thread-filterable-properties-updated'>;
   ThreadFilterablePropertiesUnmatch: PubSubEvent<'thread-filterable-properties-updated'>;
   PageVisitor: PageVisitorEntity;
-  ProviderDocumentMutator: ProviderDocumentMutatorEntity;
-  ProviderFull: ProviderEntity;
-  ProviderRule: ProviderRuleEntity;
-  ProviderRuleTest: ProviderRuleTestEntity;
   SlackChannelSchema: SlackChannelEntity;
   Task: TaskEntity;
   TaskThirdPartyReference: TaskThirdPartyReference;

@@ -10,11 +10,6 @@ import { UserPreferenceLoader } from 'server/src/entity/user_preference/UserPref
 import { TaskLoader } from 'server/src/entity/task/TaskLoader.ts';
 import { TaskAssigneeLoader } from 'server/src/entity/task_assignee/TaskAssigneeLoader.ts';
 import { TaskTodoLoader } from 'server/src/entity/task_todo/TaskTodoLoader.ts';
-import { ProviderLoader } from 'server/src/entity/provider/ProviderLoader.ts';
-import { ProviderRuleLoader } from 'server/src/entity/provider_rule/ProviderRuleLoader.ts';
-import { ProviderDocumentMutatorLoader } from 'server/src/entity/provider_document_mutator/ProviderDocumentMutatorLoader.ts';
-import { ProviderRuleTestLoader } from 'server/src/entity/provider_rule_test/ProviderRuleTestLoader.ts';
-import { PublishedProviderLoader } from 'server/src/entity/published_provider/PublishedProviderLoader.ts';
 import { PageLoader } from 'server/src/entity/page/PageLoader.ts';
 import { ThreadLoader } from 'server/src/entity/thread/ThreadLoader.ts';
 import { PageVisitorLoader } from 'server/src/entity/page_visitor/PageVisitorLoader.ts';
@@ -59,11 +54,6 @@ export type RequestContextLoaders = {
   deploysLoader: DeploysLoader;
   taskAssigneeLoader: TaskAssigneeLoader;
   taskTodoLoader: TaskTodoLoader;
-  providerLoader: ProviderLoader;
-  providerRuleLoader: ProviderRuleLoader;
-  providerDocumentMutatorLoader: ProviderDocumentMutatorLoader;
-  providerRuleTestLoader: ProviderRuleTestLoader;
-  publishedProviderLoader: PublishedProviderLoader;
   orgMembersLoader: OrgMembersLoader;
   s3BucketLoader: S3BucketLoader;
   applicationLoader: ApplicationLoader;
@@ -113,11 +103,6 @@ export async function getNewLoaders(
     taskLoader: new TaskLoader(viewer),
     taskAssigneeLoader: new TaskAssigneeLoader(viewer),
     taskTodoLoader: new TaskTodoLoader(viewer),
-    providerLoader: new ProviderLoader(viewer),
-    providerRuleLoader: new ProviderRuleLoader(viewer),
-    providerDocumentMutatorLoader: new ProviderDocumentMutatorLoader(viewer),
-    providerRuleTestLoader: new ProviderRuleTestLoader(viewer),
-    publishedProviderLoader: new PublishedProviderLoader(viewer),
     orgMembersLoader: new OrgMembersLoader(viewer),
     s3BucketLoader: new S3BucketLoader(viewer),
     applicationLoader: new ApplicationLoader(viewer),

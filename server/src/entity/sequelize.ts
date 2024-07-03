@@ -23,11 +23,6 @@ import {
 import { TaskEntity } from 'server/src/entity/task/TaskEntity.ts';
 import { TaskTodoEntity } from 'server/src/entity/task_todo/TaskTodoEntity.ts';
 import { TaskAssigneeEntity } from 'server/src/entity/task_assignee/TaskAssigneeEntity.ts';
-import { ProviderEntity } from 'server/src/entity/provider/ProviderEntity.ts';
-import { ProviderRuleEntity } from 'server/src/entity/provider_rule/ProviderRuleEntity.ts';
-import { ProviderDocumentMutatorEntity } from 'server/src/entity/provider_document_mutator/ProviderDocumentMutatorEntity.ts';
-import { ProviderRuleTestEntity } from 'server/src/entity/provider_rule_test/ProviderRuleTestEntity.ts';
-import { PublishedProviderEntity } from 'server/src/entity/published_provider/PublishedProviderEntity.ts';
 import { ThirdPartyConnectionEntity } from 'server/src/entity/third_party_connection/ThirdPartyConnectionEntity.ts';
 import { TaskThirdPartyReference } from 'server/src/entity/task_third_party_reference/TaskThirdPartyReferenceEntity.ts';
 import { PageEntity } from 'server/src/entity/page/PageEntity.ts';
@@ -167,11 +162,6 @@ const apiSequelizeOptions: SequelizeOptions = {
     TaskEntity,
     TaskTodoEntity,
     TaskAssigneeEntity,
-    ProviderEntity,
-    ProviderRuleEntity,
-    ProviderDocumentMutatorEntity,
-    ProviderRuleTestEntity,
-    PublishedProviderEntity,
     ThirdPartyConnectionEntity,
     TaskThirdPartyReference,
     TaskThirdPartySubscriptionEntity,

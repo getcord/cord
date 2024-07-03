@@ -267,11 +267,6 @@ export async function executeUpdateMessageTasks({
     newUserReferenceIDs.push(...newMentionUserIDs);
   }
 
-  const page =
-    await context.loaders.pageLoader.loadPrimaryPageForThreadNoOrgCheck(
-      message.threadID,
-    );
-
   if (newUserReferenceIDs.length > 0 || removedTaskAssigneeUserIDs.length > 0) {
     const threadParticipantMutator = new ThreadParticipantMutator(
       viewer,
@@ -284,7 +279,6 @@ export async function executeUpdateMessageTasks({
     await notifyReferencedUsers({
       context,
       message: message,
-      page,
       mentionedUserIDs: newMentionUserIDs,
       taskAssigneeUserIDs: newTaskAssigneeUserIDs,
       removedTaskAssigneeUserIDs,

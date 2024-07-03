@@ -28,8 +28,6 @@ export type SimpleTranslationParameters =
 
 export type MessageContent = FrontendScalars['MessageContent'];
 
-export type RuleProvider = FrontendScalars['RuleProvider'];
-
 export type UUID = FrontendScalars['UUID'];
 
 export type JsonObjectReducerData = FrontendScalars['JsonObjectReducerData'];
@@ -107,8 +105,6 @@ export type BillingStatus = 'active' | 'unpaid' | 'inactive';
 
 export type StripeSubscriptionRecurrence = 'monthly' | 'yearly';
 
-export type ProviderRuleType = 'deny' | 'allow';
-
 export type ApplicationTierType = 'free' | 'starter' | 'premium';
 
 export type ApplicationEnvironment =
@@ -117,13 +113,6 @@ export type ApplicationEnvironment =
   | 'sample'
   | 'sampletoken'
   | 'demo';
-
-export type ProviderDocumentMutatorType =
-  | 'default_css'
-  | 'fixed_elements'
-  | 'custom_css';
-
-export type ProviderRuleTestMatchType = 'allow' | 'deny' | 'none';
 
 export type OrgMemberState = 'inactive' | 'active' | 'deleted';
 

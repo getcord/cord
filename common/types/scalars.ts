@@ -5,7 +5,6 @@ import type {
   JsonValue,
   MessageContent,
   EntityMetadata,
-  RuleProvider,
   UUID,
   SimpleTranslationParameters,
 } from 'common/types/index.ts';
@@ -25,6 +24,5 @@ export type FrontendScalars = {
   UUID: UUID;
   MessageContent: MessageContent;
   ElementIdentifierVersion: ElementIdentifierVersion;
-  RuleProvider: RuleProvider;
   JsonObjectReducerData: JsonObjectReducerData;
 };

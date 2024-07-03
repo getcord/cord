@@ -76,8 +76,6 @@ type SimpleTranslationParameters = Mapping['SimpleTranslationParameters'];
 
 type MessageContent = Mapping['MessageContent'];
 
-type RuleProvider = Mapping['RuleProvider'];
-
 type UUID = Mapping['UUID'];
 
 type JsonObjectReducerData = Mapping['JsonObjectReducerData'];
@@ -405,23 +403,6 @@ export type PageThreadsResult = {
   token: Maybe<M['String']>;
 };
 
-export type ProviderFull = {
-  id: M['UUID'];
-  name: M['String'];
-  iconURL: M['String'];
-  domains: Array<M['String']>;
-  nuxText: Maybe<M['String']>;
-  mergeHashWithLocation: M['Boolean'];
-  disableAnnotations: M['Boolean'];
-  visibleInDiscoverToolsSection: M['Boolean'];
-  public: M['Boolean'];
-  dirty: M['Boolean'];
-  rules: Array<M['ProviderRule']>;
-  documentMutators: Array<M['ProviderDocumentMutator']>;
-  tests: Array<M['ProviderRuleTest']>;
-  claimingApplication: Maybe<M['Application']>;
-};
-
 export type ApplicationUsageMetricsArgs = {
   metrics: Array<string>;
   days: Int;
@@ -538,19 +519,6 @@ export type ConsoleUser = {
   pendingCustomerID: Maybe<M['UUID']>;
 };
 
-export type ProviderRule = {
-  id: M['UUID'];
-  provider: M['ProviderFull'];
-  type: M['ProviderRuleType'];
-  order: M['Int'];
-  matchPatterns: M['JSONObject'];
-  nameTemplate: Maybe<M['String']>;
-  contextTransformation: M['JSONObject'];
-  observeDOMMutations: M['Boolean'];
-};
-
-export type ProviderRuleType = 'deny' | 'allow';
-
 export type ApplicationTierType = 'free' | 'starter' | 'premium';
 
 export type ApplicationEnvironment =
@@ -559,37 +527,6 @@ export type ApplicationEnvironment =
   | 'sample'
   | 'sampletoken'
   | 'demo';
-
-export type ProviderDocumentMutator = {
-  id: M['UUID'];
-  provider: M['ProviderFull'];
-  type: M['ProviderDocumentMutatorType'];
-  config: Maybe<M['JSONObject']>;
-};
-
-export type ProviderDocumentMutatorType =
-  | 'default_css'
-  | 'fixed_elements'
-  | 'custom_css';
-
-export type ProviderRuleTest = {
-  id: M['UUID'];
-  url: M['String'];
-  expectedMatch: M['ProviderRuleTestMatchType'];
-  expectedName: Maybe<M['String']>;
-  expectedContextData: Maybe<M['JSONObject']>;
-  result: M['ProviderRuleTestResult'];
-};
-
-export type ProviderRuleTestMatchType = 'allow' | 'deny' | 'none';
-
-export type ProviderRuleTestResult = {
-  passes: M['Boolean'];
-  match: M['ProviderRuleTestMatchType'];
-  ruleID: Maybe<M['UUID']>;
-  pageContext: Maybe<M['PageContext']>;
-  pageName: Maybe<M['String']>;
-};
 
 export type PageContext = {
   data: M['Context'];
@@ -739,11 +676,6 @@ export type ThirdPartyConnection = {
   connected: M['Boolean'];
   oAuthStateToken: M['String'];
   configuration: Maybe<M['JSON']>;
-};
-
-export type Providers = {
-  ruleProviders: Array<M['RuleProvider']>;
-  version: M['String'];
 };
 
 export type HeimdallSwitch = {
@@ -1739,7 +1671,6 @@ export type NameToType = {
   PresenceLiveQueryData: PresenceLiveQueryData;
   UserLiveQueryData: UserLiveQueryData;
   PageThreadsResult: PageThreadsResult;
-  ProviderFull: ProviderFull;
   Application: Application;
   ApplicationDeploymentInfo: ApplicationDeploymentInfo;
   ApplicationConsoleSetupInfo: ApplicationConsoleSetupInfo;
@@ -1753,15 +1684,8 @@ export type NameToType = {
   StripeSubscription: StripeSubscription;
   Customer: Customer;
   ConsoleUser: ConsoleUser;
-  ProviderRule: ProviderRule;
-  ProviderRuleType: ProviderRuleType;
   ApplicationTierType: ApplicationTierType;
   ApplicationEnvironment: ApplicationEnvironment;
-  ProviderDocumentMutator: ProviderDocumentMutator;
-  ProviderDocumentMutatorType: ProviderDocumentMutatorType;
-  ProviderRuleTest: ProviderRuleTest;
-  ProviderRuleTestMatchType: ProviderRuleTestMatchType;
-  ProviderRuleTestResult: ProviderRuleTestResult;
   PageContext: PageContext;
   PageVisitor: PageVisitor;
   OrgMemberState: OrgMemberState;
@@ -1784,7 +1708,6 @@ export type NameToType = {
   SlackChannelSchema: SlackChannelSchema;
   Inbox: Inbox;
   ThirdPartyConnection: ThirdPartyConnection;
-  Providers: Providers;
   HeimdallSwitch: HeimdallSwitch;
   FeatureFlag: FeatureFlag;
   LogEventInput: LogEventInput;
@@ -2812,81 +2735,6 @@ type PageThreadsResultResolver = {
   ) => Maybe<M['String']> | Promise<Maybe<M['String']>>;
 };
 
-type ProviderFullResolver = {
-  id: (
-    parent: M['ProviderFull'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['UUID'] | Promise<M['UUID']>;
-  name: (
-    parent: M['ProviderFull'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['String'] | Promise<M['String']>;
-  iconURL: (
-    parent: M['ProviderFull'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['String'] | Promise<M['String']>;
-  domains: (
-    parent: M['ProviderFull'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => Array<M['String']> | Promise<Array<M['String']>>;
-  nuxText: (
-    parent: M['ProviderFull'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => Maybe<M['String']> | Promise<Maybe<M['String']>>;
-  mergeHashWithLocation: (
-    parent: M['ProviderFull'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['Boolean'] | Promise<M['Boolean']>;
-  disableAnnotations: (
-    parent: M['ProviderFull'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['Boolean'] | Promise<M['Boolean']>;
-  visibleInDiscoverToolsSection: (
-    parent: M['ProviderFull'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['Boolean'] | Promise<M['Boolean']>;
-  public: (
-    parent: M['ProviderFull'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['Boolean'] | Promise<M['Boolean']>;
-  dirty: (
-    parent: M['ProviderFull'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['Boolean'] | Promise<M['Boolean']>;
-  rules: (
-    parent: M['ProviderFull'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => Array<M['ProviderRule']> | Promise<Array<M['ProviderRule']>>;
-  documentMutators: (
-    parent: M['ProviderFull'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) =>
-    | Array<M['ProviderDocumentMutator']>
-    | Promise<Array<M['ProviderDocumentMutator']>>;
-  tests: (
-    parent: M['ProviderFull'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => Array<M['ProviderRuleTest']> | Promise<Array<M['ProviderRuleTest']>>;
-  claimingApplication: (
-    parent: M['ProviderFull'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => Maybe<M['Application']> | Promise<Maybe<M['Application']>>;
-};
-
 type ApplicationResolver = {
   id: (
     parent: M['Application'],
@@ -3288,135 +3136,6 @@ type ConsoleUserResolver = {
   ) => Maybe<M['UUID']> | Promise<Maybe<M['UUID']>>;
 };
 
-type ProviderRuleResolver = {
-  id: (
-    parent: M['ProviderRule'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['UUID'] | Promise<M['UUID']>;
-  provider: (
-    parent: M['ProviderRule'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['ProviderFull'] | Promise<M['ProviderFull']>;
-  type: (
-    parent: M['ProviderRule'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['ProviderRuleType'] | Promise<M['ProviderRuleType']>;
-  order: (
-    parent: M['ProviderRule'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['Int'] | Promise<M['Int']>;
-  matchPatterns: (
-    parent: M['ProviderRule'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['JSONObject'] | Promise<M['JSONObject']>;
-  nameTemplate: (
-    parent: M['ProviderRule'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => Maybe<M['String']> | Promise<Maybe<M['String']>>;
-  contextTransformation: (
-    parent: M['ProviderRule'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['JSONObject'] | Promise<M['JSONObject']>;
-  observeDOMMutations: (
-    parent: M['ProviderRule'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['Boolean'] | Promise<M['Boolean']>;
-};
-
-type ProviderDocumentMutatorResolver = {
-  id: (
-    parent: M['ProviderDocumentMutator'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['UUID'] | Promise<M['UUID']>;
-  provider: (
-    parent: M['ProviderDocumentMutator'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['ProviderFull'] | Promise<M['ProviderFull']>;
-  type: (
-    parent: M['ProviderDocumentMutator'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) =>
-    | M['ProviderDocumentMutatorType']
-    | Promise<M['ProviderDocumentMutatorType']>;
-  config: (
-    parent: M['ProviderDocumentMutator'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => Maybe<M['JSONObject']> | Promise<Maybe<M['JSONObject']>>;
-};
-
-type ProviderRuleTestResolver = {
-  id: (
-    parent: M['ProviderRuleTest'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['UUID'] | Promise<M['UUID']>;
-  url: (
-    parent: M['ProviderRuleTest'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['String'] | Promise<M['String']>;
-  expectedMatch: (
-    parent: M['ProviderRuleTest'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['ProviderRuleTestMatchType'] | Promise<M['ProviderRuleTestMatchType']>;
-  expectedName: (
-    parent: M['ProviderRuleTest'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => Maybe<M['String']> | Promise<Maybe<M['String']>>;
-  expectedContextData: (
-    parent: M['ProviderRuleTest'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => Maybe<M['JSONObject']> | Promise<Maybe<M['JSONObject']>>;
-  result: (
-    parent: M['ProviderRuleTest'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['ProviderRuleTestResult'] | Promise<M['ProviderRuleTestResult']>;
-};
-
-type ProviderRuleTestResultResolver = {
-  passes: (
-    parent: M['ProviderRuleTestResult'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['Boolean'] | Promise<M['Boolean']>;
-  match: (
-    parent: M['ProviderRuleTestResult'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['ProviderRuleTestMatchType'] | Promise<M['ProviderRuleTestMatchType']>;
-  ruleID: (
-    parent: M['ProviderRuleTestResult'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => Maybe<M['UUID']> | Promise<Maybe<M['UUID']>>;
-  pageContext: (
-    parent: M['ProviderRuleTestResult'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => Maybe<M['PageContext']> | Promise<Maybe<M['PageContext']>>;
-  pageName: (
-    parent: M['ProviderRuleTestResult'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => Maybe<M['String']> | Promise<Maybe<M['String']>>;
-};
-
 type PageContextResolver = {
   data: (
     parent: M['PageContext'],
@@ -3750,19 +3469,6 @@ type ThirdPartyConnectionResolver = {
     args: Record<string, never>,
     context: RequestContext,
   ) => Maybe<M['JSON']> | Promise<Maybe<M['JSON']>>;
-};
-
-type ProvidersResolver = {
-  ruleProviders: (
-    parent: M['Providers'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => Array<M['RuleProvider']> | Promise<Array<M['RuleProvider']>>;
-  version: (
-    parent: M['Providers'],
-    args: Record<string, never>,
-    context: RequestContext,
-  ) => M['String'] | Promise<M['String']>;
 };
 
 type HeimdallSwitchResolver = {
@@ -5208,7 +4914,6 @@ export type Resolvers = {
   Metadata: GraphQLScalarType;
   SimpleTranslationParameters: GraphQLScalarType;
   MessageContent: GraphQLScalarType;
-  RuleProvider: GraphQLScalarType;
   UUID: GraphQLScalarType;
   JsonObjectReducerData: GraphQLScalarType;
   Message: MakeExistingFieldsOptional<MessageResolver, Message, M['Message']>;
@@ -5326,11 +5031,6 @@ export type Resolvers = {
     PageThreadsResult,
     M['PageThreadsResult']
   >;
-  ProviderFull: MakeExistingFieldsOptional<
-    ProviderFullResolver,
-    ProviderFull,
-    M['ProviderFull']
-  >;
   Application: MakeExistingFieldsOptional<
     ApplicationResolver,
     Application,
@@ -5361,26 +5061,6 @@ export type Resolvers = {
     ConsoleUserResolver,
     ConsoleUser,
     M['ConsoleUser']
-  >;
-  ProviderRule: MakeExistingFieldsOptional<
-    ProviderRuleResolver,
-    ProviderRule,
-    M['ProviderRule']
-  >;
-  ProviderDocumentMutator: MakeExistingFieldsOptional<
-    ProviderDocumentMutatorResolver,
-    ProviderDocumentMutator,
-    M['ProviderDocumentMutator']
-  >;
-  ProviderRuleTest: MakeExistingFieldsOptional<
-    ProviderRuleTestResolver,
-    ProviderRuleTest,
-    M['ProviderRuleTest']
-  >;
-  ProviderRuleTestResult: MakeExistingFieldsOptional<
-    ProviderRuleTestResultResolver,
-    ProviderRuleTestResult,
-    M['ProviderRuleTestResult']
   >;
   PageContext: MakeExistingFieldsOptional<
     PageContextResolver,
@@ -5430,11 +5110,6 @@ export type Resolvers = {
     ThirdPartyConnectionResolver,
     ThirdPartyConnection,
     M['ThirdPartyConnection']
-  >;
-  Providers: MakeExistingFieldsOptional<
-    ProvidersResolver,
-    Providers,
-    M['Providers']
   >;
   HeimdallSwitch: MakeExistingFieldsOptional<
     HeimdallSwitchResolver,

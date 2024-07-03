@@ -13,7 +13,6 @@ type Query {
   task(id: UUID!, _externalOrgID: String): Task
   users(ids: [UUID!]!): [User!]!
   usersByExternalID(externalIDs: [String!]!): [User!]!
-  providers(latest: Boolean, version: String): Providers
   ping: String!
   thread(threadID: UUID!, _externalOrgID: String): Thread!
   threadByExternalID2(

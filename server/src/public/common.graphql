@@ -11,7 +11,6 @@ scalar Context
 scalar Metadata
 scalar SimpleTranslationParameters
 scalar MessageContent
-scalar RuleProvider
 scalar UUID
 scalar JsonObjectReducerData
 
@@ -346,23 +345,6 @@ type PageThreadsResult {
   token: String
 }
 
-type ProviderFull {
-  id: UUID!
-  name: String!
-  iconURL: String!
-  domains: [String!]!
-  nuxText: String
-  mergeHashWithLocation: Boolean!
-  disableAnnotations: Boolean!
-  visibleInDiscoverToolsSection: Boolean!
-  public: Boolean!
-  dirty: Boolean!
-  rules: [ProviderRule!]!
-  documentMutators: [ProviderDocumentMutator!]!
-  tests: [ProviderRuleTest!]!
-  claimingApplication: Application
-}
-
 type Application {
   id: UUID!
   name: String!
@@ -492,22 +474,6 @@ type ConsoleUser {
   pendingCustomerID: UUID
 }
 
-type ProviderRule {
-  id: UUID!
-  provider: ProviderFull!
-  type: ProviderRuleType!
-  order: Int!
-  matchPatterns: JSONObject!
-  nameTemplate: String
-  contextTransformation: JSONObject!
-  observeDOMMutations: Boolean!
-}
-
-enum ProviderRuleType {
-  deny
-  allow
-}
-
 enum ApplicationTierType {
   free
   starter
@@ -520,42 +486,6 @@ enum ApplicationEnvironment {
   sample
   sampletoken
   demo
-}
-
-type ProviderDocumentMutator {
-  id: UUID!
-  provider: ProviderFull!
-  type: ProviderDocumentMutatorType!
-  config: JSONObject
-}
-
-enum ProviderDocumentMutatorType {
-  default_css
-  fixed_elements
-  custom_css
-}
-
-type ProviderRuleTest {
-  id: UUID!
-  url: String!
-  expectedMatch: ProviderRuleTestMatchType!
-  expectedName: String
-  expectedContextData: JSONObject
-  result: ProviderRuleTestResult!
-}
-
-enum ProviderRuleTestMatchType {
-  allow
-  deny
-  none
-}
-
-type ProviderRuleTestResult {
-  passes: Boolean!
-  match: ProviderRuleTestMatchType!
-  ruleID: UUID
-  pageContext: PageContext
-  pageName: String
 }
 
 type PageContext {
@@ -713,11 +643,6 @@ type ThirdPartyConnection {
   connected: Boolean!
   oAuthStateToken: String!
   configuration: JSON
-}
-
-type Providers {
-  ruleProviders: [RuleProvider!]!
-  version: String!
 }
 
 type HeimdallSwitch {

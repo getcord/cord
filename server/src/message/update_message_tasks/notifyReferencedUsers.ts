@@ -6,12 +6,10 @@ import { NotificationMutator } from 'server/src/entity/notification/Notification
 import { getNotificationReplyActions } from 'server/src/message/util/getNotificationReplyActions.ts';
 import { sendOutboundNotification } from 'server/src/notifications/outbound/sendOutboundNotifications.ts';
 import type { MessageEntity } from 'server/src/entity/message/MessageEntity.ts';
-import type { PageEntity } from 'server/src/entity/page/PageEntity.ts';
 
 export async function notifyReferencedUsers({
   context,
   message,
-  page,
   mentionedUserIDs,
   taskAssigneeUserIDs = [],
   removedTaskAssigneeUserIDs = [],
@@ -19,7 +17,6 @@ export async function notifyReferencedUsers({
 }: {
   context: RequestContext;
   message: MessageEntity;
-  page: PageEntity | null;
   mentionedUserIDs: UUID[];
   taskAssigneeUserIDs?: UUID[];
   removedTaskAssigneeUserIDs?: UUID[];
@@ -35,11 +32,6 @@ export async function notifyReferencedUsers({
     return;
   }
 
-  const provider =
-    page && page.providerID
-      ? await context.loaders.providerLoader.load(page.providerID)
-      : null;
-
   await Promise.all(
     usersToNotify.map(async (userID) => {
       const replyActions = getNotificationReplyActions({
@@ -54,7 +46,6 @@ export async function notifyReferencedUsers({
           context,
           targetUserID: userID,
           message: message,
-          providerName: provider?.name,
           replyActions,
           notificationType: 'reply',
         }),

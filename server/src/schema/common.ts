@@ -191,16 +191,6 @@ export const ElementIdentifierVersionScalarType = new GraphQLScalarType({
   },
 });
 
-export const RuleProviderScalarType = new GraphQLScalarType({
-  name: 'RuleProvider',
-  description: 'Rule provider',
-
-  // serialization/deserialization works just like for JSON
-  serialize: GraphQLJSON.serialize,
-  parseValue: GraphQLJSON.parseValue,
-  parseLiteral: GraphQLJSON.parseLiteral,
-});
-
 export const JsonObjectReducerDataScalarType = new GraphQLScalarType({
   name: 'JsonObjectReducerData',
   description: 'Data type for jsonObjectReducer',

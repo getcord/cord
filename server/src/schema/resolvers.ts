@@ -18,7 +18,6 @@ import { setTypingMutationResolver } from 'server/src/public/mutations/set_typin
 import { updateMessageResolver } from 'server/src/public/mutations/update_message.ts';
 import { featureFlagsQueryResolver } from 'server/src/public/queries/feature_flags.ts';
 import { pingQueryResolver } from 'server/src/public/queries/ping.ts';
-import { providersQueryResolver } from 'server/src/public/queries/providers.ts';
 import { taskQueryResolver } from 'server/src/public/queries/task.ts';
 import { threadQueryResolver } from 'server/src/public/queries/thread.ts';
 import {
@@ -36,7 +35,6 @@ import {
   ElementIdentifierVersionScalarType,
   JsonObjectReducerDataScalarType,
   MessageContentScalarType,
-  RuleProviderScalarType,
   SimpleValueScalarType,
   ContextScalarType,
   MetadataScalarType,
@@ -57,10 +55,6 @@ import { linkedOrgResolver, orgResolver } from 'server/src/schema/org.ts';
 import { pageThreadAddedResolver } from 'server/src/schema/page_thread_added.ts';
 import { pageVisitorResolver } from 'server/src/schema/page_visitor.ts';
 import { pageVisitorUpdatedResolver } from 'server/src/schema/page_visitors_updated.ts';
-import { providerDocumentMutatorResolver } from 'server/src/schema/provider_document_mutator.ts';
-import { providerFullResolver } from 'server/src/schema/provider_full.ts';
-import { providerRuleResolver } from 'server/src/schema/provider_rule.ts';
-import { providerRuleTestResolver } from 'server/src/schema/provider_rule_test.ts';
 import type { Resolvers } from 'server/src/schema/resolverTypes.ts';
 import { taskResolver } from 'server/src/schema/task.ts';
 import { taskThirdPartyReferenceResolver } from 'server/src/schema/task_third_party_reference.ts';
@@ -236,7 +230,6 @@ export const allResolvers: Resolvers = {
   Metadata: MetadataScalarType,
   MessageContent: MessageContentScalarType,
   SimpleTranslationParameters: SimpleTranslationParametersScalarType,
-  RuleProvider: RuleProviderScalarType,
   UUID: GraphQLUUID,
   JsonObjectReducerData: JsonObjectReducerDataScalarType,
 
@@ -248,7 +241,6 @@ export const allResolvers: Resolvers = {
     task: taskQueryResolver,
     users: usersQueryResolver,
     usersByExternalID: usersByExternalIDQueryResolver,
-    providers: providersQueryResolver,
     ping: pingQueryResolver,
     thread: threadQueryResolver,
     threadByExternalID2: threadByExternalID2QueryResolver,
@@ -344,13 +336,7 @@ export const allResolvers: Resolvers = {
   ThreadParticipant: threadParticipantResolver,
   User: userResolver,
   UserWithOrgDetails: userWithOrgDetailsResolver,
-  Providers: {},
   HeimdallSwitch: heimdallSwitchResolver,
-  ProviderFull: providerFullResolver,
-  ProviderRule: providerRuleResolver,
-  ProviderDocumentMutator: providerDocumentMutatorResolver,
-  ProviderRuleTest: providerRuleTestResolver,
-  ProviderRuleTestResult: {},
   PageContext: {},
   PageVisitor: pageVisitorResolver,
   S3BucketVisible: s3BucketVisibleResolver,
