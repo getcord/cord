@@ -81,22 +81,6 @@ async function main() {
       ],
     );
 
-    for (const tableName of [
-      'providers',
-      'provider_rules',
-      'provider_document_mutators',
-      'provider_rule_tests',
-    ]) {
-      await copyRows(
-        pg,
-        output,
-        tableName,
-        `SELECT * FROM ${pg.escapeIdentifier(tableName)};`,
-        [],
-      );
-    }
-
-    output.write('UPDATE providers SET "claimingApplication"=NULL;\n');
     output.write(
       'UPDATE applications SET "supportBotID"=NULL, "supportOrgID"=NULL;\n',
     );
