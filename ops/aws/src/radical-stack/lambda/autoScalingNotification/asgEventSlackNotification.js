@@ -28,7 +28,9 @@ const handler = async (input) => {
 
   const subject = input.Records[0].Sns.Subject;
 
-  const path = '/services/T012Y0TBQLW/B026WUYAJRM/wNaPVRQ1THTUtPQMdneufoWb'; // slack webhook url for AutoScaling Monitor app
+  // Find your Slack app's incoming webhook HRL by going to "Incoming Webhooks"
+  // in your app's settings on https://api.slack.com/apps
+  const path = '<YOUR SLACK WEBHOOK URL HERE>'; // looks like /services/T.../B.../...
   const slackMessage = {
     text: subject,
     blocks: [
