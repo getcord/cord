@@ -313,7 +313,8 @@ CREATE TRIGGER trigger_user_update_timestamp
 ALTER TABLE applications
     ADD FOREIGN KEY ("supportBotID")
     REFERENCES users ("id")
-    ON DELETE SET NULL;
+    ON DELETE SET NULL
+    DEFERRABLE INITIALLY DEFERRED;
 
 CREATE TABLE user_preferences (
     "userID" uuid NOT NULL REFERENCES users (id) ON DELETE CASCADE,
@@ -364,7 +365,8 @@ CREATE TABLE orgs (
 ALTER TABLE applications
     ADD FOREIGN KEY ("supportOrgID")
     REFERENCES orgs ("id")
-    ON DELETE SET NULL;
+    ON DELETE SET NULL
+    DEFERRABLE INITIALLY DEFERRED;
 
 CREATE INDEX ON orgs USING gin("metadata");
 

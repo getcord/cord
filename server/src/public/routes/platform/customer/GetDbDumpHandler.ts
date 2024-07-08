@@ -26,7 +26,7 @@ async function GetDbDumpHandler(req: Request, res: Response) {
       customerID,
     );
   } catch (err) {
-    res.send(`\n\n-- ${err}\n`);
+    res.write(`\n\n-- ${err}\n`);
   }
   res.end();
 }
@@ -42,12 +42,42 @@ const { escapeIdentifier } = Pg.Client.prototype;
 
 const tableHandling: Record<
   string,
-  ((alias: string) => string) | 'ignore' | undefined
+  ((alias: string, customerID: string) => string) | 'ignore' | undefined
 > = {
   console_users: (alias) =>
     `${alias}."customerID" IS NOT NULL OR ${alias}."pendingCustomerID" IS NOT NULL`,
-  users: (alias) => `${alias}."platformApplicationID" IS NOT NULL`,
-  orgs: (alias) => `${alias}."platformApplicationID" IS NOT NULL`,
+  users: (alias, customerID) =>
+    `${alias}."platformApplicationID" IS NOT NULL
+      OR (
+        ${alias}."platformApplicationID" IS NULL
+        AND (
+          -- Include Slack users that have sent a message
+          ${alias}.id IN (
+            SELECT "sourceID" FROM messages m
+              INNER JOIN applications a ON m."platformApplicationID" = a.id
+            WHERE a."customerID" = '${customerID}')
+          -- ...and Slack users that a platform user has linked to
+          OR ${alias}.id IN (
+            SELECT "linkedUserID" FROM linked_users lu
+              INNER JOIN users u ON lu."sourceUserID" = u.id
+              INNER JOIN applications a ON u."platformApplicationID" = a.id
+            WHERE a."customerID" = '${customerID}')))`,
+  orgs: (alias, customerID) => `${alias}."platformApplicationID" IS NOT NULL
+    OR (
+      ${alias}."platformApplicationID" IS NULL
+      AND ${alias}.id IN (
+        SELECT "linkedOrgID" FROM linked_orgs lo
+          INNER JOIN orgs o ON lo."sourceOrgID" = o.id
+          INNER JOIN applications a ON o."platformApplicationID" = a.id
+        WHERE a."customerID" = '${customerID}'))`,
+  linked_users: (alias, customerID) => `${alias}."sourceUserID" IN (
+      SELECT u.id FROM users u
+        INNER JOIN applications a ON u."platformApplicationID" = a.id
+      WHERE a."customerID" = '${customerID}')`,
+  linked_orgs: (alias, customerID) => `${alias}."sourceOrgID" IN (
+      SELECT o.id FROM orgs o
+        INNER JOIN applications a ON o."platformApplicationID" = a.id
+      WHERE a."customerID" = '${customerID}')`,
 
   // Contains customer secrets for their s3_buckets, don't include
   s3_buckets: 'ignore',
@@ -70,11 +100,19 @@ const tableHandling: Record<
   image_variants: 'ignore',
   slack_channels: 'ignore',
 
-  // TODO(flooey): Tables that still need to be handled, because we don't yet
-  // export Slack users
-  linked_users: 'ignore',
-  linked_orgs: 'ignore',
+  // The existing email notifications can't possibly be responded to, they'll be
+  // responding to us, not them, so don't export them
+  email_notifications: 'ignore',
 };
+
+const firstTables = [
+  'customers',
+  'applications',
+  'users',
+  'orgs',
+  'threads',
+  'messages',
+];
 
 const ignoredColumns = ['supportBotID', 'supportOrgID'];
 
@@ -241,8 +279,24 @@ async function streamPartialDumpImpl(
     }
   }
 
+  const sortedTables = [...tables.values()];
+  sortedTables.sort((a, b) => {
+    const aIndex = firstTables.indexOf(a.name);
+    const bIndex = firstTables.indexOf(b.name);
+    if (aIndex === bIndex) {
+      return 0;
+    }
+    if (aIndex === -1 && bIndex !== -1) {
+      return 1;
+    }
+    if (aIndex !== -1 && bIndex === -1) {
+      return -1;
+    }
+    return aIndex - bIndex;
+  });
+
   // Now copy the table data!
-  for (const table of tables.values()) {
+  for (const table of sortedTables) {
     await dumpTable(output, pg, table, customerID);
   }
 
@@ -292,7 +346,7 @@ type Table = {
   name: string;
   columns: string[];
   fkeys: ForeignKey[];
-  handling: ((alias: string) => string) | 'ignore' | null;
+  handling: ((alias: string, customerID: string) => string) | 'ignore' | null;
 };
 type ForeignKey = {
   referencedTable: Table;
@@ -368,7 +422,7 @@ function resolveForeignKeys(
   const joins: string[] = [];
 
   if (table.handling) {
-    where.push(`(${table.handling(alias)})`);
+    where.push(`(${table.handling(alias, customerID)})`);
   }
 
   for (const { referencedTable, keys } of table.fkeys) {
