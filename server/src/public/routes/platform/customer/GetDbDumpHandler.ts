@@ -61,6 +61,11 @@ const tableHandling: Record<
             SELECT "linkedUserID" FROM linked_users lu
               INNER JOIN users u ON lu."sourceUserID" = u.id
               INNER JOIN applications a ON u."platformApplicationID" = a.id
+            WHERE a."customerID" = '${customerID}')
+          -- ...and Slack users that have notifications
+          OR ${alias}.id IN (
+            SELECT "recipientID" FROM notifications n
+              INNER JOIN applications a ON n."platformApplicationID" = a.id
             WHERE a."customerID" = '${customerID}')))`,
   orgs: (alias, customerID) => `${alias}."platformApplicationID" IS NOT NULL
     OR (
@@ -412,6 +417,19 @@ function resolveForeignKeys(
   if (table.name === 'customers') {
     const where = `${alias}.id = '${customerID}'`;
     return { joins: [], where };
+  }
+
+  // notifications foreign keys to half a dozen tables, but we can make it way
+  // more efficient by just checking if it's part of the proper application
+  if (table.name === 'notifications') {
+    const referencedAlias = `j_${serial++}`;
+    return {
+      joins: [
+        `LEFT OUTER JOIN applications ${referencedAlias}
+    ON (${alias}."platformApplicationID" = ${referencedAlias}.id)`,
+      ],
+      where: `${referencedAlias}."customerID" = '${customerID}'`,
+    };
   }
 
   if (visitedTables.includes(table)) {
