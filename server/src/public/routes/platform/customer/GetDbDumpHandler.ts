@@ -44,8 +44,8 @@ const tableHandling: Record<
   string,
   ((alias: string, customerID: string) => string) | 'ignore' | undefined
 > = {
-  console_users: (alias) =>
-    `${alias}."customerID" IS NOT NULL OR ${alias}."pendingCustomerID" IS NOT NULL`,
+  console_users: (alias, customerID) =>
+    `${alias}."customerID" = '${customerID}' OR ${alias}."pendingCustomerID" = '${customerID}'`,
   users: (alias, customerID) =>
     `${alias}."platformApplicationID" IS NOT NULL
       OR (
@@ -112,6 +112,8 @@ const firstTables = [
   'orgs',
   'threads',
   'messages',
+  'tasks',
+  'task_todos',
 ];
 
 const ignoredColumns = ['supportBotID', 'supportOrgID'];
@@ -220,29 +222,27 @@ async function streamPartialDumpImpl(
   for (const row of (
     await pg.query(`
       SELECT
-          conrelid AS "tableOid",
-          confrelid AS "referencedTableOid",
-          array_to_json(ARRAY(
-              SELECT jsonb_build_object(
-                  'column', att.attname::text,
-                  'nullable', NOT att.attnotnull
-                )
-              FROM unnest(conkey) k
-              LEFT OUTER JOIN pg_catalog.pg_attribute att
-              ON att.attnum=k AND att.attrelid=conrelid
-          )) AS fkey,
-          ARRAY(
-              SELECT att.attname::text
-              FROM unnest(confkey) k
-              LEFT OUTER JOIN pg_catalog.pg_attribute att
-              ON att.attnum=k AND att.attrelid=confrelid
-          ) AS rkey,
-          ARRAY(
-              SELECT opr.oprname::text
-              FROM unnest(conpfeqop) k
-              LEFT OUTER JOIN pg_catalog.pg_operator opr ON opr.oid=k
-          ) AS ops
-          FROM pg_catalog.pg_constraint WHERE contype='f';`)
+        constraints.conrelid AS "tableOid",
+        constraints.confrelid AS "referencedTableOid",
+        ARRAY_AGG(jsonb_build_object(
+          'column', fatt.attname::text,
+          'nullable', NOT fatt.attnotnull
+        )) AS fkey,
+        ARRAY_AGG(ratt.attname::text) AS rkey
+      FROM
+        (SELECT
+            conrelid,
+            confrelid,
+            UNNEST(conkey) AS conkey,
+            UNNEST(confkey) AS confkey
+          FROM pg_catalog.pg_constraint
+          WHERE contype='f'
+        ) AS constraints
+        INNER JOIN pg_catalog.pg_attribute fatt
+          ON fatt.attnum=conkey AND fatt.attrelid=conrelid
+        INNER JOIN pg_catalog.pg_attribute ratt
+          ON ratt.attnum=confkey AND ratt.attrelid=confrelid
+        GROUP BY 1, 2;`)
   ).rows) {
     const table = tables.get(row.tableOid);
     const referencedTable = tables.get(row.referencedTableOid);
@@ -257,7 +257,7 @@ async function streamPartialDumpImpl(
           column,
           nullable,
           referencedColumn: row.rkey[idx] as string,
-          operator: row.ops[idx] as string,
+          operator: '=',
         }))
         .filter(({ column }) => !ignoredColumns.includes(column));
       if (keys.length) {
@@ -372,6 +372,7 @@ async function dumpTable(
   if (!foreignKeys) {
     return;
   }
+  const start = performance.now();
   const { joins, where } = foreignKeys;
 
   const query = `SELECT
@@ -390,7 +391,12 @@ async function dumpTable(
 
   await dumpData(pg, query, output);
 
-  output.write('\\.\n\n\n');
+  output.write('\\.\n\n');
+  output.write(
+    `-- Elapsed time for ${table.name}: ${Math.round(
+      performance.now() - start,
+    )}ms\n\n\n`,
+  );
 }
 
 function resolveForeignKeys(
