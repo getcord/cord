@@ -125,6 +125,7 @@ import ClientGetNotificationCountsHandler from 'server/src/public/routes/platfor
 import ClientGetGroupMembersHandler from 'server/src/public/routes/platform/client/ClientGetGroupMembersHandler.ts';
 import ClientGetPresenceHandler from 'server/src/public/routes/platform/client/ClientGetPresenceHandler.ts';
 import GetDbDumpHandler from 'server/src/public/routes/platform/customer/GetDbDumpHandler.ts';
+import CopyFilesHandler from 'server/src/public/routes/platform/customer/CopyFilesHandler.ts';
 
 export const ASANA_EVENTS_PATH = '/asana/events';
 export const LINEAR_EVENTS_PATH = '/linear/events';
@@ -538,6 +539,11 @@ MainRouter.get(
   '/v1/customer/dbdump',
   VerifyCustomerServerAuthToken,
   GetDbDumpHandler,
+);
+MainRouter.get(
+  `/v1/customer/copyfiles`,
+  VerifyCustomerServerAuthToken,
+  CopyFilesHandler,
 );
 
 // Client-token routes to replicate JS APIs for SSR
