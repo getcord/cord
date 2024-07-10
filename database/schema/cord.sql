@@ -163,7 +163,7 @@ CREATE TABLE applications (
     "customColors" jsonb,
     "customEmailTemplate" jsonb,
     "customLinks" jsonb,
-    "customS3Bucket" UUID REFERENCES s3_buckets (id),
+    "customS3Bucket" UUID REFERENCES s3_buckets (id) DEFERRABLE INITIALLY DEFERRED,
     "segmentWriteKey" text,
     "customNUX" jsonb,
     "iconURL" text,
@@ -817,7 +817,7 @@ CREATE TABLE files (
     "s3Bucket" uuid,
     "uploadStatus" text NOT NULL DEFAULT 'uploading',
     FOREIGN KEY ("userID") REFERENCES users ("id") ON DELETE CASCADE,
-    FOREIGN KEY ("s3Bucket") REFERENCES "s3_buckets" ("id")
+    FOREIGN KEY ("s3Bucket") REFERENCES "s3_buckets" ("id") DEFERRABLE INITIALLY DEFERRED
 );
 CREATE INDEX ON files ("userID");
 
