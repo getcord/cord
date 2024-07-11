@@ -75,31 +75,46 @@ async function CopyFilesHandler(req: Request, res: Response) {
   const credentialsCache = new Map<UUID, S3BucketConfigWithCredentials>();
 
   let copied = 0;
-  for (; copied < limit && copied < filesToCopy.length; copied++) {
-    const fileToCopy = filesToCopy[copied];
-    const config = await getConfigForCopy(fileToCopy, credentialsCache);
 
-    const srcClient = new S3Client({
-      endpoint: env.S3_ENDPOINT.replace('<REGION>', config.region),
-      ...(config.accessKeyID &&
-        config.accessKeySecret && {
-          credentials: {
-            accessKeyId: config.accessKeyID,
-            secretAccessKey: config.accessKeySecret,
-          },
-        }),
-    });
-    const command = new CopyObjectCommand({
-      CopySource: `${config.bucket}/${fileToCopy.id}`,
-      Bucket: bucket,
-      Key: fileToCopy.id,
-    });
-    await srcClient.send(command);
+  // Try one copy first, in case we don't have permissions right
+  await doCopy(filesToCopy[copied], bucket, credentialsCache);
+  copied++;
+
+  // That succeeded, so now do all the others in parallel
+  const promises = [];
+  for (; copied < limit && copied < filesToCopy.length; copied++) {
+    promises.push(doCopy(filesToCopy[copied], bucket, credentialsCache));
   }
+  await Promise.all(promises);
 
   return res.status(200).json({
     copied,
   });
+}
+
+async function doCopy(
+  fileToCopy: FileEntity,
+  bucket: string,
+  credentialsCache: Map<UUID, S3BucketConfigWithCredentials>,
+) {
+  const config = await getConfigForCopy(fileToCopy, credentialsCache);
+
+  const srcClient = new S3Client({
+    endpoint: env.S3_ENDPOINT.replace('<REGION>', config.region),
+    ...(config.accessKeyID &&
+      config.accessKeySecret && {
+        credentials: {
+          accessKeyId: config.accessKeyID,
+          secretAccessKey: config.accessKeySecret,
+        },
+      }),
+  });
+  const command = new CopyObjectCommand({
+    CopySource: `${config.bucket}/${fileToCopy.id}`,
+    Bucket: bucket,
+    Key: fileToCopy.id,
+  });
+  await srcClient.send(command);
 }
 
 async function getConfigForCopy(
