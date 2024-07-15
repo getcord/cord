@@ -169,6 +169,7 @@ async function streamPartialDump(
         }
       });
 
+    output.write('SET search_path = cord, public;\n\n');
     output.write('BEGIN;\n\n');
     await streamPartialDumpImpl(output, pg, customerID);
     output.write('\n\nCOMMIT;\n');
