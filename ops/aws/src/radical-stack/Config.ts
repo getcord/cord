@@ -86,9 +86,7 @@ export const SPF_RECORDS: SpfType = {
 };
 
 // CI/CD values
-export const ECR_EXTERNAL_REPO_NAME = 'external';
 export const ECR_SERVER_REPO_NAME = 'server';
-export const ECR_ASYNC_WORKER_REPO_NAME = 'asyncworker';
 export const ECR_ONCALL_REPO_NAME = 'oncall';
 
 export const SLACK_OAUTH_STATE_SIGNING_SECRET = 'SlackOauthStateSigningSecret';
@@ -98,9 +96,6 @@ export const SLACK_OAUTH_STATE_SIGNING_KEY_REF_NAME =
 export const SENDGRID_INBOUND_WEBHOOK_SECRET = 'SendgridInboundWebhookSecret';
 export const SENDGRID_INBOUND_WEBHOOK_SECRET_KEY_REF_NAME =
   'SendgridInboundWebhookSecretKey';
-
-export const WEB_SITE_CLOUDFRONT_DISTRIBUTION_ID = 'EOTEMRMTAGZBT';
-export const WEB_SITE_CLOUDFRONT_DOMAIN_NAME = 'd21qsemrrrnblt.cloudfront.net';
 
 export const CORD_COM_WILDCARD_CERTIFICATE_US_EAST_1 =
   'arn:aws:acm:us-east-1:869934154475:certificate/179f1ac1-4c87-429c-87fd-e3b9a2af4f0b';
