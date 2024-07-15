@@ -86,6 +86,6 @@ You can do this step at any point, and because it's incremental, you can run it 
 
 ## Database Migration
 
-To migrate your database data, call `https://api.cord.com/v1/customer/dbdump`.  This will product a SQL script that contains all of your data, ready to be run against an empty database via `psql`.  This will include all data for all of your projects.  Be patient, it may take up to a minute or two to collect all of the data.
+To migrate your database data, call `https://api.cord.com/v1/customer/dbdump`.  This will product a SQL script that contains all of your data, ready to be run against an empty database via `psql --variable=ON_ERROR_STOP=1`.  This will include all data for all of your projects.  Be patient, it may take up to a minute or two to collect all of the data.
 
 This data is obviously only valid as of the time the command is run, so you likely will want to use it to test out your migration process, then run it again right before switching to your own infrastructure so as to capture the most up-to-date data available.
