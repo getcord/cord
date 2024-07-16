@@ -1,3 +1,4 @@
+import { AWS_ACCOUNT } from 'ops/aws/src/Config.ts';
 import type { Tier } from 'ops/aws/src/common.ts';
 
 // AWS Environment values
@@ -5,6 +6,9 @@ export const AWS_REGION = 'eu-west-2';
 
 // Default resource owner, used for tagging resources with tags that Vanta reads
 export const DEFAULT_OWNER = 'dmmiller@cord.com';
+
+// The user group that is allowed to ssh to EC2 instances
+export const EC2_INSTANCE_CONNECT_GROUP = `arn:aws:iam::${AWS_ACCOUNT}:group/engineering`;
 
 // all the domains under which we serve the product
 export const CORD_COM_DOMAINS = [
