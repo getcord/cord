@@ -2,6 +2,7 @@ import { aws_sns as SNS, aws_sns_subscriptions as SNSS } from 'aws-cdk-lib';
 
 import type { Tier } from 'ops/aws/src/common.ts';
 import { defineForEachTier } from 'ops/aws/src/common.ts';
+import { OPS_NOTIFICATION_EMAIL } from 'ops/aws/src/radical-stack/Config.ts';
 import { radicalStack } from 'ops/aws/src/radical-stack/stack.ts';
 
 function makeAsgSnsTopic(tier: Tier) {
@@ -24,6 +25,6 @@ export const opsNotificationTopic = defineForEachTier((tier: Tier) => {
       topicName: `ops-notifications-${tier}`,
     },
   );
-  topic.addSubscription(new SNSS.EmailSubscription('ops@cord.com'));
+  topic.addSubscription(new SNSS.EmailSubscription(OPS_NOTIFICATION_EMAIL));
   return topic;
 });
