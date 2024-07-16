@@ -77,13 +77,15 @@ async function CopyFilesHandler(req: Request, res: Response) {
   let copied = 0;
 
   // Try one copy first, in case we don't have permissions right
-  await doCopy(filesToCopy[copied], bucket, credentialsCache);
+  await doCopy(filesToCopy[copied], region, bucket, credentialsCache);
   copied++;
 
   // That succeeded, so now do all the others in parallel
   const promises = [];
   for (; copied < limit && copied < filesToCopy.length; copied++) {
-    promises.push(doCopy(filesToCopy[copied], bucket, credentialsCache));
+    promises.push(
+      doCopy(filesToCopy[copied], region, bucket, credentialsCache),
+    );
   }
   await Promise.all(promises);
 
@@ -94,13 +96,15 @@ async function CopyFilesHandler(req: Request, res: Response) {
 
 async function doCopy(
   fileToCopy: FileEntity,
+  region: string,
   bucket: string,
   credentialsCache: Map<UUID, S3BucketConfigWithCredentials>,
 ) {
   const config = await getConfigForCopy(fileToCopy, credentialsCache);
 
   const srcClient = new S3Client({
-    endpoint: env.S3_ENDPOINT.replace('<REGION>', config.region),
+    region,
+    endpoint: env.S3_ENDPOINT.replace('<REGION>', region),
     ...(config.accessKeyID &&
       config.accessKeySecret && {
         credentials: {
