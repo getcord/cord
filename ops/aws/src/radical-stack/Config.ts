@@ -14,6 +14,10 @@ export const CORD_COM_DOMAINS = [
   'cord.fyi',
 ];
 
+// The domain name we want all requests to be redirected to, and that serves as
+// the base for all other domains (eg, api., app.)
+export const PRIMARY_DOMAIN_NAME = CORD_COM_DOMAINS[0];
+
 // Web site domain name
 export const WEB_SITE_DOMAIN = 'cord.com';
 

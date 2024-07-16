@@ -3,11 +3,12 @@ import { aws_route53 as Route53, Duration } from 'aws-cdk-lib';
 import { define } from 'ops/aws/src/common.ts';
 import { radicalStack } from 'ops/aws/src/radical-stack/stack.ts';
 import { defaultVpc } from 'ops/aws/src/radical-stack/ec2/vpc.ts';
+import { PRIMARY_DOMAIN_NAME } from 'ops/aws/src/radical-stack/Config.ts';
 
 export const internalZone = define(
   () =>
     new Route53.PrivateHostedZone(radicalStack(), 'intCordCom-zone', {
-      zoneName: 'int.cord.com',
+      zoneName: `int.${PRIMARY_DOMAIN_NAME}`,
       vpc: defaultVpc(),
     }),
 );

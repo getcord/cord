@@ -8,17 +8,18 @@ import { radicalStack } from 'ops/aws/src/radical-stack/stack.ts';
 import { cordComZones } from 'ops/aws/src/radical-stack/route53/cord.com.ts';
 import { appLoadtestCordComDistribution } from 'ops/aws/src/radical-stack/cloudfront/app.cord.com.ts';
 import { accelerator } from 'ops/aws/src/radical-stack/globalaccelerator/index.ts';
+import { PRIMARY_DOMAIN_NAME } from 'ops/aws/src/radical-stack/Config.ts';
 
 export const loadtestZone = define(() => {
   const zone = new Route53.PublicHostedZone(
     radicalStack(),
-    `loadtest.cord.com-zone`,
+    `loadtest.${PRIMARY_DOMAIN_NAME}-zone`,
     {
-      zoneName: `loadtest.cord.com`,
+      zoneName: `loadtest.${PRIMARY_DOMAIN_NAME}`,
     },
   );
 
-  cordComZones().get('cord.com')?.addDelegation(zone);
+  cordComZones().get(PRIMARY_DOMAIN_NAME)?.addDelegation(zone);
 
   return zone;
 });

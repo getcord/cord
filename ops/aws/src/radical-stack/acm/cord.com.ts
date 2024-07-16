@@ -6,12 +6,11 @@ import {
   cordComZones,
   cordToZone,
 } from 'ops/aws/src/radical-stack/route53/cord.com.ts';
+import { PRIMARY_DOMAIN_NAME } from 'ops/aws/src/radical-stack/Config.ts';
 
 // This is the certificate we use for "the server", i.e. traffic forwarded to
 // nginx running on our dev-xl instance, such as {api,app,admin}.cord.com,
 // and the corresponding names in our secondary domains.
-
-const PRIMARY_DOMAIN_NAME = 'cord.com';
 
 export const cordComCertificate = define(() => {
   const zones = cordComZones();

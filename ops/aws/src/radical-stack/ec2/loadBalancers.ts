@@ -23,7 +23,10 @@ import { monitoringInstance } from 'ops/aws/src/radical-stack/ec2/monitoring.ts'
 import { loadtestCordComCertificate } from 'ops/aws/src/radical-stack/acm/loadtest.cord.com.ts';
 import { vanta } from 'ops/aws/src/radical-stack/vanta.ts';
 import { opsNotificationTopic } from 'ops/aws/src/radical-stack/sns/topics.ts';
-import { CORD_COM_DOMAINS } from 'ops/aws/src/radical-stack/Config.ts';
+import {
+  CORD_COM_DOMAINS,
+  PRIMARY_DOMAIN_NAME,
+} from 'ops/aws/src/radical-stack/Config.ts';
 import { LOADTEST_TIER_ENABLED } from 'ops/aws/src/Config.ts';
 import { prServerInstance } from 'ops/aws/src/radical-stack/ec2/prServer.ts';
 import { devCordComCertificate } from 'ops/aws/src/radical-stack/acm/dev.cord.com.ts';
@@ -59,7 +62,7 @@ export const loadBalancer = define(() => {
     defaultAction: elbv2.ListenerAction.redirect({
       protocol: elbv2.ApplicationProtocol.HTTPS,
       port: '443',
-      host: '#{host}.cord.com',
+      host: `#{host}.${PRIMARY_DOMAIN_NAME}`,
       permanent: true,
     }),
   });
@@ -82,7 +85,7 @@ export const loadBalancer = define(() => {
     port: 443,
     protocol: elbv2.ApplicationProtocol.HTTPS,
     open: true,
-    defaultAction: elbv2.ListenerAction.redirect({ host: 'cord.com' }),
+    defaultAction: elbv2.ListenerAction.redirect({ host: PRIMARY_DOMAIN_NAME }),
     certificates: [
       cordComCertificate(),
       stagingCordComCertificate(),
@@ -110,16 +113,23 @@ export const loadBalancer = define(() => {
   addAction(
     'monitoring',
     100,
-    ['monitoring.cord.com'],
+    [`monitoring.${PRIMARY_DOMAIN_NAME}`],
     monitoringTargetGroup(),
   );
-  addAction('oncall', 99, ['oncall.cord.com'], oncallTargetGroup());
+  addAction(
+    'oncall',
+    99,
+    [`oncall.${PRIMARY_DOMAIN_NAME}`],
+    oncallTargetGroup(),
+  );
 
   httpsListener.addAction('go', {
-    conditions: [elbv2.ListenerCondition.hostHeaders(['go.cord.com'])],
+    conditions: [
+      elbv2.ListenerCondition.hostHeaders([`go.${PRIMARY_DOMAIN_NAME}`]),
+    ],
     priority: 98,
     action: elbv2.ListenerAction.redirect({
-      host: 'admin.cord.com',
+      host: `admin.${PRIMARY_DOMAIN_NAME}`,
       path: '/go/#{path}',
       permanent: true,
     }),
@@ -128,45 +138,50 @@ export const loadBalancer = define(() => {
   addAction(
     'stagingAdmin',
     95,
-    ['admin.staging.cord.com'],
+    [`admin.staging.${PRIMARY_DOMAIN_NAME}`],
     serverAdminTargetGroups['staging'](),
   );
   addAction(
     'stagingAPI',
     80,
-    ['api.staging.cord.com'],
+    [`api.staging.${PRIMARY_DOMAIN_NAME}`],
     serverAPITargetGroups['staging'](),
   );
   addAction(
     'stagingConsole',
     78,
-    ['console.staging.cord.com'],
+    [`console.staging.${PRIMARY_DOMAIN_NAME}`],
     serverConsoleTargetGroups['staging'](),
   );
   addAction(
     'stagingDocs',
     76,
-    ['docs.staging.cord.com'],
+    [`docs.staging.${PRIMARY_DOMAIN_NAME}`],
     serverDocsTargetGroups['staging'](),
   );
 
   addAction(
     'prodAdmin',
     75,
-    ['admin.cord.com'],
+    [`admin.${PRIMARY_DOMAIN_NAME}`],
     serverAdminTargetGroups['prod'](),
   );
-  addAction('prodAPI', 70, ['api.cord.com'], serverAPITargetGroups['prod']());
+  addAction(
+    'prodAPI',
+    70,
+    [`api.${PRIMARY_DOMAIN_NAME}`],
+    serverAPITargetGroups['prod'](),
+  );
   addAction(
     'prodConsole',
     68,
-    ['console.cord.com'],
+    [`console.${PRIMARY_DOMAIN_NAME}`],
     serverConsoleTargetGroups['prod'](),
   );
   addAction(
     'prodDocs',
     66,
-    ['docs.cord.com'],
+    [`docs.${PRIMARY_DOMAIN_NAME}`],
     serverDocsTargetGroups['prod'](),
   );
 
@@ -174,25 +189,25 @@ export const loadBalancer = define(() => {
     addAction(
       'loadtestAdmin',
       65,
-      ['admin.loadtest.cord.com'],
+      [`admin.loadtest.${PRIMARY_DOMAIN_NAME}`],
       serverAdminTargetGroups['loadtest'](),
     );
     addAction(
       'loadtestAPI',
       60,
-      ['api.loadtest.cord.com'],
+      [`api.loadtest.${PRIMARY_DOMAIN_NAME}`],
       serverAPITargetGroups['loadtest'](),
     );
     addAction(
       'loadtestConsole',
       58,
-      ['console.loadtest.cord.com'],
+      [`console.loadtest.${PRIMARY_DOMAIN_NAME}`],
       serverConsoleTargetGroups['loadtest'](),
     );
     addAction(
       'loadtestDocs',
       56,
-      ['docs.loadtest.cord.com'],
+      [`docs.loadtest.${PRIMARY_DOMAIN_NAME}`],
       serverDocsTargetGroups['loadtest'](),
     );
   }
@@ -210,7 +225,12 @@ export const loadBalancer = define(() => {
     });
   }
 
-  addAction('prServer', 50, ['*.dev.cord.com'], prServerTargetGroup());
+  addAction(
+    'prServer',
+    50,
+    [`*.dev.${PRIMARY_DOMAIN_NAME}`],
+    prServerTargetGroup(),
+  );
 
   lb.logAccessLogs(elbLogsBucket());
 

@@ -15,6 +15,7 @@ import {
   enableEc2InstanceConnect,
   waitForInstanceInit,
 } from 'ops/aws/src/radical-stack/ec2/common.ts';
+import { PRIMARY_DOMAIN_NAME } from 'ops/aws/src/radical-stack/Config.ts';
 
 const ENABLE_SSH_TUNNEL_HOST = true;
 
@@ -44,7 +45,7 @@ const users: Record<string, SshTunnelUser> = {
     keys: [
       'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDrsAxaC+3nKUoTHWSmZH2kxw21J8mUqcrpckxwyonqiYjapyrJ2hev2vn++Fk1lNhy3LaTxyV4USk3ligYYTRw=',
     ],
-    forwardTo: ['database-prod.int.cord.com:5432'],
+    forwardTo: [`database-prod.int.${PRIMARY_DOMAIN_NAME}:5432`],
   },
 };
 
@@ -151,7 +152,7 @@ export const sshTunnelHostInstance = define(() => {
 
   addToInternalZone('ssh-tunnel', instance.instancePrivateIp);
 
-  const cordComZone = cordComZones().get('cord.com');
+  const cordComZone = cordComZones().get(PRIMARY_DOMAIN_NAME);
   if (cordComZone) {
     new Route53.ARecord(cordComZone, 'ssh-tunnel', {
       zone: cordComZone,

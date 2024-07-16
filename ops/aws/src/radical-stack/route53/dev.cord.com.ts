@@ -8,17 +8,18 @@ import { cordComZones } from 'ops/aws/src/radical-stack/route53/cord.com.ts';
 import { accelerator } from 'ops/aws/src/radical-stack/globalaccelerator/index.ts';
 import { newDualRecord } from 'ops/aws/src/radical-stack/route53/common.ts';
 import { radicalStack } from 'ops/aws/src/radical-stack/stack.ts';
+import { PRIMARY_DOMAIN_NAME } from 'ops/aws/src/radical-stack/Config.ts';
 
 export const devZone = define(() => {
   const zone = new Route53.PublicHostedZone(
     radicalStack(),
-    'dev.cord.com-zone',
+    `dev.${PRIMARY_DOMAIN_NAME}-zone`,
     {
-      zoneName: 'dev.cord.com',
+      zoneName: `dev.${PRIMARY_DOMAIN_NAME}`,
     },
   );
 
-  cordComZones().get('cord.com')?.addDelegation(zone);
+  cordComZones().get(PRIMARY_DOMAIN_NAME)?.addDelegation(zone);
 
   return zone;
 });

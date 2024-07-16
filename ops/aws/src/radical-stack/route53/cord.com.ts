@@ -181,7 +181,7 @@ define(() => {
 
 // Setting up email: MX records (for GMAIL_DOMAINS), DKIM, DMARC
 define(() => {
-  const cordComZone = cordComZones().get('cord.com');
+  const cordComZone = cordComZones().get(Config.PRIMARY_DOMAIN_NAME);
 
   for (const [domain, zone] of cordComZones()) {
     if (Config.GMAIL_DOMAINS.includes(domain)) {
@@ -253,7 +253,7 @@ define(() => {
 
 // local.cord.com hostname, pointing to localhost (for local development)
 define(() => {
-  const zone = cordComZones().get('cord.com');
+  const zone = cordComZones().get(Config.PRIMARY_DOMAIN_NAME);
   if (zone) {
     new Route53.ARecord(zone, 'local', {
       zone,
@@ -283,7 +283,7 @@ define(() => {
 // cname, please code it directly like we do above instead of splitting the
 // logic between here and elsewhere.
 const cnames: Record<string, [string, string][]> = {
-  'cord.com': [
+  [Config.PRIMARY_DOMAIN_NAME]: [
     // status.cord.com hostname, pointing to betteruptime
     ['status', 'statuspage.betteruptime.com'],
 

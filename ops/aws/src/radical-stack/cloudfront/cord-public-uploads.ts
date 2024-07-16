@@ -34,7 +34,7 @@ export const publicUploadsBucketDistribution = define(
             },
           ],
         },
-        domainNames: ['cdn.cord.com'],
+        domainNames: [`cdn.${Config.PRIMARY_DOMAIN_NAME}`],
         certificate: acm.Certificate.fromCertificateArn(
           radicalStack(),
           'publicUploadsBucketCertificate-us-east-1',

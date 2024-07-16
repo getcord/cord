@@ -17,7 +17,10 @@ import { define } from 'ops/aws/src/common.ts';
 import { radicalStack } from 'ops/aws/src/radical-stack/stack.ts';
 import { defaultVpc } from 'ops/aws/src/radical-stack/ec2/vpc.ts';
 import { addToInternalZone } from 'ops/aws/src/radical-stack/route53/int.cord.com.ts';
-import { AWS_REGION } from 'ops/aws/src/radical-stack/Config.ts';
+import {
+  AWS_REGION,
+  PRIMARY_DOMAIN_NAME,
+} from 'ops/aws/src/radical-stack/Config.ts';
 import { cordComZones } from 'ops/aws/src/radical-stack/route53/cord.com.ts';
 import {
   configureSSH,
@@ -290,7 +293,7 @@ export const zeroInstance = define(() => {
   elasticIP.cfnOptions.deletionPolicy = CfnDeletionPolicy.DELETE;
 
   addToInternalZone(hostname, instance.instancePrivateIp);
-  const cordComZone = cordComZones().get('cord.com');
+  const cordComZone = cordComZones().get(PRIMARY_DOMAIN_NAME);
   if (cordComZone) {
     new Route53.ARecord(cordComZone, hostname, {
       zone: cordComZone,

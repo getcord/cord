@@ -5,6 +5,7 @@ import { radicalStack } from 'ops/aws/src/radical-stack/stack.ts';
 import { CORS_RULES } from 'ops/aws/src/radical-stack/s3/S3Config.ts';
 import { vanta } from 'ops/aws/src/radical-stack/vanta.ts';
 import { originAccessIdentity } from 'ops/aws/src/radical-stack/cloudfront/common.ts';
+import { PRIMARY_DOMAIN_NAME } from 'ops/aws/src/radical-stack/Config.ts';
 
 function makeBucket(id: string, bucketName: string) {
   const bucket = new S3.Bucket(radicalStack(), id, {
@@ -14,20 +15,20 @@ function makeBucket(id: string, bucketName: string) {
     encryption: S3.BucketEncryption.S3_MANAGED,
   });
   vanta(bucket, `Static assets and JavaScript bundles for ${bucketName}`, {
-    nonProd: bucketName !== 'app.cord.com',
+    nonProd: bucketName !== `app.${PRIMARY_DOMAIN_NAME}`,
   });
 
   return bucket;
 }
 
 export const appCordComBucket = define(() =>
-  makeBucket('appCordComBucket', 'app.cord.com'),
+  makeBucket('appCordComBucket', `app.${PRIMARY_DOMAIN_NAME}`),
 );
 export const appStagingCordComBucket = define(() =>
-  makeBucket('appStagingCordComBucket', 'app.staging.cord.com'),
+  makeBucket('appStagingCordComBucket', `app.staging.${PRIMARY_DOMAIN_NAME}`),
 );
 export const appLoadtestCordComBucket = define(() =>
-  makeBucket('appLoadtestCordComBucket', 'app.loadtest.cord.com'),
+  makeBucket('appLoadtestCordComBucket', `app.loadtest.${PRIMARY_DOMAIN_NAME}`),
 );
 
 define(() => {

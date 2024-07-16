@@ -70,7 +70,7 @@ export const appCordComDistribution = define(() =>
   makeDistribution(
     'appCordComDistribution',
     appCordComBucket(),
-    ['app.cord.com'],
+    [`app.${Config.PRIMARY_DOMAIN_NAME}`],
     acm.Certificate.fromCertificateArn(
       radicalStack(),
       'cordComCertificate-us-east-1',
@@ -83,7 +83,7 @@ export const appStagingCordComDistribution = define(() =>
   makeDistribution(
     'appStagingCordComDistribution',
     appStagingCordComBucket(),
-    ['app.staging.cord.com'],
+    [`app.staging.${Config.PRIMARY_DOMAIN_NAME}`],
     acm.Certificate.fromCertificateArn(
       radicalStack(),
       'stagingCordComCertificate-us-east-1',
@@ -96,7 +96,7 @@ export const appLoadtestCordComDistribution = define(() =>
   makeDistribution(
     'appLoadtestCordComDistribution',
     appLoadtestCordComBucket(),
-    ['app.loadtest.cord.com'],
+    [`app.loadtest.${Config.PRIMARY_DOMAIN_NAME}`],
     acm.Certificate.fromCertificateArn(
       radicalStack(),
       'loadtestCordComCertificate-us-east-1',
