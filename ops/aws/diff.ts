@@ -8,12 +8,13 @@ import colors from 'colors/safe.js';
 import yargs from 'yargs';
 import * as cfnDiff from '@aws-cdk/cloudformation-diff';
 import * as cf from '@aws-sdk/client-cloudformation';
+import { AWS_REGION } from 'ops/aws/src/radical-stack/Config.ts';
 
 const argv = yargs(process.argv.slice(2))
   .option('region', {
     type: 'string',
     description: 'AWS region',
-    default: 'eu-west-2',
+    default: AWS_REGION,
   })
   .strict()
   .help()

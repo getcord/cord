@@ -24,10 +24,11 @@ import {
 import { opsNotificationTopic } from 'ops/aws/src/radical-stack/sns/topics.ts';
 import { privateSubnets } from 'ops/aws/src/radical-stack/ec2/privateSubnets.ts';
 import { basicAgentConfig } from 'ops/aws/config/cloudwatch-agent/config.ts';
+import { AWS_ACCOUNT } from 'ops/aws/src/Config.ts';
 
 export const hostname = 'build3';
 
-const availabilityZone = 'eu-west-2b';
+const availabilityZone = `${AWS_REGION}b`;
 const packages: string[] = [
   'amazon-ecr-credential-helper',
   'docker-compose',
@@ -210,7 +211,8 @@ export const build3Instance = define(() => {
           JSON.stringify({
             credHelpers: {
               'public.ecr.aws': 'ecr-login',
-              '869934154475.dkr.ecr.eu-west-2.amazonaws.com': 'ecr-login',
+              [`${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com`]:
+                'ecr-login',
             },
           }),
           {
@@ -258,7 +260,7 @@ export const build3Instance = define(() => {
           '/etc/cron.d/restart-github-actions-runner',
           '# Restart every morning at 7am UTC\n' +
             '0 7 * * * root ' +
-            'docker pull 869934154475.dkr.ecr.eu-west-2.amazonaws.com/github-actions-runner:latest && ' +
+            `docker pull ${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com/github-actions-runner:latest && ` +
             'systemctl restart github-actions-runner\n',
         ),
         EC2.InitCommand.shellCommand(

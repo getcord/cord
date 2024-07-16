@@ -2,6 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { aws_ec2 as EC2 } from 'aws-cdk-lib';
 
 import { define } from 'ops/aws/src/common.ts';
+import { AWS_REGION } from 'ops/aws/src/radical-stack/Config.ts';
 import { radicalStack } from 'ops/aws/src/radical-stack/stack.ts';
 
 // For now we just import pre-defined VPCs here. In the future, we should
@@ -21,21 +22,21 @@ export const publicSubnetA = define(() =>
   EC2.PublicSubnet.fromSubnetAttributes(radicalStack(), 'public-subnet-a', {
     subnetId: 'subnet-c0ae25ba',
     ipv4CidrBlock: '172.31.16.0/20',
-    availabilityZone: 'eu-west-2a',
+    availabilityZone: `${AWS_REGION}a`,
   }),
 );
 export const publicSubnetB = define(() =>
   EC2.PublicSubnet.fromSubnetAttributes(radicalStack(), 'public-subnet-b', {
     subnetId: 'subnet-f177a9bd',
     ipv4CidrBlock: '172.31.32.0/20',
-    availabilityZone: 'eu-west-2b',
+    availabilityZone: `${AWS_REGION}b`,
   }),
 );
 export const publicSubnetC = define(() =>
   EC2.PublicSubnet.fromSubnetAttributes(radicalStack(), 'public-subnet-c', {
     subnetId: 'subnet-b086c9d9',
     ipv4CidrBlock: '172.31.0.0/20',
-    availabilityZone: 'eu-west-2c',
+    availabilityZone: `${AWS_REGION}c`,
   }),
 );
 

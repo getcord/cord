@@ -28,8 +28,10 @@ import {
   enableEc2InstanceConnect,
   waitForInstanceInit,
 } from 'ops/aws/src/radical-stack/ec2/common.ts';
+import { AWS_ACCOUNT } from 'ops/aws/src/Config.ts';
+import { AWS_REGION } from 'ops/aws/src/radical-stack/Config.ts';
 
-const availabilityZone = 'eu-west-2a';
+const availabilityZone = `${AWS_REGION}a`;
 
 export const monitoringInstance = define(() => {
   const userData = EC2.UserData.forLinux();
@@ -45,7 +47,7 @@ export const monitoringInstance = define(() => {
        sleep 5
 
        echo "Starting attempt #$attempt to attach and mount data volume"
-       aws ec2 --region eu-west-2 attach-volume --volume-id ${
+       aws ec2 --region ${AWS_REGION} attach-volume --volume-id ${
          dataVolume().volumeId
        } --device sdh --instance-id "$EC2_INSTANCE_ID" || true
        sleep 1
@@ -226,7 +228,7 @@ export const monitoringInstance = define(() => {
             'After=mysql.service\n',
             '[Service]\n',
             'Restart=always\n',
-            'ExecStart=/usr/bin/docker run --rm=true --name=oncall --net=host --pull=always --volume=/data/config/oncall/oncall.yaml:/home/oncall/config/config.yaml 869934154475.dkr.ecr.eu-west-2.amazonaws.com/oncall:latest\n',
+            `ExecStart=/usr/bin/docker run --rm=true --name=oncall --net=host --pull=always --volume=/data/config/oncall/oncall.yaml:/home/oncall/config/config.yaml ${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com/oncall:latest\n`,
             'ExecStop=/usr/bin/docker stop -t 2 oncall\n\n',
             '[Install]\n',
             'WantedBy=multi-user.target',
@@ -290,8 +292,7 @@ Tags.of(dataVolume()).add('monitoring-backup', 'true');
 define(() =>
   new DLM.CfnLifecyclePolicy(radicalStack(), 'monitoring-dataVolume-backup', {
     description: 'Weekly snapshots of monitoring data volume',
-    executionRoleArn:
-      'arn:aws:iam::869934154475:role/AWSDataLifecycleManagerDefaultRole',
+    executionRoleArn: `arn:aws:iam::${AWS_ACCOUNT}:role/AWSDataLifecycleManagerDefaultRole`,
     state: 'ENABLED',
     policyDetails: {
       policyType: 'EBS_SNAPSHOT_MANAGEMENT',

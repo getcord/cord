@@ -8,6 +8,7 @@ import {
   publicSubnetCNatGateway,
   vpcId,
 } from 'ops/aws/src/radical-stack/ec2/vpc.ts';
+import { AWS_REGION } from 'ops/aws/src/radical-stack/Config.ts';
 
 // These were defined with 24-bit netmasks, so there are less than 255 available
 // addresses in each, that's not much. These subnets are in use, but when adding
@@ -16,7 +17,7 @@ export const legacyPrivateSubnets = define(() =>
   ['a', 'b', 'c'].map(
     (zone, idx) =>
       new EC2.PrivateSubnet(radicalStack(), `subnet${zone.toUpperCase()}`, {
-        availabilityZone: `eu-west-2${zone}`,
+        availabilityZone: `${AWS_REGION}${zone}`,
         vpcId,
         // 172.31.{129,130,131}.0/24
         cidrBlock: `172.31.${129 + idx}.0/24`,
@@ -31,7 +32,7 @@ export const privateSubnets = define(() =>
       radicalStack(),
       `private-subnet-${zone}`,
       {
-        availabilityZone: `eu-west-2${zone}`,
+        availabilityZone: `${AWS_REGION}${zone}`,
         vpcId,
         // 172.31.{144,160,176}.0/20
         cidrBlock: `172.31.${144 + idx * 16}.0/20`,

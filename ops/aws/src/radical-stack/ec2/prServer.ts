@@ -22,9 +22,10 @@ import { build3SecurityGroup } from 'ops/aws/src/radical-stack/ec2/build3.ts';
 import { securityGroup as loadBalancerSecurityGroup } from 'ops/aws/src/radical-stack/ec2/loadBalancers.ts';
 import { serverPermissionPolicy } from 'ops/aws/src/radical-stack/ec2/autoScalingGroup.ts';
 import { zeroSecurityGroup } from 'ops/aws/src/radical-stack/ec2/zero.ts';
+import { AWS_REGION } from 'ops/aws/src/radical-stack/Config.ts';
 
 export const hostname = 'pr-server';
-const availabilityZone = 'eu-west-2a';
+const availabilityZone = `${AWS_REGION}a`;
 const packages = ['nodejs', 'jq', 'git'];
 
 export const prServerStack = define(

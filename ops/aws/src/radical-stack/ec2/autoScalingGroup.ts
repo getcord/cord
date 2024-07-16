@@ -36,7 +36,8 @@ import { stringToBase64 } from 'ops/aws/src/util.ts';
 import { vanta } from 'ops/aws/src/radical-stack/vanta.ts';
 import { enableEc2InstanceConnect } from 'ops/aws/src/radical-stack/ec2/common.ts';
 import { fileUploadsBucket } from 'ops/aws/src/radical-stack/s3/fileUploads.ts';
-import { LOADTEST_TIER_ENABLED } from 'ops/aws/src/Config.ts';
+import { AWS_ACCOUNT, LOADTEST_TIER_ENABLED } from 'ops/aws/src/Config.ts';
+import { AWS_REGION } from 'ops/aws/src/radical-stack/Config.ts';
 
 const userData = (service: 'server' | 'asyncWorker', tier: Tier) => {
   const script = EC2.UserData.forLinux();
@@ -47,10 +48,10 @@ const userData = (service: 'server' | 'asyncWorker', tier: Tier) => {
     `sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json || true`,
     `sudo -u ec2-user docker stop server || true`,
     `sudo -u ec2-user docker rm server || true`,
-    `sudo -u ec2-user docker pull 869934154475.dkr.ecr.eu-west-2.amazonaws.com/server:${tier}`,
+    `sudo -u ec2-user docker pull ${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com/server:${tier}`,
     `sudo -u ec2-user docker run -d --restart always --name ${service} --network host \
       -e CORD_TIER=${tier} \
-      869934154475.dkr.ecr.eu-west-2.amazonaws.com/server:${tier} \
+      ${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com/server:${tier} \
       ${
         // * 'server' runs the default command configured in our Docker image.
         service === 'server' ? '' : `npm run start-${service}-prod`

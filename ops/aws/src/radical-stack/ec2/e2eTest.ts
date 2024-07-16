@@ -24,6 +24,8 @@ import { addToInternalZone } from 'ops/aws/src/radical-stack/route53/int.cord.co
 import { radicalStack } from 'ops/aws/src/radical-stack/stack.ts';
 import { vanta } from 'ops/aws/src/radical-stack/vanta.ts';
 import { basicAgentConfig } from 'ops/aws/config/cloudwatch-agent/config.ts';
+import { AWS_ACCOUNT } from 'ops/aws/src/Config.ts';
+import { AWS_REGION } from 'ops/aws/src/radical-stack/Config.ts';
 
 const stack = define(() => new NestedStack(radicalStack(), 'stack-e2eTest'));
 
@@ -118,8 +120,8 @@ const e2eTestInstance = define(() => {
             'Description=e2e test runner\n',
             '[Service]\n',
             'Restart=always\n',
-            'ExecStartPre=/bin/sh -c \'/usr/bin/aws ecr get-login-password --region "eu-west-2" | /usr/bin/docker login -u AWS https://869934154475.dkr.ecr.eu-west-2.amazonaws.com --password-stdin\'\n',
-            'ExecStart=/usr/bin/docker run --rm=true --name=e2e-test-runner --net=host --ipc=host --init 869934154475.dkr.ecr.eu-west-2.amazonaws.com/e2e-test-runner:latest\n',
+            `ExecStartPre=/bin/sh -c '/usr/bin/aws ecr get-login-password --region "${AWS_REGION}" | /usr/bin/docker login -u AWS https://${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com --password-stdin'\n`,
+            `ExecStart=/usr/bin/docker run --rm=true --name=e2e-test-runner --net=host --ipc=host --init ${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com/e2e-test-runner:latest\n`,
             'ExecStop=/usr/bin/docker stop -t 2 e2e-test-runner\n\n',
             '[Install]\n',
             'WantedBy=multi-user.target',
@@ -133,14 +135,14 @@ const e2eTestInstance = define(() => {
         EC2.InitFile.fromString(
           // Add a cronjob to keep us logged into the ECR repository
           '/etc/cron.d/ecr-login',
-          '0-59/15 * * * * root /usr/bin/aws ecr get-login-password --region "eu-west-2" | /usr/bin/docker login -u AWS https://869934154475.dkr.ecr.eu-west-2.amazonaws.com --password-stdin\n',
+          `0-59/15 * * * * root /usr/bin/aws ecr get-login-password --region "${AWS_REGION}" | /usr/bin/docker login -u AWS https://${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com --password-stdin\n`,
         ),
         EC2.InitFile.fromString(
           // Every minute, pull the newest e2e-test-runner container. (This
           // command completes really quickly (in ~0.1s) if there is no new
           // image to download.)
           '/etc/cron.d/pull-e2e-test-runner',
-          '* * * * * root docker pull 869934154475.dkr.ecr.eu-west-2.amazonaws.com/e2e-test-runner:latest\n',
+          `* * * * * root docker pull ${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com/e2e-test-runner:latest\n`,
         ),
         EC2.InitFile.fromString(
           // Once a day, remove old version of the image.

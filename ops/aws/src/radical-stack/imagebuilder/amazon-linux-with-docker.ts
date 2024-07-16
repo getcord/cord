@@ -13,6 +13,7 @@ import {
 } from 'ops/aws/src/radical-stack/imagebuilder/imagebuilder.ts';
 import { DOCKER_PORT } from 'ops/aws/src/Constants.ts';
 import * as Config from 'ops/aws/src/radical-stack/Config.ts';
+import { AWS_ACCOUNT } from 'ops/aws/src/Config.ts';
 
 const infrastructureConfiguration = define(() => {
   const conf = new ImageBuilder.CfnInfrastructureConfiguration(
@@ -63,23 +64,20 @@ const recipe = define(() => {
         // You can find this ARN on
         // https://eu-west-2.console.aws.amazon.com/imagebuilder/home?region=eu-west-2#/images
         // Search for "Amazon Linux 2023 x86" and select "Amazon-managed", "Linux", "AMI"
-        'arn:aws:imagebuilder:eu-west-2:aws:image/amazon-linux-2023-x86/2024.4.1',
+        `arn:aws:imagebuilder:${Config.AWS_REGION}:aws:image/amazon-linux-2023-x86/2024.4.1`,
       components: [
         // You can find these ARNs on
         // https://eu-west-2.console.aws.amazon.com/imagebuilder/home?region=eu-west-2#/components
         // Select "Quick start (Amazon-managed)" and "Linux"
         {
           // Updates Linux with the latest security updates.
-          componentArn:
-            'arn:aws:imagebuilder:eu-west-2:aws:component/update-linux/x.x.x',
+          componentArn: `arn:aws:imagebuilder:${Config.AWS_REGION}:aws:component/update-linux/x.x.x`,
         },
         {
-          componentArn:
-            'arn:aws:imagebuilder:eu-west-2:aws:component/aws-cli-version-2-linux/x.x.x',
+          componentArn: `arn:aws:imagebuilder:${Config.AWS_REGION}:aws:component/aws-cli-version-2-linux/x.x.x`,
         },
         {
-          componentArn:
-            'arn:aws:imagebuilder:eu-west-2:aws:component/amazon-cloudwatch-agent-linux/1.0.1',
+          componentArn: `arn:aws:imagebuilder:${Config.AWS_REGION}:aws:component/amazon-cloudwatch-agent-linux/1.0.1`,
         },
         { componentArn: customComponent().ref },
       ],
@@ -166,7 +164,8 @@ const componentData = {
               content: JSON.stringify({
                 credHelpers: {
                   'public.ecr.aws': 'ecr-login',
-                  '869934154475.dkr.ecr.eu-west-2.amazonaws.com': 'ecr-login',
+                  [`${AWS_ACCOUNT}.dkr.ecr.${Config.AWS_REGION}.amazonaws.com`]:
+                    'ecr-login',
                 },
               }),
               permissions: '0644',
@@ -183,7 +182,8 @@ const componentData = {
               content: JSON.stringify({
                 credHelpers: {
                   'public.ecr.aws': 'ecr-login',
-                  '869934154475.dkr.ecr.eu-west-2.amazonaws.com': 'ecr-login',
+                  [`${AWS_ACCOUNT}.dkr.ecr.${Config.AWS_REGION}.amazonaws.com`]:
+                    'ecr-login',
                 },
               }),
               permissions: '0644',

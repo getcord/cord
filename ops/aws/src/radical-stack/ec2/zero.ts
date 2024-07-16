@@ -40,7 +40,7 @@ import {
 const EXPOSE_SSH_PORT = 28547; // Prime time!
 const hostname = 'zero';
 
-const availabilityZone = 'eu-west-2a';
+const availabilityZone = `${AWS_REGION}a`;
 const packages: string[] = [
   'build-essential',
   'cmake',
