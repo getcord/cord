@@ -8,15 +8,13 @@ import { securityGroup as loadBalancerSecurityGroup } from 'ops/aws/src/radical-
 import { zeroSecurityGroup } from 'ops/aws/src/radical-stack/ec2/zero.ts';
 import { SSH_PORT } from 'ops/aws/src/Constants.ts';
 import { build3SecurityGroup } from 'ops/aws/src/radical-stack/ec2/build3.ts';
-
-// For now we just import pre-defined security groups here. In the future, we
-// should actually define them here.
+import { DEFAULT_SECURITY_GROUP_ID } from 'ops/aws/src/radical-stack/Config.ts';
 
 export const defaultSecurityGroup = define(() =>
   EC2.SecurityGroup.fromSecurityGroupId(
     radicalStack(),
     'defaultSecurityGroup',
-    'sg-11eaac72',
+    DEFAULT_SECURITY_GROUP_ID,
   ),
 );
 

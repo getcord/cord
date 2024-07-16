@@ -16,6 +16,13 @@ export const OPS_NOTIFICATION_EMAIL = 'YOUR_EMAIL_HERE';
 // this string
 export const S3_BUCKET_PREFIX = '';
 
+// AWS sets up a default VPC and security group in each region, and you're not
+// able to create replacements with exactly the same properties in CF, so
+// instead we import them by ID.
+export const DEFAULT_VPC_ID = 'vpc-1f773277';
+export const DEFAULT_VPC_ID_US_EAST_1 = 'vpc-54696e2e';
+export const DEFAULT_SECURITY_GROUP_ID = 'sg-11eaac72';
+
 // all the domains under which we serve the product
 export const CORD_COM_DOMAINS = [
   'cord.com',

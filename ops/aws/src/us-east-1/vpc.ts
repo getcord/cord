@@ -1,11 +1,10 @@
 import { aws_ec2 as EC2 } from 'aws-cdk-lib';
 
 import { define } from 'ops/aws/src/common.ts';
+import { DEFAULT_VPC_ID_US_EAST_1 } from 'ops/aws/src/radical-stack/Config.ts';
 import { usEast1Stack } from 'ops/aws/src/us-east-1/stack.ts';
 
-// For now we just import pre-defined VPCs here. In the future, we should
-// actually define them here.
-export const vpcId = 'vpc-54696e2e';
+export const vpcId = DEFAULT_VPC_ID_US_EAST_1;
 
 export const defaultVpc = define(() => {
   const vpc = EC2.Vpc.fromLookup(usEast1Stack(), 'defaultVpc', {
