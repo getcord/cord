@@ -34,7 +34,7 @@ define(() =>
       IAM.Group.fromGroupArn(
         radicalStack(),
         'Group',
-        Config.EC2_INSTANCE_CONNECT_GROUP,
+	`arn:aws:iam::${AWS_ACCOUNT}:group/${Config.EC2_INSTANCE_CONNECT_GROUP}`,
       ),
     ],
   }));
