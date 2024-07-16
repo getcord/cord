@@ -1,12 +1,13 @@
 import { aws_iam as IAM, aws_s3 as S3, RemovalPolicy } from 'aws-cdk-lib';
 
 import { define } from 'ops/aws/src/common.ts';
+import { S3_BUCKET_PREFIX } from 'ops/aws/src/radical-stack/Config.ts';
 import { radicalStack } from 'ops/aws/src/radical-stack/stack.ts';
 import { vanta } from 'ops/aws/src/radical-stack/vanta.ts';
 
 export const imagebuilderLogBucket = define(() => {
   const bucket = new S3.Bucket(radicalStack(), 'imagebuilder-s3logs', {
-    bucketName: 'imagebuilder-s3logs',
+    bucketName: `${S3_BUCKET_PREFIX}imagebuilder-s3logs`,
     removalPolicy: RemovalPolicy.DESTROY,
     blockPublicAccess: S3.BlockPublicAccess.BLOCK_ALL,
     encryption: S3.BucketEncryption.S3_MANAGED,

@@ -25,7 +25,7 @@ import { radicalStack } from 'ops/aws/src/radical-stack/stack.ts';
 import { vanta } from 'ops/aws/src/radical-stack/vanta.ts';
 import { basicAgentConfig } from 'ops/aws/config/cloudwatch-agent/config.ts';
 import { AWS_ACCOUNT } from 'ops/aws/src/Config.ts';
-import { AWS_REGION } from 'ops/aws/src/radical-stack/Config.ts';
+import { AWS_REGION, S3_BUCKET_PREFIX } from 'ops/aws/src/radical-stack/Config.ts';
 
 const stack = define(() => new NestedStack(radicalStack(), 'stack-e2eTest'));
 
@@ -191,7 +191,7 @@ define(() => {
 
 const s3Bucket = define(() => {
   const bucket = new S3.Bucket(stack(), 'e2e-tests-s3-bucket', {
-    bucketName: 'cord-e2e-tests',
+    bucketName: `${S3_BUCKET_PREFIX}cord-e2e-tests`,
     blockPublicAccess: S3.BlockPublicAccess.BLOCK_ALL,
     encryption: S3.BucketEncryption.S3_MANAGED,
     lifecycleRules: [{ id: '30day-expiration', expiration: Duration.days(30) }],

@@ -9,6 +9,10 @@ export const DEFAULT_OWNER = 'dmmiller@cord.com';
 // The user group that is allowed to ssh to EC2 instances
 export const EC2_INSTANCE_CONNECT_GROUP = 'engineering';
 
+// S3 bucket names have to be globally unique, so prefix all bucket names with
+// this string
+export const S3_BUCKET_PREFIX = '';
+
 // all the domains under which we serve the product
 export const CORD_COM_DOMAINS = [
   'cord.com',
