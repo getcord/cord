@@ -18,10 +18,14 @@ export const S3_BUCKET_PREFIX = '';
 
 // AWS sets up a default VPC and security group in each region, and you're not
 // able to create replacements with exactly the same properties in CF, so
-// instead we import them by ID.
+// instead we import them by ID.  Replace these with the IDs of the objects that
+// AWS creates for you.
 export const DEFAULT_VPC_ID = 'vpc-1f773277';
-export const DEFAULT_VPC_ID_US_EAST_1 = 'vpc-54696e2e';
 export const DEFAULT_SECURITY_GROUP_ID = 'sg-11eaac72';
+export const DEFAULT_PUBLIC_SUBNET_A_ID = 'subnet-c0ae25ba';
+export const DEFAULT_PUBLIC_SUBNET_B_ID = 'subnet-f177a9bd';
+export const DEFAULT_PUBLIC_SUBNET_C_ID = 'subnet-b086c9d9';
+export const DEFAULT_VPC_ID_US_EAST_1 = 'vpc-54696e2e';
 
 // all the domains under which we serve the product
 export const CORD_COM_DOMAINS = [
