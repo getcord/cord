@@ -1,4 +1,3 @@
-import { AWS_ACCOUNT } from 'ops/aws/src/Config.ts';
 import type { Tier } from 'ops/aws/src/common.ts';
 
 // AWS Environment values
