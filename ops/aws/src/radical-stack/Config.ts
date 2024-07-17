@@ -39,9 +39,6 @@ export const CORD_COM_DOMAINS = [
 // the base for all other domains (eg, api., app.)
 export const PRIMARY_DOMAIN_NAME = CORD_COM_DOMAINS[0];
 
-// Web site domain name
-export const WEB_SITE_DOMAIN = 'cord.com';
-
 // domains for which we set up gmail
 export const GMAIL_DOMAINS = ['cord.com', 'cord.so', 'getradical.co'];
 

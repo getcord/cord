@@ -1,7 +1,6 @@
 import {
   aws_route53 as Route53,
   aws_route53_targets as Route53Targets,
-  Duration,
 } from 'aws-cdk-lib';
 
 import { define } from 'ops/aws/src/common.ts';
@@ -12,8 +11,6 @@ import { appCordComDistribution } from 'ops/aws/src/radical-stack/cloudfront/app
 import { publicUploadsBucketDistribution } from 'ops/aws/src/radical-stack/cloudfront/cord-public-uploads.ts';
 import { newDualRecord } from 'ops/aws/src/radical-stack/route53/common.ts';
 import { accelerator } from 'ops/aws/src/radical-stack/globalaccelerator/index.ts';
-
-const vercelCnameTarget = 'cname.vercel-dns.com';
 
 // Integrity check for our config: make sure TXT_RECORDS and GMAIL_DOMAINS do
 // not list domains which we do not define.
@@ -76,23 +73,9 @@ define(async () => {
   const acceleratorTarget = Route53.RecordTarget.fromAlias(
     new Route53Targets.GlobalAcceleratorTarget(accelerator()),
   );
-  const vercelATarget = Route53.RecordTarget.fromIpAddresses('76.76.21.21');
 
   for (const [domain, zone] of cordComZones()) {
-    // Apex and www always points to Vercel.
-    new Route53.ARecord(zone, '_', {
-      zone,
-      target: vercelATarget,
-      ttl: Duration.minutes(5),
-    });
-    new Route53.CnameRecord(zone, 'www', {
-      zone,
-      domainName: vercelCnameTarget,
-      recordName: 'www',
-      ttl: Duration.minutes(5),
-    });
-
-    if (domain !== Config.WEB_SITE_DOMAIN) {
+    if (domain !== Config.PRIMARY_DOMAIN_NAME) {
       continue;
     }
 
@@ -286,46 +269,6 @@ const cnames: Record<string, [string, string][]> = {
   [Config.PRIMARY_DOMAIN_NAME]: [
     // status.cord.com hostname, pointing to betteruptime
     ['status', 'statuspage.betteruptime.com'],
-
-    // CNAME for Auth0 verification on auth.console.cord.com
-    [
-      'auth.console',
-      'dev-e20axg57-cd-qp1p4mic3gql9izj.edge.tenants.eu.auth0.com',
-    ],
-
-    // clack.cord.com: hosted in a different AWS account (the OHFFS one)
-    // Verification for ACM
-    [
-      '_88a1c5829924f1cb6295068ab4ab5d21.clack',
-      '_f0bcdbd915dc0e4ce167188b3f1f7041.qqqkmlyjyg.acm-validations.aws.',
-    ],
-    [
-      '_be2ff483ae0a01dac94c2df6c812c550.api.clack',
-      '_a749d4cb15aae7fcd1ff146e794c9382.qqqkmlyjyg.acm-validations.aws.',
-    ],
-    // Server
-    ['clack', 'clack-client-656024712.us-west-2.elb.amazonaws.com'],
-    // Client
-    ['api.clack', 'clack-server-1850454502.us-west-2.elb.amazonaws.com'],
-
-    // mirord.cord.com: hosted in a different AWS account (the OHFFS one)
-    // Verification for ACM
-    [
-      '_6cbd834bf94f3ac380c77cd43ba462bc.mirord.cord.com.',
-      '_5f4829b602900a64a51d224f853c8bce.mhbtsbpdnt.acm-validations.aws.',
-    ],
-    [
-      '_2b40912a39d08ff1863998161187fc11.api.mirord.cord.com.',
-      '_eed83bf5499ede9c3c61d82381bf7482.mhbtsbpdnt.acm-validations.aws.',
-    ],
-    // Client
-    ['mirord', 'mirord-556218686.us-west-2.elb.amazonaws.com'],
-    // Server
-    ['api.mirord', 'mirord-556218686.us-west-2.elb.amazonaws.com'],
-
-    // community.cord.com, dat.cord.com both deployed on vercel
-    ['community', vercelCnameTarget],
-    ['dat', vercelCnameTarget],
   ],
 };
 
