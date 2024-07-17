@@ -28,8 +28,6 @@ import {
   PRIMARY_DOMAIN_NAME,
 } from 'ops/aws/src/radical-stack/Config.ts';
 import { LOADTEST_TIER_ENABLED } from 'ops/aws/src/Config.ts';
-import { prServerInstance } from 'ops/aws/src/radical-stack/ec2/prServer.ts';
-import { devCordComCertificate } from 'ops/aws/src/radical-stack/acm/dev.cord.com.ts';
 
 export const loadBalancer = define(() => {
   const lb = new elbv2.ApplicationLoadBalancer(
@@ -90,7 +88,6 @@ export const loadBalancer = define(() => {
       cordComCertificate(),
       stagingCordComCertificate(),
       loadtestCordComCertificate(),
-      devCordComCertificate(),
     ],
     sslPolicy: elbv2.SslPolicy.RECOMMENDED_TLS,
   });
@@ -225,13 +222,6 @@ export const loadBalancer = define(() => {
     });
   }
 
-  addAction(
-    'prServer',
-    50,
-    [`*.dev.${PRIMARY_DOMAIN_NAME}`],
-    prServerTargetGroup(),
-  );
-
   lb.logAccessLogs(elbLogsBucket());
 
   return lb;
@@ -255,17 +245,6 @@ export const oncallTargetGroup = define(
       protocol: elbv2.ApplicationProtocol.HTTP,
       port: 8080,
       targets: [new elbv2t.InstanceTarget(monitoringInstance(), 8080)],
-      vpc: defaultVpc(),
-    }),
-);
-
-export const prServerTargetGroup = define(
-  () =>
-    new elbv2.ApplicationTargetGroup(radicalStack(), 'prServerTargetGroup', {
-      targetGroupName: 'prServer',
-      protocol: elbv2.ApplicationProtocol.HTTP,
-      port: 8081,
-      targets: [new elbv2t.InstanceTarget(prServerInstance(), 8081)],
       vpc: defaultVpc(),
     }),
 );
