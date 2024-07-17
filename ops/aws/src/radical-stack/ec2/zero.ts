@@ -230,6 +230,16 @@ export const zeroInstance = define(() => {
         packages.map((pkg) => EC2.InitPackage.apt(pkg)),
       ),
       installEc2InstanceConnect: new EC2.InitConfig([
+        // Old versions of pyOpenSSL aren't compatible with newer versions of
+        // `cryptography` which are installed by `ec2instanceconnectcli`, so
+        // ensure a new pyOpenSSL is available before installing
+        // ec2instanceconnectcli
+        EC2.InitCommand.argvCommand([
+          'pip3',
+          'install',
+          '--upgrade',
+          'pyOpenSSL',
+        ]),
         EC2.InitCommand.argvCommand([
           'pip3',
           'install',
