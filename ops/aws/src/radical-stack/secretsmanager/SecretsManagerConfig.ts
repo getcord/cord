@@ -236,12 +236,12 @@ const API_SECRETS: ApiSecret[] = [
   },
   {
     name: 'openai_api_secret',
-    description: 'Credentials for Sendgrid API',
+    description: 'Credentials for OpenAI API',
     key: 'api_key',
   },
   {
     name: 'ipstack_api_secret',
-    description: 'Credentials for Sendgrid API',
+    description: 'Credentials for IPStack API',
     key: 'api_key',
   },
   {
