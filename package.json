@@ -12,7 +12,7 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "migrate": "sequelize-cli db:migrate",
     "migrate-down": "sequelize-cli db:migrate:undo",
-    "build": "npm run tsc-once && ./build/index.mjs --mode=production --clean",
+    "build": "NODE_OPTIONS='--max-old-space-size=4096' npm run tsc-once && ./build/index.mjs --mode=production --clean",
     "build-demo-apps": "demo-apps/build-demo-apps.sh",
     "build-sample-apps": "npm run build-demo-apps",
     "check-database-schema": "./build/index.mjs --mode=development --target=scripts/check-database-schema.ts && ./dist/scripts/check-database-schema.js --check",
