@@ -77,6 +77,16 @@ export const build3Instance = define(() => {
     'mkdir -p /opt/aws/bin',
     'pip3 install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-py3-latest.tar.gz',
     'ln -s /usr/local/bin/cfn-* /opt/aws/bin',
+
+    // Add NodeSource repo so we get Node 18.x, which is what we use in
+    // production, instead of whatever Ubuntu's default is at this time.
+    // https://github.com/nodesource/distributions#installation-instructions
+    'apt-get install --no-install-recommends -y ca-certificates curl gnupg',
+    'mkdir -p /etc/apt/keyrings',
+    'curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg',
+    'echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list',
+    'apt-get update',
+    'apt-get install -y nodejs',
   );
 
   const instance = new EC2.Instance(
