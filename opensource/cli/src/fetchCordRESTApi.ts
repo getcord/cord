@@ -50,6 +50,7 @@ export async function fetchCordManagementApi<T>(
   endpoint: string,
   method: 'GET' | 'PUT' | 'POST' | 'DELETE' = 'GET',
   body?: string,
+  type: 'json' | 'text' = 'json',
 ): Promise<T> {
   const env = await getEnvVariables().catch(() => {
     /*no-op. probably just doesn't exist yet*/
@@ -80,7 +81,7 @@ export async function fetchCordManagementApi<T>(
   });
 
   if (response.ok) {
-    return response.json() as T;
+    return type === 'text' ? (await response.text() as T) : (await response.json() as T);
   } else {
     const responseText = await response.text();
     throw new Error(
