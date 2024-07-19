@@ -55,10 +55,13 @@ if (sentryLogging) {
 // Winston logging
 const winstonLogger = winston.createLogger({ defaultMeta });
 
+const format =
+  process.env.LOG_FORMAT === 'json' ? winston.format.json() : flatFormat();
+
 winstonLogger.add(
   new winston.transports.Console({
     level: logLevel,
-    format: winston.format.combine(winston.format.timestamp(), flatFormat()),
+    format: winston.format.combine(winston.format.timestamp(), format),
     handleExceptions: true,
   }),
 );
