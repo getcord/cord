@@ -42,6 +42,11 @@ import {
 // on the following port:
 const EXPOSE_SSH_PORT = 28547; // Prime time!
 const hostname = 'zero';
+// Normally zero gets a new host key every time it gets replaced, which means
+// ssh will complain that the identity has changed.  If you change this to true,
+// it will attempt to extract keys from a secret and install those so the
+// identity doesn't change.
+const STABLE_HOST_KEYS = false;
 
 const availabilityZone = `${AWS_REGION}a`;
 const packages: string[] = [
@@ -171,23 +176,26 @@ export const zeroInstance = define(() => {
     { nonProd: true },
   );
 
-  const sshHostKeysSecret = new SecretsManager.Secret(
-    radicalStack(),
-    'zero-ssh-host-keys-secret',
-    {
-      description: 'SSH Host keys for zero',
-      secretName: 'zero-ssh-host-keys',
-      removalPolicy: RemovalPolicy.RETAIN,
-    },
-  );
-  sshHostKeysSecret.grantRead(instance);
+  let sshHostKeysSecret: SecretsManager.Secret | undefined;
+  if (STABLE_HOST_KEYS) {
+    sshHostKeysSecret = new SecretsManager.Secret(
+      radicalStack(),
+      'zero-ssh-host-keys-secret',
+      {
+        description: 'SSH Host keys for zero',
+        secretName: 'zero-ssh-host-keys',
+        removalPolicy: RemovalPolicy.RETAIN,
+      },
+    );
+    sshHostKeysSecret.grantRead(instance);
+  }
 
   EC2.CloudFormationInit.fromConfigSets({
     configSets: {
       Init: [
         'installCfnHup',
         'configureSSH',
-        'installSSHHostKeys',
+        ...(STABLE_HOST_KEYS ? ['installSSHHostKeys'] : []),
         'configureApt',
         'installPackages',
         'installEc2InstanceConnect',
@@ -198,7 +206,9 @@ export const zeroInstance = define(() => {
     configs: {
       installCfnHup: installCfnHupConfigOnUbuntu(instance, 'Init'),
       configureSSH: configureSSH(EXPOSE_SSH_PORT),
-      installSSHHostKeys: installSSHHostKeys(sshHostKeysSecret),
+      ...(STABLE_HOST_KEYS && sshHostKeysSecret
+        ? { installSSHHostKeys: installSSHHostKeys(sshHostKeysSecret) }
+        : {}),
       configureApt: new EC2.InitConfig([
         EC2.InitFile.fromString(
           '/etc/apt/apt.conf.d/90norecommends',
