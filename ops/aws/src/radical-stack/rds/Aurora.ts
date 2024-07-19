@@ -41,7 +41,7 @@ const databaseSecretNames = {
 };
 
 const auroraEngine = RDS.DatabaseClusterEngine.auroraPostgres({
-  version: RDS.AuroraPostgresEngineVersion.VER_12_8,
+  version: RDS.AuroraPostgresEngineVersion.VER_15_2,
 });
 
 const makeAuroraSecurityGroup = (tier: AuroraTier) => {

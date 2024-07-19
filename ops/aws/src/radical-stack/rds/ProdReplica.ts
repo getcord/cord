@@ -19,7 +19,7 @@ import { build3SecurityGroup } from 'ops/aws/src/radical-stack/ec2/build3.ts';
 import { monitoringSecurityGroup } from 'ops/aws/src/radical-stack/ec2/securityGroups.ts';
 
 const postgresEngine = RDS.DatabaseInstanceEngine.postgres({
-  version: RDS.PostgresEngineVersion.VER_12_7,
+  version: RDS.PostgresEngineVersion.VER_15,
 });
 
 export const prodReplica = define(() => {
