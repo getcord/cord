@@ -25,7 +25,11 @@ import { radicalStack } from 'ops/aws/src/radical-stack/stack.ts';
 import { vanta } from 'ops/aws/src/radical-stack/vanta.ts';
 import { basicAgentConfig } from 'ops/aws/config/cloudwatch-agent/config.ts';
 import { AWS_ACCOUNT } from 'ops/aws/src/Config.ts';
-import { AWS_REGION, S3_BUCKET_PREFIX } from 'ops/aws/src/radical-stack/Config.ts';
+import {
+  AWS_REGION,
+  S3_BUCKET_PREFIX,
+} from 'ops/aws/src/radical-stack/Config.ts';
+import { ec2KeyPair } from 'ops/aws/src/radical-stack/ec2/keyPair.ts';
 
 const stack = define(() => new NestedStack(radicalStack(), 'stack-e2eTest'));
 
@@ -94,7 +98,7 @@ const e2eTestInstance = define(() => {
     userData,
     userDataCausesReplacement: true,
     securityGroup: e2eTestSecurityGroup(),
-    keyName: 'radical-ec2-key',
+    keyName: ec2KeyPair().keyName,
     requireImdsv2: true,
   });
   vanta(instance, 'EC2 instance running automated e2e tests', {

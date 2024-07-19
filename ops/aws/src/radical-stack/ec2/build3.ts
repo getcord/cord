@@ -25,6 +25,7 @@ import { opsNotificationTopic } from 'ops/aws/src/radical-stack/sns/topics.ts';
 import { privateSubnets } from 'ops/aws/src/radical-stack/ec2/privateSubnets.ts';
 import { basicAgentConfig } from 'ops/aws/config/cloudwatch-agent/config.ts';
 import { AWS_ACCOUNT } from 'ops/aws/src/Config.ts';
+import { ec2KeyPair } from 'ops/aws/src/radical-stack/ec2/keyPair.ts';
 
 export const hostname = 'build3';
 // Whether to install the services on the machine that allow it to operate as a
@@ -119,7 +120,7 @@ export const build3Instance = define(() => {
       ],
       securityGroup: build3SecurityGroup(),
       vpcSubnets: { subnets: privateSubnets() },
-      keyName: 'radical-ec2-key',
+      keyName: ec2KeyPair().keyName,
       userData,
       userDataCausesReplacement: false,
     },

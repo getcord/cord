@@ -33,6 +33,7 @@ import {
   enableEc2InstanceConnect,
   waitForInstanceInit,
 } from 'ops/aws/src/radical-stack/ec2/common.ts';
+import { ec2KeyPair } from 'ops/aws/src/radical-stack/ec2/keyPair.ts';
 
 // SSH normally listens on port 22. Because of that, there are lots of random
 // connection attempts made on port 22 on probably all machines on the internet.
@@ -164,7 +165,7 @@ export const zeroInstance = define(() => {
       vpcSubnets: {
         subnetType: EC2.SubnetType.PUBLIC,
       },
-      keyName: 'radical-ec2-key',
+      keyName: ec2KeyPair().keyName,
       userData,
       userDataCausesReplacement: false,
       requireImdsv2: true,

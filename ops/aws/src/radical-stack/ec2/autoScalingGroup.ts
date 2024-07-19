@@ -38,6 +38,7 @@ import { enableEc2InstanceConnect } from 'ops/aws/src/radical-stack/ec2/common.t
 import { fileUploadsBucket } from 'ops/aws/src/radical-stack/s3/fileUploads.ts';
 import { AWS_ACCOUNT, LOADTEST_TIER_ENABLED } from 'ops/aws/src/Config.ts';
 import { AWS_REGION } from 'ops/aws/src/radical-stack/Config.ts';
+import { ec2KeyPair } from 'ops/aws/src/radical-stack/ec2/keyPair.ts';
 
 const userData = (service: 'server' | 'asyncWorker', tier: Tier) => {
   const script = EC2.UserData.forLinux();
@@ -94,7 +95,7 @@ function makeServerASG(tier: Tier) {
       securityGroup: securityGroups[tier](),
       userData: userData('server', tier),
       ...Config.SERVER_AUTOSCALING_CAPACITY[tier],
-      keyName: 'radical-ec2-key',
+      keyName: ec2KeyPair().keyName,
       instanceMonitoring: autoScaling.Monitoring.DETAILED,
       healthCheck: autoScaling.HealthCheck.elb({ grace: Duration.minutes(5) }),
       notifications: [
@@ -181,7 +182,7 @@ function makeAsyncASG(tier: Tier) {
       userData: userData('asyncWorker', tier),
       minCapacity: 1,
       maxCapacity: 1,
-      keyName: 'radical-ec2-key',
+      keyName: ec2KeyPair().keyName,
       requireImdsv2: true,
     },
   );

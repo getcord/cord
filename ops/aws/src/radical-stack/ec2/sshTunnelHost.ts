@@ -16,6 +16,7 @@ import {
   waitForInstanceInit,
 } from 'ops/aws/src/radical-stack/ec2/common.ts';
 import { PRIMARY_DOMAIN_NAME } from 'ops/aws/src/radical-stack/Config.ts';
+import { ec2KeyPair } from 'ops/aws/src/radical-stack/ec2/keyPair.ts';
 
 const ENABLE_SSH_TUNNEL_HOST = true;
 
@@ -89,7 +90,7 @@ export const sshTunnelHostInstance = define(() => {
       vpcSubnets: {
         subnetType: EC2.SubnetType.PUBLIC,
       },
-      keyName: 'radical-ec2-key',
+      keyName: ec2KeyPair().keyName,
       userData,
       userDataCausesReplacement: true,
       requireImdsv2: true,

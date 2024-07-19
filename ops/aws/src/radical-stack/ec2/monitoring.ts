@@ -30,6 +30,7 @@ import {
 } from 'ops/aws/src/radical-stack/ec2/common.ts';
 import { AWS_ACCOUNT } from 'ops/aws/src/Config.ts';
 import { AWS_REGION } from 'ops/aws/src/radical-stack/Config.ts';
+import { ec2KeyPair } from 'ops/aws/src/radical-stack/ec2/keyPair.ts';
 
 const availabilityZone = `${AWS_REGION}a`;
 
@@ -80,7 +81,7 @@ export const monitoringInstance = define(() => {
     userData,
     userDataCausesReplacement: true,
     securityGroup: monitoringSecurityGroup(),
-    keyName: 'radical-ec2-key',
+    keyName: ec2KeyPair().keyName,
     requireImdsv2: true,
   });
   vanta(
