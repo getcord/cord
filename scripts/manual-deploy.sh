@@ -59,7 +59,3 @@ commit_hash="$(
     docker image inspect "$image" |
     jq -r '.[0].Config.Labels."com.cord.git-commit-hash"' || true
 )"
-if test "$commit_hash"
-then
-    git push --no-verify --force git@github.com:getcord/monorepo.git "$commit_hash":refs/tags/"$tier" || true
-fi
