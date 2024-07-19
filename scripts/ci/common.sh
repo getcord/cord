@@ -1,17 +1,5 @@
 # Common functions for CI scripts
 
-if test -z "${HARBORMASTER_BUILD_ID:-}"
-then
-    # We are not being run by Harbormaster. Assuming we are being run by GitHub,
-    # make sure it's the right repo
-
-    if ! test "$GITHUB_REPOSITORY" = getcord/monorepo
-    then
-        echo >&2 "This is a CI script that must only be run by GitHub on monorepo"
-        exit 1
-    fi
-fi
-
 ACCELERATE_DEPLOY="${ACCELERATE_DEPLOY:-false}"
 
 announce_build_step () {
