@@ -22,9 +22,11 @@ async function dbDumpHandler() {
     'customer/dbdump',
     'GET',
     undefined,
+    undefined,
     'text',
   );
   console.log(dump);
+}
 
 async function whichApplicationHandler() {
   const variables = await getEnvVariables().catch(() => {
@@ -205,7 +207,7 @@ export const projectCommand = {
         (yargs) => yargs,
         listAllApplicationsHandler,
       )
-      .command('dbdump', 'Bump DB', (yargs) => yargs, dbDumpHandler)
+      .command('dbdump', 'Dumps all data from all projects', (yargs) => yargs, dbDumpHandler)
       .command(
         'get <id>',
         'Get a project: GET https://api.cord.com/v1/projects/<ID>',
