@@ -18,6 +18,7 @@ export async function initBoss() {
 
   const logger = anonymousLogger();
   const schema = `pgboss_${env.CORD_TIER}`;
+
   const newBoss = new PgBoss({
     host: env.POSTGRES_HOST,
     port: Number(env.POSTGRES_PORT),
@@ -25,6 +26,10 @@ export async function initBoss() {
     user: env.POSTGRES_USER,
     password: env.POSTGRES_PASSWORD,
     schema,
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
   });
   newBoss.on('error', logger.exceptionLogger('pgboss error'));
   await newBoss.start();

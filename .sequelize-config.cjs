@@ -14,6 +14,12 @@ const config = {
   logging: true,
   schema: 'cord',
   migrationStorageTableSchema: 'public',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false // If your SSL certificate is self-signed
+    }
+  },
   hooks: {
     afterConnect: (connection) =>
       connection.query('SET search_path=cord,public;'),
