@@ -13,7 +13,10 @@ import {
 } from 'server/src/email/utils.ts';
 import { OrgMembersEntity } from 'server/src/entity/org_members/OrgMembersEntity.ts';
 import { MessageMutator } from 'server/src/entity/message/MessageMutator.ts';
-import { getFeatureFlagValue } from 'server/src/featureflags/index.ts';
+import {
+  FeatureFlags,
+  getTypedFeatureFlagValue,
+} from 'server/src/featureflags/index.ts';
 import { EventMutator } from 'server/src/entity/event/EventMutator.ts';
 import { UserEntity } from 'server/src/entity/user/UserEntity.ts';
 import { OrgEntity } from 'server/src/entity/org/OrgEntity.ts';
@@ -162,8 +165,8 @@ export default async function SendGridWebhookHandler(
     version: null,
     customerID: application?.customerID,
   };
-  const emailRepliesEnabled = await getFeatureFlagValue(
-    'email_replies',
+  const emailRepliesEnabled = await getTypedFeatureFlagValue(
+    FeatureFlags.EMAIL_REPLIES,
     flagsUser,
   );
   if (!emailRepliesEnabled) {

@@ -78,6 +78,10 @@ const ServerOnlyFeatureFlags = {
       thread_resolve: DEFAULT_THREAD_RESOLVE_TEMPLATE_ID,
     },
   },
+  EMAIL_REPLIES: {
+    key: 'email_replies',
+    defaultValue: true,
+  } as FeatureFlag<'email_replies', boolean>,
 } as const;
 
 export const FeatureFlags = {
