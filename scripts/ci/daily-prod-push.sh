@@ -32,10 +32,10 @@ docker run --rm=true \
     -v "$(realpath /var/run/docker.sock)":/var/run/docker.sock \
     "${docker_opts[@]}" \
     -e CORD_TIER=prod \
-    -e GITHUB_REPOSITORY="$GITHUB_REPOSITORY" \
-    -e GITHUB_RUN_ID="$GITHUB_RUN_ID" \
-    -e GITHUB_RUN_NUMBER="$GITHUB_RUN_NUMBER" \
-    -e GITHUB_SERVER_URL="$GITHUB_SERVER_URL" \
+    -e GITHUB_REPOSITORY="${GITHUB_REPOSITORY:-}" \
+    -e GITHUB_RUN_ID="${GITHUB_RUN_ID:-}" \
+    -e GITHUB_RUN_NUMBER="${GITHUB_RUN_NUMBER:-}" \
+    -e GITHUB_SERVER_URL="${GITHUB_SERVER_URL:-}" \
     "$STAGING_IMAGE" \
     dist/generic/scripts/ci/deploy.js \
         --unattended \
