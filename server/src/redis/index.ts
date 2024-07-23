@@ -81,12 +81,26 @@ export function initRedis() {
   redlock = new Redlock([redis]);
 }
 
+function getTlsOptions(useTls: string | undefined, rejectUnauthorized: string | undefined) {
+  return useTls === 'true'
+    ? {
+        tls: {
+          rejectUnauthorized: rejectUnauthorized === 'true',
+        },
+      }
+    : {};
+}
+
 export function createRedisClient(): RedisClient {
-  return new Redis.default(Number(env.REDIS_PORT), env.REDIS_HOST);
+  const tlsOptions = getTlsOptions(env.REDIS_USE_TLS, env.REDIS_REJECT_UNAUTHORIZED);
+  const db = env.REDIS_DB ? Number(env.REDIS_DB) : 0;
+  return new Redis.default(Number(env.REDIS_PORT), env.REDIS_HOST, { ...tlsOptions, db } );
 }
 
 export function createPredisClient(): RedisClient {
-  return new Redis.default(Number(env.PREDIS_PORT), env.PREDIS_HOST);
+  const tlsOptions = getTlsOptions(env.PREDIS_USE_TLS, env.PREDIS_REJECT_UNAUTHORIZED);
+  const db = env.PREDIS_DB ? Number(env.PREDIS_DB) : 0;
+  return new Redis.default(Number(env.PREDIS_PORT), env.PREDIS_HOST, { ...tlsOptions, db } );
 }
 
 // This is a helper function to check for errors after a Redis MULTI

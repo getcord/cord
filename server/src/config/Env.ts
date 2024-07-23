@@ -37,8 +37,15 @@ export default magicEnv(process.env, {
   // Redis connection configuration
   REDIS_PORT: required,
   REDIS_HOST: required,
+  REDIS_USE_TLS: optional,
+  REDIS_REJECT_UNAUTHORIZED: optional,
+  REDIS_DB: optional,
+
   PREDIS_PORT: required,
   PREDIS_HOST: required,
+  PREDIS_USE_TLS: optional,
+  PREDIS_REJECT_UNAUTHORIZED: optional,
+  PREDIS_DB: optional,
 
   // URLs pointing to our own endpoints
   TOP_SERVER_HOST: required,
