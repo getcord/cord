@@ -2,7 +2,11 @@ import type { UUID } from 'common/types/index.ts';
 import type { RequestContext } from 'server/src/RequestContext.ts';
 import { assertViewerHasUser } from 'server/src/auth/index.ts';
 import type { FlagsUser } from 'server/src/featureflags/index.ts';
-import { getFeatureFlagValue } from 'server/src/featureflags/index.ts';
+import {
+  FeatureFlags,
+  getFeatureFlagValue,
+  getTypedFeatureFlagValue,
+} from 'server/src/featureflags/index.ts';
 
 export async function getUsersToNotify(args: {
   context: RequestContext;
@@ -16,8 +20,8 @@ export async function getUsersToNotify(args: {
   // all threads.  This is invoked before this function runs, so that these users
   // are picked up by step 2 below.
   const [notifyVisitors, skipVisitorsIfSelfMentioned] = await Promise.all([
-    getFeatureFlagValue(
-      'notify_page_visitors_of_every_new_message',
+    getTypedFeatureFlagValue(
+      FeatureFlags.NOTIFY_PAGE_VISITORS_OF_EVERY_MESSAGE,
       args.flagsUser,
     ),
     getFeatureFlagValue(
