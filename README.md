@@ -15,6 +15,7 @@ Note: Cord has only routinely been run on MacOS and Linux distributions using `a
 Before running Cord, you need to install some software.
 
 - Install [Node and NPM](https://nodejs.org/en/download/package-manager)
+  - You can use a Node version manager like [n](https://github.com/tj/n) or [nvm](https://github.com/nvm-sh/nvm) to manage node versions. This repo provides both a `.nvmrc` and `.node-version` file that specifies the version of Node to use.
 - Install Docker ([Mac](https://docs.docker.com/desktop/install/mac-install/), [Linux](https://docs.docker.com/desktop/install/linux-install/))
 - [Mac-only] Install [Homebrew](https://brew.sh/)
 - Install `jq` (Mac: `brew install jq`, Linux: `apt install jq`)
