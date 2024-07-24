@@ -1,5 +1,7 @@
 FROM node:18-slim
 
+RUN apt-get update && apt-get install -y curl vim
+
 WORKDIR /cord
 
 COPY . .
