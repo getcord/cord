@@ -20,8 +20,8 @@ import { Thread2Provider } from 'external/src/context/thread2/Thread2Provider.ts
 import { DeepLinkProvider } from 'external/src/context/deepLink/DeepLinkProvider.tsx';
 import { withNewCSSComponentMaybe } from 'external/src/components/ui3/withNewComponent.tsx';
 import { newThreadWithProviderConfig } from 'external/src/components/ui3/thread/ThreadWithProvider.tsx';
-import { EmptyThread } from 'external/src/components/ui3/thread/EmptyThread.tsx';
 import { OrganizationContext } from 'external/src/context/organization/OrganizationContext.tsx';
+import { EmptyThread2 } from 'external/src/components/2/thread2/EmptyThread.tsx';
 
 // How many messages to show when expanding to an inline thread
 const INLINE_THREAD_INITIAL_MIN_MESSAGES = 5;
@@ -147,11 +147,9 @@ const Thread2Component = withNewCSSComponentMaybe(
           case 'inline':
           case 'fullHeight':
             return (
-              <EmptyThread
-                composerExpanded={composerExpanded}
+              <EmptyThread2
                 showPlaceholder={showPlaceholder}
-                threadHeader={threadHeader}
-                shouldFocusOnMount={shouldFocusOnMount}
+                composerExpanded={composerExpanded}
                 threadMetadata={threadMetadata}
               />
             );
