@@ -121,15 +121,14 @@ export const Composer3 = withNewCSSComponentMaybe(
       useContextThrowingIfNoProvider(OrganizationContext);
     const showToastPopup =
       useContextThrowingIfNoProvider(GlobalElementContext)?.showToastPopup;
-    const { threadID, threadMode } =
-      useContextThrowingIfNoProvider(Thread2Context);
+    const { threadID } = useContextThrowingIfNoProvider(Thread2Context);
     const { setResolved } = useContextThrowingIfNoProvider(ThreadsContext2);
     const {
       byInternalID: { userByID: userByInternalID },
     } = useContextThrowingIfNoProvider(UsersContext);
 
     const composerControllerValue = useComposerController({
-      isDraftThread: threadMode === 'newThread',
+      isDraftThread: !thread,
       onSendMessage: props.onSendMessage,
       messageMetadata: props.messageMetadata,
       threadMetadata: props.threadMetadata,
