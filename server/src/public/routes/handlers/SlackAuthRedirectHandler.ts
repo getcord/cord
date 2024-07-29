@@ -17,7 +17,7 @@ import { Viewer, assertViewerHasIdentity } from 'server/src/auth/index.ts';
 import { OrgMutator } from 'server/src/entity/org/OrgMutator.ts';
 import type { SlackBotUserAuthData } from 'server/src/slack/types.ts';
 import { updateOrCreateSlackUserProfile } from 'server/src/slack/util.ts';
-import { APP_ORIGIN } from 'common/const/Urls.ts';
+import { APP_ORIGIN, SLACK_APP_REDIRECT_HOST } from 'common/const/Urls.ts';
 import { EventMutator } from 'server/src/entity/event/EventMutator.ts';
 import { LogLevel } from 'common/types/index.ts';
 import { SlackChannelMutator } from 'server/src/entity/slack_channel/SlackChannelMutator.ts';
@@ -44,6 +44,7 @@ import { publishUserIdentityUpdate } from 'server/src/pubsub/index.ts';
 import { anonymousLogger, Logger } from 'server/src/logging/Logger.ts';
 import { UserEntity } from 'server/src/entity/user/UserEntity.ts';
 import { OrgEntity } from 'server/src/entity/org/OrgEntity.ts';
+import { extractHostname } from 'server/src/util/host.ts';
 
 async function findOrCreateSlackOrg(
   bot_access_token: string,
@@ -124,6 +125,8 @@ export default function SlackAuthRedirectHandler(
 ) {
   let logger = anonymousLogger();
   let { state } = req.query;
+  const slackAppRedirectHost = extractHostname(SLACK_APP_REDIRECT_HOST);
+  const configDomainRegex = new RegExp(`^([\\w-]+\\.)*${slackAppRedirectHost?.replace('.', '\\.')}(?::\\d+)?$`);
 
   // Our Slack app has a short whitelist of redirect URLs. Slack does not allow
   // us to use localhost or hostnames resolving to localhost. Neither does it
@@ -147,7 +150,7 @@ export default function SlackAuthRedirectHandler(
     if (match) {
       // The state looks like `[redirectHost]trueState`.
       const [_, redirectHost, trueState] = match;
-      if (/^([\w-]+\.)*cord\.com(:\d+)?$/.test(redirectHost)) {
+      if (/^([\w-]+\.)*cord\.com(:\d+)?$/.test(redirectHost) || configDomainRegex.test(redirectHost)) {
         // The redirect host is in the cord.com domain. Redirect there!
         res.redirect(
           url.format({
