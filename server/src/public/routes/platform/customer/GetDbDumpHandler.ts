@@ -196,18 +196,26 @@ async function streamPartialDumpImpl(
     await pg.query(`
       WITH "attributes" AS (
           SELECT
-              attrelid,
-              jsonb_agg(attname::text ORDER BY attnum) AS attributes
-          FROM pg_catalog.pg_attribute
-          WHERE attnum >= 1
-          AND NOT attisdropped
-          AND attgenerated != 's'
-          GROUP BY attrelid
+              a.attrelid as attrelid,
+              jsonb_agg(a.attname::text ORDER BY a.attnum) AS attributes,
+              jsonb_agg(a.attname::text ORDER BY a.attnum) FILTER (WHERE i.indisprimary = TRUE) AS primary_key,
+              max(i.indnkeyatts) as indnkeyatts
+          FROM pg_catalog.pg_attribute a
+            LEFT JOIN pg_catalog.pg_index i
+              ON a.attrelid = i.indrelid
+              AND a.attnum = ANY(i.indkey)
+              AND i.indisprimary = TRUE
+          WHERE a.attnum >= 1
+          AND NOT a.attisdropped
+          AND a.attgenerated != 's'
+          GROUP BY a.attrelid
       )
       SELECT
           cls.oid::int4 AS oid,
           cls.relname AS name,
-          COALESCE(attributes.attributes, '[]'::jsonb) AS columns
+          COALESCE(attributes.attributes, '[]'::jsonb) AS columns,
+          COALESCE(attributes.primary_key, '[]'::jsonb) AS "primaryKey",
+          COALESCE(indnkeyatts, 0) as "numKeyColumns"
       FROM pg_catalog.pg_class cls
       LEFT OUTER JOIN attributes ON cls.oid = attributes.attrelid
       WHERE relnamespace='cord'::regnamespace AND relkind='r';`)
@@ -215,6 +223,7 @@ async function streamPartialDumpImpl(
     tables.set(row.oid, {
       ...row,
       fkeys: [],
+      primaryKey: row.primaryKey.slice(0, row.numKeyColumns),
       handling: tableHandling[row.name] ?? null,
     });
   }
@@ -351,6 +360,7 @@ type Table = {
   oid: number;
   name: string;
   columns: string[];
+  primaryKey: string[];
   fkeys: ForeignKey[];
   handling: ((alias: string, customerID: string) => string) | 'ignore' | null;
 };
@@ -387,17 +397,30 @@ async function dumpTable(
      ${joins.join('\n')}
      ${where ? 'WHERE ' : ''}${where}`;
 
+  const tmpTableName = escapeIdentifier('tmp_' + table.name);
+  const tableName = escapeIdentifier(table.name);
+  const columnList = table.columns.map(escapeIdentifier).join(', ');
   output.write(
     `\\echo Loading data into table ${table.name}...
 -- ${query.replace(/\n/g, '\n-- ')};
-     \n\nCOPY ${escapeIdentifier(table.name)} (${table.columns
-       .map(escapeIdentifier)
-       .join(', ')}) FROM stdin;\n`,
+
+
+CREATE TEMP TABLE ${tmpTableName} (LIKE ${tableName} INCLUDING DEFAULTS) ON COMMIT DROP;
+
+COPY ${tmpTableName} (${columnList}) FROM stdin;\n`,
   );
 
   await dumpData(pg, query, output);
 
   output.write('\\.\n\n');
+  output.write(`INSERT INTO ${tableName} (${columnList})
+  SELECT ${columnList} FROM ${tmpTableName}
+  ON CONFLICT (${table.primaryKey.map(escapeIdentifier).join(', ')}) DO UPDATE
+  SET
+    ${table.columns
+      .map((c) => `${escapeIdentifier(c)}=EXCLUDED.${escapeIdentifier(c)}`)
+      .join(', ')}
+  ;\n\n`);
   output.write(
     `-- Elapsed time for ${table.name}: ${Math.round(
       performance.now() - start,
