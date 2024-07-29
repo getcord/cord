@@ -184,3 +184,49 @@ At this point, you can add API keys for any services you're using, such as SendG
 ## Ready to go
 
 Now you're ready to go. Any time you want to build new versions, you can log into the `build3` machine and run them yourself, or you can use the examples in `github_workflows` to run GitHub workflows to run things. (You'll need to set `INCLUDE_GITHUB_RUNNER` to `true` in `ops/aws/src/radical-stack/ec2/build3.ts` to get the GitHub Actions Runner running.)
+
+
+## Building the front-end SDK
+
+To build the SDK for consumption by your front-end, you need to bundle its code and serve it from an HTTP server.
+
+### Configuring the environment variables
+
+For Cord to function properly, you need to set the two environment variables below. If there isn't a `.env` file at the
+root of this repository, create one.
+
+```
+APP_SERVER_HOST=
+API_SERVER_HOST=
+```
+
+The JS and CSS files will be served by the host identified by `APP_SERVER_HOST`.
+By default, their URLs are:
+```js
+`https://${APP_SERVER_HOST}/sdk/v1/sdk.latest.js` // JS bundle
+`https://${APP_SERVER_HOST}/sdk/v1/sdk.latest.css` // JS bundle
+```
+
+So, set `APP_SERVER_HOST` to the hostname of the server that is serving these files. 
+Go to [Development](#development) to see how to obtain this value.
+
+`API_SERVER_HOST` is the hostname of the GraphQL server, so make sure that this points to that server. 
+
+### Building
+
+Once you have configured the environment variables, you can build the assets by running `npm run build`.
+
+
+### Development 
+
+For development, you just need to serve the contents of `cd dist/external` over HTTPS.
+
+Remember that the server must support HTTPS, so run `sh scripts/generate-localhost-certificates.sh` first. This only needs to be run once.
+
+Then, you can start an HTTPS server by running the following command from the repository root:
+```sh
+npx http-server ./dist/external -S -C localhost/localhost.crt -o -K localhost/localhost.key -p 8081
+```
+
+This will start the HTTPS server on port 8081, so remember to update `APP_SERVER_HOST` to `localhost:8081` and run `npm run build` again.
+

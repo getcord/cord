@@ -145,6 +145,7 @@ function TextEditorWithOpenMentionsMenu(props: TextEditorProps) {
 
 // Using the within prop allows you to isolate the replacement to specific areas.
 const REPLACEMENTS: betaV2.ReplaceConfig = {
+  // @ts-expect-error
   within: { MentionList: { VirtualizedMenu: MentionListMenuWithButton } },
   TextEditor: TextEditorWithOpenMentionsMenu,
 };

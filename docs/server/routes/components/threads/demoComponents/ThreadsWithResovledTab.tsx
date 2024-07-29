@@ -28,6 +28,7 @@ function ThreadsWithResolvedTab({ groupID }: ThreadsProps) {
     setCurrentTab(tab as TabType);
   }, []);
 
+  // @ts-expect-error
   const options: experimental.TabbedThreadsProps['tabbedThreadsOptions'] =
     useMemo(() => {
       return [
