@@ -134,7 +134,7 @@ export async function sendOutboundNotification(
       if (process.env.IS_TEST) {
         await sendEmailNotification(emailData);
       } else if (process.env.NODE_ENV === 'development') {
-        setTimeoutAsync(() => sendEmailNotification(emailData), 40 * 1000);
+        setTimeoutAsync(() => sendEmailNotification(emailData), 1000);
       } else {
         await submitAsync('sendEmailNotificationWithDelay', emailData, {
           startAfter: 40,

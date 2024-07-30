@@ -37,7 +37,7 @@ export function getReplyToEmailAddress(
     // SendGrid, who call a webhook (search this repo for
     // SendGridWebhookHandler) so we can handle them and e.g. append reply
     // contents to the appropriate thread.
-    const replyToAddress = `${parsedAddress.local}-${notificationId}@cord.fyi`;
+    const replyToAddress = `${parsedAddress.local}-${notificationId}@${parsedAddress.domain}`;
     if (parsedAddress.name) {
       return `${parsedAddress.name} <${replyToAddress}>`;
     }
