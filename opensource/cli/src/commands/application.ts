@@ -22,7 +22,6 @@ async function dbDumpHandler() {
     'customer/dbdump',
     'GET',
     undefined,
-    undefined,
     'text',
   );
   console.log(dump);
