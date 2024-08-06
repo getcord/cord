@@ -53,7 +53,11 @@ export function DragAndDropDiv({
 
   if (disabled) {
     return (
-      <div ref={forwardRef} {...otherProps}>
+      <div
+        ref={forwardRef}
+        className={cx(classes.dndContainer, className)}
+        {...otherProps}
+      >
         {children}
       </div>
     );
