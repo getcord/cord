@@ -26,4 +26,4 @@ jobs:
           ops/dockerfiles/e2e-test/build.sh
           scripts/connect-docker-to-aws-ecr.sh
           docker push \
-            869934154475.dkr.ecr.eu-west-2.amazonaws.com/e2e-test-runner:latest
+            009160069219.dkr.ecr.eu-west-1.amazonaws.com/e2e-test-runner:latest

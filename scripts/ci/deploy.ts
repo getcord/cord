@@ -76,7 +76,7 @@ const argv = yargs(process.argv.slice(2))
   .option('pullImage', {
     type: 'string',
     description: 'Docker image to pull and deploy',
-    default: '869934154475.dkr.ecr.eu-west-2.amazonaws.com/server:latest',
+    default: '009160069219.dkr.ecr.eu-west-1.amazonaws.com/server:latest',
   })
   .option('pushOnSuccess', {
     type: 'string',

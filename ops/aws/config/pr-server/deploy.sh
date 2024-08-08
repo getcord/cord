@@ -50,7 +50,7 @@ docker run --detach --pull=always --rm=true --tty=true \
     -e PR_NUMBER="$PR_NUMBER" \
     -e GIT_COMMIT_HASH="${REF:0:10}" \
     -v /srv/pr/"$PR_NUMBER"/:/shared \
-    869934154475.dkr.ecr.eu-west-2.amazonaws.com/pr-server:latest /init.sh
+    009160069219.dkr.ecr.eu-west-1.amazonaws.com/pr-server:latest /init.sh
 echo '::endgroup::'
 
 # Tail the logs of the docker container until we encounter the string 'Server

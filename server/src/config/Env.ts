@@ -141,7 +141,7 @@ export default magicEnv(process.env, {
   // Cloudwatch config - optional. If these are not provided, Cloudwatch
   // logging is disabled
   CLOUDWATCH_LOGLEVEL: optional,
-  CLOUDWATCH_AWS_REGION: defaultValue('eu-west-2'), // our default region, London
+  CLOUDWATCH_AWS_REGION: defaultValue('eu-west-1'), // our default region, London
   CLOUDWATCH_LOG_GROUP_NAME: optional,
   CLOUDWATCH_LOG_STREAM_NAME: optional,
 

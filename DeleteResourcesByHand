@@ -1,0 +1,51 @@
+aws secretsmanager delete-secret     --secret-id jira_api     --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id cord_updates_slack_app_bot_token     --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id docs-cookie-parser-secret     --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id admin-token-secret     --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id SendgridInboundWebhookSecretKey     --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id prod-replica-1     --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id dev_console_cord_app      --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id ga_measurement_protocol_api       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id prod-replica-winnie        --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id email_links_token_secret        --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id asana_api       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id SlackOauthStateSigningSecretKey       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id slack_api       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id file_proxy_signing_secret       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id linear_api       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id sendgrid       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id stripe_secret_key       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id trello_api       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id launchdarkly_api       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id auth0-webhook-secret       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id platform_secrets_encryption_key       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id slack_admin_login_app       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id auth0_mtm_client_secret       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id ipstack_api_secret      --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id slack_api_staging       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id monday_api       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id slack_api_internal       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id loops_so_api_key       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id demo_apps_shared_secret       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id oauth_flow       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id session_encryption       --force-delete-without-recovery
+aws secretsmanager delete-secret     --secret-id openai_api_secret       --force-delete-without-recovery
+
+aws ecr delete-repository --repository-name github-actions-runner --force
+aws ecr delete-repository --repository-name server --force
+aws ecr delete-repository --repository-name oncall --force
+aws ecr delete-repository --repository-name e2e-test-runner --force
+
+aws s3api delete-bucket --bucket rows-cord-bucketaws-cloudtrail-logs-009160069219-eac040ca
+aws s3api delete-bucket --bucket app.loadtest.cord-api.rows.com 
+aws s3api delete-bucket --bucket app.staging.cord-api.rows.com
+aws s3api delete-bucket --bucket rows-cord-bucketradical-stack-fileuploads-wumx9efffh4z
+aws s3api delete-bucket --bucket rows-cord-bucketcord-public-uploads
+aws s3api delete-bucket --bucket rows-cord-bucketelb-logs-devloadbalancer
+aws s3api delete-bucket --bucket app.cord-api.rows.com
+aws s3api delete-bucket --bucket rows-cord-bucketcord-elb-query-results
+aws s3api delete-bucket --bucket rows-cord-bucketcord-e2e-tests
+aws s3api delete-bucket --bucket rows-cord-bucketimagebuilder-s3logs
+
+
+

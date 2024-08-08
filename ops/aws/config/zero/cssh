@@ -65,7 +65,7 @@ def main():
     if instance.startswith('i-'):
         doconnect(args, user, instance)
     else:
-        ip = getHostOrNone(instance) or getHostOrNone(instance + ".int.cord.com")
+        ip = getHostOrNone(instance) or getHostOrNone(instance + ".int.cord-api.rows.com")
         is_private = ipaddress.ip_address(ip).is_private
         key = 'private-ip-address' if is_private else 'ip-address'
         instances = list(ec2.instances.filter(Filters=[{'Name': key, 'Values': [ip]}]))

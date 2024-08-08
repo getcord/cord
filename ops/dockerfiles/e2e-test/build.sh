@@ -10,5 +10,5 @@ ARCHIVE="$(realpath cypress.tar.gz)"
 docker build \
     --no-cache \
     --build-arg GIT_COMMIT_HASH="$(git rev-parse HEAD)" \
-    --tag=${DOCKER_TAG:-869934154475.dkr.ecr.eu-west-2.amazonaws.com/e2e-test-runner:latest} \
+    --tag=${DOCKER_TAG:-009160069219.dkr.ecr.eu-west-1.amazonaws.com/e2e-test-runner:latest} \
     .

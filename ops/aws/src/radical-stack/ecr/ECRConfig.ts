@@ -6,7 +6,7 @@ import { radicalStack } from 'ops/aws/src/radical-stack/stack.ts';
 import { zeroInstance } from 'ops/aws/src/radical-stack/ec2/zero.ts';
 import { build3Instance } from 'ops/aws/src/radical-stack/ec2/build3.ts';
 import { vanta } from 'ops/aws/src/radical-stack/vanta.ts';
-import { monitoringInstance } from 'ops/aws/src/radical-stack/ec2/monitoring.ts';
+//import { monitoringInstance } from 'ops/aws/src/radical-stack/ec2/monitoring.ts';
 
 export const serverRepo = define(() => {
   const repo = new ECR.Repository(radicalStack(), 'ServerECRRepo', {
@@ -78,7 +78,7 @@ define(() => {
   serverRepo().grantPullPush(build3Instance().role);
   oncallRepo().grantPullPush(zeroInstance().role);
   oncallRepo().grantPullPush(build3Instance().role);
-  oncallRepo().grantPull(monitoringInstance().role);
+  //oncallRepo().grantPull(monitoringInstance().role);
   garRepo().grantPullPush(zeroInstance().role);
   garRepo().grantPullPush(build3Instance().role);
 });

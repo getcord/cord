@@ -31,7 +31,7 @@ You are going to deploy the image
     $image
 built from git commit
     $commit_hash
-    https://radical.phacility.com/rM$commit_hash
+    https://github.com/rows/cord-preview/rM$commit_hash
 to the $tier tier.
 
 If this sounds good to you and you want to continue with that, type in the
@@ -53,7 +53,7 @@ docker run --rm=true \
     dist/generic/scripts/ci/deploy.js \
         --force \
         --pullImage "$image" \
-        --pushOnSuccess 869934154475.dkr.ecr.eu-west-2.amazonaws.com/server:"$tier"
+        --pushOnSuccess 009160069219.dkr.ecr.eu-west-1.amazonaws.com/server:"$tier"
 
 commit_hash="$(
     docker image inspect "$image" |

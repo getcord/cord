@@ -7,7 +7,7 @@
 # This script (or rather the deploy.js script it invokes below) will detect if
 # the `automaticDeploy` setting for prod is off, and if so, skip the deployment.
 
-ECR_REGISTRY="869934154475.dkr.ecr.eu-west-2.amazonaws.com"
+ECR_REGISTRY="009160069219.dkr.ecr.eu-west-1.amazonaws.com"
 ECR_REPO="$ECR_REGISTRY/server"
 STAGING_IMAGE="$ECR_REPO:staging"
 
@@ -50,11 +50,11 @@ docker run --rm=true \
 
 # Update 'prod' tag in Git
 prod_commit="$(
-    docker image inspect 869934154475.dkr.ecr.eu-west-2.amazonaws.com/server:prod |
+    docker image inspect 009160069219.dkr.ecr.eu-west-1.amazonaws.com/server:prod |
     jq -r '.[0].Config.Labels."com.cord.git-commit-hash"' || true
 )"
 package_version="$(
-    docker image inspect 869934154475.dkr.ecr.eu-west-2.amazonaws.com/server:prod |
+    docker image inspect 009160069219.dkr.ecr.eu-west-1.amazonaws.com/server:prod |
     jq -r '.[0].Config.Labels."com.cord.version"' || true
 )"
 if test "$prod_commit"

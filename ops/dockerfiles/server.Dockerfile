@@ -8,7 +8,7 @@ RUN set -ex \
   && apk add --no-cache \
   bash coreutils git python3 py3-pip curl postgresql16-client docker-cli zip py3-wheel aws-cli \
   && mkdir -p /radical /root/.aws \
-  && echo -e '[default]\nregion=eu-west-2\noutput=json' >/root/.aws/config
+  && echo -e '[default]\nregion=eu-west-1\noutput=json' >/root/.aws/config
 
 COPY node_modules /radical/node_modules
 COPY build /radical/build

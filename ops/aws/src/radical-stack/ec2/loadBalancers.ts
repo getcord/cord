@@ -19,7 +19,7 @@ import {
 import { cordComCertificate } from 'ops/aws/src/radical-stack/acm/cord.com.ts';
 import { stagingCordComCertificate } from 'ops/aws/src/radical-stack/acm/staging.cord.com.ts';
 import { elbLogsBucket } from 'ops/aws/src/radical-stack/s3/elb-logs-devloadbalancer.ts';
-import { monitoringInstance } from 'ops/aws/src/radical-stack/ec2/monitoring.ts';
+//import { monitoringInstance } from 'ops/aws/src/radical-stack/ec2/monitoring.ts';
 import { loadtestCordComCertificate } from 'ops/aws/src/radical-stack/acm/loadtest.cord.com.ts';
 import { vanta } from 'ops/aws/src/radical-stack/vanta.ts';
 import { opsNotificationTopic } from 'ops/aws/src/radical-stack/sns/topics.ts';
@@ -107,18 +107,18 @@ export const loadBalancer = define(() => {
     }
   }
 
-  addAction(
-    'monitoring',
-    100,
-    [`monitoring.${PRIMARY_DOMAIN_NAME}`],
-    monitoringTargetGroup(),
-  );
-  addAction(
-    'oncall',
-    99,
-    [`oncall.${PRIMARY_DOMAIN_NAME}`],
-    oncallTargetGroup(),
-  );
+  //addAction(
+  //  'monitoring',
+  //  100,
+  //  [`monitoring.${PRIMARY_DOMAIN_NAME}`],
+  //  monitoringTargetGroup(),
+  //);
+  //addAction(
+  //  'oncall',
+  //  99,
+  //  [`oncall.${PRIMARY_DOMAIN_NAME}`],
+  //  oncallTargetGroup(),
+  //);
 
   httpsListener.addAction('go', {
     conditions: [
@@ -227,27 +227,27 @@ export const loadBalancer = define(() => {
   return lb;
 });
 
-export const monitoringTargetGroup = define(
-  () =>
-    new elbv2.ApplicationTargetGroup(radicalStack(), 'monitoringTargetGroup', {
-      targetGroupName: 'monitoring3000',
-      protocol: elbv2.ApplicationProtocol.HTTP,
-      port: 3000,
-      targets: [new elbv2t.InstanceTarget(monitoringInstance(), 3000)],
-      vpc: defaultVpc(),
-    }),
-);
+//export const monitoringTargetGroup = define(
+//  () =>
+//    new elbv2.ApplicationTargetGroup(radicalStack(), 'monitoringTargetGroup', {
+//      targetGroupName: 'monitoring3000',
+//      protocol: elbv2.ApplicationProtocol.HTTP,
+//      port: 3000,
+//      targets: [new elbv2t.InstanceTarget(monitoringInstance(), 3000)],
+//      vpc: defaultVpc(),
+//    }),
+//);
 
-export const oncallTargetGroup = define(
-  () =>
-    new elbv2.ApplicationTargetGroup(radicalStack(), 'oncallTargetGroup', {
-      targetGroupName: 'oncall8080',
-      protocol: elbv2.ApplicationProtocol.HTTP,
-      port: 8080,
-      targets: [new elbv2t.InstanceTarget(monitoringInstance(), 8080)],
-      vpc: defaultVpc(),
-    }),
-);
+//export const oncallTargetGroup = define(
+//  () =>
+//    new elbv2.ApplicationTargetGroup(radicalStack(), 'oncallTargetGroup', {
+//      targetGroupName: 'oncall8080',
+//      protocol: elbv2.ApplicationProtocol.HTTP,
+//      port: 8080,
+//      targets: [new elbv2t.InstanceTarget(monitoringInstance(), 8080)],
+//      vpc: defaultVpc(),
+//    }),
+//);
 
 export const serverAPITargetGroups = defineForEachTier(
   makeServerTargetGroup('API', 8161),

@@ -10,7 +10,8 @@
     "build": "./build.cjs",
     "synth": "./build.cjs && NODE_OPTIONS=--enable-source-maps cdk synth -j",
     "diff": "./build.cjs && export NODE_OPTIONS=--enable-source-maps && cdk synth -j && echo && (dist/diff.js; dist/diff.js --region=us-east-1)",
-    "deploy": "./build.cjs && NODE_OPTIONS=--enable-source-maps cdk deploy"
+    "deploy": "./build.cjs && NODE_OPTIONS=--enable-source-maps cdk deploy --debug=true --verbose=5",
+    "bootstrap": "./build.cjs && NODE_OPTIONS=--enable-source-maps cdk bootstrap"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.3",

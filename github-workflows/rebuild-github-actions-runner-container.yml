@@ -18,8 +18,8 @@ jobs:
         shell: bash
         run: |
           docker build --no-cache --tag \
-            869934154475.dkr.ecr.eu-west-2.amazonaws.com/github-actions-runner:latest \
+            009160069219.dkr.ecr.eu-west-1.amazonaws.com/github-actions-runner:latest \
             ops/aws/config/build3/github-actions-runner
           scripts/connect-docker-to-aws-ecr.sh
           docker push \
-            869934154475.dkr.ecr.eu-west-2.amazonaws.com/github-actions-runner:latest
+            009160069219.dkr.ecr.eu-west-1.amazonaws.com/github-actions-runner:latest

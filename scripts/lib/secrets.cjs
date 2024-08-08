@@ -1,5 +1,5 @@
 const secretsManager = require('@aws-sdk/client-secrets-manager');
-const AWS_REGION = 'eu-west-2';
+const AWS_REGION = 'eu-west-1';
 
 async function replaceSecrets(text) {
   const segments = `${text}`.split(/!!SECRET!([\w-]+)!(\w*)!/);
