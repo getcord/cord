@@ -28,7 +28,7 @@ For further support and to connect with the community, please refer to the follo
 
 - **[GitHub Org](https://github.com/getcord)**: Access the source code,
   contribute to the project, and explore the documentation
-- **[Discord Server](https://discord.gg/your-invite-link)**: Join the community, ask questions,
+- **[Discord Server](https://discord.gg/Vgt5c26VwG)**: Join the community, ask questions,
   and engage in discussions with other developers and maintainers.
 
 
