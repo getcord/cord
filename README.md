@@ -1,6 +1,36 @@
-# The Cord Monorepo
+# Cord
 
-This is the code and tools needed to run the Cord service.
+The complete SDK for Chat, Commenting, and Notifications
+
+Cord provides developers with a powerful, flexible solution to seamlessly integrate real-time
+collaboration features into their applications. With pre-built components for chat, presence,
+and notifications, as well as fully customizable UI primitives, Cord enables rapid implementation
+of sophisticated, in-app collaboration tools. Whether you're building a simple messaging interface
+or a complex multi-user environment, Cord's SDK offers the reliability and scalability needed to
+enhance user engagement and streamline communication within your product.
+
+
+## History
+
+Cord was initially developed as a commercial solution to provide robust, real-time chat,
+commenting, and notification features for web applications. In August 2024, as Cord's hosted
+service folded, the team decided to open source the entire codebase. Recognizing the value
+of Cord, several ex-Cord employees and open-source enthusiasts within their customer base,
+including [Preset](https://preset.io), have gathered to launch this open-source project. Many of
+these contributors use and depend on Cord in their own products and are committed to keeping
+the project alive, assessing interest within the open-source community, and hopefully seeing
+this amazing project grow a thriving community.
+
+
+## Resources
+
+For further support and to connect with the community, please refer to the following resources:
+
+- **[GitHub Org](https://github.com/getcord)**: Access the source code,
+  contribute to the project, and explore the documentation
+- **[Discord Server](https://discord.gg/Vgt5c26VwG)**: Join the community, ask questions,
+  and engage in discussions with other developers and maintainers.
+
 
 # Running Locally
 
