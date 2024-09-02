@@ -180,7 +180,7 @@ async function main() {
   // -------------------------------------------------------------------------
   // ADMIN
 
-  if (isSingleProcessOrMaster || workerType === 'admin') {
+  if (!env.IGNORE_ADMIN_SERVER_WORKER && (isSingleProcessOrMaster || workerType === 'admin')) {
     // Either we are not in cluster mode, or this process is the master or an
     // 'admin' worker. (If this is a worker process of a different type, we skip
     // this section.)
@@ -210,7 +210,7 @@ async function main() {
   // -------------------------------------------------------------------------
   // CONSOLE
 
-  if (isSingleProcessOrMaster || workerType === 'console') {
+  if (!env.IGNORE_CONSOLE_SERVER_WORKER && (isSingleProcessOrMaster || workerType === 'console')) {
     // Either we are not in cluster mode, or this process is the master or an
     // 'console' worker. (If this is a worker process of a different type, we skip
     // this section.)

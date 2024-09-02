@@ -206,6 +206,8 @@ function buildProdEnv(commitHash) {
     DEMO_APPS_SHARED_SECRET: secrets.DEMO_APPS_SHARED_SECRET.key,
     LOOPS_SO_API_KEY: secrets.LOOPS_SO_API_KEY.api_key,
     PYROSCOPE_ENDPOINT: 'http://monitoring.int.cord.com:4040',
+    IGNORE_ADMIN_SERVER_WORKER: false,
+    IGNORE_CONSOLE_SERVER_WORKER: false,
   };
 }
 
