@@ -233,4 +233,10 @@ export default magicEnv(process.env, {
 
   // loops.so for sending newletters
   LOOPS_SO_API_KEY: required,
+
+  // Make Admin Server Optional
+  IGNORE_ADMIN_SERVER_WORKER: optional,
+
+  // Make Admin Server Optional
+  IGNORE_CONSOLE_SERVER_WORKER: optional,
 });
