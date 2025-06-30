@@ -208,6 +208,7 @@ function buildProdEnv(commitHash) {
     PYROSCOPE_ENDPOINT: 'http://monitoring.int.cord.com:4040',
     IGNORE_ADMIN_SERVER_WORKER: false,
     IGNORE_CONSOLE_SERVER_WORKER: false,
+    OVERRIDE_SENDGRID_REPLY_TO_ADDRESS: '',
   };
 }
 
