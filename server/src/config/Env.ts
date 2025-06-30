@@ -239,4 +239,7 @@ export default magicEnv(process.env, {
 
   // Make Admin Server Optional
   IGNORE_CONSOLE_SERVER_WORKER: optional,
+
+  // Override dynamic @cord.fyi reply-to address with a static address.
+  OVERRIDE_SENDGRID_REPLY_TO_ADDRESS: optional,
 });

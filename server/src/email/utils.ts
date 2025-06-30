@@ -6,6 +6,7 @@ import { MessageNodeType } from 'common/types/index.ts';
 import { anonymousLogger } from 'server/src/logging/Logger.ts';
 import type { Logger } from 'server/src/logging/Logger.ts';
 import { EmailOutboundNotificationEntity } from 'server/src/entity/email_notification/EmailOutboundNotificationEntity.ts';
+import env from 'server/src/config/Env.ts';
 
 // Parses an email address such as "sponge@bob.com" or
 // "Sponge Bob <sponge@bob.com>"
@@ -30,6 +31,11 @@ export function getReplyToEmailAddress(
   notificationId: UUID,
 ): string {
   try {
+    if (env.OVERRIDE_SENDGRID_REPLY_TO_ADDRESS) {
+      // If we have an override for the reply-to address, use that
+      return env.OVERRIDE_SENDGRID_REPLY_TO_ADDRESS;
+    }
+
     const parsedAddress = parseEmailAddress(senderEmailAddress);
 
     // Applications can use a white-label (non-@cord.fyi) sender email. That's
