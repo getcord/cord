@@ -77,7 +77,7 @@ export const apolloConnection = ({
 
           if (error) {
             const { message } = error;
-            if (message?.startsWith(Errors.INVALID_SESSION)) {
+            if (message?.includes(Errors.INVALID_SESSION)) {
               subscriptionClient.close(true);
               errorCallback({ message });
               console.warn(
@@ -149,7 +149,7 @@ export const apolloConnection = ({
   });
 
   const networkErrorLink = onError(({ networkError }) => {
-    if (networkError?.message.startsWith(Errors.INVALID_SESSION)) {
+    if (networkError?.message.includes(Errors.INVALID_SESSION)) {
       // we can't log this to the backend because the websocket connection itself was
       // not successfuly opened
 
@@ -157,7 +157,7 @@ export const apolloConnection = ({
       // ignore the reconnect logic so it doesn't try to reconnect
       subscriptionClient.close(true);
     }
-    if (networkError?.message.startsWith(Errors.CLIENT_TOO_OLD)) {
+    if (networkError?.message.includes(Errors.CLIENT_TOO_OLD)) {
       subscriptionClient.close(true);
     }
 
