@@ -24,7 +24,7 @@ export const Facepile = ({
   // TODO: Should the new avatar implement this prop?
   orientation: _ = 'horizontal',
   otherUsersTextClassName,
-  enableTooltip = false,
+  enableTooltip = true,
 }: FacepileProps) => {
   const { t } = useCordTranslation('user');
   const viewerData = useViewerData();
