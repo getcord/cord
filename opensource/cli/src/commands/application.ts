@@ -17,6 +17,16 @@ async function listAllApplicationsHandler() {
   prettyPrint(apps);
 }
 
+async function dbDumpHandler() {
+  const dump = await fetchCordManagementApi<ApplicationData[]>(
+    'customer/dbdump',
+    'GET',
+    undefined,
+    'text',
+  );
+  console.log(dump);
+}
+
 async function whichApplicationHandler() {
   const variables = await getEnvVariables().catch(() => {
     /* no op, catch below instead */
@@ -196,6 +206,7 @@ export const projectCommand = {
         (yargs) => yargs,
         listAllApplicationsHandler,
       )
+      .command('dbdump', 'Dumps all data from all projects', (yargs) => yargs, dbDumpHandler)
       .command(
         'get <id>',
         'Get a project: GET https://api.cord.com/v1/projects/<ID>',
