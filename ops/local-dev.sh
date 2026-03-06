@@ -18,7 +18,7 @@ cat localhost/localhost.key localhost/localhost.crt > localhost/localhost.packed
   
   # Start up service dependencies
   cd ops
-  docker-compose up -d
+  docker compose up -d
 
   echo "Waiting for dependencies to start..."
   while ! pg_isready -U "$POSTGRES_USER" -h localhost -p "$POSTGRES_PORT" -q ; do
